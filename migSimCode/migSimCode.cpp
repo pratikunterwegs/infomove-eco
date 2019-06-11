@@ -12,7 +12,7 @@ int main()
 	// init landscape
 	for (int i = 0; i < landsize; i++)
 	{
-		landscape[i] = pow(peakvalue, -(steepness * (abs(i - initpeak))));
+		landscape[i].resource = pow(peakvalue, -(steepness * (abs(i - initpeak))));
 	}
 
 	// shift peak with time
@@ -23,7 +23,7 @@ int main()
 		// print to check
 		for (int i = 0; i < landsize; i++)
 		{
-			std::cout << landscape[i] << " ";
+			std::cout << landscape[i].resource << " ";
 		}
 		std::cout << std::endl;
 
