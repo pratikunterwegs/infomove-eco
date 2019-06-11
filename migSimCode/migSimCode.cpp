@@ -2,10 +2,20 @@
 //
 
 #include <iostream>
+#include <fstream>
+#include <vector>
+#include <random>
+#include <cstdlib>
+#include <iostream>
 #include <cmath>
+#include <cassert>
+#include <random>
+#include <chrono>
+#include <string>
+#include <algorithm>
 #include "landscape.h"
 
-
+using namespace std;
 
 int main()
 {
@@ -15,18 +25,41 @@ int main()
 		landscape[i].resource = pow(peakvalue, -(steepness * (abs(i - initpeak))));
 	}
 
+	ofstream ofs ("testLandOutput.csv");
+	// check later if open
+
 	// shift peak with time
 	for (int t = 0; t < tMax; t++)
 	{
-		std::rotate(landscape.begin(), landscape.end() - 1, landscape.end());
+		// print col names
+		if (t == 0)
+		{
+			for (int j = 0; j < landsize; j++)
+			{
+				ofs << j;
+				if (j < landsize - 1)
+				{
+					ofs << ", ";
+				}
+			}
+			ofs << endl;
+		}
 
-		// print to check
+		// print to file
 		for (int i = 0; i < landsize; i++)
 		{
-			std::cout << landscape[i].resource << " ";
+			ofs << landscape[i].resource;
+			if (i < landsize - 1)
+			{
+				ofs << ", ";
+			}
 		}
-		std::cout << std::endl;
+		ofs << endl;
+
+		std::rotate(landscape.begin(), landscape.end() - 1, landscape.end());
 
 	}
+
+	ofs.close();
 }
 
