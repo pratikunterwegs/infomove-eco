@@ -21,5 +21,24 @@ const int initpeak = 2;
 const float peakvalue = 100.f;
 const float steepness = 0.01f;
 
-// init landscape
-std::vector<float> landscape(landsize);
+// init landscape struct
+class site {
+public:
+	float resource;
+	int nAgents;
+	int nAgentsMigrating;
+	int totalComp;
+	float propAgentsMigrating;
+
+	// func to get agents moving on
+	void getMigProp();
+};
+
+// init vector of structs as landscape
+std::vector<site> landscape(landsize);
+
+// function defs to follow
+void site::getMigProp()
+{
+	propAgentsMigrating = static_cast<float> (nAgentsMigrating) / static_cast<float> (nAgents);
+}
