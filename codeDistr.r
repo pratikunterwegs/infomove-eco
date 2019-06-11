@@ -6,3 +6,15 @@ peakval = 1e2
 steepness = 0.01
 b = peakval^-(steepness*(abs(a-peak)))
 plot(b~a, type="l")
+
+#### check green wave ####
+
+library(tidyverse)
+
+land <- read_csv("migSimCode/testLandOutput.csv", col_names = T)
+land <- mutate(land, time = 1:nrow(land)) %>% 
+  gather(site, resources, -time)
+
+ggplot(land)+
+  geom_tile(aes(x = as.numeric(site), y = time, fill = resources))+
+  scale_y_reverse()
