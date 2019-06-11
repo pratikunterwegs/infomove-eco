@@ -36,9 +36,3 @@ public:
 
 // init vector of structs as landscape
 std::vector<site> landscape(landsize);
-
-// function defs to follow
-void site::getMigProp()
-{
-	propAgentsMigrating = static_cast<float> (nAgentsMigrating) / static_cast<float> (nAgents);
-}

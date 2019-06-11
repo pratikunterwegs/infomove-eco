@@ -57,6 +57,7 @@ void agent::doChoice()
 	if (output[0] > 0) { 
 		keepGoing = true; 
 		landscape[position].nAgentsMigrating += 1;
+		landscape[position].propAgentsMigrating += 1.f / static_cast<float> (landscape[position].nAgents);
 	}
 }
 
