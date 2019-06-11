@@ -12,12 +12,12 @@
 #include <string>
 
 // size parameters
-const int landsize = 20;
+const int landsize = 200;
 const int popsize = 3000;
-const int tMax = 10; // must always be less than landsize
+const int tMax = 150; // must always be less than landsize
 
 // green wave params
-const int initpeak = 2;
+const int initpeak = 20;
 const float peakvalue = 100.f;
 const float steepness = 0.01f;
 
@@ -34,5 +34,7 @@ public:
 	void getMigProp();
 };
 
-// init vector of structs as landscape
+// init vector of sites as landscape
 std::vector<site> landscape(landsize);
+
+//
