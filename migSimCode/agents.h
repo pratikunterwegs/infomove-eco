@@ -31,7 +31,7 @@ using Ann = Network<float,
 class agent
 {
 	public:
-		agent() : brain(0.f), age(0), fitness(0.f), position(), keepGoing(false) {};
+		agent() : brain(0.f), age(0), fitness(0.f), position(0), keepGoing(false) {};
 		~agent() {};
 
 		// agents need a brain, an age, fitness, and movement decision
@@ -68,5 +68,7 @@ void agent::doAddComp()
 
 void agent::doGetFitness()
 {
-	fitness = landscape[position].resource * (static_cast<float> (age) / static_cast<float> (landscape[position].totalComp));
+	fitness += landscape[position].resource * (static_cast<float> (age) / static_cast<float> (landscape[position].totalComp));
 }
+
+// 
