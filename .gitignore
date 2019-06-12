@@ -37,4 +37,9 @@
 *.vs
 Debug/
 
+# ANN lib
 *ann*
+
+# data
+*csv
+
