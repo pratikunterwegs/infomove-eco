@@ -13,16 +13,19 @@
 
 // size parameters
 const int landsize = 200; // keep even
-const int popsize = 3000;
+const int popsize = 30; // not too many
 const int tMax = 150; // must always be less than landsize
 
 // green wave params
-const int initpeak = 10; // arbitrary choice
+const int initpeak = 0; // arbitrary choice
 int currentpeak = initpeak; // to begin
 const int finalpeak = landsize - initpeak;
 const int waveVelocity = 20; // how fast the peak moves
 const float peakvalue = 100.f;
 const float steepness = 0.01f;
+
+// season params
+const int nSeasons = 100; //arbit choice
 
 // init landscape struct
 class site {
@@ -34,10 +37,16 @@ public:
 	float propAgentsMigrating;
 
 	// func to get agents moving on
-	void getMigProp();
+	void updateLandscape();
 };
 
 // init vector of sites as landscape
 std::vector<site> landscape(landsize);
+
+// update func
+void site::updateLandscape()
+{
+	// maybe not here
+}
 
 //
