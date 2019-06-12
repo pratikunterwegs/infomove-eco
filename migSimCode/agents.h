@@ -27,6 +27,10 @@ using Ann = Network<float,
 	Layer< Neuron<3, activation::rtlu >, 1>
 >;
 
+// pick rand node weights
+std::mt19937_64 rng;
+std::_Beta_distribution<> dist(2.0, 2.0);
+
 // clear node state
 struct flush_rec_nodes
 {
@@ -44,7 +48,7 @@ struct flush_rec_nodes
 class agent
 {
 	public:
-		agent() : brain(0.f), age(0), fitness(0.f), position(0), keepGoing(false) {};
+		agent() : brain(dist(rng)), age(0), fitness(0.f), position(0), keepGoing(false) {};
 		~agent() {};
 
 		// agents need a brain, an age, fitness, and movement decision
@@ -55,7 +59,7 @@ class agent
 		void doGetFitness();
 		void doAddComp();
 		void doAge();
-		void reproduce();
+		// void reproduce(); // no reprod right now
 };
 
 // def choice func
