@@ -14,6 +14,7 @@
 #include <string>
 #include <algorithm>
 #include "landscape.h"
+#include "agents.h"
 
 using namespace std;
 
@@ -25,10 +26,28 @@ int main()
 		landscape[i].resource = pow(peakvalue, -(steepness * (abs(i - initpeak))));
 	}
 
+	// init agents
+	std::vector<agent> population(popsize);
+
+	//print agent values to check
+	/**/
+	for (int i = 0; i < popsize; i++)
+	{
+		/*
+		std::cout << "agent " << i << " position: " << population[i].position << " age: "
+			<< population[i].age
+			<< (population[i].keepGoing == false ? " migrates..." : " stops...");
+		std::cout << std::endl;
+		*/
+
+		// update site with agents
+		population[i].updateSite();
+	}
+
 	ofstream ofs ("testLandOutput.csv");
 	// check later if open
 
-	// shift peak with time
+	// ecological time
 	for (int t = 0; currentpeak <= finalpeak; t++)
 	{
 		// print col names
@@ -46,6 +65,42 @@ int main()
 				ofs << endl;
 			}
 		}
+
+		// process agent decisions and outcomes
+		{
+			// update landscape with presence
+			for (int i = 0; i < popsize; i++)
+			{
+				// update site with agents
+				population[i].updateSite();
+			}
+
+			// calc fitness
+			{
+				for (int i = 0; i < popsize; i++)
+				{
+					population[i].doGetFitness();
+				}
+			}
+
+			// choose to move or stay
+			for (int i = 0; i < popsize; i++)
+			{
+				population[i].doChoice();
+				// print choice
+				std::cout << "agent " << i << " outputs " << population[i].tempAnnOut
+					<< (population[i].keepGoing == true ? " moves forward" : " stops here");
+				std::cout << std::endl;
+			}
+
+			// move if chosen to migrate
+			for (int i = 0; i < popsize; i++)
+			{
+				population[i].doMove();
+			}
+		}
+
+
 
 		// update current peak location
 		currentpeak += waveVelocity;
@@ -72,3 +127,4 @@ int main()
 	return 0;
 }
 
+//
