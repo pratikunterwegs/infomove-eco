@@ -20,6 +20,7 @@ const int tMax = 150; // must always be less than landsize
 const int initpeak = 10; // arbitrary choice
 int currentpeak = initpeak; // to begin
 const int finalpeak = landsize - initpeak;
+const int waveVelocity = 20; // how fast the peak moves
 const float peakvalue = 100.f;
 const float steepness = 0.01f;
 
