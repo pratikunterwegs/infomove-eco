@@ -29,21 +29,26 @@ int main()
 	// check later if open
 
 	// shift peak with time
-	for (int t = 0; t < tMax | currentpeak <= finalpeak; t++)
+	for (int t = 0; currentpeak <= finalpeak; t++)
 	{
 		// print col names
-		if (t == 0)
 		{
-			for (int j = 0; j < landsize; j++)
+			if (t == 0)
 			{
-				ofs << j;
-				if (j < landsize - 1)
+				for (int j = 0; j < landsize; j++)
 				{
-					ofs << ", ";
+					ofs << j;
+					if (j < landsize - 1)
+					{
+						ofs << ", ";
+					}
 				}
+				ofs << endl;
 			}
-			ofs << endl;
 		}
+
+		// update current peak location
+		currentpeak += waveVelocity;
 
 		// print to file and update landscape
 		for (int i = 0; i < landsize; i++)
@@ -58,13 +63,12 @@ int main()
 		}
 		ofs << endl;
 
-		// update current peak location
-		currentpeak++;
-
 		// move green wave
 		// std::rotate(landscape.begin(), landscape.end() - 1, landscape.end());
 	}
 
 	ofs.close();
+
+	return 0;
 }
 
