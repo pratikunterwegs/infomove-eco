@@ -12,12 +12,14 @@
 #include <string>
 
 // size parameters
-const int landsize = 200;
+const int landsize = 200; // keep even
 const int popsize = 3000;
 const int tMax = 150; // must always be less than landsize
 
 // green wave params
-const int initpeak = 20;
+const int initpeak = 10; // arbitrary choice
+int currentpeak = initpeak; // to begin
+const int finalpeak = landsize - initpeak;
 const float peakvalue = 100.f;
 const float steepness = 0.01f;
 
