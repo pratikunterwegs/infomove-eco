@@ -51,7 +51,7 @@ int main()
 	ofstream ofsAgent("testAgentPos.csv");
 
 	// ecological time
-	for (int t = 0; currentpeak < finalpeak; t++)
+	for (int t = 0; t < tMax; t++, currentpeak += waveVelocity)
 	{
 		// print col names
 		{
@@ -68,7 +68,7 @@ int main()
 				}
 				ofs << endl;
 
-				ofsAgent << "agent, time, position, migDist" << endl;
+				ofsAgent << "agent, time, position, migDist, fitness" << endl;
 				
 			}
 		}
@@ -98,7 +98,8 @@ int main()
 				ofsAgent << i << ", "
 					<< t << ", "
 					<< population[i].position << ", "
-					<< population[i].moveDist << endl;
+					<< population[i].moveDist << ", "
+					<< population[i].fitness << endl;
 			}
 
 			// move if chosen to migrate
@@ -107,11 +108,6 @@ int main()
 				population[i].doMove();
 			}
 		}
-
-
-
-		// update current peak location
-		currentpeak += waveVelocity;
 
 		// print to file and update landscape
 		for (int i = 0; i < landsize; i++)
