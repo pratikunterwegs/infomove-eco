@@ -36,6 +36,10 @@ std::_Beta_distribution<> dist(1.0, 1.0);
 // init with poisson distr age
 std::poisson_distribution<int> agePicker (meanAge);
 
+// famsize picker
+const double meanFsize = 2.f;
+std::poisson_distribution<int> fsizePicker(meanFsize);
+
 // random value of going on or not
 std::bernoulli_distribution migProb (0.5);
 
@@ -56,11 +60,11 @@ struct flush_rec_nodes
 class agent
 {
 	public:
-		agent() : brain(dist(rng)), age(agePicker(rng)), fitness(0.f), position(5), moveDist(0) {};
+		agent() : brain(dist(rng)), age(agePicker(rng)), fSize(fsizePicker(rng)), fitness(0.f), position(0), moveDist(0) {};
 		~agent() {};
 
 		// agents need a brain, an age, fitness, and movement decision
-		Ann brain; int age; float fitness; int position; int moveDist;
+		Ann brain; int age; float fitness; int position; int moveDist; int fSize;
 
 		// agent action functions
 		void doChoice();
@@ -101,7 +105,7 @@ void agent::doChoice()
 // agents extract resources scaled by their age-based competitiveness on the site
 void agent::doGetFitness()
 {
-	fitness += landscape[position].resource * (static_cast<float> (age) / static_cast<float> (landscape[position].totalComp));
+	fitness += landscape[position].resource * (static_cast<float> (fSize) / static_cast<float> (landscape[position].totalComp));
 }
 
 // function agents age, maybe be useful later
@@ -114,7 +118,7 @@ void agent::doAge()
 void agent::doMove()
 {
 	// reduce competition on the current position
-	landscape[position].totalComp -= age;
+	landscape[position].totalComp -= fSize;
 	// move
 	position+= moveDist;
 }
@@ -129,7 +133,7 @@ void agent::updateSite()
 	landscape[position].nAgentsMigrating += moveDist > 0 ? 1 : 0;
 
 	// add to competition on the landscape
-	landscape[position].totalComp += age;
+	landscape[position].totalComp += fSize;
 }
 
 // ends here
