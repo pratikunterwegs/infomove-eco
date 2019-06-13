@@ -60,17 +60,22 @@ struct flush_rec_nodes
 class agent
 {
 	public:
-		agent() : brain(dist(rng)), age(agePicker(rng)), fSize(fsizePicker(rng)), fitness(0.f), position(0), moveDist(0) {};
+		agent() : brain(dist(rng)), age(agePicker(rng)), fSize(fsizePicker(rng)), energy(0.f), position(0), moveDist(0) {};
 		~agent() {};
 
 		// agents need a brain, an age, fitness, and movement decision
-		Ann brain; int age; float fitness; int position; int moveDist; int fSize;
+		Ann brain; int age; float energy; int position; int moveDist; int fSize;
+
+		// fixed params for geese
+		const float propReprod = 0.3; // 30% of energy is spent in reprod
+		const int factorConversion = 5; // 5 energy units required for one offspring
 
 		// agent action functions
 		void doChoice();
-		void doGetFitness();
+		void doGetEnergy();
 		void doAge();
-		// void reproduce(); // no reprod right now
+		void doReproduce(); // converting energy to fsize
+		void doJuvIndep(); // juveniles join population with a fixed prob
 		void doMove();
 
 		// landscape updating
@@ -103,9 +108,9 @@ void agent::doChoice()
 }
 
 // agents extract resources scaled by their age-based competitiveness on the site
-void agent::doGetFitness()
+void agent::doGetEnergy()
 {
-	fitness += landscape[position].resource * (static_cast<float> (fSize) / static_cast<float> (landscape[position].totalComp));
+	energy += landscape[position].resource * (static_cast<float> (fSize) / static_cast<float> (landscape[position].totalComp));
 }
 
 // function agents age, maybe be useful later
@@ -134,6 +139,12 @@ void agent::updateSite()
 
 	// add to competition on the landscape
 	landscape[position].totalComp += fSize;
+}
+
+// convert energy to family size
+void agent::doReproduce()
+{
+	fSize += (static_cast<int> (energy * propReprod)) / factorConversion;
 }
 
 // ends here
