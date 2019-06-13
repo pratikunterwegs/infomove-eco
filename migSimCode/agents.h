@@ -36,6 +36,9 @@ std::_Beta_distribution<> dist(1.0, 1.0);
 // init with poisson distr age
 std::poisson_distribution<int> agePicker (meanAge);
 
+// normal dist
+std::normal_distribution<float> normDist(0.5f, 0.5f);
+
 // famsize picker
 const double meanFsize = 2.f;
 std::poisson_distribution<int> fsizePicker(meanFsize);
@@ -67,15 +70,17 @@ class agent
 		Ann brain; int age; float energy; int position; int moveDist; int fSize;
 
 		// fixed params for geese
-		const float propReprod = 0.3; // 30% of energy is spent in reprod
+		const float pReprod = 0.3f; // 30% of energy is spent in reprod
 		const int factorConversion = 5; // 5 energy units required for one offspring
+		float pJuvIndep = 0.f; // prob of independence is initially 0
+		const float alpha = 0.002f; // exponential function scaling parameter
 
 		// agent action functions
 		void doChoice();
 		void doGetEnergy();
 		void doAge();
 		void doReproduce(); // converting energy to fsize
-		void doJuvIndep(); // juveniles join population with a fixed prob
+		void doJuvIndep(int timestep); // juveniles join population with a fixed prob
 		void doMove();
 
 		// landscape updating
@@ -131,6 +136,7 @@ void agent::doMove()
 // update landscape with current position etc
 void agent::updateSite()
 {
+	
 	// add to agents on the landscape
 	landscape[position].nAgents++;
 
@@ -144,7 +150,18 @@ void agent::updateSite()
 // convert energy to family size
 void agent::doReproduce()
 {
-	fSize += (static_cast<int> (energy * propReprod)) / factorConversion;
+	fSize += (static_cast<int> (energy * pReprod)) / factorConversion;
+}
+
+// calc how many juvs leave per timestep
+void agent::doJuvIndep(int timestep)
+{
+	// get time dep prob of juvs leaving
+	pJuvIndep = 1.f - exp(-alpha * static_cast<float>(timestep));
+
+	// query if juvs leave
+	fSize += (fSize > 0) & (normDist(rng) > pJuvIndep) ? -1 : 0;
+
 }
 
 // ends here
