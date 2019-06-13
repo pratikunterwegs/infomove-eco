@@ -56,11 +56,11 @@ struct flush_rec_nodes
 class agent
 {
 	public:
-		agent() : brain(dist(rng)), age(agePicker(rng)), fitness(0.f), position(0), keepGoing(migProb(rng)) {};
+		agent() : brain(dist(rng)), age(agePicker(rng)), fitness(0.f), position(5), moveDist(0) {};
 		~agent() {};
 
 		// agents need a brain, an age, fitness, and movement decision
-		Ann brain; int age; float fitness; int position; bool keepGoing;
+		Ann brain; int age; float fitness; int position; int moveDist;
 
 		// agent action functions
 		void doChoice();
@@ -84,15 +84,15 @@ void agent::doChoice()
 	Ann::input_t inputs; inputs[0] = in1; inputs[1] = in2;
 	auto output = brain(inputs);
 
+	moveDist = static_cast<int> (floor(output[0]));
+
 	// if output > 0 agents move forward and add to the signal of nAgents migrating
-	if (output[0] > 1.f) { 
-		keepGoing = true; 
+	if (moveDist > 0) { 
 		landscape[position].nAgentsMigrating += 1;
 		landscape[position].propAgentsMigrating += 1.f / static_cast<float> (landscape[position].nAgents);
 	}
 	else
 	{
-		keepGoing = false;
 		landscape[position].nAgentsMigrating -= 1;
 		landscape[position].propAgentsMigrating -= 1.f / static_cast<float> (landscape[position].nAgents);
 	}
@@ -116,7 +116,7 @@ void agent::doMove()
 	// reduce competition on the current position
 	landscape[position].totalComp -= age;
 	// move
-	position++;
+	position+= moveDist;
 }
 
 // update landscape with current position etc
@@ -126,7 +126,7 @@ void agent::updateSite()
 	landscape[position].nAgents++;
 
 	// add to migrating agents
-	landscape[position].nAgentsMigrating += keepGoing == true ? 1 : 0;
+	landscape[position].nAgentsMigrating += moveDist > 0 ? 1 : 0;
 
 	// add to competition on the landscape
 	landscape[position].totalComp += age;
