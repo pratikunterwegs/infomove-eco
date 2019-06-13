@@ -18,6 +18,12 @@ land <- mutate(land, time = 1:nrow(land)) %>%
 ggplot(land)+
   geom_col(aes(x = as.numeric(site), y = resources, fill = resources),
            position = "identity", alpha = 0.5)+
-  #scale_y_reverse()+
-  scale_fill_viridis_c(limits = c(0,1), option = "plasma")#+
-  theme_void()
+  scale_fill_viridis_c(limits = c(0,1), option = "plasma")
+  
+#### check agent movement ####
+
+data <- read_csv("migSimCode/testAgentPos.csv")
+
+ggplot(data)+
+  geom_path(aes(time, migDist, col = factor(agent)))+
+  facet_wrap(~agent)
