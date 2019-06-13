@@ -29,8 +29,7 @@ int main()
 	// init agents
 	std::vector<agent> population(popsize);
 
-	//print agent values to check
-	/**/
+	// update sites with agents
 	for (int i = 0; i < popsize; i++)
 	{
 		/*
@@ -40,7 +39,6 @@ int main()
 		std::cout << std::endl;
 		*/
 
-		// update site with agents
 		population[i].updateSite();
 	}
 
@@ -50,82 +48,90 @@ int main()
 	// open ofstream of agent positions
 	ofstream ofsAgent("testAgentPos.csv");
 
-	// ecological time
-	for (int t = 0; t < tMax; t++, currentpeak += waveVelocity)
+	for (int iSeason = 0; iSeason < 1; iSeason++)
 	{
-		// print col names
+
+		// ecological time
+		for (int t = 0; t < tMax; t++, currentpeak += waveVelocity)
 		{
-			if (t == 0)
+			// print col names
 			{
-				// for landscape
-				for (int j = 0; j < landsize; j++)
+				if (t == 0)
 				{
-					ofs << j;
-					if (j < landsize - 1)
+					// for landscape
+					for (int j = 0; j < landsize; j++)
 					{
-						ofs << ", ";
+						ofs << j;
+						if (j < landsize - 1)
+						{
+							ofs << ", ";
+						}
 					}
+					ofs << endl;
+
+					ofsAgent << "agent, time, position, migDist, energy, fSize" << endl;
+
 				}
-				ofs << endl;
-
-				ofsAgent << "agent, time, position, migDist, energy" << endl;
-				
-			}
-		}
-
-		// process agent decisions and outcomes
-		{
-			// update landscape with presence
-			for (int i = 0; i < popsize; i++)
-			{
-				// update site with agents
-				population[i].updateSite();
 			}
 
-			// calc energy
+			// process agent decisions and outcomes
 			{
+				// update landscape with presence
 				for (int i = 0; i < popsize; i++)
 				{
-					population[i].doGetEnergy();
+					// remove juveniles based on time dep prob
+					population[i].doJuvIndep(t);
+
+					// update site with agents
+					population[i].updateSite();
+				}
+
+				// calc energy
+				{
+					for (int i = 0; i < popsize; i++)
+					{
+						population[i].doGetEnergy();
+					}
+				}
+
+				// choose to move or stay
+				for (int i = 0; i < popsize; i++)
+				{
+					population[i].doChoice();
+					// print choice
+					ofsAgent << i << ", "
+						<< t << ", "
+						<< population[i].position << ", "
+						<< population[i].moveDist << ", "
+						<< population[i].energy << ", "
+						<< population[i].fSize << endl;
+				}
+
+				// move if chosen to migrate
+				for (int i = 0; i < popsize; i++)
+				{
+					population[i].doMove();
 				}
 			}
 
-			// choose to move or stay
-			for (int i = 0; i < popsize; i++)
+			// print to file and update landscape
+			for (int i = 0; i < landsize; i++)
 			{
-				population[i].doChoice();
-				// print choice
-				ofsAgent << i << ", "
-					<< t << ", "
-					<< population[i].position << ", "
-					<< population[i].moveDist << ", "
-					<< population[i].energy << endl;
-			}
+				ofs << landscape[i].resource;
+				if (i < landsize - 1)
+				{
+					ofs << ", ";
+				}
 
-			// move if chosen to migrate
-			for (int i = 0; i < popsize; i++)
-			{
-				population[i].doMove();
+				landscape[i].resource = pow(peakvalue, -(steepness * (abs(i - currentpeak))));
 			}
+			ofs << endl;
+
 		}
 
-		// print to file and update landscape
-		for (int i = 0; i < landsize; i++)
-		{
-			ofs << landscape[i].resource;
-			if (i < landsize - 1)
-			{
-				ofs << ", ";
-			}
-
-			landscape[i].resource = pow(peakvalue, -(steepness * (abs(i - currentpeak))));
-		}
-		ofs << endl;
-
-		// move green wave
-		// std::rotate(landscape.begin(), landscape.end() - 1, landscape.end());
+		// flip landscape for next season
+		flipLand(landscape);
 	}
-
 	ofs.close();
 	ofsAgent.close();
 
