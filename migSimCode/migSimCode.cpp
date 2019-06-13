@@ -68,7 +68,7 @@ int main()
 				}
 				ofs << endl;
 
-				ofsAgent << "agent, time, position, migDist, fitness" << endl;
+				ofsAgent << "agent, time, position, migDist, energy" << endl;
 				
 			}
 		}
@@ -82,11 +82,11 @@ int main()
 				population[i].updateSite();
 			}
 
-			// calc fitness
+			// calc energy
 			{
 				for (int i = 0; i < popsize; i++)
 				{
-					population[i].doGetFitness();
+					population[i].doGetEnergy();
 				}
 			}
 
@@ -99,7 +99,7 @@ int main()
 					<< t << ", "
 					<< population[i].position << ", "
 					<< population[i].moveDist << ", "
-					<< population[i].fitness << endl;
+					<< population[i].energy << endl;
 			}
 
 			// move if chosen to migrate
