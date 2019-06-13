@@ -44,16 +44,20 @@ int main()
 		population[i].updateSite();
 	}
 
+	// open to print landscape
 	ofstream ofs ("testLandOutput.csv");
-	// check later if open
+
+	// open ofstream of agent positions
+	ofstream ofsAgent("testAgentPos.csv");
 
 	// ecological time
-	for (int t = 0; currentpeak <= finalpeak; t++)
+	for (int t = 0; currentpeak < finalpeak; t++)
 	{
 		// print col names
 		{
 			if (t == 0)
 			{
+				// for landscape
 				for (int j = 0; j < landsize; j++)
 				{
 					ofs << j;
@@ -63,6 +67,9 @@ int main()
 					}
 				}
 				ofs << endl;
+
+				ofsAgent << "agent, time, position, migDist" << endl;
+				
 			}
 		}
 
@@ -88,9 +95,10 @@ int main()
 			{
 				population[i].doChoice();
 				// print choice
-				std::cout << "agent " << i << " outputs " << population[i].tempAnnOut
-					<< (population[i].keepGoing == true ? " moves forward" : " stops here");
-				std::cout << std::endl;
+				ofsAgent << i << ", "
+					<< t << ", "
+					<< population[i].position << ", "
+					<< population[i].moveDist << endl;
 			}
 
 			// move if chosen to migrate
@@ -123,6 +131,7 @@ int main()
 	}
 
 	ofs.close();
+	ofsAgent.close();
 
 	return 0;
 }
