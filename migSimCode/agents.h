@@ -24,7 +24,7 @@ using namespace ann;
 
 // spec ann structure
 using Ann = Network<float,
-	Layer< Neuron<2, activation::rtlu>, 3>, // for now, 1 input for land value
+	Layer< Neuron<1, activation::rtlu>, 3>, // for now, 1 input for land value
 	// Layer< Neuron<3, activation::rtlu>, 3>,
 	Layer< Neuron<3, activation::rtlu>, 2> // two outputs, distance and direction
 >;
@@ -69,7 +69,7 @@ void agent::doMove()
 	// agents assess body reserves
 	Ann::input_t inputs; 
 	inputs[0] = pow(peakvalue, -(steepness * (abs(position - currentpeak)))); 
-	inputs[1] = energy;
+	// inputs[1] = energy;
 	auto output = brain(inputs);
 
 	// process outputs
@@ -82,6 +82,7 @@ void agent::doMove()
 
 void agent::doGetFood()
 {
+	// energy in is cumulative accuracy
 	energy += 1 / (abs(position - currentpeak));
 }
 
