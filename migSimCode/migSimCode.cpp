@@ -32,33 +32,36 @@ int main()
 		{
 			// print col names
 			{
-				if (t == 0) { ofsAgent << "agent, gen, time, peakpos, pos, energy" << endl; }
+				if (t == 0) { ofsAgent << "gen, id, time, distpeak, energy" << endl; }
 			}
 			// do forage then do move
+			{
+				for (int i = 0; i < popsize; i++)
 				{
-					for (int i = 0; i < popsize; i++)
-					{
-						population[i].doGetFood();
-						// write to file every 10th gen
+						// get energy aka accuracy
+					population[i].doGetFood();
+						// do movement
+					population[i].doMove();
 
-						if (iSeason % 500 == 0)
+						// write to file every 10th gen
+					if (iSeason % 10 == 0)
+					{
+						if (t == 0 | t == tMax/2 | t == tMax - 1)
 						{
-							ofsAgent << i << ", " << iSeason << ", " << t << ", "
-								<< currentpeak << ","
-								<< population[i].position << ", " << population[i].energy
-								<< endl;
+							ofsAgent << iSeason << ", " << i << ", " << t << ", "
+							<< abs(population[i].position - currentpeak) << ","
+							<< population[i].energy
+							<< endl;
 						}
-						// now move
-						population[i].doMove();
-					
-						
 					}
+
 				}
-			// if t > tMax/2, move peak opposite way
+			}
+			// move peak backwards halfway through generation
 			currentpeak += waveVelocity * (t > tMax / 2 ? -1 : 1);
 		}
 
-		// make new gen section
+		// SECTION: MAKE NEW GENERATION
 		// make fitness vec
 		vector<float> fitness_vec;
 		float max = 0.f; float min = 0.f;
@@ -77,7 +80,7 @@ int main()
 		std::vector<agent> pop2(popsize);
 		// assign parents
 		for (int a = 0; a < popsize; a++) {
-						
+
 			std::discrete_distribution<> weighted_lottery(fitness_vec.begin(), fitness_vec.end());
 			int parent_id = weighted_lottery(rng);
 			// replicate position and ANN
