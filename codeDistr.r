@@ -3,27 +3,26 @@
 a = 1:1000
 peak = 10
 peakval = 1e2
-steepness = 0.01
-b = peakval^-(steepness*(abs(a-peak)))
+steepness = 1e-3
+b = peakval^-(steep*(abs(a-peak)))
 plot(b~a, type="l")
 
-#### check green wave ####
+# function for peak
+wave = function(peak, peakval, steep, site){
+  peakval^(-steep*(abs(site-peak)))
+}
 
 library(tidyverse)
 
-land <- read_csv("migSimCode/testLandOutput.csv", col_names = T)
-land <- mutate(land, time = 1:nrow(land)) %>% 
-  gather(site, resources, -time)
+z = crossing(peakloc = seq(10, 1000, 100),
+           peakval = seq(1, 1e2, 1e1),
+           steepness = 10^(-4:-1),
+           site = 1:500)
 
-ggplot(land)+
-  geom_col(aes(x = as.numeric(site), y = resources, fill = resources),
-           position = "identity", alpha = 0.5)+
-  scale_fill_viridis_c(limits = c(0,1), option = "plasma")
-  
-#### check agent movement ####
+z = mutate(z, val = wave(peakloc,peakval,steepness,site))
 
-data <- read_csv("migSimCode/testAgentPos.csv")
-
-ggplot(data)+
-  geom_path(aes(time, migDist, col = factor(agent)))+
-  facet_wrap(~agent)
+# plot data
+ggplot(z)+
+  geom_tile(aes(site, peakloc, fill = val))+
+  facet_grid(peakval~steepness, labeller = label_both)+
+  scale_fill_distiller(palette = "BrBG", direction = 1)
