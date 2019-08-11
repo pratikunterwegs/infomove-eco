@@ -20,122 +20,93 @@ using namespace std;
 
 int main()
 {
-	// init landscape
-	for (int i = 0; i < landsize; i++)
-	{
-		landscape[i].resource = pow(peakvalue, -(steepness * (abs(i - initpeak))));
-	}
-
 	// init agents
 	std::vector<agent> population(popsize);
-
-	// update sites with agents
-	for (int i = 0; i < popsize; i++)
-	{
-		/*
-		std::cout << "agent " << i << " position: " << population[i].position << " age: "
-			<< population[i].age
-			<< (population[i].keepGoing == false ? " migrates..." : " stops...");
-		std::cout << std::endl;
-		*/
-
-		population[i].updateSite();
-	}
-
-	// open to print landscape
-	ofstream ofs ("testLandOutput.csv");
-
 	// open ofstream of agent positions
 	ofstream ofsAgent("testAgentPos.csv");
-
-	for (int iSeason = 0; iSeason < 1; iSeason++)
+	for (int iSeason = 0; iSeason < nSeasons; iSeason++)
 	{
-
+		cout << "season = " << iSeason << endl;
 		// ecological time
-		for (int t = 0; t < tMax; t++, currentpeak += waveVelocity)
+		for (int t = 0; t < tMax; t++)
 		{
 			// print col names
 			{
-				if (t == 0)
-				{
-					// for landscape
-					for (int j = 0; j < landsize; j++)
-					{
-						ofs << j;
-						if (j < landsize - 1)
-						{
-							ofs << ", ";
-						}
-					}
-					ofs << endl;
-
-					ofsAgent << "agent, time, position, migDist, energy, fSize" << endl;
-
-				}
+				if (t == 0) { ofsAgent << "agent, gen, time, peakpos, pos, energy" << endl; }
 			}
-
-			// process agent decisions and outcomes
-			{
-				// update landscape with presence
-				for (int i = 0; i < popsize; i++)
-				{
-					// remove juveniles based on time dep prob
-					population[i].doJuvIndep(t);
-
-					// update site with agents
-					population[i].updateSite();
-				}
-
-				// calc energy
+			// do forage then do move
 				{
 					for (int i = 0; i < popsize; i++)
 					{
-						population[i].doGetEnergy();
+						population[i].doGetFood();
+						// write to file every 10th gen
+
+						if (iSeason % 500 == 0)
+						{
+							ofsAgent << i << ", " << iSeason << ", " << t << ", "
+								<< currentpeak << ","
+								<< population[i].position << ", " << population[i].energy
+								<< endl;
+						}
+						// now move
+						population[i].doMove();
+					
+						
 					}
 				}
-
-				// choose to move or stay
-				for (int i = 0; i < popsize; i++)
-				{
-					population[i].doChoice();
-					// print choice
-					ofsAgent << i << ", "
-						<< t << ", "
-						<< population[i].position << ", "
-						<< population[i].moveDist << ", "
-						<< population[i].energy << ", "
-						<< population[i].fSize << endl;
-				}
-
-				// move if chosen to migrate
-				for (int i = 0; i < popsize; i++)
-				{
-					population[i].doMove();
-				}
-			}
-
-			// print to file and update landscape
-			for (int i = 0; i < landsize; i++)
-			{
-				ofs << landscape[i].resource;
-				if (i < landsize - 1)
-				{
-					ofs << ", ";
-				}
-
-				landscape[i].resource = pow(peakvalue, -(steepness * (abs(i - currentpeak))));
-			}
-			ofs << endl;
-
+			// if t > tMax/2, move peak opposite way
+			currentpeak += waveVelocity * (t > tMax / 2 ? -1 : 1);
 		}
 
-		// flip landscape for next season
-		flipLand(landscape);
-	}
-	ofs.close();
-	ofsAgent.close();
+		// make new gen section
+		// make fitness vec
+		vector<float> fitness_vec;
+		float max = 0.f; float min = 0.f;
+		for (int a = 0; a < popsize; a++) {
 
+			/*max = max > population[a].energy ? max : population[a].energy;
+			min = min < population[a].energy ? min : population[a].energy;*/
+
+			//cout << "fitness " << a << " = " << population[a].energy << endl;
+			fitness_vec.push_back(population[a].energy);
+
+			//cout << "fitness vec = "  << fitness_vec[a] << endl;
+		}
+
+		// make temp pop vector
+		std::vector<agent> pop2(popsize);
+		// assign parents
+		for (int a = 0; a < popsize; a++) {
+						
+			std::discrete_distribution<> weighted_lottery(fitness_vec.begin(), fitness_vec.end());
+			int parent_id = weighted_lottery(rng);
+			// replicate position and ANN
+			pop2[a].position = population[parent_id].position;
+			pop2[a].brain = population[parent_id].brain;
+
+			// overwrite energy
+			pop2[a].energy = 0.f;
+
+			// mutate ann
+			for (auto& w : pop2[a].brain) {
+				std::bernoulli_distribution mut_event(0.001); // mutation probability
+				if (mut_event(rng)) {
+					std::cauchy_distribution<double> m_shift(0.0, 0.1); // how much of mutation
+					w += static_cast<float> (m_shift(rng));
+				}
+			}
+		}
+
+		// overwrite old gen - this is more complex in matteo's code
+		// no doubt we'll find out why
+		population = pop2;
+
+		// reset current peak
+		currentpeak = initpeak;
+
+	}
+	ofsAgent.close();
 	return 0;
 }
 
-//
+// end here
