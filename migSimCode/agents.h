@@ -46,7 +46,7 @@ struct flush_rec_nodes
 };
 
 // move cost
-float movecost = 0.01f;
+//float movecost = 0.01f;
 
 // agent class
 class agent
