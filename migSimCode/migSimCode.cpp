@@ -46,10 +46,10 @@ int main()
 						// write to file every 10th gen
 					if (iSeason % 10 == 0)
 					{
-						if (t == 0 | t == tMax/2 | t == tMax - 1)
+						if (t == 0 || t == tMax/2 || t == tMax - 1)
 						{
 							ofsAgent << iSeason << ", " << i << ", " << t << ", "
-							<< abs(population[i].position - currentpeak) << ","
+							<< (population[i].position - currentpeak) << ","
 							<< population[i].energy
 							<< endl;
 						}
@@ -57,8 +57,8 @@ int main()
 
 				}
 			}
-			// move peak backwards halfway through generation
-			currentpeak += waveVelocity * (t > tMax / 2 ? -1 : 1);
+			// peak reverses after tmax/2
+			currentpeak += waveVelocity * (t > tMax / 2 ? -1.f : 1.f);
 		}
 
 		// SECTION: MAKE NEW GENERATION
@@ -83,8 +83,8 @@ int main()
 
 			std::discrete_distribution<> weighted_lottery(fitness_vec.begin(), fitness_vec.end());
 			int parent_id = weighted_lottery(rng);
-			// replicate position and ANN
-			pop2[a].position = population[parent_id].position;
+			// replicate ANN and reset position
+			pop2[a].position = 0.f;
 			pop2[a].brain = population[parent_id].brain;
 
 			// overwrite energy
