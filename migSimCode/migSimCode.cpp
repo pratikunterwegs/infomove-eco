@@ -38,7 +38,7 @@ int main()
 			{
 				for (int i = 0; i < popsize; i++)
 				{
-						// get energy aka accuracy
+						// get energy
 					population[i].doGetFood();
 						// do movement
 					population[i].doMove();

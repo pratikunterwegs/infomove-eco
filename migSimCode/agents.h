@@ -26,7 +26,7 @@ using namespace ann;
 using Ann = Network<float,
 	Layer< Neuron<1, activation::rtlu>, 3>, // for now, 1 input for land value
 	// Layer< Neuron<3, activation::rtlu>, 3>,
-	Layer< Neuron<3, activation::rtlu>, 2> // two outputs, distance and direction
+	Layer< Neuron<3, activation::rtlu>, 1> // two outputs, distance and direction
 >;
 
 // pick rand node weights
@@ -73,7 +73,7 @@ void agent::doMove()
 	auto output = brain(inputs);
 
 	// process outputs
-	position += output[0] * (output[1] > 0.f ? 1 : -1); // forwards if greater than 0, else back
+	position += output[0]; // *(output[1] > 0.f ? 1 : -1); // forwards if greater than 0, else back
 
 	// movement cost
 	// energy -= (energy - (output[0] * movecost)) > 0 ? (output[0] * movecost) : 0;
@@ -83,7 +83,7 @@ void agent::doMove()
 void agent::doGetFood()
 {
 	// energy in is cumulative accuracy
-	energy += 1 / (abs(position - currentpeak));
+	energy += pow(peakvalue, -(steepness * (abs(position - currentpeak))));
 }
 
 // ends here
