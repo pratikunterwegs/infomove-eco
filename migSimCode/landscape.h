@@ -24,13 +24,13 @@ float currentpeak = initpeak; // to begin
 // wave velocity is a float drawn from a normal dist
 // normal dist
 std::mt19937_64 rng;
-std::normal_distribution<float> normDist(1.f, 0.5f);
+std::normal_distribution<float> normDist(5.f, 2.f);
 
 const float waveVelocity = normDist(rng); // how fast the peak moves
 const float peakvalue = 100.f;
 const float steepness = 0.05f;
 
 // seasons or replicates params
-const int nSeasons = 2000; //arbit choice
+const int nSeasons = 500; //arbit choice
 
 // end here
