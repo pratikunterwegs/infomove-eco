@@ -20,20 +20,30 @@ using namespace std;
 
 int main()
 {
-	// init agents
-	std::vector<agent> population(popsize);
-	// open ofstream of agent positions
-	ofstream ofsAgent("testAgentPos.csv");
-	for (int iSeason = 0; iSeason < nSeasons; iSeason++)
+	
+	// open ofstream of agent positions from peak
+	ofstream ofsAgent("peakdist.csv");
+	ofstream ofsPos("agentpos.csv");
+
+	// write column names
+	ofsAgent << "gen, id, time, distpeak" << endl;
+	ofsPos << "gen, id, time, peakpos, energy, neighbours, pos" << endl;
+
+	// run loop
+	for (int igen = 0; igen < nGen; igen++)
 	{
-		cout << "season = " << iSeason << endl;
+		cout << "gen = " << igen << endl;
 		// ecological time
 		for (int t = 0; t < tMax; t++)
 		{
-			// print col names
+			// sense agents
 			{
-				if (t == 0) { ofsAgent << "gen, id, time, distpeak, energy" << endl; }
+				/*for (int i = 0; i < popsize; i++)
+				{
+					population[i].doSenseAgent();
+				}*/
 			}
+
 			// do forage then do move
 			{
 				for (int i = 0; i < popsize; i++)
@@ -43,22 +53,32 @@ int main()
 						// do movement
 					population[i].doMove();
 
+					// reset neigbours
+					population[i].neighbours = 0;
+
 						// write to file every 10th gen
-					if (iSeason % 10 == 0)
+					if (igen % 10 == 0)
 					{
-						if (t == 0 || t == tMax/2 || t == tMax - 1)
+						if (t % 20 == 0)
 						{
-							ofsAgent << iSeason << ", " << i << ", " << t << ", "
-							<< (population[i].position - currentpeak) << ","
-							<< population[i].energy
+							ofsAgent << igen << ", " << i << ", " << t << ", "
+							<< (population[i].position - currentpeak) 
 							<< endl;
 						}
+					}
+
+					if (igen == 0 || ((igen + 1) % 50 == 0))
+					{
+						ofsPos << igen << "," << i << "," << t << ","
+							<< currentpeak << "," << population[i].energy << ","
+							<< population[i].neighbours << ","
+							<< population[i].position << endl;
 					}
 
 				}
 			}
 			// peak reverses after tmax/2
-			currentpeak += waveVelocity * (t > tMax / 2 ? -1.f : 1.f);
+			currentpeak += waveVelocity; // *(t > tMax / 2 ? -1.f : 1.f);
 		}
 
 		// SECTION: MAKE NEW GENERATION
@@ -83,8 +103,9 @@ int main()
 
 			std::discrete_distribution<> weighted_lottery(fitness_vec.begin(), fitness_vec.end());
 			int parent_id = weighted_lottery(rng);
-			// replicate ANN and reset position
-			pop2[a].position = 0.f;
+			// reset next gen position relative to peak
+			pop2[a].position = initpeak - (population[parent_id].position - currentpeak);
+			// replicate ANN
 			pop2[a].brain = population[parent_id].brain;
 
 			// overwrite energy
