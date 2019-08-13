@@ -21,7 +21,7 @@ using namespace std;
 using namespace ann;
 
 // move cost
-//float movecost = 0.01f;
+float movecost = 0.01f;
 
 // perception range
 float prange = 10.f;
@@ -30,7 +30,7 @@ float prange = 10.f;
 using Ann = Network<float,
 	Layer< Neuron<2, activation::rtlu>, 3>, // for now, 2 input for land value and agents
 	// Layer< Neuron<3, activation::rtlu>, 3>,
-	Layer< Neuron<3, activation::rtlu>, 1> // two outputs, distance and direction
+	Layer< Neuron<3, activation::rtlu>, 1> // one output, distance
 >;
 
 // pick rand node weights
@@ -56,7 +56,7 @@ struct flush_rec_nodes
 class agent
 {
 	public:
-		agent() : brain(static_cast<float>(dist(rng))), position(pos(rng)), energy(0.f) {};
+		agent() : brain(static_cast<float>(dist(rng))), position(static_cast<float> (pos(rng))), energy(0.f) {};
 		~agent() {};
 
 		// agents need a brain, an age, fitness, and movement decision
@@ -79,7 +79,7 @@ void agent::doSenseAgent()
 	// get perception limits
 	float lim1 = position + prange;
 	float lim2 = position - prange;
-
+	// run through agents and count those in range
 	for (int id = 0; id < popsize; id++)
 	{
 		neighbours += (population[id].position <= lim1 && population[id].position >= lim2);
@@ -100,14 +100,14 @@ void agent::doMove()
 	position += output[0]; //*(output[1] > 0.f ? 1 : -1); // forwards if greater than 0, else back
 
 	// movement cost
-	// energy -= (energy - (output[0] * movecost)) > 0 ? (output[0] * movecost) : 0;
+	energy -= (energy - (output[0] * movecost)) > 0 ? (output[0] * movecost) : 0;
 
 }
 
 void agent::doGetFood()
 {
 	// energy in 
-	energy += pow(peakvalue, -(steepness * (abs(position - currentpeak))));
+	energy += (pow(peakvalue, -(steepness * (abs(position - currentpeak))))) / static_cast<float> (neighbours);
 }
 
 // ends here
