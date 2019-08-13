@@ -37,11 +37,12 @@ int main()
 		for (int t = 0; t < tMax; t++)
 		{
 			// sense agents
+			for (int i = 0; i < popsize; i++)
 			{
-				/*for (int i = 0; i < popsize; i++)
-				{
-					population[i].doSenseAgent();
-				}*/
+				// reset neigbours from previous
+				population[i].neighbours = 0;
+				// now sense neighbours
+				population[i].doSenseAgent();
 			}
 
 			// do forage then do move
@@ -53,10 +54,7 @@ int main()
 						// do movement
 					population[i].doMove();
 
-					// reset neigbours
-					population[i].neighbours = 0;
-
-						// write to file every 10th gen
+					// write to file every 10th gen
 					if (igen % 10 == 0)
 					{
 						if (t % 20 == 0)
@@ -83,7 +81,7 @@ int main()
 
 		// SECTION: MAKE NEW GENERATION
 		// make fitness vec
-		vector<float> fitness_vec;
+		vector<double> fitness_vec;
 		float max = 0.f; float min = 0.f;
 		for (int a = 0; a < popsize; a++) {
 
@@ -91,7 +89,7 @@ int main()
 			min = min < population[a].energy ? min : population[a].energy;*/
 
 			//cout << "fitness " << a << " = " << population[a].energy << endl;
-			fitness_vec.push_back(population[a].energy);
+			fitness_vec.push_back(static_cast<double> (population[a].energy));
 
 			//cout << "fitness vec = "  << fitness_vec[a] << endl;
 		}
