@@ -52,35 +52,52 @@ struct flush_rec_nodes
 	}
 };
 
-// move cost
-//float movecost = 0.01f;
-
 // agent class
 class agent
 {
 	public:
-		agent() : brain(static_cast<float>(dist(rng))), position(0.f), energy(0.f) {};
+		agent() : brain(static_cast<float>(dist(rng))), position(pos(rng)), energy(0.f) {};
 		~agent() {};
 
 		// agents need a brain, an age, fitness, and movement decision
 		Ann brain; /*int age;*/ float energy; float position; /* int moveDist; int fSize*/;
+		
+		int neighbours = 0;
 
 		// agent action functions
 		void doGetFood();
 		void doMove();
+		void doSenseAgent();
 };
+
+// init agents vector
+std::vector<agent> population(popsize);
+
+// function to sense agents within perception range
+void agent::doSenseAgent()
+{
+	// get perception limits
+	float lim1 = position + prange;
+	float lim2 = position - prange;
+
+	for (int id = 0; id < popsize; id++)
+	{
+		neighbours += (population[id].position <= lim1 && population[id].position >= lim2);
+	}
+}
 
 // input 1 is the landscape value, given by the function peakval^-(steep*(abs(a-peak)))
 void agent::doMove()
 {
 	// agents assess body reserves
 	Ann::input_t inputs; 
-	inputs[0] = pow(peakvalue, -(steepness * (abs(position - currentpeak)))); 
+	inputs[0] = pow(peakvalue, -(steepness * (abs(position - currentpeak))));
+	inputs[1] = static_cast<float> (neighbours);
 	// inputs[1] = energy;
 	auto output = brain(inputs);
 
 	// process outputs
-	position += output[0]; // *(output[1] > 0.f ? 1 : -1); // forwards if greater than 0, else back
+	position += output[0]; //*(output[1] > 0.f ? 1 : -1); // forwards if greater than 0, else back
 
 	// movement cost
 	// energy -= (energy - (output[0] * movecost)) > 0 ? (output[0] * movecost) : 0;
@@ -89,7 +106,7 @@ void agent::doMove()
 
 void agent::doGetFood()
 {
-	// energy in is cumulative accuracy
+	// energy in 
 	energy += pow(peakvalue, -(steepness * (abs(position - currentpeak))));
 }
 
