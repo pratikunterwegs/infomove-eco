@@ -100,7 +100,7 @@ void agent::doMove()
 	position += output[0]; //*(output[1] > 0.f ? 1 : -1); // forwards if greater than 0, else back
 
 	// movement cost
-	energy -= (energy - (output[0] * movecost)) > 0 ? (output[0] * movecost) : 0;
+	//energy -= (energy - (output[0] * movecost)) > 0 ? (output[0] * movecost) : 0;
 
 }
 
