@@ -14,7 +14,7 @@
 // size parameters
 // const int landsize = 1000; // not necessary
 const int popsize = 500; // not too many
-const int tMax = 200; // around 200 days
+const int tMax = 100; // around 200 days
 
 // green wave params
 const float initpeak = 10.f; // arbitrary choice greater than 0
@@ -31,6 +31,6 @@ const float peakvalue = 100.f;
 const float steepness = 0.05f;
 
 // seasons or replicates params
-const int nGen = 100; //arbit choice
+const int nGen = 500; //arbit choice
 
 // end here
