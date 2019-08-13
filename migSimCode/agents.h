@@ -20,17 +20,24 @@
 using namespace std;
 using namespace ann;
 
-//const double meanAge = 5.f;
+// move cost
+//float movecost = 0.01f;
+
+// perception range
+float prange = 10.f;
 
 // spec ann structure
 using Ann = Network<float,
-	Layer< Neuron<1, activation::rtlu>, 3>, // for now, 1 input for land value
+	Layer< Neuron<2, activation::rtlu>, 3>, // for now, 2 input for land value and agents
 	// Layer< Neuron<3, activation::rtlu>, 3>,
 	Layer< Neuron<3, activation::rtlu>, 1> // two outputs, distance and direction
 >;
 
 // pick rand node weights
 std::uniform_real_distribution<double> dist (-1.f, 1.f);
+
+// pick rand position
+std::uniform_real_distribution<double> pos(0.0, 200.0);
 
 // clear node state
 struct flush_rec_nodes
