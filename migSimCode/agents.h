@@ -37,7 +37,7 @@ using Ann = Network<float,
 std::uniform_real_distribution<double> dist (-1.f, 1.f);
 
 // pick rand position
-std::uniform_real_distribution<double> pos(0.0, 200.0);
+//std::uniform_real_distribution<double> pos(0.0, 200.0);
 
 // clear node state
 struct flush_rec_nodes
@@ -56,7 +56,7 @@ struct flush_rec_nodes
 class agent
 {
 	public:
-		agent() : brain(static_cast<float>(dist(rng))), position(static_cast<float> (pos(rng))), energy(0.f) {};
+		agent() : brain(static_cast<float>(dist(rng))), position(0.f), energy(0.f) {};
 		~agent() {};
 
 		// agents need a brain, an age, fitness, and movement decision
@@ -82,7 +82,10 @@ void agent::doSenseAgent()
 	// run through agents and count those in range
 	for (int id = 0; id < popsize; id++)
 	{
-		neighbours += (population[id].position <= lim1 && population[id].position >= lim2);
+		if (population[id].position <= lim1 && population[id].position >= lim2)
+		{
+			neighbours ++;
+		};
 	}
 }
 
