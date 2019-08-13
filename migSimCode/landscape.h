@@ -13,7 +13,7 @@
 
 // size parameters
 // const int landsize = 1000; // not necessary
-const int popsize = 1000; // not too many
+const int popsize = 500; // not too many
 const int tMax = 200; // around 200 days
 
 // green wave params
@@ -24,13 +24,13 @@ float currentpeak = initpeak; // to begin
 // wave velocity is a float drawn from a normal dist
 // normal dist
 std::mt19937_64 rng;
-std::normal_distribution<float> normDist(5.f, 2.f);
+std::normal_distribution<float> normDist(1.f, 1.f);
 
 const float waveVelocity = normDist(rng); // how fast the peak moves
 const float peakvalue = 100.f;
 const float steepness = 0.05f;
 
 // seasons or replicates params
-const int nSeasons = 500; //arbit choice
+const int nGen = 100; //arbit choice
 
 // end here
