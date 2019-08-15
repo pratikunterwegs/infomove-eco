@@ -76,17 +76,28 @@ std::vector<agent> population(popsize);
 // function to sense agents within perception range
 void agent::doSenseAgent()
 {
-	// get perception limits
-	float lim1 = position + prange;
-	float lim2 = position - prange;
-	// run through agents and count those in range
-	for (int id = 0; id < popsize; id++)
-	{
-		if (population[id].position <= lim1 && population[id].position >= lim2)
-		{
-			neighbours ++;
-		};
+	// set neighbours to zero
+	neighbours = 0;
+
+	// repetitive vector of agent position
+	std::vector<float> pos1(popsize);
+	std::fill(pos1.begin(), pos1.end(), position);
+
+	// vector of other agent positions
+	std::vector<float> pos2(popsize);
+	for (int id = 0; id < popsize; id++) {
+		pos2.push_back(population[id].position);
 	}
+
+	// vector of distances
+	std::vector<float> dist(pos1.size());
+
+	// get vector of distances
+	std::transform(pos1.begin(), pos1.end(), pos2.begin(), dist.begin(), std::minus<float>());
+
+	// count neighbours within range
+	neighbours = (std::count_if(dist.begin(), dist.end(), std::bind2nd(std::less_equal<float>(), prange))) - 1;
+
 }
 
 // input 1 is the landscape value, given by the function peakval^-(steep*(abs(a-peak)))
