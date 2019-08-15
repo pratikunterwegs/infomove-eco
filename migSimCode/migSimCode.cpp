@@ -54,18 +54,7 @@ int main()
 						// do movement
 					population[i].doMove();
 
-					// write to file every 10th gen
-					if (igen % 10 == 0)
-					{
-						if (t % 20 == 0)
-						{
-							ofsAgent << igen << ", " << i << ", " << t << ", "
-							<< (population[i].position - currentpeak) 
-							<< endl;
-						}
-					}
-
-					if (igen == 0 || ((igen + 1) % 50 == 0))
+						if (igen == 0 || ((igen + 1) % 200 == 0))
 					{
 						ofsPos << igen << "," << i << "," << t << ","
 							<< currentpeak << "," << population[i].energy << ","
