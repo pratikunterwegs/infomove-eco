@@ -13,6 +13,7 @@
 #include <chrono>
 #include <string>
 #include <algorithm>
+#include <functional>
 #include "landscape.h"
 #include "agents.h"
 
@@ -20,14 +21,13 @@ using namespace std;
 
 int main()
 {
-	
 	// open ofstream of agent positions from peak
 	ofstream ofsAgent("peakdist.csv");
 	ofstream ofsPos("agentpos.csv");
 
 	// write column names
 	ofsAgent << "gen, id, time, distpeak" << endl;
-	ofsPos << "gen, id, time, peakpos, energy, neighbours, pos" << endl;
+	//ofsPos << "gen, id, time, peakpos, energy, neighbours, pos" << endl;
 
 	// run loop
 	for (int igen = 0; igen < nGen; igen++)
@@ -39,8 +39,6 @@ int main()
 			// sense agents
 			for (int i = 0; i < popsize; i++)
 			{
-				// reset neigbours from previous
-				population[i].neighbours = 0;
 				// now sense neighbours
 				population[i].doSenseAgent();
 			}
