@@ -100,11 +100,11 @@ int main()
 			pop2[a].brain = population[parent_id].brain;
 
 			// overwrite energy
-			pop2[a].energy = 0.f;
+			pop2[a].energy = 0.00001f;
 
 			// mutate ann
 			for (auto& w : pop2[a].brain) {
-				std::bernoulli_distribution mut_event(0.001); // mutation probability
+				std::bernoulli_distribution mut_event(0.01); // mutation probability
 				if (mut_event(rng)) {
 					std::cauchy_distribution<double> m_shift(0.0, 0.1); // how much of mutation
 					w += static_cast<float> (m_shift(rng));
