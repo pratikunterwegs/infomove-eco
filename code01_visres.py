@@ -7,11 +7,15 @@ import sys
 for p in sys.path:
     print(p)
 
+# load libraries
 import pandas as pd # similar to dplyr! yay!
 import os  # has list dir functions etc
 import numpy as np  # some matrix functions
-from scipy import misc
+import scipy.special
+
+import seaborn as sns
 import matplotlib.pyplot as plt
+from scipy import stats
 
 # check the current working directory
 os.getcwd()
@@ -22,3 +26,10 @@ print(currentWd)
 
 # read in data
 d = pd.read_csv("migSimCode/agentpos.csv")
+for col in d.columns:
+    print(col)
+
+# summarise as in R for historgram of distance to peak over time
+g = sns.FacetGrid(d.query('gen > 600'), row="gen", margin_titles=True)
+bins = np.linspace(0, 100, 100)
+g.map(plt.hist, " pos", color="steelblue", bins=bins)
