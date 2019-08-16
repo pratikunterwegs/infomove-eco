@@ -13,15 +13,15 @@ data <- na.omit(data)
 head(data)}
 
 # plot where agents are
-d = fread("migSimCode/agentpos.csv")
+{d = fread("migSimCode/agentpos.csv")
 
 # dist over time
-ggplot(d[gen > 3e3,])+
+ggplot(d)+
   geom_histogram(aes(pos - peakpos), size = 0.1, col = 4, alpha = 0.1, bins = 150)+
 #  geom_hline(yintercept = 0, col = 2)+
   # geom_line(aes(time, peakpos), col = 2, size = 0.1)+
-  facet_grid(~gen)+
-  xlim(-50, 100)
+  facet_wrap(~gen, scales = "fixed")
+}
 
 # energy over time
 d[,intake:=c(NA, diff(energy)),by=list(gen,id)]
