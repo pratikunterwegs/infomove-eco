@@ -3,6 +3,7 @@
 // code to init agents
 
 #include <iostream>
+
 #include <vector>
 #include <random>
 #include <cstdlib>
@@ -40,7 +41,7 @@ using Ann = Network<float,
 std::uniform_real_distribution<double> dist (-1.f, 1.f);
 
 // pick rand position
-//std::uniform_real_distribution<double> pos(0.0, 200.0);
+// std::uniform_real_distribution<double> pos(0.0, 200.0);
 
 // clear node state
 struct flush_rec_nodes
@@ -59,7 +60,7 @@ struct flush_rec_nodes
 class agent
 {
 	public:
-		agent() : brain(static_cast<float>(dist(rng))), position(0.f), energy(0.f) {};
+		agent() : brain(0.f), position(0.f), energy(0.f) {};
 		~agent() {};
 
 		// agents need a brain, an age, fitness, and movement decision
@@ -76,30 +77,23 @@ class agent
 // init agents vector
 std::vector<agent> population(popsize);
 
+// init dists vector
+std::vector<float> dist2pop(popsize);
+
 // function to sense agents within perception range
 void agent::doSenseAgent()
 {
-	// set neighbours to zero
+	// reset neighbours
 	neighbours = 0;
+	// get distances
+	int id = 0;
+	while (id < popsize) {
+		dist2pop[id] = population[id].position - position;
 
-	// repetitive vector of agent position
-	std::vector<float> pos1(popsize);
-	std::fill(pos1.begin(), pos1.end(), position);
+		if(dist2pop[id] < prange) neighbours++;
 
-	// vector of other agent positions
-	std::vector<float> pos2(popsize);
-	for (int id = 0; id < popsize; id++) {
-		pos2.push_back(population[id].position);
+		++id;
 	}
-
-	// vector of distances
-	std::vector<float> dist(pos1.size());
-
-	// get vector of distances
-	std::transform(pos1.begin(), pos1.end(), pos2.begin(), dist.begin(), std::minus<float>());
-
-	// count neighbours within range
-	neighbours = (std::count_if(dist.begin(), dist.end(), std::bind2nd(std::less_equal<float>(), prange))) - 1;
 
 }
 
@@ -123,8 +117,8 @@ void agent::doMove()
 
 void agent::doGetFood()
 {
-	// energy in 
-	energy += (pow(peakvalue, -(steepness * (abs(position - currentpeak))))) / static_cast<float> (neighbours);
+	// energy in and divide by neighbours if any
+	energy += ((pow(peakvalue, -(steepness * (abs(position - currentpeak))))) / (neighbours > 0 ? static_cast<float> (neighbours): static_cast<float>(1)));
 }
 
 // ends here
