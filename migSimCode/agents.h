@@ -14,6 +14,9 @@
 #include <string>
 #include <utility>
 #include <algorithm>
+#include <functional>
+#include <numeric>
+
 #include "ann.h"
 #include "landscape.h"
 
@@ -21,7 +24,7 @@ using namespace std;
 using namespace ann;
 
 // move cost
-float movecost = 0.01f;
+// float movecost = 0.01f;
 
 // perception range
 float prange = 10.f;
