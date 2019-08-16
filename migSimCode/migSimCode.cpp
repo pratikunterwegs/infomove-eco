@@ -45,29 +45,32 @@ int main()
 			{
 				// now sense neighbours
 				population[i].doSenseAgent();
+				// get energy
+				population[i].doGetFood();
+
+				// output energy
+				//cout << "energy = " << population[i].energy << endl;
 			}
 
-			// do forage then do move
-			{
-				for (int i = 0; i < popsize; i++)
-				{
-						// get energy
-					population[i].doGetFood();
-						// do movement
-					population[i].doMove();
+			// do move
+			for (int i = 0; i < popsize; i++) { population[i].doMove(); }
 
-						if (igen == 0 || ((igen + 1) % 200 == 0))
-					{
-						ofsPos << igen << "," << i << "," << t << ","
-							<< currentpeak << "," << population[i].energy << ","
-							<< population[i].neighbours << ","
-							<< population[i].position << endl;
-					}
-
-				}
-			}
-			// peak reverses after tmax/2
+			// peak does not reverse after tmax/2
 			currentpeak += waveVelocity; // *(t > tMax / 2 ? -1.f : 1.f);
+
+		}
+
+		if (igen == 0 || igen % 100 == 0)
+		{
+			for (int i = 0; i < popsize; i++) {
+				ofsPos << igen << ","
+					<< i << ","
+					<< currentpeak << ","
+					<< population[i].energy << ","
+					<< population[i].neighbours << ","
+					<< population[i].position
+					<< endl;
+			}
 		}
 
 		// SECTION: MAKE NEW GENERATION
@@ -120,7 +123,7 @@ int main()
 		currentpeak = initpeak;
 
 	}
-	ofsAgent.close();
+	ofsPos.close();
 	return 0;
 }
 
