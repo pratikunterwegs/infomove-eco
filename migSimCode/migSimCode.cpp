@@ -13,21 +13,25 @@
 #include <chrono>
 #include <string>
 #include <algorithm>
+#include <functional>
 #include "landscape.h"
 #include "agents.h"
+#include <assert.h>
 
 using namespace std;
 
 int main()
 {
-	
+	// make distance matrix
+
+
 	// open ofstream of agent positions from peak
-	ofstream ofsAgent("peakdist.csv");
+	//ofstream ofsAgent("peakdist.csv");
 	ofstream ofsPos("agentpos.csv");
 
 	// write column names
-	ofsAgent << "gen, id, time, distpeak" << endl;
-	ofsPos << "gen, id, time, peakpos, energy, neighbours, pos" << endl;
+	//ofsAgent << "gen, id, time, distpeak" << endl;
+	ofsPos << "gen, id, peakpos, energy, neighbours, pos" << endl;
 
 	// run loop
 	for (int igen = 0; igen < nGen; igen++)
@@ -39,33 +43,34 @@ int main()
 			// sense agents
 			for (int i = 0; i < popsize; i++)
 			{
-				// reset neigbours from previous
-				population[i].neighbours = 0;
 				// now sense neighbours
 				population[i].doSenseAgent();
+				// get energy
+				population[i].doGetFood();
+
+				// output energy
+				//cout << "energy = " << population[i].energy << endl;
 			}
 
-			// do forage then do move
-			{
-				for (int i = 0; i < popsize; i++)
-				{
-						// get energy
-					population[i].doGetFood();
-						// do movement
-					population[i].doMove();
+			// do move
+			for (int i = 0; i < popsize; i++) { population[i].doMove(); }
 
-						if (igen == 0 || ((igen + 1) % 200 == 0))
-					{
-						ofsPos << igen << "," << i << "," << t << ","
-							<< currentpeak << "," << population[i].energy << ","
-							<< population[i].neighbours << ","
-							<< population[i].position << endl;
-					}
-
-				}
-			}
-			// peak reverses after tmax/2
+			// peak does not reverse after tmax/2
 			currentpeak += waveVelocity; // *(t > tMax / 2 ? -1.f : 1.f);
+
+		}
+
+		if (igen == 0 || igen % 100 == 0)
+		{
+			for (int i = 0; i < popsize; i++) {
+				ofsPos << igen << ","
+					<< i << ","
+					<< currentpeak << ","
+					<< population[i].energy << ","
+					<< population[i].neighbours << ","
+					<< population[i].position
+					<< endl;
+			}
 		}
 
 		// SECTION: MAKE NEW GENERATION
@@ -76,6 +81,8 @@ int main()
 
 			/*max = max > population[a].energy ? max : population[a].energy;
 			min = min < population[a].energy ? min : population[a].energy;*/
+
+			assert(population[a].energy != 0 && "agent energy is 0!");
 
 			//cout << "fitness " << a << " = " << population[a].energy << endl;
 			fitness_vec.push_back(static_cast<double> (population[a].energy));
@@ -96,11 +103,11 @@ int main()
 			pop2[a].brain = population[parent_id].brain;
 
 			// overwrite energy
-			pop2[a].energy = 0.f;
+			pop2[a].energy = 0.00001f;
 
 			// mutate ann
 			for (auto& w : pop2[a].brain) {
-				std::bernoulli_distribution mut_event(0.001); // mutation probability
+				std::bernoulli_distribution mut_event(0.01); // mutation probability
 				if (mut_event(rng)) {
 					std::cauchy_distribution<double> m_shift(0.0, 0.1); // how much of mutation
 					w += static_cast<float> (m_shift(rng));
@@ -116,7 +123,7 @@ int main()
 		currentpeak = initpeak;
 
 	}
-	ofsAgent.close();
+	ofsPos.close();
 	return 0;
 }
 

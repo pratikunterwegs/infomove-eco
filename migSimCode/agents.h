@@ -3,6 +3,7 @@
 // code to init agents
 
 #include <iostream>
+
 #include <vector>
 #include <random>
 #include <cstdlib>
@@ -14,6 +15,9 @@
 #include <string>
 #include <utility>
 #include <algorithm>
+#include <functional>
+#include <numeric>
+
 #include "ann.h"
 #include "landscape.h"
 
@@ -21,7 +25,7 @@ using namespace std;
 using namespace ann;
 
 // move cost
-float movecost = 0.01f;
+// float movecost = 0.01f;
 
 // perception range
 float prange = 10.f;
@@ -37,7 +41,7 @@ using Ann = Network<float,
 std::uniform_real_distribution<double> dist (-1.f, 1.f);
 
 // pick rand position
-//std::uniform_real_distribution<double> pos(0.0, 200.0);
+// std::uniform_real_distribution<double> pos(0.0, 200.0);
 
 // clear node state
 struct flush_rec_nodes
@@ -56,7 +60,7 @@ struct flush_rec_nodes
 class agent
 {
 	public:
-		agent() : brain(static_cast<float>(dist(rng))), position(0.f), energy(0.f) {};
+		agent() : brain(0.f), position(0.f), energy(0.f) {};
 		~agent() {};
 
 		// agents need a brain, an age, fitness, and movement decision
@@ -73,20 +77,24 @@ class agent
 // init agents vector
 std::vector<agent> population(popsize);
 
+// init dists vector
+std::vector<float> dist2pop(popsize);
+
 // function to sense agents within perception range
 void agent::doSenseAgent()
 {
-	// get perception limits
-	float lim1 = position + prange;
-	float lim2 = position - prange;
-	// run through agents and count those in range
-	for (int id = 0; id < popsize; id++)
-	{
-		if (population[id].position <= lim1 && population[id].position >= lim2)
-		{
-			neighbours ++;
-		};
+	// reset neighbours
+	neighbours = 0;
+	// get distances
+	int id = 0;
+	while (id < popsize) {
+		dist2pop[id] = population[id].position - position;
+
+		if(dist2pop[id] < prange) neighbours++;
+
+		++id;
 	}
+
 }
 
 // input 1 is the landscape value, given by the function peakval^-(steep*(abs(a-peak)))
@@ -109,8 +117,8 @@ void agent::doMove()
 
 void agent::doGetFood()
 {
-	// energy in 
-	energy += (pow(peakvalue, -(steepness * (abs(position - currentpeak))))) / static_cast<float> (neighbours);
+	// energy in and divide by neighbours if any
+	energy += ((pow(peakvalue, -(steepness * (abs(position - currentpeak))))) / (neighbours > 0 ? static_cast<float> (neighbours): static_cast<float>(1)));
 }
 
 // ends here
