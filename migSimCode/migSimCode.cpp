@@ -16,18 +16,22 @@
 #include <functional>
 #include "landscape.h"
 #include "agents.h"
+#include <assert.h>
 
 using namespace std;
 
 int main()
 {
+	// make distance matrix
+
+
 	// open ofstream of agent positions from peak
-	ofstream ofsAgent("peakdist.csv");
+	//ofstream ofsAgent("peakdist.csv");
 	ofstream ofsPos("agentpos.csv");
 
 	// write column names
-	ofsAgent << "gen, id, time, distpeak" << endl;
-	//ofsPos << "gen, id, time, peakpos, energy, neighbours, pos" << endl;
+	//ofsAgent << "gen, id, time, distpeak" << endl;
+	ofsPos << "gen, id, peakpos, energy, neighbours, pos" << endl;
 
 	// run loop
 	for (int igen = 0; igen < nGen; igen++)
@@ -74,6 +78,8 @@ int main()
 
 			/*max = max > population[a].energy ? max : population[a].energy;
 			min = min < population[a].energy ? min : population[a].energy;*/
+
+			assert(population[a].energy != 0 && "agent energy is 0!");
 
 			//cout << "fitness " << a << " = " << population[a].energy << endl;
 			fitness_vec.push_back(static_cast<double> (population[a].energy));
