@@ -3,6 +3,7 @@
 // code to init agents
 
 #include <iostream>
+
 #include <vector>
 #include <random>
 #include <cstdlib>
@@ -14,30 +15,33 @@
 #include <string>
 #include <utility>
 #include <algorithm>
+#include <functional>
+#include <numeric>
+
 #include "ann.h"
 #include "landscape.h"
 
 using namespace std;
 using namespace ann;
 
-const double meanAge = 5.f;
+// move cost
+// float movecost = 0.01f;
+
+// perception range
+float prange = 10.f;
 
 // spec ann structure
 using Ann = Network<float,
-	Layer< Neuron<2, activation::rtlu>, 3>,
+	Layer< Neuron<2, activation::rtlu>, 3>, // for now, 2 input for land value and agents
 	// Layer< Neuron<3, activation::rtlu>, 3>,
-	Layer< Neuron<3, activation::rtlu>, 1>
+	Layer< Neuron<3, activation::rtlu>, 1> // one output, distance
 >;
 
 // pick rand node weights
-std::mt19937_64 rng;
-std::_Beta_distribution<> dist(1.0, 1.0);
+std::uniform_real_distribution<double> dist (-1.f, 1.f);
 
-// init with poisson distr age
-std::poisson_distribution<int> agePicker (meanAge);
-
-// random value of going on or not
-std::bernoulli_distribution migProb (0.5);
+// pick rand position
+// std::uniform_real_distribution<double> pos(0.0, 200.0);
 
 // clear node state
 struct flush_rec_nodes
@@ -52,84 +56,69 @@ struct flush_rec_nodes
 	}
 };
 
-// dec agent class
+// agent class
 class agent
 {
 	public:
-		agent() : brain(dist(rng)), age(agePicker(rng)), fitness(0.f), position(5), moveDist(0) {};
+		agent() : brain(0.f), position(0.f), energy(0.f) {};
 		~agent() {};
 
 		// agents need a brain, an age, fitness, and movement decision
-		Ann brain; int age; float fitness; int position; int moveDist;
+		Ann brain; /*int age;*/ float energy; float position; /* int moveDist; int fSize*/;
+		
+		int neighbours = 0;
 
 		// agent action functions
-		void doChoice();
-		void doGetFitness();
-		void doAge();
-		// void reproduce(); // no reprod right now
+		void doGetFood();
 		void doMove();
-
-		// landscape updating
-		void updateSite();
+		void doSenseAgent();
 };
 
-// def choice func
-// agents have 2 inputs and 1 output
-void agent::doChoice()
+// init agents vector
+std::vector<agent> population(popsize);
+
+// init dists vector
+std::vector<float> dist2pop(popsize);
+
+// function to sense agents within perception range
+void agent::doSenseAgent()
 {
-	float in1 = landscape[position].resource;  // input 1 is resource level
-	float in2 = landscape[position].propAgentsMigrating;  // input 2 is nmber of other agents moving forward
+	// reset neighbours
+	neighbours = 0;
+	// get distances
+	int id = 0;
+	while (id < popsize) {
+		dist2pop[id] = population[id].position - position;
 
-	// agents assess resources and proportion of flock moving forward
-	Ann::input_t inputs; inputs[0] = in1; inputs[1] = in2;
-	auto output = brain(inputs);
+		if(dist2pop[id] < prange) neighbours++;
 
-	moveDist = static_cast<int> (floor(output[0]));
-
-	// if output > 0 agents move forward and add to the signal of nAgents migrating
-	if (moveDist > 0) { 
-		landscape[position].nAgentsMigrating += 1;
-		landscape[position].propAgentsMigrating += 1.f / static_cast<float> (landscape[position].nAgents);
+		++id;
 	}
-	else
-	{
-		landscape[position].nAgentsMigrating -= 1;
-		landscape[position].propAgentsMigrating -= 1.f / static_cast<float> (landscape[position].nAgents);
-	}
+
 }
 
-// agents extract resources scaled by their age-based competitiveness on the site
-void agent::doGetFitness()
-{
-	fitness += landscape[position].resource * (static_cast<float> (age) / static_cast<float> (landscape[position].totalComp));
-}
-
-// function agents age, maybe be useful later
-void agent::doAge()
-{
-	age++;
-}
-
-// make the movement
+// input 1 is the landscape value, given by the function peakval^-(steep*(abs(a-peak)))
 void agent::doMove()
 {
-	// reduce competition on the current position
-	landscape[position].totalComp -= age;
-	// move
-	position+= moveDist;
+	// agents assess body reserves
+	Ann::input_t inputs; 
+	inputs[0] = pow(peakvalue, -(steepness * (abs(position - currentpeak))));
+	inputs[1] = static_cast<float> (neighbours);
+	// inputs[1] = energy;
+	auto output = brain(inputs);
+
+	// process outputs
+	position += output[0]; //*(output[1] > 0.f ? 1 : -1); // forwards if greater than 0, else back
+
+	// movement cost
+	//energy -= (energy - (output[0] * movecost)) > 0 ? (output[0] * movecost) : 0;
+
 }
 
-// update landscape with current position etc
-void agent::updateSite()
+void agent::doGetFood()
 {
-	// add to agents on the landscape
-	landscape[position].nAgents++;
-
-	// add to migrating agents
-	landscape[position].nAgentsMigrating += moveDist > 0 ? 1 : 0;
-
-	// add to competition on the landscape
-	landscape[position].totalComp += age;
+	// energy in and divide by neighbours if any
+	energy += ((pow(peakvalue, -(steepness * (abs(position - currentpeak))))) / (neighbours > 0 ? static_cast<float> (neighbours): static_cast<float>(1)));
 }
 
 // ends here

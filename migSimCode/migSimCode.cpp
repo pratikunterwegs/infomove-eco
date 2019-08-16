@@ -13,127 +13,118 @@
 #include <chrono>
 #include <string>
 #include <algorithm>
+#include <functional>
 #include "landscape.h"
 #include "agents.h"
+#include <assert.h>
 
 using namespace std;
 
 int main()
 {
-	// init landscape
-	for (int i = 0; i < landsize; i++)
+	// make distance matrix
+
+
+	// open ofstream of agent positions from peak
+	//ofstream ofsAgent("peakdist.csv");
+	ofstream ofsPos("agentpos.csv");
+
+	// write column names
+	//ofsAgent << "gen, id, time, distpeak" << endl;
+	ofsPos << "gen, id, peakpos, energy, neighbours, pos" << endl;
+
+	// run loop
+	for (int igen = 0; igen < nGen; igen++)
 	{
-		landscape[i].resource = pow(peakvalue, -(steepness * (abs(i - initpeak))));
-	}
-
-	// init agents
-	std::vector<agent> population(popsize);
-
-	//print agent values to check
-	/**/
-	for (int i = 0; i < popsize; i++)
-	{
-		/*
-		std::cout << "agent " << i << " position: " << population[i].position << " age: "
-			<< population[i].age
-			<< (population[i].keepGoing == false ? " migrates..." : " stops...");
-		std::cout << std::endl;
-		*/
-
-		// update site with agents
-		population[i].updateSite();
-	}
-
-	// open to print landscape
-	ofstream ofs ("testLandOutput.csv");
-
-	// open ofstream of agent positions
-	ofstream ofsAgent("testAgentPos.csv");
-
-	// ecological time
-	for (int t = 0; currentpeak < finalpeak; t++)
-	{
-		// print col names
+		cout << "gen = " << igen << endl;
+		// ecological time
+		for (int t = 0; t < tMax; t++)
 		{
-			if (t == 0)
+			// sense agents
+			for (int i = 0; i < popsize; i++)
 			{
-				// for landscape
-				for (int j = 0; j < landsize; j++)
-				{
-					ofs << j;
-					if (j < landsize - 1)
-					{
-						ofs << ", ";
-					}
+				// now sense neighbours
+				population[i].doSenseAgent();
+				// get energy
+				population[i].doGetFood();
+
+				// output energy
+				//cout << "energy = " << population[i].energy << endl;
+			}
+
+			// do move
+			for (int i = 0; i < popsize; i++) { population[i].doMove(); }
+
+			// peak does not reverse after tmax/2
+			currentpeak += waveVelocity; // *(t > tMax / 2 ? -1.f : 1.f);
+
+		}
+
+		if (igen == 0 || igen % 100 == 0)
+		{
+			for (int i = 0; i < popsize; i++) {
+				ofsPos << igen << ","
+					<< i << ","
+					<< currentpeak << ","
+					<< population[i].energy << ","
+					<< population[i].neighbours << ","
+					<< population[i].position
+					<< endl;
+			}
+		}
+
+		// SECTION: MAKE NEW GENERATION
+		// make fitness vec
+		vector<double> fitness_vec;
+		float max = 0.f; float min = 0.f;
+		for (int a = 0; a < popsize; a++) {
+
+			/*max = max > population[a].energy ? max : population[a].energy;
+			min = min < population[a].energy ? min : population[a].energy;*/
+
+			assert(population[a].energy != 0 && "agent energy is 0!");
+
+			//cout << "fitness " << a << " = " << population[a].energy << endl;
+			fitness_vec.push_back(static_cast<double> (population[a].energy));
+
+			//cout << "fitness vec = "  << fitness_vec[a] << endl;
+		}
+
+		// make temp pop vector
+		std::vector<agent> pop2(popsize);
+		// assign parents
+		for (int a = 0; a < popsize; a++) {
+
+			std::discrete_distribution<> weighted_lottery(fitness_vec.begin(), fitness_vec.end());
+			int parent_id = weighted_lottery(rng);
+			// reset next gen position relative to peak
+			pop2[a].position = initpeak - (population[parent_id].position - currentpeak);
+			// replicate ANN
+			pop2[a].brain = population[parent_id].brain;
+
+			// overwrite energy
+			pop2[a].energy = 0.00001f;
+
+			// mutate ann
+			for (auto& w : pop2[a].brain) {
+				std::bernoulli_distribution mut_event(0.01); // mutation probability
+				if (mut_event(rng)) {
+					std::cauchy_distribution<double> m_shift(0.0, 0.1); // how much of mutation
+					w += static_cast<float> (m_shift(rng));
 				}
-				ofs << endl;
-
-				ofsAgent << "agent, time, position, migDist" << endl;
-				
 			}
 		}
 
-		// process agent decisions and outcomes
-		{
-			// update landscape with presence
-			for (int i = 0; i < popsize; i++)
-			{
-				// update site with agents
-				population[i].updateSite();
-			}
+		// overwrite old gen - this is more complex in matteo's code
+		// no doubt we'll find out why
+		population = pop2;
 
-			// calc fitness
-			{
-				for (int i = 0; i < popsize; i++)
-				{
-					population[i].doGetFitness();
-				}
-			}
+		// reset current peak
+		currentpeak = initpeak;
 
-			// choose to move or stay
-			for (int i = 0; i < popsize; i++)
-			{
-				population[i].doChoice();
-				// print choice
-				ofsAgent << i << ", "
-					<< t << ", "
-					<< population[i].position << ", "
-					<< population[i].moveDist << endl;
-			}
-
-			// move if chosen to migrate
-			for (int i = 0; i < popsize; i++)
-			{
-				population[i].doMove();
-			}
-		}
-
-
-
-		// update current peak location
-		currentpeak += waveVelocity;
-
-		// print to file and update landscape
-		for (int i = 0; i < landsize; i++)
-		{
-			ofs << landscape[i].resource;
-			if (i < landsize - 1)
-			{
-				ofs << ", ";
-			}
-
-			landscape[i].resource = pow(peakvalue, -(steepness * (abs(i - currentpeak))));
-		}
-		ofs << endl;
-
-		// move green wave
-		// std::rotate(landscape.begin(), landscape.end() - 1, landscape.end());
 	}
-
-	ofs.close();
-	ofsAgent.close();
-
+	ofsPos.close();
 	return 0;
 }
 
-//
+// end here

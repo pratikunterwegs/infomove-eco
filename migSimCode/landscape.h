@@ -12,35 +12,25 @@
 #include <string>
 
 // size parameters
-const int landsize = 1000; // keep even
-const int popsize = 30; // not too many
-const int tMax = 150; // must always be less than landsize
+// const int landsize = 1000; // not necessary
+const int popsize = 1000; // not too many
+const int tMax = 100; // around 200 days
 
 // green wave params
-const int initpeak = 1; // arbitrary choice greater than 0
-int currentpeak = initpeak; // to begin
-const int finalpeak = landsize - 200;
-const int waveVelocity = 5; // how fast the peak moves
+const float initpeak = 10.f; // arbitrary choice greater than 0
+float currentpeak = initpeak; // to begin
+// const int finalpeak = landsize - initpeak + 100;
+
+// wave velocity is a float drawn from a normal dist
+// normal dist
+std::mt19937_64 rng;
+std::normal_distribution<float> normDist(1.f, 1.f);
+
+const float waveVelocity = normDist(rng); // how fast the peak moves
 const float peakvalue = 100.f;
-const float steepness = 0.01f;
+const float steepness = 0.05f;
 
-// season params
-const int nSeasons = 100; //arbit choice
+// seasons or replicates params
+const int nGen = 10000; //arbit choice
 
-// init landscape struct
-class site {
-public:
-	float resource;
-	int nAgents;
-	int nAgentsMigrating;
-	int totalComp;
-	float propAgentsMigrating;
-
-	// func to get agents moving on
-	void updateLandscape();
-};
-
-// init vector of sites as landscape
-std::vector<site> landscape(landsize);
-
-//
+// end here
