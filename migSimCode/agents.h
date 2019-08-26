@@ -71,13 +71,13 @@ class agent
 		// agent action functions
 		void doGetFood();
 		void doMove();
-		void doSenseAgent();
 };
 
 /// function to init N agents
 std::vector<agent> initAgents(const int &number)
 {
-	return std::vector<agent> population (number);
+	std::vector<agent> population(number);
+	return population;
 }
 
 /// function to make distance matrix
