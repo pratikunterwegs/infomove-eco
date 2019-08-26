@@ -106,17 +106,17 @@ void update_distmatrix(std::vector<std::vector<float> > &distmatrix, std::vector
 	}
 }
 
-///// function to count neighbours
-//int count_neighbours(const int &which_agent)
-//{
-//	const int n_neighbours = 0;
-//	// count neighbours within distance of 5
-//	std::accumulate(distmatrix[which_agent].begin(), distmatrix[which_agent].end(), [&](float xy_dist){if (abs(xy_dist) < 5.f) n_neighbours ++;})
-//
-//	// output neighbours
-//	return n_neighbours;
-//}
-//
+/// function to count neighbours
+int count_neighbours(const int& which_agent, const std::vector<std::vector<float> > &distmatrix)
+{
+	int n_neighbours = 0;
+	// count neighbours within distance of 5
+	std::for_each(distmatrix[which_agent].begin(), distmatrix[which_agent].end(), [&](float xy_dist) {if (abs(xy_dist) < prange) n_neighbours++; });
+
+	// output neighbours
+	return n_neighbours;
+}
+
 //// input 1 is the landscape value, given by the function peakval^-(steep*(abs(a-peak)))
 //void agent::doMove()
 //{
