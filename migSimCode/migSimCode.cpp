@@ -20,26 +20,26 @@ void test_agent_vec()
 /// test that the distance matrix is correctly created
 void test_make_dmatrix()
 {
-    // make some agents
-    std::vector<agent> testpop = initAgents(10);
-    // check that matrix of 10 agents has 10 * 10 cells
-    std::vector<std::vector<float> > test_dmatrix = make_distmatrix(testpop);
-    assert( (test_dmatrix.size() * test_dmatrix[0].size()) == 100);
+	// make some agents
+	std::vector<agent> testpop = initAgents(10);
+	// check that matrix of 10 agents has 10 * 10 cells
+	std::vector<std::vector<float> > test_dmatrix = make_distmatrix(testpop);
+	assert((test_dmatrix.size() * test_dmatrix[0].size()) == 100);
 
-    // test diagonal is zero
-    for (int iter = 0; iter < testpop.size(); iter++)
-    {
-        assert(test_dmatrix[iter][iter] == 0.f);
-    }
-    
+	// test diagonal is zero
+	for (int iter = 0; iter < testpop.size(); iter++)
+	{
+		assert(test_dmatrix[iter][iter] == 0.f);
+	}
+
 }
 
 /// test the distance matrix is correct updated
 void test_distmatrix_update()
 {
-    // create a population
+	// create a population
 	std::vector<agent> testpop = initAgents(25);
-    // make distance matrix
+	// make distance matrix
 	std::vector<std::vector<float> > test_dmatrix = make_distmatrix(testpop);
 
 	// move the population manually per the position
@@ -48,24 +48,48 @@ void test_distmatrix_update()
 		testpop[someiter].position = static_cast<float>(someiter);
 		testpop[someiter].moveDist = static_cast<float>(someiter) + 0.1f;
 	}
-	
-    // update the matrix
+
+	// update the matrix
 	update_distmatrix(test_dmatrix, testpop);
 
-    // check diagonal remains zero
-	for (int someiter=0; someiter < testpop.size(); someiter++)
+	// check diagonal remains zero
+	for (int someiter = 0; someiter < testpop.size(); someiter++)
 	{
 		assert(test_dmatrix[someiter][someiter] == 0.f);
 	}
-	
-    // check agent i is 1 steps from agent i-1
+
+	// check agent i is 1 steps from agent i-1
 	for (int someiter = 0; someiter < test_dmatrix.size(); someiter++)
 	{
 		assert(static_cast<int>(test_dmatrix[someiter][0]) == someiter);
-		
+
 	}
 }
 
+/// test neighbour counting
+void test_neighbour_count() 
+{
+	// create a population
+	std::vector<agent> testpop = initAgents(5);
+	// make distance matrix
+	std::vector<std::vector<float> > test_dmatrix = make_distmatrix(testpop);
+
+	// move last agent 100 steps ahead
+	testpop[testpop.size()].position += 100.f;
+	testpop[testpop.size()].moveDist += 100.f;
+
+	// update the matrix
+	update_distmatrix(test_dmatrix, testpop);
+
+	// count number of neighbours -- last should have no neigbours
+	assert(count_neighbours(testpop.size(), test_dmatrix) == 0);
+	
+	// all other should have n-1 neighbours
+	for (int iter = 0; iter < testpop.size() - 1; iter++)
+	{
+		assert(count_neighbours(iter, test_dmatrix) == testpop.size() - 1);
+	}
+}
 
 int main()
 {
@@ -75,9 +99,6 @@ int main()
 	test_agent_vec();
 	test_make_dmatrix();
 	test_distmatrix_update();
-
-	// print dist matrix
-
 
 	return 0;
 }
