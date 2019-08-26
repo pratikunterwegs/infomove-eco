@@ -108,7 +108,7 @@ void update_distmatrix(std::vector<std::vector<float> > &distmatrix, std::vector
 		{
 			// some sort of efficient stl based minus tool later
 			// consider also the valarray class
-			for (iter2 = 0; iter2 < population.size(); iter2++)
+			for (int iter2 = 0; iter2 < population.size(); iter2++)
 			{
 				distmatrix[iter][iter2] = population[iter].position - population[iter2].position;
 			}
