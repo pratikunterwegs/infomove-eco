@@ -60,7 +60,7 @@ struct flush_rec_nodes
 class agent
 {
 	public:
-		agent() : brain(0.f), position(0.f), energy(0.f) {};
+		agent() : brain(0.f), position(0.f), energy(0.f), moveDist (0.f) {};
 		~agent() {};
 
 		// agents need a brain, an age, fitness, and movement decision
