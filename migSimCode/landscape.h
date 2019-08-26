@@ -13,8 +13,8 @@
 
 // size parameters
 // const int landsize = 1000; // not necessary
-const int popsize = 1000; // not too many
-const int tMax = 100; // around 200 days
+const int popsize = 100; // not too many
+const int tMax = 100; // not too high
 
 // green wave params
 const float initpeak = 10.f; // arbitrary choice greater than 0
