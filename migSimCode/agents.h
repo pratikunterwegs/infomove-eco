@@ -100,7 +100,7 @@ std::vector<std::vector<float> > make_distmatrix(const std::vector<agent> &popul
 }
 
 /// function to update distance matrix
-void update_distmatrix(std::vector<std::vector<float> > &distmatrix)
+void update_distmatrix(std::vector<std::vector<float> > &distmatrix, std::vector<agent> &population)
 {
 	for (int iter = 0; iter < population.size(); iter++)
 	{
