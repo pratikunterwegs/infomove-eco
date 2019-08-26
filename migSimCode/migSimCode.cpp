@@ -1,132 +1,84 @@
 /// migSimCode.cpp : This file contains the 'main' function. Program execution begins and ends there.
 
 #include <iostream>
-#include <fstream>
-#include <vector>
-#include <random>
-#include <cstdlib>
-#include <iostream>
-#include <cmath>
 #include <cassert>
-#include <random>
-#include <chrono>
-#include <string>
-#include <algorithm>
-#include <functional>
+#include <vector>
 #include "landscape.h"
+#include "ann.h"
 #include "agents.h"
 #include <assert.h>
+//#include "testAgents.cpp"
 
-/// write functions
+// list of tests
+/// test that the vector of agents has at least one agent
+void test_agent_vec()
+{
+	// check size of vector
+	assert((initAgents(10)).size() == 10);
+}
 
-/// function to make a new generation
-		// make fitness vec
-		vector<double> fitness_vec;
-		float max = 0.f; float min = 0.f;
-		for (int a = 0; a < popsize; a++) {
+/// test that the distance matrix is correctly created
+void test_make_dmatrix()
+{
+    // make some agents
+    std::vector<agent> testpop = initAgents(10);
+    // check that matrix of 10 agents has 10 * 10 cells
+    std::vector<std::vector<float> > test_dmatrix = make_distmatrix(testpop);
+    assert( (test_dmatrix.size() * test_dmatrix[0].size()) == 100);
 
-			/*max = max > population[a].energy ? max : population[a].energy;
-			min = min < population[a].energy ? min : population[a].energy;*/
+    // test diagonal is zero
+    for (int iter = 0; iter < testpop.size(); iter++)
+    {
+        assert(test_dmatrix[iter][iter] == 0.f);
+    }
+    
+}
 
-			assert(population[a].energy != 0 && "agent energy is 0!");
+/// test the distance matrix is correct updated
+void test_distmatrix_update()
+{
+    // create a population
+	std::vector<agent> testpop = initAgents(25);
+    // make distance matrix
+	std::vector<std::vector<float> > test_dmatrix = make_distmatrix(testpop);
 
-			//cout << "fitness " << a << " = " << population[a].energy << endl;
-			fitness_vec.push_back(static_cast<double> (population[a].energy));
+	// move the population manually per the position
+	for (int someiter = 0; someiter < testpop.size(); someiter++)
+	{
+		testpop[someiter].position = static_cast<double>(someiter);
+		testpop[someiter].moveDist = static_cast<double>(someiter) + 0.1f;
+	}
+	
+    // update the matrix
+	update_distmatrix(test_dmatrix, testpop);
 
-			//cout << "fitness vec = "  << fitness_vec[a] << endl;
-		}
-
-		// make temp pop vector
-		std::vector<agent> pop2(popsize);
-		// assign parents
-		for (int a = 0; a < popsize; a++) {
-
-			std::discrete_distribution<> weighted_lottery(fitness_vec.begin(), fitness_vec.end());
-			int parent_id = weighted_lottery(rng);
-			// reset next gen position relative to peak
-			pop2[a].position = initpeak - (population[parent_id].position - currentpeak);
-			// replicate ANN
-			pop2[a].brain = population[parent_id].brain;
-
-			// overwrite energy
-			pop2[a].energy = 0.00001f;
-
-			// mutate ann
-			for (auto& w : pop2[a].brain) {
-				std::bernoulli_distribution mut_event(0.01); // mutation probability
-				if (mut_event(rng)) {
-					std::cauchy_distribution<double> m_shift(0.0, 0.1); // how much of mutation
-					w += static_cast<float> (m_shift(rng));
-				}
-			}
-		}
-
-		// overwrite old gen - this is more complex in matteo's code
-		// no doubt we'll find out why
-		population = pop2;
-
-
-
-
-
-
-
-
-
-
-
-
+    // check diagonal remains zero
+	for (int someiter=0; someiter < testpop.size(); someiter++)
+	{
+		assert(test_dmatrix[someiter][someiter] == 0.f);
+	}
+	
+    // check agent i is 1 steps from agent i-1
+	for (int someiter = 0; someiter < test_dmatrix.size(); someiter++)
+	{
+		assert(static_cast<int>(test_dmatrix[someiter][0]) == someiter);
+		
+	}
+}
 
 
 int main()
 {
-	// run loop
-	for (int igen = 0; igen < nGen; igen++)
-	{
-		cout << "gen = " << igen << endl;
-		// ecological time
-		for (int t = 0; t < tMax; t++)
-		{
-			// sense agents
-			for (int i = 0; i < popsize; i++)
-			{
-				// now sense neighbours
-				population[i].doSenseAgent();
-				// get energy
-				population[i].doGetFood();
+	std::vector<agent> initpop = initAgents(popsize);
 
-				// output energy
-				//cout << "energy = " << population[i].energy << endl;
-			}
+	// run tests
+	test_agent_vec();
+	test_make_dmatrix();
+	test_distmatrix_update();
 
-			// do move
-			for (int i = 0; i < popsize; i++) { population[i].doMove(); }
+	// print dist matrix
 
-			// peak does not reverse after tmax/2
-			currentpeak += waveVelocity; // *(t > tMax / 2 ? -1.f : 1.f);
 
-		}
-
-		if (igen == 0 || igen % 100 == 0)
-		{
-			for (int i = 0; i < popsize; i++) {
-				ofsPos << igen << ","
-					<< i << ","
-					<< currentpeak << ","
-					<< population[i].energy << ","
-					<< population[i].neighbours << ","
-					<< population[i].position
-					<< endl;
-			}
-		}
-
-		
-
-		// reset current peak
-		currentpeak = initpeak;
-
-	}
-	ofsPos.close();
 	return 0;
 }
 
