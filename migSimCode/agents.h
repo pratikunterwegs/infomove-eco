@@ -91,7 +91,7 @@ std::vector<std::vector<float> > make_distmatrix(const std::vector<agent> &popul
 	{
 		for(int iter2 = 0; iter2 < population.size(); iter2++)
 		{
-			distmatrix[iter][iter2] = population[iter] - population[iter2];
+			distmatrix[iter][iter2] = population[iter].position - population[iter2].position;
 		}
 	}
 
