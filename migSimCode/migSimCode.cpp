@@ -45,8 +45,8 @@ void test_distmatrix_update()
 	// move the population manually per the position
 	for (int someiter = 0; someiter < testpop.size(); someiter++)
 	{
-		testpop[someiter].position = static_cast<double>(someiter);
-		testpop[someiter].moveDist = static_cast<double>(someiter) + 0.1f;
+		testpop[someiter].position = static_cast<float>(someiter);
+		testpop[someiter].moveDist = static_cast<float>(someiter) + 0.1f;
 	}
 	
     // update the matrix
