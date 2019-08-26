@@ -116,39 +116,39 @@ void update_distmatrix(std::vector<std::vector<float> > &distmatrix, std::vector
 	}
 }
 
-/// function to count neighbours
-int count_neighbours(const int &which_agent)
-{
-	const int n_neighbours = 0;
-	// count neighbours within distance of 5
-	std::accumulate(distmatrix[which_agent].begin(), distmatrix[which_agent].end(), [&](float xy_dist){if (abs(xy_dist) < 5.f) n_neighbours ++;})
-
-	// output neighbours
-	return n_neighbours;
-}
-
-// input 1 is the landscape value, given by the function peakval^-(steep*(abs(a-peak)))
-void agent::doMove()
-{
-	// agents assess body reserves
-	Ann::input_t inputs; 
-	inputs[0] = pow(peakvalue, -(steepness * (abs(position - currentpeak))));
-	inputs[1] = static_cast<float> (neighbours);
-	// inputs[1] = energy;
-	auto output = brain(inputs);
-
-	// process outputs
-	position += output[0]; //*(output[1] > 0.f ? 1 : -1); // forwards if greater than 0, else back
-
-	// movement cost
-	//energy -= (energy - (output[0] * movecost)) > 0 ? (output[0] * movecost) : 0;
-
-}
-
-void agent::doGetFood()
-{
-	// energy in and divide by neighbours if any
-	energy += ((pow(peakvalue, -(steepness * (abs(position - currentpeak))))) / (neighbours > 0 ? static_cast<float> (neighbours): static_cast<float>(1)));
-}
+///// function to count neighbours
+//int count_neighbours(const int &which_agent)
+//{
+//	const int n_neighbours = 0;
+//	// count neighbours within distance of 5
+//	std::accumulate(distmatrix[which_agent].begin(), distmatrix[which_agent].end(), [&](float xy_dist){if (abs(xy_dist) < 5.f) n_neighbours ++;})
+//
+//	// output neighbours
+//	return n_neighbours;
+//}
+//
+//// input 1 is the landscape value, given by the function peakval^-(steep*(abs(a-peak)))
+//void agent::doMove()
+//{
+//	// agents assess body reserves
+//	Ann::input_t inputs; 
+//	inputs[0] = pow(peakvalue, -(steepness * (abs(position - currentpeak))));
+//	inputs[1] = static_cast<float> (neighbours);
+//	// inputs[1] = energy;
+//	auto output = brain(inputs);
+//
+//	// process outputs
+//	position += output[0]; //*(output[1] > 0.f ? 1 : -1); // forwards if greater than 0, else back
+//
+//	// movement cost
+//	//energy -= (energy - (output[0] * movecost)) > 0 ? (output[0] * movecost) : 0;
+//
+//}
+//
+//void agent::doGetFood()
+//{
+//	// energy in and divide by neighbours if any
+//	energy += ((pow(peakvalue, -(steepness * (abs(position - currentpeak))))) / (neighbours > 0 ? static_cast<float> (neighbours): static_cast<float>(1)));
+//}
 
 // ends here
