@@ -1,5 +1,4 @@
-// migSimCode.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
+/// migSimCode.cpp : This file contains the 'main' function. Program execution begins and ends there.
 
 #include <iostream>
 #include <fstream>
@@ -18,62 +17,9 @@
 #include "agents.h"
 #include <assert.h>
 
-using namespace std;
+/// write functions
 
-int main()
-{
-	// make distance matrix
-
-
-	// open ofstream of agent positions from peak
-	//ofstream ofsAgent("peakdist.csv");
-	ofstream ofsPos("agentpos.csv");
-
-	// write column names
-	//ofsAgent << "gen, id, time, distpeak" << endl;
-	ofsPos << "gen, id, peakpos, energy, neighbours, pos" << endl;
-
-	// run loop
-	for (int igen = 0; igen < nGen; igen++)
-	{
-		cout << "gen = " << igen << endl;
-		// ecological time
-		for (int t = 0; t < tMax; t++)
-		{
-			// sense agents
-			for (int i = 0; i < popsize; i++)
-			{
-				// now sense neighbours
-				population[i].doSenseAgent();
-				// get energy
-				population[i].doGetFood();
-
-				// output energy
-				//cout << "energy = " << population[i].energy << endl;
-			}
-
-			// do move
-			for (int i = 0; i < popsize; i++) { population[i].doMove(); }
-
-			// peak does not reverse after tmax/2
-			currentpeak += waveVelocity; // *(t > tMax / 2 ? -1.f : 1.f);
-
-		}
-
-		if (igen == 0 || igen % 100 == 0)
-		{
-			for (int i = 0; i < popsize; i++) {
-				ofsPos << igen << ","
-					<< i << ","
-					<< currentpeak << ","
-					<< population[i].energy << ","
-					<< population[i].neighbours << ","
-					<< population[i].position
-					<< endl;
-			}
-		}
-
-		// SECTION: MAKE NEW GENERATION
+/// function to make a new generation
 		// make fitness vec
 		vector<double> fitness_vec;
 		float max = 0.f; float min = 0.f;
@@ -118,6 +64,63 @@ int main()
 		// overwrite old gen - this is more complex in matteo's code
 		// no doubt we'll find out why
 		population = pop2;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+int main()
+{
+	// run loop
+	for (int igen = 0; igen < nGen; igen++)
+	{
+		cout << "gen = " << igen << endl;
+		// ecological time
+		for (int t = 0; t < tMax; t++)
+		{
+			// sense agents
+			for (int i = 0; i < popsize; i++)
+			{
+				// now sense neighbours
+				population[i].doSenseAgent();
+				// get energy
+				population[i].doGetFood();
+
+				// output energy
+				//cout << "energy = " << population[i].energy << endl;
+			}
+
+			// do move
+			for (int i = 0; i < popsize; i++) { population[i].doMove(); }
+
+			// peak does not reverse after tmax/2
+			currentpeak += waveVelocity; // *(t > tMax / 2 ? -1.f : 1.f);
+
+		}
+
+		if (igen == 0 || igen % 100 == 0)
+		{
+			for (int i = 0; i < popsize; i++) {
+				ofsPos << igen << ","
+					<< i << ","
+					<< currentpeak << ","
+					<< population[i].energy << ","
+					<< population[i].neighbours << ","
+					<< population[i].position
+					<< endl;
+			}
+		}
+
+		
 
 		// reset current peak
 		currentpeak = initpeak;

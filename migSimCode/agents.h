@@ -64,7 +64,7 @@ class agent
 		~agent() {};
 
 		// agents need a brain, an age, fitness, and movement decision
-		Ann brain; /*int age;*/ float energy; float position; /* int moveDist; int fSize*/;
+		Ann brain; float energy, position, moveDist;
 		
 		int neighbours = 0;
 
@@ -74,27 +74,57 @@ class agent
 		void doSenseAgent();
 };
 
-// init agents vector
-std::vector<agent> population(popsize);
-
-// init dists vector
-std::vector<float> dist2pop(popsize);
-
-// function to sense agents within perception range
-void agent::doSenseAgent()
+/// function to init N agents
+std::vector<agent> initAgents(const int &number)
 {
-	// reset neighbours
-	neighbours = 0;
-	// get distances
-	int id = 0;
-	while (id < popsize) {
-		dist2pop[id] = population[id].position - position;
+	return std::vector<agent> population (number);
+}
 
-		if(dist2pop[id] < prange) neighbours++;
+/// function to make distance matrix
+std::vector<std::vector<float> > make_distmatrix(const std::vector<agent> &population) noexcept
+{
+	// make holding vector of vectors
+	std::vector< std::vector<float> > distmatrix(population.size(), std::vector<float> (population.size()));
 
-		++id;
+	// populate the matrix with pairwise distances
+	for(int iter = 0; iter < population.size(); iter++)
+	{
+		for(int iter2 = 0; iter2 < population.size(); iter2++)
+		{
+			distmatrix[iter][iter2] = population[iter] - population[iter2];
+		}
 	}
 
+	return distmatrix;
+
+}
+
+/// function to update distance matrix
+void update_distmatrix(std::vector<std::vector<float> > &distmatrix)
+{
+	for (int iter = 0; iter < population.size(); iter++)
+	{
+		if (population[iter].moveDist > 0.f)
+		{
+			// some sort of efficient stl based minus tool later
+			// consider also the valarray class
+			for (iter2 = 0; iter2 < population.size(); iter2++)
+			{
+				distmatrix[iter][iter2] = population[iter].position - population[iter2].position;
+			}
+		}
+	}
+}
+
+/// function to count neighbours
+int count_neighbours(const int &which_agent)
+{
+	const int n_neighbours = 0;
+	// count neighbours within distance of 5
+	std::accumulate(distmatrix[which_agent].begin(), distmatrix[which_agent].end(), [&](float xy_dist){if (abs(xy_dist) < 5.f) n_neighbours ++;})
+
+	// output neighbours
+	return n_neighbours;
 }
 
 // input 1 is the landscape value, given by the function peakval^-(steep*(abs(a-peak)))
