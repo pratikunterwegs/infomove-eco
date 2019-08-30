@@ -67,7 +67,7 @@ void test_distmatrix_update()
 }
 
 /// test neighbour counting
-void test_neighbour_count() 
+void test_neighbour_list() 
 {
 	// create a population
 	std::vector<agent> testpop = initAgents(5);
@@ -81,13 +81,19 @@ void test_neighbour_count()
 	// update the matrix
 	update_distmatrix(test_dmatrix, testpop);
 
-	// count number of neighbours -- last should have no neigbours
-	assert(count_neighbours(testpop.size(), test_dmatrix) == 0);
+	// manually get the neighbours of 0 and update
+	std::vector<int> neighbours0 = { 1,2,3 };
+
+	// list 0 neighbours using function
+	std::vector<int> listNbrs0 = list_neighbours(0, test_dmatrix);
+
+	// assert there are the same neighbours
+	assert(std::equal(neighbours0.begin(), neighbours0.end(), listNbrs0.begin()));
 	
 	// all other should have n-1 neighbours
 	for (int iter = 0; iter < testpop.size() - 1; iter++)
 	{
-		assert(count_neighbours(iter, test_dmatrix) == testpop.size() - 1);
+		assert( (list_neighbours(iter, test_dmatrix)).size() == testpop.size() - 1);
 	}
 }
 
@@ -99,6 +105,7 @@ int main()
 	test_agent_vec();
 	test_make_dmatrix();
 	test_distmatrix_update();
+	test_neighbour_list();
 
 	return 0;
 }
