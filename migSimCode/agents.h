@@ -114,26 +114,35 @@ void update_distmatrix(std::vector<std::vector<float> > &distmatrix, std::vector
 	}
 }
 
-/// function to count neighbours
-int count_neighbours(const int& which_agent, const std::vector<std::vector<float> > &distmatrix)
+/// function to list neighbours
+std::vector<int> list_neighbours(const int & which_agent, const std::vector<std::vector<float> >& distmatrix)
 {
-	int n_neighbours = 0;
-	// count neighbours within distance of 5
-	std::for_each(distmatrix[which_agent].begin(), distmatrix[which_agent].end(), [&](float xy_dist) {if (abs(xy_dist) < prange) n_neighbours++; });
+	std::vector<int> currNbrs;
+	// find neighbours within a sensory radius
+	//std::for_each(distmatrix[which_agent].begin(), distmatrix[which_agent].end(), [&](float xy_dist) {if (abs(xy_dist) < prange) n_neighbours++; });
+	
+	// use a for loop
+	for (int iter = 0; iter < distmatrix[which_agent].size(); iter++)
+	{
+		if (abs(distmatrix[which_agent][iter]) < prange) {
+			currNbrs.push_back(iter);
+		}
+	}
 
-	// output neighbours
-	return n_neighbours;
+	// update agent neighbours
+	return currNbrs;
 }
 
+/// function to entrain to other agent
 // input 1 is the landscape value, given by the function peakval^-(steep*(abs(a-peak)))
-void agent::doMove()
+void agent::chooseFollow(const int &thisNeighbour)
 {
 	// agents assess body reserves
 	Ann::input_t inputs; 
 	inputs[0] = pow(peakvalue, -(steepness * (abs(position - currentpeak))));
-	inputs[1] = static_cast<float> (neighbours);
+	inputs[1] = static_cast<float> ((population[thisNeighbour]).energy);
 	// inputs[1] = energy;
-	auto output = brain(inputs);
+	auto output = annFollow(inputs);
 
 	// process outputs
 	position += output[0]; //*(output[1] > 0.f ? 1 : -1); // forwards if greater than 0, else back
