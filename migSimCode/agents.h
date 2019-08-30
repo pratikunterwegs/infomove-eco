@@ -63,7 +63,7 @@ class agent
 		std::vector<int> neighbours = {};
 
 		// agent action functions
-		// void doGetFood();
+		void doGetFood();
 		// std::vector<int> list_neighbours(int& which_agent, const std::vector<std::vector<float> >& distmatrix);
 		void chooseFollow(const int &thisNeighbour);
 };
@@ -144,19 +144,16 @@ void agent::chooseFollow(const int &thisNeighbour)
 	// inputs[1] = energy;
 	auto output = annFollow(inputs);
 
-	// process outputs
-	position += output[0]; //*(output[1] > 0.f ? 1 : -1); // forwards if greater than 0, else back
-
-	// movement cost
-	//energy -= (energy - (output[0] * movecost)) > 0 ? (output[0] * movecost) : 0;
+	// convert float output to bool
+	follow = output[0] > 0.f ? true : false;
 
 }
 
 /// function to get energy
-//void agent::doGetFood()
-//{
-//	// energy in and divide by neighbours if any
-//	energy += ((pow(peakvalue, -(steepness * (abs(position - currentpeak))))) / (neighbours > 0 ? static_cast<float> (neighbours): static_cast<float>(1)));
-//}
+void agent::doGetFood()
+{
+	// energy in and divide by neighbours if any
+	energy += ((pow(peakvalue, -(steepness * (abs(position - currentpeak))))) / (neighbours > 0 ? static_cast<float> (neighbours): static_cast<float>(1)));
+}
 
 // ends here
