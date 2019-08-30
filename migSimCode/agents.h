@@ -49,27 +49,27 @@ struct flush_rec_nodes
 // agent class
 class agent
 {
-	public:
-		agent() : annFollow(0.f), position(0.f), energy(0.f), moveDist (0.f), 
-			follow (false), leader (0) {};
-		~agent() {};
+public:
+	agent() : annFollow(0.f), position(0.f), energy(0.f), moveDist(0.f),
+		follow(false), leader(0) {};
+	~agent() {};
 
-		// agents need a brain, an age, fitness, and movement decision
-		Ann annFollow; float energy, position, moveDist;
-		bool follow;
-		int leader;
-		
-		
-		std::vector<int> neighbours = {};
+	// agents need a brain, an age, fitness, and movement decision
+	Ann annFollow; float energy, position, moveDist;
+	bool follow;
+	int leader;
 
-		// agent action functions
-		void doGetFood();
-		// std::vector<int> list_neighbours(int& which_agent, const std::vector<std::vector<float> >& distmatrix);
-		void chooseFollow(const int &thisNeighbour);
+
+	std::vector<int> neighbours = {};
+
+	// agent action functions
+	void doGetFood();
+	// std::vector<int> list_neighbours(int& which_agent, const std::vector<std::vector<float> >& distmatrix);
+	void chooseFollow(const int& thisNeighbour);
 };
 
 /// function to init N agents
-std::vector<agent> initAgents(const int &number)
+std::vector<agent> initAgents(const int& number)
 {
 	std::vector<agent> population(number);
 	return population;
@@ -79,15 +79,15 @@ std::vector<agent> initAgents(const int &number)
 std::vector<agent> population = initAgents(popsize);
 
 /// function to make distance matrix
-std::vector<std::vector<float> > make_distmatrix(const std::vector<agent> &population) noexcept
+std::vector<std::vector<float> > make_distmatrix(const std::vector<agent>& population) noexcept
 {
 	// make holding vector of vectors
-	std::vector< std::vector<float> > distmatrix(population.size(), std::vector<float> (population.size()));
+	std::vector< std::vector<float> > distmatrix(population.size(), std::vector<float>(population.size()));
 
 	// populate the matrix with pairwise distances
-	for(int iter = 0; iter < population.size(); iter++)
+	for (int iter = 0; iter < population.size(); iter++)
 	{
-		for(int iter2 = 0; iter2 < population.size(); iter2++)
+		for (int iter2 = 0; iter2 < population.size(); iter2++)
 		{
 			distmatrix[iter][iter2] = population[iter].position - population[iter2].position;
 		}
@@ -98,7 +98,7 @@ std::vector<std::vector<float> > make_distmatrix(const std::vector<agent> &popul
 }
 
 /// function to update distance matrix
-void update_distmatrix(std::vector<std::vector<float> > &distmatrix, std::vector<agent> &population)
+void update_distmatrix(std::vector<std::vector<float> >& distmatrix, std::vector<agent>& population)
 {
 	for (int iter = 0; iter < population.size(); iter++)
 	{
@@ -115,12 +115,12 @@ void update_distmatrix(std::vector<std::vector<float> > &distmatrix, std::vector
 }
 
 /// function to list neighbours
-std::vector<int> list_neighbours(const int & which_agent, const std::vector<std::vector<float> >& distmatrix)
+std::vector<int> list_neighbours(const int& which_agent, const std::vector<std::vector<float> >& distmatrix)
 {
 	std::vector<int> currNbrs;
 	// find neighbours within a sensory radius
 	//std::for_each(distmatrix[which_agent].begin(), distmatrix[which_agent].end(), [&](float xy_dist) {if (abs(xy_dist) < prange) n_neighbours++; });
-	
+
 	// use a for loop
 	for (int iter = 0; iter < distmatrix[which_agent].size(); iter++)
 	{
@@ -135,10 +135,10 @@ std::vector<int> list_neighbours(const int & which_agent, const std::vector<std:
 
 /// function to entrain to other agent
 // input 1 is the landscape value, given by the function peakval^-(steep*(abs(a-peak)))
-void agent::chooseFollow(const int &thisNeighbour)
+void agent::chooseFollow(const int& thisNeighbour)
 {
 	// agents assess body reserves
-	Ann::input_t inputs; 
+	Ann::input_t inputs;
 	inputs[0] = pow(peakvalue, -(steepness * (abs(position - currentpeak))));
 	inputs[1] = static_cast<float> ((population[thisNeighbour]).energy);
 	// inputs[1] = energy;
@@ -146,6 +146,8 @@ void agent::chooseFollow(const int &thisNeighbour)
 
 	// convert float output to bool
 	follow = output[0] > 0.f ? true : false;
+	// assign leader
+	leader = thisNeighbour;
 
 }
 
