@@ -97,15 +97,45 @@ void test_neighbour_list()
 	}
 }
 
+// need to add black box test for the neural network ouput
+
+/// the main function
+int do_main()
+{
+	// run for 100 generations of 100 timesteps
+	for (int gen = 0; gen < genmax; gen++)
+	{
+		// make initial distance matrix
+		std::vector<std::vector<float> > distmatrix_t = make_distmatrix(population);
+		
+		// loop through timesteps
+		for (int t = 0; t < tMax; t++)
+		{
+			// loop through agents and do actions
+			for (int ind = 0; ind < popsize; ind++)
+			{
+				// more to be done here
+			}
+
+			// move the resource peak by the wave speed
+			currentpeak += waveVelocity;
+		}
+
+		// rest current peak
+		currentpeak = initpeak;
+	}
+
+	return 0;
+}
+
 int main()
 {
-	std::vector<agent> initpop = initAgents(popsize);
-
 	// run tests
 	test_agent_vec();
 	test_make_dmatrix();
 	test_distmatrix_update();
 	test_neighbour_list();
+
 
 	return 0;
 }

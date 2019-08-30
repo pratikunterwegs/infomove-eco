@@ -155,7 +155,7 @@ void agent::chooseFollow(const int& thisNeighbour)
 void agent::doGetFood()
 {
 	// energy in and divide by neighbours if any
-	energy += ((pow(peakvalue, -(steepness * (abs(position - currentpeak))))) / (neighbours > 0 ? static_cast<float> (neighbours) : static_cast<float>(1)));
+	energy += pow(peakvalue, -(steepness * (abs(position - currentpeak))));
 }
 
 /// function to reproduce
