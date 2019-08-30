@@ -153,7 +153,70 @@ void agent::chooseFollow(const int &thisNeighbour)
 void agent::doGetFood()
 {
 	// energy in and divide by neighbours if any
-	energy += ((pow(peakvalue, -(steepness * (abs(position - currentpeak))))) / (neighbours > 0 ? static_cast<float> (neighbours): static_cast<float>(1)));
+	energy += ((pow(peakvalue, -(steepness * (abs(position - currentpeak))))) / (neighbours > 0 ? static_cast<float> (neighbours) : static_cast<float>(1)));
+}
+
+/// function to reproduce
+void do_reprod()
+{
+	// make fitness vec
+	vector<double> fitness_vec;
+	float max = 0.f; float min = 0.f;
+	for (int a = 0; a < popsize; a++) {
+
+		/*max = max > population[a].energy ? max : population[a].energy;
+		min = min < population[a].energy ? min : population[a].energy;*/
+
+		assert(population[a].energy != 0 && "agent energy is 0!");
+
+		//cout << "fitness " << a << " = " << population[a].energy << endl;
+		fitness_vec.push_back(static_cast<double> (population[a].energy));
+
+		//cout << "fitness vec = "  << fitness_vec[a] << endl;
+	}
+
+	// make temp pop vector
+	std::vector<agent> pop2(popsize);
+	// assign parents
+	for (int a = 0; a < popsize; a++) {
+
+		std::discrete_distribution<> weighted_lottery(fitness_vec.begin(), fitness_vec.end());
+		int parent_id = weighted_lottery(rng);
+		// reset next gen position relative to peak
+		pop2[a].position = initpeak - (population[parent_id].position - currentpeak);
+		// replicate ANN
+		pop2[a].annFollow = population[parent_id].annFollow;
+		// replicate movement parameters
+		pop2[a].moveDist = population[parent_id].moveDist;
+
+		// overwrite energy
+		pop2[a].energy = 0.00001f;
+
+		// mutate ann
+		for (auto& w : pop2[a].annFollow) {
+			std::bernoulli_distribution mut_event(0.01); // mutation probability
+			// probabilistic mutation of ANN
+			if (mut_event(rng)) {
+				std::cauchy_distribution<double> m_shift(0.0, 0.1); // how much of mutation
+				w += static_cast<float> (m_shift(rng));
+			}
+		}
+
+		// mutate movement parameter
+		{std::bernoulli_distribution mut_event(0.01); // mutation probability
+			// probabilistic mutation of ANN
+		if (mut_event(rng))
+		{
+			std::cauchy_distribution<double> m_shift(0.0, 5.0); // how much of mutation
+			pop2[a].moveDist += static_cast<float> (m_shift(rng));
+		}
+		}
+
+	}
+
+	// overwrite old gen - this is more complex in matteo's code
+	// no doubt we'll find out why
+	population = pop2;
 }
 
 // ends here
