@@ -75,6 +75,9 @@ std::vector<agent> initAgents(const int &number)
 	return population;
 }
 
+/// init agents
+std::vector<agent> population = initAgents(popsize);
+
 /// function to make distance matrix
 std::vector<std::vector<float> > make_distmatrix(const std::vector<agent> &population) noexcept
 {
