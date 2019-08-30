@@ -18,7 +18,7 @@ using namespace ann;
 // float movecost = 0.01f;
 
 // perception range
-float prange = 10.f;
+const float prange = 10.f;
 
 // spec ann structure
 using Ann = Network<float,
