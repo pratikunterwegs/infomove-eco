@@ -50,17 +50,22 @@ struct flush_rec_nodes
 class agent
 {
 	public:
-		agent() : brain(0.f), position(0.f), energy(0.f), moveDist (0.f) {};
+		agent() : annFollow(0.f), position(0.f), energy(0.f), moveDist (0.f), 
+			follow (false), leader (0) {};
 		~agent() {};
 
 		// agents need a brain, an age, fitness, and movement decision
-		Ann brain; float energy, position, moveDist;
+		Ann annFollow; float energy, position, moveDist;
+		bool follow;
+		int leader;
 		
-		int neighbours = 0;
+		
+		std::vector<int> neighbours = {};
 
 		// agent action functions
-		void doGetFood();
-		void doMove();
+		// void doGetFood();
+		// std::vector<int> list_neighbours(int& which_agent, const std::vector<std::vector<float> >& distmatrix);
+		void chooseFollow(const int &thisNeighbour);
 };
 
 /// function to init N agents
