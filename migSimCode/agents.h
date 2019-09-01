@@ -63,7 +63,7 @@ public:
 	std::vector<int> neighbours = {};
 
 	// agent action functions
-	void chooseLeader(const float &agenPos, const int& thisNeighbour);
+	void chooseLeader(const int &whichAgent, const int& thisNeighbour);
 	void doFollow();
 };
 
