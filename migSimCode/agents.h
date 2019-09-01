@@ -84,55 +84,49 @@ std::vector<agent> initAgents(const int& number)
 std::vector<agent> population = initAgents(popsize);
 
 /// function to make distance matrix
-std::vector<std::vector<float> > make_distmatrix(const std::vector<agent>& population) noexcept
-{
-	// make holding vector of vectors
-	std::vector< std::vector<float> > distmatrix(population.size(), std::vector<float>(population.size()));
-
-	// populate the matrix with pairwise distances
-	for (int iter = 0; iter < population.size(); iter++)
-	{
-		for (int iter2 = 0; iter2 < population.size(); iter2++)
-		{
-			distmatrix[iter][iter2] = population[iter].position - population[iter2].position;
-		}
-	}
-
-	return distmatrix;
-
-}
+//std::vector<std::vector<float> > make_distmatrix(const std::vector<float>& agenPosVec) noexcept
+//{
+//	// make holding vector of vectors
+//	std::vector< std::vector<float> > distmatrix(population.size(), std::vector<float>(population.size()));
+//
+//	// populate the matrix with pairwise distances
+//	for (int iter = 0; iter < population.size(); iter++)
+//	{
+//		for (int iter2 = 0; iter2 < population.size(); iter2++)
+//		{
+//			distmatrix[iter][iter2] = population[iter].position - population[iter2].position;
+//		}
+//	}
+//
+//	return distmatrix;
+//
+//}
 
 /// function to update distance matrix
-void update_distmatrix(std::vector<std::vector<float> >& distmatrix, std::vector<agent>& population)
-{
-	for (int iter = 0; iter < population.size(); iter++)
-	{
-		if (population[iter].moveDist > 0.f)
-		{
-			// some sort of efficient stl based minus tool later
-			// consider also the valarray class
-			for (int iter2 = 0; iter2 < population.size(); iter2++)
-			{
-				distmatrix[iter][iter2] = population[iter].position - population[iter2].position;
-			}
-		}
-	}
-}
+//void update_distmatrix(std::vector<std::vector<float> >& distmatrix, const int &whichAgent)
+//{
+//	const int focalpos = population[whichAgent].position;
+//	distmatrix[whichAgent]
+//}
 
 /// function to list neighbours
-std::vector<int> list_neighbours(const int& which_agent, const std::vector<std::vector<float> >& distmatrix)
+std::vector<int> list_neighbours(const int& which_agent, const std::vector<float> agentPosVec)
 {
 	std::vector<int> currNbrs;
 	// find neighbours within a sensory radius
 	//std::for_each(distmatrix[which_agent].begin(), distmatrix[which_agent].end(), [&](float xy_dist) {if (abs(xy_dist) < prange) n_neighbours++; });
 
 	// use a for loop
-	for (int iter = 0; iter < distmatrix[which_agent].size(); iter++)
+	for (int iter = 0; iter < agentPosVec.size(); iter++)
 	{
-		if (abs(distmatrix[which_agent][iter]) < prange) {
+		// collect agent id within sensory range
+		if (abs(agentPosVec[which_agent] - agentPosVec[iter]) < prange) {
 			currNbrs.push_back(iter);
 		}
 	}
+
+	// remove self from neighbours
+	currNbrs.erase(std::remove(currNbrs.begin(), currNbrs.end(), which_agent), currNbrs.end());
 
 	// update agent neighbours
 	return currNbrs;
