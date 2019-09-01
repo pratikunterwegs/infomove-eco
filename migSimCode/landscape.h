@@ -4,12 +4,11 @@
 #include <vector>
 #include <random>
 #include <cstdlib>
-#include <iostream>
 #include <cmath>
 #include <cassert>
-#include <random>
 #include <chrono>
 #include <string>
+#include <fstream>
 
 // size parameters
 // const int landsize = 1000; // not necessary
