@@ -82,10 +82,9 @@ int do_main()
 
 			// move the resource peak by the wave speed
 			currentpeak += waveVelocity;
-
-			// print current peak
-			std::cout << "currentpeak = " << currentpeak << "\n";
 		}
+		// implement reproduction
+		do_reprod();
 
 		// rest current peak
 		currentpeak = initpeak;
@@ -94,10 +93,20 @@ int do_main()
 	return 0;
 }
 
+/// test do main
+void test_domain()
+{
+	assert(do_main() == 0);
+}
+
 int main()
 {
 	// run tests
 	test_neighbour_list();
+	test_domain();
+
+	do_main();
+	
 
 	cout << "works so far\n";
 	return 0;
