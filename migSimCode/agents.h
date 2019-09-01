@@ -70,6 +70,9 @@ public:
 	void doMove();
 };
 
+/// make vector of agent positions
+std::vector<float> agentPosVec(popsize);
+
 /// function to init N agents
 std::vector<agent> initAgents(const int& number)
 {
