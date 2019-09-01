@@ -65,9 +65,8 @@ public:
 	// agent action functions
 	void doGetFood();
 	// std::vector<int> list_neighbours(int& which_agent, const std::vector<std::vector<float> >& distmatrix);
-	void chooseLeader(const int& thisNeighbour);
+	void chooseLeader(const float &agenPos, const int& thisNeighbour);
 	void doFollow();
-	void doMove();
 };
 
 /// make vector of agent positions
