@@ -48,9 +48,9 @@ int do_main()
 		// loop through timesteps
 		for (int t = 0; t < tMax; t++)
 		{
-			cout << "time = " << t << "\n";
+			//cout << "time = " << t << "\n";
 			// print current peak
-			std::cout << "currentpeak = " << currentpeak << "\n";
+			//std::cout << "currentpeak = " << currentpeak << "\n";
 
 			// loop through agents and do actions
 			for (int ind = 0; ind < popsize; ind++)
@@ -83,6 +83,10 @@ int do_main()
 			// move the resource peak by the wave speed
 			currentpeak += waveVelocity;
 		}
+
+		// output data
+		printData(gen);
+
 		// implement reproduction
 		do_reprod();
 
@@ -93,17 +97,17 @@ int do_main()
 	return 0;
 }
 
-/// test do main
-void test_domain()
-{
-	assert(do_main() == 0);
-}
+///// test do main
+//void test_domain()
+//{
+//	assert(do_main() == 0);
+//}
 
 int main()
 {
 	// run tests
 	test_neighbour_list();
-	test_domain();
+	//test_domain();
 
 	do_main();
 	
