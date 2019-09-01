@@ -10,90 +10,29 @@
 //#include "testAgents.cpp"
 
 // list of tests
-/// test that the vector of agents has at least one agent
-void test_agent_vec()
-{
-	// check size of vector
-	assert((initAgents(10)).size() == 10);
-}
-
-/// test that the distance matrix is correctly created
-void test_make_dmatrix()
-{
-	// make some agents
-	std::vector<agent> testpop = initAgents(10);
-	// check that matrix of 10 agents has 10 * 10 cells
-	std::vector<std::vector<float> > test_dmatrix = make_distmatrix(testpop);
-	assert((test_dmatrix.size() * test_dmatrix[0].size()) == 100);
-
-	// test diagonal is zero
-	for (int iter = 0; iter < testpop.size(); iter++)
-	{
-		assert(test_dmatrix[iter][iter] == 0.f);
-	}
-
-}
-
-/// test the distance matrix is correct updated
-void test_distmatrix_update()
-{
-	// create a population
-	std::vector<agent> testpop = initAgents(25);
-	// make distance matrix
-	std::vector<std::vector<float> > test_dmatrix = make_distmatrix(testpop);
-
-	// move the population manually per the position
-	for (int someiter = 0; someiter < testpop.size(); someiter++)
-	{
-		testpop[someiter].position = static_cast<float>(someiter);
-		testpop[someiter].moveDist = static_cast<float>(someiter) + 0.1f;
-	}
-
-	// update the matrix
-	update_distmatrix(test_dmatrix, testpop);
-
-	// check diagonal remains zero
-	for (int someiter = 0; someiter < testpop.size(); someiter++)
-	{
-		assert(test_dmatrix[someiter][someiter] == 0.f);
-	}
-
-	// check agent i is 1 steps from agent i-1
-	for (int someiter = 0; someiter < test_dmatrix.size(); someiter++)
-	{
-		assert(static_cast<int>(test_dmatrix[someiter][0]) == someiter);
-
-	}
-}
 
 /// test neighbour counting
 void test_neighbour_list() 
 {
-	// create a population
-	std::vector<agent> testpop = initAgents(5);
-	// make distance matrix
-	std::vector<std::vector<float> > test_dmatrix = make_distmatrix(testpop);
+	// create a position vector
+	std::vector<float> testPos(5);
 
-	// move last agent 100 steps ahead
-	testpop[testpop.size()].position += 100.f;
-	testpop[testpop.size()].moveDist += 100.f;
-
-	// update the matrix
-	update_distmatrix(test_dmatrix, testpop);
+	// move last agent (position 4) 100 steps ahead
+	testPos[4] = 100.f;
 
 	// manually get the neighbours of 0 and update
 	std::vector<int> neighbours0 = { 1,2,3 };
 
 	// list 0 neighbours using function
-	std::vector<int> listNbrs0 = list_neighbours(0, test_dmatrix);
+	std::vector<int> listNbrs0 = list_neighbours(0, testPos);
 
 	// assert there are the same neighbours
 	assert(std::equal(neighbours0.begin(), neighbours0.end(), listNbrs0.begin()));
 	
-	// all other should have n-1 neighbours
-	for (int iter = 0; iter < testpop.size() - 1; iter++)
+	// all other should have 3 neighbours (4 minus self)
+	for (int iter = 0; iter < testPos.size() - 1; iter++)
 	{
-		assert( (list_neighbours(iter, test_dmatrix)).size() == testpop.size() - 1);
+		assert( (list_neighbours(iter, testPos)).size() == 3);
 	}
 }
 
@@ -111,6 +50,28 @@ int do_main()
 			// loop through agents and do actions
 			for (int ind = 0; ind < popsize; ind++)
 			{
+				/// section to forage
+				// update the energy vector
+				doGetFood(ind);
+
+				/// section to choose a leader and follow (copy movedist)
+				// return agent neighbours
+				std::vector<int> agentNbrs = list_neighbours(ind, agentPosVec);
+
+				// choose a leader
+				int nbr = 0;
+				// while there is no leader and all neighbours have not been sampled
+				while (population[ind].follow == false && nbr < agentNbrs.size())
+				{
+					// choose a leader if any and include agent
+					population[ind].chooseLeader(ind, agentNbrs[nbr]);
+					nbr++;
+				}
+				population[ind].doFollow();
+
+				/// section to move
+				// update the position vector
+				doMove(ind);
 				
 			}
 
@@ -131,10 +92,9 @@ int do_main()
 int main()
 {
 	// run tests
-	test_agent_vec();
 	test_neighbour_list();
 
-
+	cout << "works so far\n";
 	return 0;
 }
 
