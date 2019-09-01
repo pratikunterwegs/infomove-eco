@@ -50,12 +50,12 @@ struct flush_rec_nodes
 class agent
 {
 public:
-	agent() : annFollow(0.f), position(0.f), energy(0.f), moveDist(0.f),
+	agent() : annFollow(0.f), position(0.f), energy(0.f), moveDist(0.f), moveDistCopy(0.f),
 		follow(false), leader(0) {};
 	~agent() {};
 
 	// agents need a brain, an age, fitness, and movement decision
-	Ann annFollow; float energy, position, moveDist;
+	Ann annFollow; float energy, position, moveDist, moveDistCopy;
 	bool follow;
 	int leader;
 
@@ -65,7 +65,9 @@ public:
 	// agent action functions
 	void doGetFood();
 	// std::vector<int> list_neighbours(int& which_agent, const std::vector<std::vector<float> >& distmatrix);
-	void chooseFollow(const int& thisNeighbour);
+	void chooseLeader(const int& thisNeighbour);
+	void doFollow();
+	void doMove();
 };
 
 /// function to init N agents
@@ -135,20 +137,34 @@ std::vector<int> list_neighbours(const int& which_agent, const std::vector<std::
 
 /// function to entrain to other agent
 // input 1 is the landscape value, given by the function peakval^-(steep*(abs(a-peak)))
-void agent::chooseFollow(const int& thisNeighbour)
+void agent::chooseLeader(const int& thisNeighbour)
 {
-	// agents assess body reserves
+	// agents assess neighbour body reserves
 	Ann::input_t inputs;
-	inputs[0] = pow(peakvalue, -(steepness * (abs(position - currentpeak))));
-	inputs[1] = static_cast<float> ((population[thisNeighbour]).energy);
+	inputs[0] = pow(peakvalue, -(steepness * (abs(position - currentpeak)))); // debatable
+	inputs[1] = static_cast<float> ((population[thisNeighbour]).energy); // neighbour energy
 	// inputs[1] = energy;
 	auto output = annFollow(inputs);
 
 	// convert float output to bool
 	follow = output[0] > 0.f ? true : false;
-	// assign leader
-	leader = thisNeighbour;
+	
+	// assign leader if following engaged
+	leader = follow == true? thisNeighbour : 0;
+}
 
+/// function to update the moveDistCopy, ie, agents copy leader
+// agents revert to inherited move dist if they have no leader
+void agent::doFollow()
+{
+	moveDistCopy = follow ? population[leader].moveDist : moveDist;
+}
+
+/// function to move using inherited param or leader param
+void agent::doMove()
+{
+	// add movedistcopy to position
+	position += moveDistCopy;
 }
 
 /// function to get energy
