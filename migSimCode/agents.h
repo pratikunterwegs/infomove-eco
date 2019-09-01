@@ -50,12 +50,12 @@ struct flush_rec_nodes
 class agent
 {
 public:
-	agent() : annFollow(0.f), energy(0.f), moveDist(0.f), moveDistCopy(0.f),
+	agent() : annFollow(0.f), moveDist(0.f), moveDistCopy(0.f),
 		follow(false), leader(0) {};
 	~agent() {};
 
 	// agents need a brain, an age, fitness, and movement decision
-	Ann annFollow; float energy, moveDist, moveDistCopy;
+	Ann annFollow; float moveDist, moveDistCopy;
 	bool follow;
 	int leader;
 
@@ -63,14 +63,15 @@ public:
 	std::vector<int> neighbours = {};
 
 	// agent action functions
-	void doGetFood();
-	// std::vector<int> list_neighbours(int& which_agent, const std::vector<std::vector<float> >& distmatrix);
 	void chooseLeader(const float &agenPos, const int& thisNeighbour);
 	void doFollow();
 };
 
 /// make vector of agent positions
-std::vector<float> agentPosVec(popsize);
+std::vector<float> agentPosVec(popsize, 0.f);
+
+/// make vector of agent energy
+std::vector<float> agentEnergyVec(popsize, 0.f);
 
 /// function to init N agents
 std::vector<agent> initAgents(const int& number)
@@ -107,12 +108,12 @@ std::vector<int> list_neighbours(const int& which_agent, const std::vector<float
 
 /// function to entrain to other agent
 // input 1 is the landscape value, given by the function peakval^-(steep*(abs(a-peak)))
-void agent::chooseLeader(const float &agentPos, const int& thisNeighbour)
+void agent::chooseLeader(const float &whichAgent, const int& thisNeighbour)
 {
 	// agents assess neighbour body reserves
 	Ann::input_t inputs;
-	inputs[0] = pow(peakvalue, -(steepness * (abs(agentPos - currentpeak)))); // debatable
-	inputs[1] = static_cast<float> ((population[thisNeighbour]).energy); // neighbour energy
+	inputs[0] = static_cast<float> (agentEnergyVec[whichAgent]); // debatable function to calc energy
+	inputs[1] = static_cast<float> (agentEnergyVec[thisNeighbour]); // neighbour energy
 	// inputs[1] = energy;
 	auto output = annFollow(inputs);
 
@@ -138,10 +139,10 @@ void doMove(const int &whichAgent)
 }
 
 /// function to get energy
-void agent::doGetFood()
+void doGetFood(const int &whichAgent)
 {
 	// energy in and divide by neighbours if any
-	energy += pow(peakvalue, -(steepness * (abs(position - currentpeak))));
+	agentEnergyVec[whichAgent] += pow(peakvalue, -(steepness * (abs(agentPosVec[whichAgent] - currentpeak))));
 }
 
 /// function to reproduce
@@ -155,30 +156,32 @@ void do_reprod()
 		/*max = max > population[a].energy ? max : population[a].energy;
 		min = min < population[a].energy ? min : population[a].energy;*/
 
-		assert(population[a].energy != 0 && "agent energy is 0!");
+		assert(agentEnergyVec[a] != 0 && "agent energy is 0!");
 
 		//cout << "fitness " << a << " = " << population[a].energy << endl;
-		fitness_vec.push_back(static_cast<double> (population[a].energy));
+		fitness_vec.push_back(static_cast<double> (agentEnergyVec[a]));
 
 		//cout << "fitness vec = "  << fitness_vec[a] << endl;
 	}
 
-	// make temp pop vector
+	// make temp pop vector, position and energy vectors
 	std::vector<agent> pop2(popsize);
+	std::vector<float> agentPos2(popsize);
+	std::vector<float> agentEnergy2(popsize);
 	// assign parents
 	for (int a = 0; a < popsize; a++) {
 
 		std::discrete_distribution<> weighted_lottery(fitness_vec.begin(), fitness_vec.end());
 		int parent_id = weighted_lottery(rng);
 		// reset next gen position relative to peak
-		pop2[a].position = initpeak - (population[parent_id].position - currentpeak);
+		agentPos2[a] = initpeak - (agentPosVec[parent_id] - currentpeak);
 		// replicate ANN
 		pop2[a].annFollow = population[parent_id].annFollow;
 		// replicate movement parameters
 		pop2[a].moveDist = population[parent_id].moveDist;
 
-		// overwrite energy
-		pop2[a].energy = 0.00001f;
+		// overwrite energy -  this may be unn
+		agentEnergy2[a] = 0.00001f;
 
 		// mutate ann
 		for (auto& w : pop2[a].annFollow) {
@@ -205,6 +208,10 @@ void do_reprod()
 	// overwrite old gen - this is more complex in matteo's code
 	// no doubt we'll find out why
 	population = pop2;
+
+	// now overwrite position and energy vectors
+	agentPosVec = agentPos2;
+	agentEnergyVec = agentEnergy2;
 }
 
 // ends here
