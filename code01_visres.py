@@ -25,11 +25,11 @@ currentWd = p # os.path.dirname(os.path.abspath(__file__)) #os.getcwd()
 print(currentWd)
 
 # read in data
-d = pd.read_csv("migSimCode/agentpos.csv")
+d = pd.read_csv("migSimCode/dataOut.csv")
 for col in d.columns:
     print(col)
 
 # summarise as in R for historgram of distance to peak over time
-g = sns.FacetGrid(d.query('gen > 600'), row="gen", margin_titles=True)
-bins = np.linspace(0, 100, 100)
-g.map(plt.hist, " pos", color="steelblue", bins=bins)
+g = sns.FacetGrid(col="gen", margin_titles=True, data=d, col_wrap=5)
+# bins = np.linspace(0, 700, 100)
+g.map(plt.hist, " energy", color="red")
