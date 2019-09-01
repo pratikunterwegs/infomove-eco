@@ -42,11 +42,16 @@ void test_neighbour_list()
 int do_main()
 {
 	// run for 100 generations of 100 timesteps
-	for (int gen = 0; gen < genmax; gen++)
-	{	
+	for (int gen = 0; gen < 10; gen++)
+	{
+		cout << "gen = " << gen << "\n";
 		// loop through timesteps
 		for (int t = 0; t < tMax; t++)
 		{
+			cout << "time = " << t << "\n";
+			// print current peak
+			std::cout << "currentpeak = " << currentpeak << "\n";
+
 			// loop through agents and do actions
 			for (int ind = 0; ind < popsize; ind++)
 			{
