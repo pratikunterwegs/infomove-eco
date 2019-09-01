@@ -82,32 +82,6 @@ std::vector<agent> initAgents(const int& number)
 /// init agents
 std::vector<agent> population = initAgents(popsize);
 
-/// function to make distance matrix
-//std::vector<std::vector<float> > make_distmatrix(const std::vector<float>& agenPosVec) noexcept
-//{
-//	// make holding vector of vectors
-//	std::vector< std::vector<float> > distmatrix(population.size(), std::vector<float>(population.size()));
-//
-//	// populate the matrix with pairwise distances
-//	for (int iter = 0; iter < population.size(); iter++)
-//	{
-//		for (int iter2 = 0; iter2 < population.size(); iter2++)
-//		{
-//			distmatrix[iter][iter2] = population[iter].position - population[iter2].position;
-//		}
-//	}
-//
-//	return distmatrix;
-//
-//}
-
-/// function to update distance matrix
-//void update_distmatrix(std::vector<std::vector<float> >& distmatrix, const int &whichAgent)
-//{
-//	const int focalpos = population[whichAgent].position;
-//	distmatrix[whichAgent]
-//}
-
 /// function to list neighbours
 std::vector<int> list_neighbours(const int& which_agent, const std::vector<float> agentPosVec)
 {
