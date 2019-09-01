@@ -23,7 +23,7 @@ float currentpeak = initpeak; // to begin
 // wave velocity is a float drawn from a normal dist
 // normal dist
 std::mt19937_64 rng;
-std::normal_distribution<float> normDist(1.f, 1.f);
+std::normal_distribution<float> normDist(1.f, 6.f);
 
 const float waveVelocity = normDist(rng); // how fast the peak moves
 const float peakvalue = 100.f;
