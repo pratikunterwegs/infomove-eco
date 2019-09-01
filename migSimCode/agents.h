@@ -50,12 +50,12 @@ struct flush_rec_nodes
 class agent
 {
 public:
-	agent() : annFollow(0.f), position(0.f), energy(0.f), moveDist(0.f), moveDistCopy(0.f),
+	agent() : annFollow(0.f), energy(0.f), moveDist(0.f), moveDistCopy(0.f),
 		follow(false), leader(0) {};
 	~agent() {};
 
 	// agents need a brain, an age, fitness, and movement decision
-	Ann annFollow; float energy, position, moveDist, moveDistCopy;
+	Ann annFollow; float energy, moveDist, moveDistCopy;
 	bool follow;
 	int leader;
 
