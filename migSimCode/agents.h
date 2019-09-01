@@ -219,4 +219,32 @@ void do_reprod()
 	agentEnergyVec = agentEnergy2;
 }
 
+/// function to print data
+// func must print gen, id, distance from peak, move param, leader, energy at the end of each generation
+void printData(const int& gen_p)
+{
+	// open or append
+	std::ofstream agentofs;
+	agentofs.open("dataOut.csv", std::ofstream::out | std::ofstream::app);
+
+	// col header
+	if (gen_p == 0) { agentofs << "gen, id, pos, movep, movepcopy, leader, energy, peakpos\n"; }
+
+	// print for each ind
+	for (int ind2 = 0; ind2 < popsize; ind2++)
+	{
+		agentofs 
+			<< gen_p << ","
+			<< ind2 << ","
+			<< agentPosVec[ind2] << ","
+			<< population[ind2].moveDist << ","
+			<< population[ind2].moveDistCopy << ","
+			<< population[ind2].leader << ","
+			<< agentEnergyVec[ind2] << ","
+			<< currentpeak << "\n";
+	}
+	// close
+	agentofs.close();
+}
+
 // ends here
