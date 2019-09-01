@@ -108,7 +108,7 @@ std::vector<int> list_neighbours(const int& which_agent, const std::vector<float
 
 /// function to entrain to other agent
 // input 1 is the landscape value, given by the function peakval^-(steep*(abs(a-peak)))
-void agent::chooseLeader(const float &whichAgent, const int& thisNeighbour)
+void agent::chooseLeader(const int &whichAgent, const int& thisNeighbour)
 {
 	// agents assess neighbour body reserves
 	Ann::input_t inputs;
@@ -128,7 +128,12 @@ void agent::chooseLeader(const float &whichAgent, const int& thisNeighbour)
 // agents revert to inherited move dist if they have no leader
 void agent::doFollow()
 {
-	moveDistCopy = follow ? population[leader].moveDist : moveDist;
+	if (follow)
+	{
+		moveDistCopy = population[leader].moveDist;
+	}
+	else moveDistCopy = moveDist;
+
 }
 
 /// function to move using inherited param or leader param
