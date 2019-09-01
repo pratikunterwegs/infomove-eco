@@ -22,7 +22,7 @@ void test_neighbour_list()
 
 	// manually get the neighbours of 0 and update
 	std::vector<int> neighbours0 = { 1,2,3 };
-
+	
 	// list 0 neighbours using function
 	std::vector<int> listNbrs0 = list_neighbours(0, testPos);
 
@@ -63,7 +63,7 @@ int do_main()
 				// return agent neighbours
 				std::vector<int> agentNbrs = list_neighbours(ind, agentPosVec);
 
-				// choose a leader
+				// choose a leader and follow
 				int nbr = 0;
 				// while there is no leader and all neighbours have not been sampled
 				while (population[ind].follow == false && nbr < agentNbrs.size())
