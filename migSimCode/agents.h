@@ -221,21 +221,22 @@ void do_reprod()
 
 /// function to print data
 // func must print gen, id, distance from peak, move param, leader, energy at the end of each generation
-void printData(const int& gen_p)
+void printData(const int& gen_p, const int& time_p)
 {
 	// open or append
 	std::ofstream agentofs;
 	agentofs.open("dataOut.csv", std::ofstream::out | std::ofstream::app);
 
 	// col header
-	if (gen_p == 0) { agentofs << "gen, id, pos, movep, movepcopy, leader, energy, peakpos\n"; }
+	if (gen_p == 0 && time_p == 0) { agentofs << "gen, time, id, pos, movep, movepcopy, leader, energy, peakpos\n"; }
 
 	// print for each ind at every 50 generation
-	if (gen_p == 0 || gen_p % 50 == 0) {
+	if ((gen_p == 0 || gen_p % 50 == 0) && time_p % 50 == 0) {
 		for (int ind2 = 0; ind2 < popsize; ind2++)
 		{
 			agentofs
 				<< gen_p << ","
+				<< time_p << ","
 				<< ind2 << ","
 				<< agentPosVec[ind2] << ","
 				<< population[ind2].moveDist << ","
