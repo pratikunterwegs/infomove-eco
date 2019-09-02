@@ -121,7 +121,7 @@ void agent::chooseLeader(const int &whichAgent, const int& thisNeighbour)
 	follow = output[0] > 0.f ? true : false;
 	
 	// assign leader if following engaged
-	leader = follow == true? thisNeighbour : 0;
+	leader = follow == true? thisNeighbour : -1;
 }
 
 /// function to update the moveDistCopy, ie, agents copy leader
@@ -178,15 +178,20 @@ void do_reprod()
 
 		std::discrete_distribution<> weighted_lottery(fitness_vec.begin(), fitness_vec.end());
 		int parent_id = weighted_lottery(rng);
-		// reset next gen position relative to peak
-		agentPos2[a] = initpeak - (agentPosVec[parent_id] - currentpeak);
+		// reset next gen position, everyone starts on the peak
+		agentPos2[a] = initpeak;
 		// replicate ANN
 		pop2[a].annFollow = population[parent_id].annFollow;
 		// replicate movement parameters
 		pop2[a].moveDist = population[parent_id].moveDist;
+		// reset following to false
+		pop2[a].follow = false;
+		// reset who is being followed
+		pop2[a].leader = -1;
+
 
 		// overwrite energy -  this may be unn
-		agentEnergy2[a] = 0.00001f;
+		agentEnergy2[a] = 0.f;
 
 		// mutate ann
 		for (auto& w : pop2[a].annFollow) {
@@ -231,7 +236,7 @@ void printData(const int& gen_p, const int& time_p)
 	if (gen_p == 0 && time_p == 0) { agentofs << "gen, time, id, pos, movep, movepcopy, leader, energy, peakpos\n"; }
 
 	// print for each ind at every 50 generation
-	if ((gen_p == 0 || gen_p % 50 == 0) && time_p % 50 == 0) {
+	if ((gen_p == 0 || gen_p % 1 == 0) && time_p % 20 == 0) {
 		for (int ind2 = 0; ind2 < popsize; ind2++)
 		{
 			agentofs
