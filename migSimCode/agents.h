@@ -230,18 +230,20 @@ void printData(const int& gen_p)
 	// col header
 	if (gen_p == 0) { agentofs << "gen, id, pos, movep, movepcopy, leader, energy, peakpos\n"; }
 
-	// print for each ind
-	for (int ind2 = 0; ind2 < popsize; ind2++)
-	{
-		agentofs 
-			<< gen_p << ","
-			<< ind2 << ","
-			<< agentPosVec[ind2] << ","
-			<< population[ind2].moveDist << ","
-			<< population[ind2].moveDistCopy << ","
-			<< population[ind2].leader << ","
-			<< agentEnergyVec[ind2] << ","
-			<< currentpeak << "\n";
+	// print for each ind at every 50 generation
+	if (gen_p == 0 || gen_p % 50 == 0) {
+		for (int ind2 = 0; ind2 < popsize; ind2++)
+		{
+			agentofs
+				<< gen_p << ","
+				<< ind2 << ","
+				<< agentPosVec[ind2] << ","
+				<< population[ind2].moveDist << ","
+				<< population[ind2].moveDistCopy << ","
+				<< population[ind2].leader << ","
+				<< agentEnergyVec[ind2] << ","
+				<< currentpeak << "\n";
+		}
 	}
 	// close
 	agentofs.close();

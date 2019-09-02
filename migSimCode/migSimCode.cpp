@@ -42,7 +42,7 @@ void test_neighbour_list()
 int do_main()
 {
 	// run for 100 generations of 100 timesteps
-	for (int gen = 0; gen < 10; gen++)
+	for (int gen = 0; gen < genmax; gen++)
 	{
 		cout << "gen = " << gen << "\n";
 		// loop through timesteps

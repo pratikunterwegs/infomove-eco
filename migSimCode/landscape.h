@@ -30,6 +30,6 @@ const float peakvalue = 100.f;
 const float steepness = 0.05f;
 
 // seasons or replicates params
-const int genmax = 100; //arbit choice
+const int genmax = 1000; //arbit choice
 
 // end here
