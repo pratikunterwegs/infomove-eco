@@ -51,7 +51,7 @@ class agent
 {
 public:
 	agent() : annFollow(dist(rng)), moveDist(dist(rng)), moveDistCopy(0.f),
-		follow(false), leader(0) {};
+		follow(false), leader(-1) {};
 	~agent() {};
 
 	// agents need a brain, an age, fitness, and movement decision
