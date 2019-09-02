@@ -32,4 +32,4 @@ for col in d.columns:
 # summarise as in R for historgram of distance to peak over time
 g = sns.FacetGrid(col="gen", margin_titles=True, data=d, col_wrap=5)
 # bins = np.linspace(0, 700, 100)
-g.map(plt.hist, " energy", color="red")
+g.map(plt.hist, " pos", color="red")
