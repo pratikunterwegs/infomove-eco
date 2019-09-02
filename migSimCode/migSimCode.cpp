@@ -80,12 +80,12 @@ int do_main()
 				
 			}
 
+			// output data
+			printData(gen, t);
+
 			// move the resource peak by the wave speed
 			currentpeak += waveVelocity;
 		}
-
-		// output data
-		printData(gen);
 
 		// implement reproduction
 		do_reprod();
