@@ -19,25 +19,30 @@ void test_neighbour_list()
 	std::vector<float> testPos(5);
 
 	// move last agent (position 4) 100 steps ahead
-	testPos[4] = 100.f;
+	testPos[4] = testPos[3] = 100.f;
 
 	// manually get the neighbours of 0 and update
-	std::vector<int> neighbours0 = { 1,2,3 };
+	std::vector<int> neighbours0 = { 1,2 };
+	std::vector<int> neighbours4 = { 3 };
 	
 	// list 0 neighbours using function
 	std::vector<int> listNbrs0 = list_neighbours(0, testPos);
+	// list 4 neighbours using function
+	std::vector<int> listNbrs4 = list_neighbours(4, testPos);
 
-	// assert there are the same neighbours
+	// assert there are the same neighbours each case - for 0 and 4
 	assert(std::equal(neighbours0.begin(), neighbours0.end(), listNbrs0.begin()));
-	
-	// all other should have 3 neighbours (4 minus self)
-	for (int iter = 0; iter < testPos.size() - 1; iter++)
-	{
-		assert( (list_neighbours(iter, testPos)).size() == 3);
-	}
+	assert(std::equal(neighbours4.begin(), neighbours4.end(), listNbrs4.begin()));
 }
 
 // need to add black box test for the neural network ouput
+
+/// function to print vector output
+template <class T>
+void out_vec(const std::vector<T>& vec)
+{
+	std::copy(std::begin(vec), std::end(vec), std::ostream_iterator<T>(std::cout, " "));
+}
 
 /// the main function
 int do_main()
