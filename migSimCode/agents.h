@@ -94,25 +94,30 @@ std::vector<int> list_neighbours(const int& which_agent, const std::vector<float
 	for (int iter = 0; iter < agentPosVec.size(); iter++)
 	{
 		// collect agent id within sensory range
-		if (abs(agentPosVec[which_agent] - agentPosVec[iter]) < prange) {
+		if ((abs(agentPosVec[which_agent] - agentPosVec[iter]) < prange) && which_agent != iter) {
 			currNbrs.push_back(iter);
 		}
 	}
 
-	// remove self from neighbours
-	currNbrs.erase(std::remove(currNbrs.begin(), currNbrs.end(), which_agent), currNbrs.end());
+	//// remove self from neighbours
+	//currNbrs.erase(std::remove(currNbrs.begin(), currNbrs.end(), which_agent), currNbrs.end());
 
-	// update agent neighbours
+	// shuffle vector
+	std::random_shuffle(currNbrs.begin(), currNbrs.end());
+
 	return currNbrs;
 }
 
 /// function to entrain to other agent
 // input 1 is the landscape value, given by the function peakval^-(steep*(abs(a-peak)))
-void agent::chooseLeader(const int &whichAgent, const int& thisNeighbour)
+void agent::chooseLeader(const int &whichAgent, int& thisNeighbour)
 {
 	// agents assess neighbour body reserves
 	Ann::input_t inputs;
-	inputs[0] = static_cast<float> (agentEnergyVec[whichAgent]); // debatable function to calc energy
+	// get energy cue
+	float energycue = pow(peakvalue, -(steepness * (abs(agentPosVec[whichAgent] - currentpeak))));
+
+	inputs[0] = static_cast<float> (energycue); // debatable function to calc energy
 	inputs[1] = static_cast<float> (agentEnergyVec[thisNeighbour]); // neighbour energy
 	// inputs[1] = energy;
 	auto output = annFollow(inputs);
