@@ -7,6 +7,7 @@
 #include "ann.h"
 #include "agents.h"
 #include <assert.h>
+#include <iterator>
 //#include "testAgents.cpp"
 
 // list of tests
