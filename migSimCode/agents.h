@@ -110,7 +110,7 @@ std::vector<int> list_neighbours(const int& which_agent, const std::vector<float
 
 /// function to entrain to other agent
 // input 1 is the landscape value, given by the function peakval^-(steep*(abs(a-peak)))
-void agent::chooseLeader(const int &whichAgent, int& thisNeighbour)
+void agent::chooseLeader(const int &whichAgent, const int& thisNeighbour)
 {
 	// agents assess neighbour body reserves
 	Ann::input_t inputs;
