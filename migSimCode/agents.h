@@ -28,7 +28,7 @@ using Ann = Network<float,
 >;
 
 // pick rand node weights
-std::uniform_real_distribution<float> dist(-1.f, 1.f);
+std::uniform_real_distribution<float> dist(-0.1f, 0.1f);
 
 // pick rand position
 // std::uniform_real_distribution<double> pos(0.0, 200.0);
