@@ -37,14 +37,15 @@ dsmrpeakdist = d.assign(peakdist = d.peakpos - d.pos)\
 
 # get summary of leader switches per id and gen
 dsmrleadswitch = d.groupby(['gen', 'id'])\
-    .apply(lambda x: (len(x.leader.unique())))
+    .apply(lambda x: pd.Series({'leadswitch':len(x.leader.unique())}))\
+    .reset_index()
 
 #### this is really bad, seems like the agents fix on their first
 # neighbour and are not really choosing who to follow
 
 
 # summarise as in R for historgram of distance to peak over time
-g = sns.FacetGrid(col="gen", row="time", margin_titles=True, data=d)
-bins = np.linspace(-100, 900, 100)
-g.map(plt.hist, "pos", color="red", bins=bins, density=1, alpha=0.8)
-g.map(plt.hist, x=" peakpos", ymin=0,ymax=10, color="steelblue", alpha=0.8)
+g = sns.FacetGrid(col="gen", margin_titles=True, data=dsmrleadswitch, col_wrap=5)
+bins = np.linspace(0, 10, 10)
+g.map(plt.hist, "leadswitch", color="steelblue", bins=bins)
+# g.map(plt.hist, x=" peakpos", ymin=0,ymax=10, color="steelblue", alpha=0.8)
