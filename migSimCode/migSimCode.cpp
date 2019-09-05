@@ -71,6 +71,9 @@ int do_main()
 
 				// choose a leader and follow
 				int nbr = 0;
+				// set follow false manually
+				population[ind].follow = false;
+
 				// while there is no leader and all neighbours have not been sampled
 				while (population[ind].follow == false && nbr < agentNbrs.size())
 				{
@@ -89,8 +92,8 @@ int do_main()
 			// output data
 			printData(gen, t);
 
-			// move the resource peak by the wave speed
-			currentpeak += waveVelocity;
+			// move the resource peak by the wave speed vector
+			currentpeak += waveSpeedVec[t];
 		}
 
 		// implement reproduction
