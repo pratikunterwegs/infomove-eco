@@ -25,7 +25,8 @@ float currentpeak = initpeak; // to begin
 std::mt19937_64 rng;
 std::normal_distribution<float> normDist(1.f, 6.f);
 
-const float waveVelocity = normDist(rng); // how fast the peak moves
+/// make vector of landscape speed
+const std::vector<float> waveSpeedVec (tMax, normDist(rng)); // how fast the peak moves
 const float peakvalue = 100.f;
 const float steepness = 0.05f;
 
