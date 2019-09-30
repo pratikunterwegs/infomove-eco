@@ -284,10 +284,11 @@ void printData(const int& gen_p, const int& time_p)
 	agentofs.open("dataOut.csv", std::ofstream::out | std::ofstream::app);
 
 	// col header
-	if (gen_p == 0 && time_p == 0) { agentofs << "gen,time,id,pos,movep,movepcopy,chainlength,leader,energy,peakpos\n"; }
+	if (gen_p == 0 && time_p == 0) { agentofs << "gen,time,id,movep,movepcopy,chainlength,leader,energy,peakpos\n"; }
 
-	// print for each ind at every 50 generation
-	if ((gen_p == 0 || gen_p % 1 == 0) && time_p % 20 == 0) {
+	// print for each ind
+	/*if ((gen_p == 0 || gen_p % 1 == 0) && time_p % 20 == 0) */
+	{
 		for (int ind2 = 0; ind2 < popsize; ind2++)
 		{
 			agentofs
