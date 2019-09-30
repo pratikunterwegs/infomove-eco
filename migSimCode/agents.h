@@ -311,7 +311,7 @@ void printData(const int& gen_p, const int& time_p)
 				<< population[ind2].chainLength << ","
 				<< population[ind2].leader << ","
 				<< agentEnergyVec[ind2] << ","
-				<< currentpeak << "\n";
+				<< population[ind2].move << "\n";
 		}
 	}
 	// close
