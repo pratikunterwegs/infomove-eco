@@ -45,3 +45,5 @@ Debug/
 
 # pycharm files - let them be
 
+# r files
+.Rhistory
