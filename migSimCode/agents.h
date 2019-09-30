@@ -99,6 +99,14 @@ std::vector<int> list_neighbours(const int& which_agent)
 	return currNbrs;
 }
 
+void resetLeaderAndMove(const int& whichAgent)
+{
+	// reset leader
+	population[whichAgent].leader = -1;
+	// reset movement
+	population[whichAgent].move = true;
+}
+
 /// function to entrain to other agent
 void chooseLeader(const int& whichAgent, const int& thisNeighbour)
 {
