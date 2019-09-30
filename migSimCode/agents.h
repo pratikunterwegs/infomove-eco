@@ -77,12 +77,12 @@ std::vector<agent> population = initAgents(popsize);
 
 /// function to list neighbours
 // retained in case sensory radius becomes an open topic
-std::vector<int> list_neighbours(const int& which_agent, const std::vector<float> agentPosVec)
+std::vector<int> list_neighbours(const int& which_agent)
 {
 	std::vector<int> currNbrs;
 
 	// use a for loop
-	for (int iter = 0; iter < agentPosVec.size(); iter++)
+	for (int iter = 0; iter < popsize; iter++)
 	{
 		// collect agent id within sensory range
 		//if ((abs(agentPosVec[which_agent] - agentPosVec[iter]) < prange) && which_agent != iter) {
