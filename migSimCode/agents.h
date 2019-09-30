@@ -42,7 +42,7 @@ class agent
 {
 public:
 	agent() : annFollow(dist(rng)), moveDist(dist(rng)), moveDistCopy(0.f),
-		follow(false), leader(-1) {};
+		move(true), leader(-1) {};
 	~agent() {};
 
 	// agents need a brain, an age, fitness, and movement decision
@@ -50,16 +50,13 @@ public:
 	bool follow;
 	int leader;
 
-
-	std::vector<int> neighbours = {};
+	// pointer to param
+	float* movePointer;
 
 	// agent action functions
-	void chooseLeader(const int &whichAgent, const int& thisNeighbour);
+	// void chooseLeader(const int &whichAgent, const int& thisNeighbour);
 	void doFollow();
 };
-
-/// make vector of agent positions
-std::vector<float> agentPosVec(popsize, 0.f);
 
 /// make vector of agent energy
 std::vector<float> agentEnergyVec(popsize, 0.f);
