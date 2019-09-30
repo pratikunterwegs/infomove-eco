@@ -54,6 +54,9 @@ int do_main()
 			// loop through agents and do actions
 			for (int ind = 0; ind < popsize; ind++)
 			{
+				// reset leader, movement etc
+				resetLeaderAndMove(ind);
+
 				// return agent neighbours
 				std::vector<int> agentNbrs = list_neighbours(ind);
 
