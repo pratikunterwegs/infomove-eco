@@ -136,14 +136,14 @@ void resolveLeaders(const int& whichAgent)
 		std::vector<int> leadchain(1);
 		// figure out the first link in the chain
 		leadchain[0] = whichAgent;
-			   
+
 		// construct the leadership chain
 		int iter = population[whichAgent].leader;
-		while (population[iter].leader != -1 && leadchain.size() < popsize) 
+		while (population[iter].leader != -1 && leadchain.size() < popsize)
 		{
 			// add to chain after updating
 			leadchain.push_back(iter);
-			
+
 			iter = population[iter].leader;
 		}
 		// add ultimate leader
@@ -159,7 +159,7 @@ void resolveLeaders(const int& whichAgent)
 		// make un unordered set to check if duplicates are being added
 		unordered_set<int> checkDups;
 
-		for (int j = 0; j < initCount && checkDups.find(leadchain[j]) == checkDups.end(); j++) 
+		for (int j = 0; j < initCount && checkDups.find(leadchain[j]) == checkDups.end(); j++)
 		{
 			templeadchain.push_back(leadchain[j]);
 			checkDups.insert(leadchain[j]);
@@ -184,16 +184,19 @@ void resolveLeaders(const int& whichAgent)
 		if (initCount > finalCount) {
 			for (int j = 0; j < leadchain.size(); j++) {
 				population[leadchain[j]].move = false;
+
+				// also set their movedistcopy to zero
+				population[leadchain[j]].moveDistCopy = 0.f;
 			}
 		}
 		// link forwards along the chain
 		for (int iter = 0; iter < leadchain.size() - 1; iter++) {
 			// print to check forwards linking
-			population[leadchain[iter]].movePointer = &population[leadchain[(iter+1)]].moveDistCopy;
+			population[leadchain[iter]].movePointer = &population[leadchain[(iter + 1)]].moveDistCopy;
 		}
 
 		// update backwards along the chain
-		for (int l = leadchain.size() - 1; l >= 0; l--) 
+		for (int l = leadchain.size() - 1; l >= 0; l--)
 		{
 			population[leadchain[l]].moveDistCopy = *population[leadchain[l]].movePointer;
 		}
