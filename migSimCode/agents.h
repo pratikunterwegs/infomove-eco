@@ -250,6 +250,8 @@ void do_reprod()
 		pop2[a].leader = -1;
 		// overwrite movedist copy
 		pop2[a].moveDistCopy = pop2[a].moveDist;
+		//overwrite movement pointer
+		pop2[a].movePointer = &pop2[a].moveDistCopy;
 
 		// overwrite energy
 		agentEnergy2[a] = 0.f;
