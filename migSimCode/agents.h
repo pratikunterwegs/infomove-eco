@@ -157,7 +157,8 @@ void resolveLeaders(const int& whichAgent)
 		// make un unordered set to check if duplicates are being added
 		unordered_set<int> checkDups;
 
-		for (int j = 0; j < leadchain.size() && checkDups.find(leadchain[j]) == checkDups.end(); j++) {
+		for (int j = 0; j < initCount && checkDups.find(leadchain[j]) == checkDups.end(); j++) 
+		{
 			templeadchain.push_back(leadchain[j]);
 			checkDups.insert(leadchain[j]);
 		}
