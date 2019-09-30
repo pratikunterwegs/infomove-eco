@@ -26,9 +26,9 @@ void test_neighbour_list()
 	std::vector<int> neighbours4 = { 3 };
 	
 	// list 0 neighbours using function
-	std::vector<int> listNbrs0 = list_neighbours(0, testPos);
+	std::vector<int> listNbrs0 = list_neighbours(0);
 	// list 4 neighbours using function
-	std::vector<int> listNbrs4 = list_neighbours(4, testPos);
+	std::vector<int> listNbrs4 = list_neighbours(4);
 
 	// assert there are the same neighbours each case - for 0 and 4
 	assert(std::equal(neighbours0.begin(), neighbours0.end(), listNbrs0.begin()));
