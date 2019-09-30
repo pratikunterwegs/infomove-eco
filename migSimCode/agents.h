@@ -229,21 +229,16 @@ void do_reprod()
 
 	// make temp pop vector, position and energy vectors
 	std::vector<agent> pop2(popsize);
-	std::vector<float> agentPos2(popsize);
 	std::vector<float> agentEnergy2(popsize);
 	// assign parents
 	for (int a = 0; a < popsize; a++) {
 
 		std::discrete_distribution<> weighted_lottery(fitness_vec.begin(), fitness_vec.end());
 		int parent_id = weighted_lottery(rng);
-		// reset next gen position, everyone starts on the peak
-		agentPos2[a] = initpeak;
 		// replicate ANN
 		pop2[a].annFollow = population[parent_id].annFollow;
 		// replicate movement parameters
 		pop2[a].moveDist = population[parent_id].moveDist;
-		// reset following to false
-		pop2[a].follow = false;
 		// reset who is being followed
 		pop2[a].leader = -1;
 
@@ -278,7 +273,6 @@ void do_reprod()
 	population = pop2;
 
 	// now overwrite position and energy vectors
-	agentPosVec = agentPos2;
 	agentEnergyVec = agentEnergy2;
 }
 
@@ -301,7 +295,6 @@ void printData(const int& gen_p, const int& time_p)
 				<< gen_p << ","
 				<< time_p << ","
 				<< ind2 << ","
-				<< agentPosVec[ind2] << ","
 				<< population[ind2].moveDist << ","
 				<< population[ind2].moveDistCopy << ","
 				<< population[ind2].leader << ","
