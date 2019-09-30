@@ -7,6 +7,7 @@
 #include <algorithm>
 #include <functional>
 #include <numeric>
+#include <unordered_set>
 
 #include "ann.h"
 #include "landscape.h"
