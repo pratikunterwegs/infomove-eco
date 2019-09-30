@@ -67,40 +67,43 @@ int do_main()
 
 				/// section to choose a leader and follow (copy movedist)
 				// return agent neighbours
-				std::vector<int> agentNbrs = list_neighbours(ind, agentPosVec);
+				std::vector<int> agentNbrs = list_neighbours(ind);
 
-				// choose a leader and follow
-				int nbr = 0;
-				// set follow false manually
-				population[ind].follow = false;
+				// reset leader
+				resetLeaderAndMove(ind);
 
-				// while there is no leader and all neighbours have not been sampled
-				while (population[ind].follow == false && nbr < agentNbrs.size())
+				// choose a leader from among neighbours
+				int j = 0;
+				while (j < agentNbrs.size() && population[ind].leader != -1)
 				{
-					// choose a leader if any and include agent
-					population[ind].chooseLeader(ind, agentNbrs[nbr]);
-					nbr++;
+					chooseLeader(ind, agentNbrs[j]);
 				}
-				population[ind].doFollow();
-
-				/// section to move
-				// update the position vector
-				doMove(ind);
 				
+			}
+
+			// resolve leadership chains at timestep end
+			// also get food
+			for (int ind = 0; ind < popsize; ind++)
+			{
+				// resolve chains
+				resolveLeaders(ind);
+
+				// get food
+				doGetFood(ind);
 			}
 
 			// output data
 			printData(gen, t);
 
 			// move the resource peak by the wave speed vector
-			currentpeak += waveSpeedVec[t];
+			//currentpeak += waveSpeedVec[t];
 		}
 
 		// implement reproduction
 		do_reprod();
 
 		// rest current peak
-		currentpeak = initpeak;
+		//currentpeak = initpeak;
 	}
 
 	return 0;
