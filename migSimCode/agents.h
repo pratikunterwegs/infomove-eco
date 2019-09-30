@@ -53,7 +53,7 @@ public:
 	Ann annFollow; float moveDist, moveDistCopy;
 	bool move;
 	int chainLength, leader;
-	
+
 	// pointer to param
 	float* movePointer = &moveDistCopy; //points to self unless reset
 
@@ -87,7 +87,7 @@ std::vector<int> list_neighbours(const int& which_agent)
 		//}
 	}
 
-	//// remove self from neighbours
+	// remove self from neighbours
 	currNbrs.erase(std::remove(currNbrs.begin(), currNbrs.end(), which_agent), currNbrs.end());
 
 	// shuffle vector
@@ -104,6 +104,8 @@ void resetLeaderAndMove(const int& whichAgent)
 	population[whichAgent].move = true;
 	// reset movedistcopy
 	population[whichAgent].moveDistCopy = population[whichAgent].moveDist;
+	// reset param pointer
+	population[whichAgent].movePointer = &population[whichAgent].moveDistCopy;
 }
 
 /// function to entrain to other agent
