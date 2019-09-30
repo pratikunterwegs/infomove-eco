@@ -196,6 +196,9 @@ void resolveLeaders(const int& whichAgent)
 			population[leadchain[l]].moveDistCopy = *population[leadchain[l]].movePointer;
 		}
 	}
+	else {
+		population[whichAgent].moveDistCopy = population[whichAgent].moveDist;
+	}
 
 	// no else condition but may be necessary later
 }
