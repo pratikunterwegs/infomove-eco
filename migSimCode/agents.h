@@ -184,15 +184,15 @@ void resolveLeaders(const int& whichAgent)
 				population[leadchain[j]].move = false;
 			}
 		}
-
-
 		// link forwards along the chain
 		for (int iter = 0; iter < leadchain.size() - 1; iter++) {
-			population[leadchain[iter]].movePointer = &population[leadchain[iter + 1]].moveDistCopy;
+			// print to check forwards linking
+			population[leadchain[iter]].movePointer = &population[leadchain[(iter+1)]].moveDistCopy;
 		}
 
 		// update backwards along the chain
-		for (int l = leadchain.size() - 1; l >= 0; l--) {
+		for (int l = leadchain.size() - 1; l >= 0; l--) 
+		{
 			population[leadchain[l]].moveDistCopy = *population[leadchain[l]].movePointer;
 		}
 	}
