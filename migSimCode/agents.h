@@ -102,6 +102,8 @@ void resetLeaderAndMove(const int& whichAgent)
 	population[whichAgent].leader = -1;
 	// reset movement
 	population[whichAgent].move = true;
+	// reset movedistcopy
+	population[whichAgent].moveDistCopy = population[whichAgent].moveDist;
 }
 
 /// function to entrain to other agent
