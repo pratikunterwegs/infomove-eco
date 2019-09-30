@@ -121,21 +121,10 @@ void chooseLeader(const int& whichAgent, const int& thisNeighbour)
 	auto output = population[whichAgent].annFollow(inputs);
 
 	// assign leader if output greater than 0
-	population[whichAgent].leader = output[0] > 0.f ? thisNeighbour : -1;
+	population[whichAgent].leader = (output[0] > 0.f ? thisNeighbour : -1);
+
 
 }
-
-/// function to update the moveDistCopy, ie, agents copy leader
-// agents revert to inherited move dist if they have no leader
-//void doFollow(const int &whichAgent)
-//{
-//	if (population[whichAgent].leader != -1)
-//	{
-//		population[whichAgent].movePointer = &population[ (population[whichAgent].leader) ].moveDistCopy;
-//	}
-//	else population[whichAgent].moveDistCopy = population[whichAgent].moveDist;
-//
-//}
 
 void resolveLeaders(const int& whichAgent)
 {
@@ -144,17 +133,19 @@ void resolveLeaders(const int& whichAgent)
 		// constructing leadchains
 		std::vector<int> leadchain(1);
 		// figure out the first link in the chain
-		leadchain[0] = whichAgent; leadchain[1] = population[whichAgent].leader;
-
+		leadchain[0] = whichAgent;
+			   
 		// construct the leadership chain
 		int iter = population[whichAgent].leader;
 		while (population[iter].leader != -1 && leadchain.size() < popsize) 
 		{
 			// add to chain after updating
 			leadchain.push_back(iter);
+			
 			iter = population[iter].leader;
-
 		}
+		// add ultimate leader
+		leadchain.push_back(iter);
 
 		// get length of the raw loopy chain
 		int initCount = leadchain.size();
