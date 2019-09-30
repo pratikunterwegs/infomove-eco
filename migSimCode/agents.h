@@ -86,7 +86,7 @@ std::vector<int> list_neighbours(const int& which_agent, const std::vector<float
 	}
 
 	//// remove self from neighbours
-	//currNbrs.erase(std::remove(currNbrs.begin(), currNbrs.end(), which_agent), currNbrs.end());
+	currNbrs.erase(std::remove(currNbrs.begin(), currNbrs.end(), which_agent), currNbrs.end());
 
 	// shuffle vector
 	std::random_shuffle(currNbrs.begin(), currNbrs.end());
@@ -95,24 +95,30 @@ std::vector<int> list_neighbours(const int& which_agent, const std::vector<float
 }
 
 /// function to entrain to other agent
-// input 1 is the landscape value, given by the function peakval^-(steep*(abs(a-peak)))
-void agent::chooseLeader(const int &whichAgent, const int& thisNeighbour)
+void chooseLeader(const int &whichAgent, const int& thisNeighbour)
 {
 	// agents assess neighbour body reserves
 	Ann::input_t inputs;
 	// get energy cue
-	float energycue = pow(peakvalue, -(steepness * (abs(agentPosVec[whichAgent] - currentpeak))));
+	float cueSelf = agentEnergyVec[whichAgent];
+	float cueOther = agentEnergyVec[thisNeighbour];
 
 	inputs[0] = static_cast<float> (energycue); // debatable function to calc energy
-	inputs[1] = static_cast<float> (agentEnergyVec[thisNeighbour]); // neighbour energy
+	inputs[1] = static_cast<float> (cueOther); // neighbour energy
 	// inputs[1] = energy;
 	auto output = annFollow(inputs);
 
 	// convert float output to bool
-	follow = output[0] > 0.f ? true : false;
+	population[whichAgent].follow = output[0] > 0.f ? true : false;
 	
 	// assign leader if following engaged
-	leader = follow == true? thisNeighbour : -1;
+	population[whichAgent].leader = follow == true? thisNeighbour : -1;
+
+	// link movement pointers if follow is true
+	if(population[whichAgent].follow){
+	population[whichAgent].movePointer = &population[thisNeighbour].moveDistCopy;
+	}
+
 }
 
 /// function to update the moveDistCopy, ie, agents copy leader
@@ -121,24 +127,17 @@ void agent::doFollow()
 {
 	if (follow)
 	{
-		moveDistCopy = population[leader].moveDist;
+		movePointer = &population[leader].moveDistCopy;
 	}
 	else moveDistCopy = moveDist;
 
-}
-
-/// function to move using inherited param or leader param
-void doMove(const int &whichAgent)
-{
-	// add movedistcopy to position
-	agentPosVec[whichAgent] += population[whichAgent].moveDistCopy;
 }
 
 /// function to get energy
 void doGetFood(const int &whichAgent)
 {
 	// energy in and divide by neighbours if any
-	agentEnergyVec[whichAgent] += pow(peakvalue, -(steepness * (abs(agentPosVec[whichAgent] - currentpeak))));
+	agentEnergyVec[whichAgent] += (1.f / (currentPeak - moveDistCopy));
 }
 
 /// function to reproduce
