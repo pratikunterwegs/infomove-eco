@@ -35,6 +35,6 @@ std::mt19937_64 rng;
 std::normal_distribution<float> normDist(1.f, 6.f);
 
 // seasons or replicates params
-const int genmax = 100; //arbit choice
+const int genmax = 20; //arbit choice
 
 // end here
