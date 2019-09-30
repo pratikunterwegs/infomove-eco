@@ -243,9 +243,10 @@ void do_reprod()
 		pop2[a].moveDist = population[parent_id].moveDist;
 		// reset who is being followed
 		pop2[a].leader = -1;
+		// overwrite movedist copy
+		pop2[a].moveDistCopy = pop2[a].moveDist;
 
-
-		// overwrite energy -  this may be unn
+		// overwrite energy
 		agentEnergy2[a] = 0.f;
 
 		// mutate ann
