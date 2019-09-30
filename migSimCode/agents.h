@@ -204,7 +204,7 @@ void resolveLeaders(const int& whichAgent)
 void doGetFood(const int& whichAgent)
 {
 	// energy in and divide by neighbours if any
-	agentEnergyVec[whichAgent] += (1.f / (1+ (currentpeak - population[whichAgent].moveDistCopy)));
+	agentEnergyVec[whichAgent] += (1.f / (1+ abs(currentpeak - population[whichAgent].moveDistCopy)));
 }
 
 /// function to reproduce
