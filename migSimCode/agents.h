@@ -293,7 +293,7 @@ void printData(const int& gen_p, const int& time_p)
 	agentofs.open("dataOut.csv", std::ofstream::out | std::ofstream::app);
 
 	// col header
-	if (gen_p == 0 && time_p == 0) { agentofs << "gen,time,id,pos,movep,movepcopy,leader,energy,peakpos\n"; }
+	if (gen_p == 0 && time_p == 0) { agentofs << "gen,time,id,pos,movep,movepcopy,chainlength,leader,energy,peakpos\n"; }
 
 	// print for each ind at every 50 generation
 	if ((gen_p == 0 || gen_p % 1 == 0) && time_p % 20 == 0) {
@@ -305,6 +305,7 @@ void printData(const int& gen_p, const int& time_p)
 				<< ind2 << ","
 				<< population[ind2].moveDist << ","
 				<< population[ind2].moveDistCopy << ","
+				<< population[ind2].chainLength << ","
 				<< population[ind2].leader << ","
 				<< agentEnergyVec[ind2] << ","
 				<< currentpeak << "\n";
