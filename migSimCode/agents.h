@@ -75,9 +75,7 @@ std::vector<agent> population = initAgents(popsize);
 std::vector<int> list_neighbours(const int& which_agent, const std::vector<float> agentPosVec)
 {
 	std::vector<int> currNbrs;
-	// find neighbours within a sensory radius
-	//std::for_each(distmatrix[which_agent].begin(), distmatrix[which_agent].end(), [&](float xy_dist) {if (abs(xy_dist) < prange) n_neighbours++; });
-
+	
 	// use a for loop
 	for (int iter = 0; iter < agentPosVec.size(); iter++)
 	{
