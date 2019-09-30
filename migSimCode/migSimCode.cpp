@@ -54,30 +54,22 @@ int do_main()
 			// loop through agents and do actions
 			for (int ind = 0; ind < popsize; ind++)
 			{
-				/// section to forage
-				// update the energy vector
-				doGetFood(ind);
-
-				/// section to choose a leader and follow (copy movedist)
 				// return agent neighbours
 				std::vector<int> agentNbrs = list_neighbours(ind);
 
-				// reset leader
-				resetLeaderAndMove(ind);
-
 				// choose a leader from among neighbours
-				int j = 0;
-				while (j < agentNbrs.size() && population[ind].leader != -1)
+				int someNbr = 0;
+				while (someNbr < agentNbrs.size() && population[ind].leader == -1) // loop  never entered because leader starts at -1
 				{
-					chooseLeader(ind, agentNbrs[j]);
+					chooseLeader(ind, agentNbrs[someNbr]);
+					someNbr++;
 				}
-				
 			}
 
 			// resolve leadership chains at timestep end
 			// also get food
 			for (int ind = 0; ind < popsize; ind++)
-			{
+			{	
 				// resolve chains
 				resolveLeaders(ind);
 
