@@ -17,13 +17,13 @@ using namespace ann;
 
 // spec ann structure
 using Ann = Network<float,
-	Layer< Neuron<2, activation::rtlu>, 3>, // for now, 2 input for land value and agents
+	Layer< Neuron<2, activation::rtlu>, 3>, // for now, 2 input for energy cues
 	// Layer< Neuron<3, activation::rtlu>, 3>,
-	Layer< Neuron<3, activation::rtlu>, 1> // one output, distance
+	Layer< Neuron<3, activation::rtlu>, 1> // one output, true false
 >;
 
 // pick rand node weights
-std::uniform_real_distribution<float> nodeDist(-0.1f, 0.1f);
+std::uniform_real_distribution<float> nodeDist(-1.f, 1.f);
 
 // pick rand move param
 std::uniform_real_distribution<float> movepDist(0.f, 100.f);
