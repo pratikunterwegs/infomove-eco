@@ -14,12 +14,6 @@
 using namespace std;
 using namespace ann;
 
-// move cost
-// float movecost = 0.01f;
-
-// perception range
-const float prange = 10.f;
-
 // spec ann structure
 using Ann = Network<float,
 	Layer< Neuron<2, activation::rtlu>, 3>, // for now, 2 input for land value and agents
@@ -28,10 +22,7 @@ using Ann = Network<float,
 >;
 
 // pick rand node weights
-std::uniform_real_distribution<float> dist(-0.1f, 0.1f);
-
-// pick rand position
-// std::uniform_real_distribution<double> pos(0.0, 200.0);
+std::uniform_real_distribution<float> nodeDist(-0.1f, 0.1f);
 
 // clear node state
 struct flush_rec_nodes
