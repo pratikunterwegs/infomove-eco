@@ -100,7 +100,7 @@ std::vector<int> list_neighbours(const int& which_agent, const std::vector<float
 }
 
 /// function to entrain to other agent
-void chooseLeader(const int &whichAgent, const int& thisNeighbour)
+void chooseLeader(const int& whichAgent, const int& thisNeighbour)
 {
 	// agents assess neighbour body reserves
 	Ann::input_t inputs;
@@ -108,38 +108,101 @@ void chooseLeader(const int &whichAgent, const int& thisNeighbour)
 	float cueSelf = agentEnergyVec[whichAgent];
 	float cueOther = agentEnergyVec[thisNeighbour];
 
-	inputs[0] = static_cast<float> (energycue); // debatable function to calc energy
+	inputs[0] = static_cast<float> (cueSelf); // debatable function to calc energy
 	inputs[1] = static_cast<float> (cueOther); // neighbour energy
 	// inputs[1] = energy;
-	auto output = annFollow(inputs);
+	auto output = population[whichAgent].annFollow(inputs);
 
-	// convert float output to bool
-	population[whichAgent].follow = output[0] > 0.f ? true : false;
-	
-	// assign leader if following engaged
-	population[whichAgent].leader = follow == true? thisNeighbour : -1;
-
-	// link movement pointers if follow is true
-	if(population[whichAgent].follow){
-	population[whichAgent].movePointer = &population[thisNeighbour].moveDistCopy;
-	}
+	// assign leader if output greater than 0
+	population[whichAgent].leader = output[0] > 0.f ? thisNeighbour : -1;
 
 }
 
 /// function to update the moveDistCopy, ie, agents copy leader
 // agents revert to inherited move dist if they have no leader
-void agent::doFollow()
-{
-	if (follow)
-	{
-		movePointer = &population[leader].moveDistCopy;
-	}
-	else moveDistCopy = moveDist;
+//void doFollow(const int &whichAgent)
+//{
+//	if (population[whichAgent].leader != -1)
+//	{
+//		population[whichAgent].movePointer = &population[ (population[whichAgent].leader) ].moveDistCopy;
+//	}
+//	else population[whichAgent].moveDistCopy = population[whichAgent].moveDist;
+//
+//}
 
+void resolveLeaders(const int& whichAgent)
+{
+	if (population[whichAgent].leader != -1)
+	{
+		// constructing leadchains
+		std::vector<int> leadchain(1);
+		// figure out the first link in the chain
+		leadchain[0] = whichAgent; leadchain[1] = population[whichAgent].leader;
+
+		// construct the leadership chain
+		int iter = population[whichAgent].leader;
+		while (population[iter].leader != -1 && leadchain.size() < popsize) 
+		{
+			// add to chain after updating
+			leadchain.push_back(iter);
+			iter = population[iter].leader;
+
+		}
+
+		// get length of the raw loopy chain
+		int initCount = leadchain.size();
+
+		// remove duplicates using set insertion
+		int iter2 = 0;
+		// temp leadchain
+		std::vector<int> templeadchain;
+		// make un unordered set to check if duplicates are being added
+		unordered_set<int> checkDups;
+
+		for (int j = 0; j < leadchain.size() && checkDups.find(leadchain[j]) == checkDups.end(); j++) {
+			templeadchain.push_back(leadchain[j]);
+			checkDups.insert(leadchain[j]);
+		}
+
+		// set leadchain to reduced size
+		leadchain = templeadchain;
+		// get new count
+		int finalCount = leadchain.size();
+
+		// add chain length - this is the length of the raw loopy chain
+			// a value of 200 means a loop was reached
+		population[whichAgent].chainLength = finalCount;
+
+		//// print final leadchain
+		//cout << "final leadchain...\n";
+		//cout_vector(leadchain);
+		//cout << "\n";
+
+		// if leadchain has duplicates, this is a loop
+		// resolve by setting everybody in the chain to not move
+		if (initCount > finalCount) {
+			for (int j = 0; j < leadchain.size(); j++) {
+				population[leadchain[j]].move = false;
+			}
+		}
+
+
+		// link forwards along the chain
+		for (int iter = 0; iter < leadchain.size() - 1; iter++) {
+			population[leadchain[iter]].movePointer = &population[leadchain[iter + 1]].moveDistCopy;
+		}
+
+		// update backwards along the chain
+		for (int l = leadchain.size() - 1; l >= 0; l--) {
+			population[leadchain[l]].moveDistCopy = *population[leadchain[l]].movePointer;
+		}
+	}
+
+	// no else condition but may be necessary later
 }
 
 /// function to get energy
-void doGetFood(const int &whichAgent)
+void doGetFood(const int& whichAgent)
 {
 	// energy in and divide by neighbours if any
 	agentEnergyVec[whichAgent] += (1.f / (currentPeak - moveDistCopy));
