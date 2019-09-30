@@ -45,14 +45,14 @@ struct flush_rec_nodes
 class agent
 {
 public:
-	agent() : annFollow(dist(rng)), moveDist(dist(rng)), moveDistCopy(0.f),
-		move(true), leader(-1) {};
+	agent() : annFollow(nodeDist(rng)), moveDist(movepDist(rng)), moveDistCopy(0.f),
+		move(true), chainLength(0), leader(-1) {};
 	~agent() {};
 
 	// agents need a brain, an age, fitness, and movement decision
 	Ann annFollow; float moveDist, moveDistCopy;
-	bool follow;
-	int leader;
+	bool move;
+	int leader, chainLength;
 
 	// pointer to param
 	float* movePointer;
