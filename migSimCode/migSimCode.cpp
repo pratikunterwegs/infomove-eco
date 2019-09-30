@@ -13,27 +13,27 @@
 // list of tests
 
 /// test neighbour counting
-void test_neighbour_list() 
-{
-	// create a position vector
-	std::vector<float> testPos(5);
-
-	// move last agent (position 4) 100 steps ahead
-	testPos[4] = testPos[3] = 100.f;
-
-	// manually get the neighbours of 0 and update
-	std::vector<int> neighbours0 = { 1,2 };
-	std::vector<int> neighbours4 = { 3 };
-	
-	// list 0 neighbours using function
-	std::vector<int> listNbrs0 = list_neighbours(0);
-	// list 4 neighbours using function
-	std::vector<int> listNbrs4 = list_neighbours(4);
-
-	// assert there are the same neighbours each case - for 0 and 4
-	assert(std::equal(neighbours0.begin(), neighbours0.end(), listNbrs0.begin()));
-	assert(std::equal(neighbours4.begin(), neighbours4.end(), listNbrs4.begin()));
-}
+//void test_neighbour_list() 
+//{
+//	// create a position vector
+//	std::vector<float> testPos(5);
+//
+//	// move last agent (position 4) 100 steps ahead
+//	testPos[4] = testPos[3] = 100.f;
+//
+//	// manually get the neighbours of 0 and update
+//	std::vector<int> neighbours0 = { 1,2 };
+//	std::vector<int> neighbours4 = { 3 };
+//	
+//	// list 0 neighbours using function
+//	std::vector<int> listNbrs0 = list_neighbours(0);
+//	// list 4 neighbours using function
+//	std::vector<int> listNbrs4 = list_neighbours(4);
+//
+//	// assert there are the same neighbours each case - for 0 and 4
+//	assert(std::equal(neighbours0.begin(), neighbours0.end(), listNbrs0.begin()));
+//	assert(std::equal(neighbours4.begin(), neighbours4.end(), listNbrs4.begin()));
+//}
 
 // need to add black box test for the neural network ouput
 
@@ -118,7 +118,7 @@ int do_main()
 int main()
 {
 	// run tests
-	test_neighbour_list();
+	//test_neighbour_list();
 	//test_domain();
 
 	do_main();
