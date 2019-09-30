@@ -37,13 +37,6 @@
 
 // need to add black box test for the neural network ouput
 
-/// function to print vector output
-template <class T>
-void out_vec(const std::vector<T>& vec)
-{
-	std::copy(std::begin(vec), std::end(vec), std::ostream_iterator<T>(std::cout, " "));
-}
-
 /// the main function
 int do_main()
 {
