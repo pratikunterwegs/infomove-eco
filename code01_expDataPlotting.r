@@ -3,6 +3,7 @@
 # load libs
 library(data.table)
 library(ggplot2)
+library(ggthemes)
 
 # ci func
 ci = function(x){qnorm(0.975)*sd(x, na.rm = T)/sqrt(length(x))}
@@ -34,10 +35,10 @@ ggplot(dataSum)+
   coord_cartesian(ylim=c(-10,150))+
   labs(x = "generation", y = "movement distance",
        title = "peak = 100, N agents = 500, genMax = 200, tMax = 10",
-       subtitle = "init move = 0.f, init follow = 0.f")
+       subtitle = "init move = 0.0 : 100.0, init follow = -1.0 : 1.0")
 
 # export plot
-ggsave(filename = "figs/figStaticPeakNoMoveNoFollow.png", device = png(), width = 10, 
+ggsave(filename = "figs/figStaticPeak.png", device = png(), width = 10, 
        height = 8, dpi = 300); dev.off()
 
 
