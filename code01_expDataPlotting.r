@@ -8,7 +8,7 @@ library(ggthemes)
 # ci func
 ci = function(x){qnorm(0.975)*sd(x, na.rm = T)/sqrt(length(x))}
 
-# load data
+# load datas
 data = fread("migSimCode/dataOut.csv")
 
 dataSub = data[gen %% 5 == 0,]
