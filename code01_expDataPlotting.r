@@ -34,11 +34,11 @@ ggplot(dataSum)+
   theme_gdocs()+
   coord_cartesian(ylim=c(-10,150))+
   labs(x = "generation", y = "movement distance",
-       title = "peak = 100, N agents = 500, genMax = 200, tMax = 10",
+       title = "peak = 50/100, N agents = 500, genMax = 200, tMax = 10",
        subtitle = "init move = 0.0 : 100.0, init follow = -1.0 : 1.0")
 
 # export plot
-ggsave(filename = "figs/figStaticPeak.png", device = png(), width = 10, 
+ggsave(filename = "figs/figAltPeak.png", device = png(), width = 10, 
        height = 8, dpi = 300); dev.off()
 
 
