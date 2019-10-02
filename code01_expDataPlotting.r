@@ -40,5 +40,3 @@ ggplot(dataSum)+
 # export plot
 ggsave(filename = "figs/figAltPeak.png", device = png(), width = 10, 
        height = 8, dpi = 300); dev.off()
-
-
