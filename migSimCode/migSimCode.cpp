@@ -43,6 +43,12 @@ int do_main()
 	// run for 100 generations of 100 timesteps
 	for (int gen = 0; gen < genmax; gen++)
 	{
+		if (gen % 20 == 0)
+		{
+			currentpeak = altpeak;
+			altpeak = initpeak;
+			initpeak = currentpeak;
+		}
 		cout << "gen = " << gen << "\n";
 		// loop through timesteps
 		for (int t = 0; t < tMax; t++)
@@ -89,9 +95,6 @@ int do_main()
 
 		// implement reproduction
 		do_reprod();
-
-		// rest current peak
-		//currentpeak = initpeak;
 	}
 
 	return 0;

@@ -21,12 +21,13 @@ void out_vec(const std::vector<T>& vec)
 
 // size parameters
 // const int landsize = 1000; // not necessary
-const int popsize = 50; // not too many
+const int popsize = 500; // not too many
 const int tMax = 10; // not too high
 
 // green wave params
-const float initpeak = 100.f; // arbitrary choice greater than 0
+float initpeak = 100.f; // arbitrary choice greater than 0
 float currentpeak = initpeak; // to begin
+float altpeak = 50.f;
 // const int finalpeak = landsize - initpeak + 100;
 
 // wave velocity is a float drawn from a normal dist
@@ -35,6 +36,6 @@ std::mt19937_64 rng;
 std::normal_distribution<float> normDist(1.f, 6.f);
 
 // seasons or replicates params
-const int genmax = 20; //arbit choice
+const int genmax = 200; //arbit choice
 
 // end here
