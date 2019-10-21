@@ -208,13 +208,6 @@ void resolveLeaders(const int& whichAgent)
 	// no else condition but may be necessary later
 }
 
-/// function to get energy
-void doGetFood(const int& whichAgent)
-{
-	// energy in if move is true - loop following is penalised
-	agentEnergyVec[whichAgent] += population[whichAgent].move ? (1.f / (1 + abs(currentpeak - population[whichAgent].moveDistCopy))) : 0.000001;
-}
-
 /// function to reproduce
 void do_reprod()
 {
