@@ -32,7 +32,7 @@ const int tMax = 10; // not too high
 //
 //// wave velocity is a float drawn from a normal dist
 //// normal dist
-//std::mt19937_64 rng;
+std::mt19937_64 rng;
 //std::normal_distribution<float> normDist(1.f, 6.f);
 
 // seasons or replicates params

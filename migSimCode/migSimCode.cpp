@@ -6,6 +6,7 @@
 #include "landscape.h"
 #include "ann.h"
 #include "agents.h"
+#include "depletion_dynamics.h"
 #include <assert.h>
 #include <iterator>
 //#include "testAgents.cpp"
@@ -43,19 +44,16 @@ int do_main()
 	// run for 100 generations of 100 timesteps
 	for (int gen = 0; gen < genmax; gen++)
 	{
-		if (gen % 20 == 0)
-		{
-			currentpeak = altpeak;
-			altpeak = initpeak;
-			initpeak = currentpeak;
-		}
+		// extend landscape if necessary
+		extendLandscape();
+
+
 		cout << "gen = " << gen << "\n";
 		// loop through timesteps
 		for (int t = 0; t < tMax; t++)
 		{
-			//cout << "time = " << t << "\n";
-			// print current peak
-			//std::cout << "currentpeak = " << currentpeak << "\n";
+			// increment landscape food
+			makeFoodOnLand();
 
 			// loop through agents and do actions
 			for (int ind = 0; ind < popsize; ind++)
@@ -76,15 +74,27 @@ int do_main()
 			}
 
 			// resolve leadership chains at timestep end
-			// also get food
 			for (int ind = 0; ind < popsize; ind++)
 			{	
 				// resolve chains
 				resolveLeaders(ind);
+			}
 
+			// update nAgents on grid cells
+			addAgentsToLand();
+
+			// agents get food after competition
+			for (int ind = 0; ind < popsize; ind++)
+			{
 				// get food
 				doGetFood(ind);
 			}
+
+			// udpate landscape with depletion
+			depleteLand();
+			// reset landscape to remove agents
+			resetAgentsOnLand();
+			
 
 			// output data
 			printData(gen, t);
