@@ -72,7 +72,7 @@ int do_main()
 					someNbr++;
 				}
 			}
-
+			
 			// resolve leadership chains at timestep end
 			for (int ind = 0; ind < popsize; ind++)
 			{	
@@ -80,8 +80,19 @@ int do_main()
 				resolveLeaders(ind);
 			}
 
+			// handle negative movement
+			movePositive();
+			std::cout << "neg moves handled\n";
+
+			// print landscape size
+			std::cout << "landscape size = " << landscape.size() << "\n";
+			// extend landscape if necessary
+			extendLandscape();
+			std::cout << "landscape extended if needed\n";
+
 			// update nAgents on grid cells
 			addAgentsToLand();
+			std::cout << "agents occupy grid cells\n";
 
 			// agents get food after competition
 			for (int ind = 0; ind < popsize; ind++)
@@ -89,11 +100,14 @@ int do_main()
 				// get food
 				doGetFood(ind);
 			}
+			std::cout << "agents fed\n";
 
 			// udpate landscape with depletion
 			depleteLand();
+			std::cout << "landscape depleted\n";
 			// reset landscape to remove agents
 			resetAgentsOnLand();
+			std::cout << "gridcells cleared of agents\n";
 			
 
 			// output data
