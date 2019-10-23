@@ -44,11 +44,8 @@ int do_main()
 	// run for 100 generations of 100 timesteps
 	for (int gen = 0; gen < genmax; gen++)
 	{
-		// extend landscape if necessary
-		extendLandscape();
+		std::cout << "gen = " << gen << "\n";
 
-
-		cout << "gen = " << gen << "\n";
 		// loop through timesteps
 		for (int t = 0; t < tMax; t++)
 		{
