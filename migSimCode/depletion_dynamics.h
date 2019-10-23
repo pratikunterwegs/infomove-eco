@@ -29,7 +29,7 @@ std::vector<gridcell> landscape(100);
 // func to extend landscape
 void extendLandscape()
 {
-	float movemax = 1;
+	float movemax = 1.f;
 	// get max intrinsic move param of population
 	for (int p = 0; p < popsize; p++) {
 		movemax = (movemax > population[p].moveDist) ? movemax : population[p].moveDist;
@@ -38,6 +38,8 @@ void extendLandscape()
 	// compare movemax with landscape length and expand
 	if (static_cast<int>(floor(movemax)) > landscape.size())
 	{
+		// print extension
+		std::cout << "land extension = " << static_cast<int>(floor(movemax)) - landscape.size() << "\n";
 		// make vector of extra grid cells
 		std::vector<gridcell> extraland(static_cast<int>(floor(movemax)) - landscape.size());
 
@@ -65,6 +67,9 @@ void addAgentsToLand()
 		// get agent integer position
 		int agentPos = static_cast<int> (floor(population[p].moveDistCopy));
 
+		// print agent pos
+		std::cout << "agent pos = " << agentPos << "\n";
+
 		// add agent to relevant grid cell
 		landscape[agentPos].nAgents += 1;
 	}
@@ -84,7 +89,7 @@ void doGetFood(const int& whichAgent)
 	float food = static_cast<float> (landscape[agentPos].dFood) / (static_cast<float>(neighbours));
 
 	// energy in if move is true - loop following is penalised
-	agentEnergyVec[whichAgent] += population[whichAgent].move ? food : 0.000001;
+	agentEnergyVec[whichAgent] += (population[whichAgent].move) ? food : 0.000001;
 }
 
 /// function to deplete landscape
@@ -93,7 +98,7 @@ void depleteLand()
 {
 	for (int l = 0; l < landscape.size(); l++)
 	{
-		landscape[l].dFood = (landscape[l].nAgents > 0) ? 0.0 : landscape[l].dFood;
+		landscape[l].dFood = (landscape[l].nAgents > 0) ? 0.f : landscape[l].dFood;
 	}
 }
 
