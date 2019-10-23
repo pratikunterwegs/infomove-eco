@@ -24,14 +24,10 @@ void out_vec(const std::vector<T>& vec)
 const int popsize = 500; // not too many
 const int tMax = 10; // not too high
 
-//// green wave params
-//float initpeak = 100.f; // arbitrary choice greater than 0
-//float currentpeak = initpeak; // to begin
-//float altpeak = 50.f;
-//// const int finalpeak = landsize - initpeak + 100;
-//
-//// wave velocity is a float drawn from a normal dist
-//// normal dist
+// max landsize
+const int maxLand = 1000;
+
+// rand number
 std::mt19937_64 rng;
 //std::normal_distribution<float> normDist(1.f, 6.f);
 
