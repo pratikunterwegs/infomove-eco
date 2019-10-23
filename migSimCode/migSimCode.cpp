@@ -116,6 +116,7 @@ int do_main()
 
 		// implement reproduction
 		do_reprod();
+		//std::cout << "agents reproduce\n";
 	}
 
 	return 0;
