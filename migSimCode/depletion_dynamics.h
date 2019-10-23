@@ -8,7 +8,7 @@
 
 
 // some params
-float regrowth = 0.1;
+float regrowth = 0.1f;
 
 // make gridcell class
 class gridcell
