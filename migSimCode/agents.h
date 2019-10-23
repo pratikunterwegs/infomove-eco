@@ -208,6 +208,13 @@ void resolveLeaders(const int& whichAgent)
 	// no else condition but may be necessary later
 }
 
+/// function to handle negative movement values
+void movePositive() {
+	for (int p = 0; p < popsize; p++) {
+		population[p].moveDistCopy = (population[p].moveDistCopy > 0.f) ? population[p].moveDistCopy : 0.f;
+	}
+}
+
 /// function to reproduce
 void do_reprod()
 {
