@@ -77,8 +77,11 @@ void addAgentsToLand()
 		// print agent pos
 		// std::cout << "agent pos = " << agentPos << "\n";
 
+		// if agents try to cross max land they stop at max land
+		int whichLand = (agentPos >= maxLand) ? (maxLand - 1) : agentPos;
+		
 		// add agent to relevant grid cell
-		landscape[agentPos].nAgents += 1;
+		landscape[whichLand].nAgents += 1;
 	}
 }
 
