@@ -36,14 +36,15 @@ void extendLandscape()
 	}
 
 	// compare movemax with landscape length and expand
-	if (static_cast<int>(floor(movemax)) > landscape.size())
+	if (static_cast<int>(floor(movemax)) >= landscape.size())
 	{
 		// print extension
-		std::cout << "land extension = " << static_cast<int>(floor(movemax)) - landscape.size() << "\n";
 		// make vector of extra grid cells
-		std::vector<gridcell> extraland(static_cast<int>(floor(movemax)) - landscape.size());
+		std::vector<gridcell> extraland(static_cast<int>(floor(movemax)) - landscape.size() + 1); // adding one to handle errors
 
 		landscape.insert(landscape.end(), extraland.begin(), extraland.end());
+		// print success extend
+		std::cout << "land extended to " << landscape.size() << "\n";
 	}
 	
 
