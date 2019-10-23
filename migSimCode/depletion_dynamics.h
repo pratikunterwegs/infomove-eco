@@ -69,7 +69,7 @@ void addAgentsToLand()
 		int agentPos = static_cast<int> (floor(population[p].moveDistCopy));
 
 		// print agent pos
-		std::cout << "agent pos = " << agentPos << "\n";
+		// std::cout << "agent pos = " << agentPos << "\n";
 
 		// add agent to relevant grid cell
 		landscape[agentPos].nAgents += 1;
