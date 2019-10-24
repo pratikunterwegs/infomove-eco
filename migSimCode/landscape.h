@@ -22,7 +22,7 @@ void out_vec(const std::vector<T>& vec)
 // size parameters
 // const int landsize = 1000; // not necessary
 const int popsize = 500; // not too many
-const int tMax = 10; // not too high
+const int tMax = 100; // not too high
 
 // max landsize
 const int maxLand = 1000;
