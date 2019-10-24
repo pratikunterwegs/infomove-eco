@@ -26,7 +26,7 @@ using Ann = Network<float,
 std::uniform_real_distribution<float> nodeDist(-1.f, 1.f);
 
 // pick rand move param
-std::uniform_real_distribution<float> movepDist(50.f, 100.f);
+std::uniform_real_distribution<float> movepDist(50.f, 950.f);
 
 // clear node state
 struct flush_rec_nodes
@@ -292,13 +292,13 @@ void printData(const int& gen_p, const int& time_p)
 {
 	// open or append
 	std::ofstream agentofs;
-	agentofs.open("dataOutExp02.csv", std::ofstream::out | std::ofstream::app);
+	agentofs.open("dataOutExp04.csv", std::ofstream::out | std::ofstream::app);
 
 	// col header
 	if (gen_p == 0 && time_p == 0) { agentofs << "gen,time,id,movep,movepcopy,chainlength,leader,energy,bmove\n"; }
 
 	// print for each ind
-	/*if ((gen_p == 0 || gen_p % 1 == 0) && time_p % 20 == 0) */
+	if ((gen_p == 0 || gen_p % 5 == 0) && time_p % 20 == 0) 
 	{
 		for (int ind2 = 0; ind2 < popsize; ind2++)
 		{
