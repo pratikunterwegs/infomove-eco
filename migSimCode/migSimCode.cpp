@@ -81,10 +81,8 @@ int do_main()
 			movePositive();
 			//std::cout << "neg moves handled\n";
 
-			// print landscape size
-			std::cout << "landscape size = " << landscape.size() << "\n";
-			// extend landscape if necessary
-			extendLandscape();
+			// extend landscape if necessary - no land extension
+			//extendLandscape();
 			//std::cout << "landscape extended if needed\n";
 
 			// update nAgents on grid cells
