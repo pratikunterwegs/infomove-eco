@@ -45,13 +45,12 @@ int do_main()
 	for (int gen = 0; gen < genmax; gen++)
 	{
 		std::cout << "gen = " << gen << "\n";
+		// increment landscape food on a generation basis
+		makeFoodOnLand();
 
 		// loop through timesteps
 		for (int t = 0; t < tMax; t++)
 		{
-			// increment landscape food
-			makeFoodOnLand();
-
 			// loop through agents and do actions
 			for (int ind = 0; ind < popsize; ind++)
 			{
@@ -97,11 +96,9 @@ int do_main()
 			}
 			//std::cout << "agents fed\n";
 
-			// udpate landscape with depletion
-			depleteLand();
 			//std::cout << "landscape depleted\n";
 			// reset landscape to remove agents
-			resetAgentsOnLand();
+			resetAgentsOnLand(t);
 			//std::cout << "gridcells cleared of agents\n";
 			
 
@@ -111,7 +108,8 @@ int do_main()
 			// move the resource peak by the wave speed vector
 			//currentpeak += waveSpeedVec[t];
 		}
-
+		// udpate landscape with depletion on a generation basis
+		depleteLand();
 		// implement reproduction
 		do_reprod();
 		//std::cout << "agents reproduce\n";
