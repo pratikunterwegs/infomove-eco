@@ -105,25 +105,33 @@ void doGetFood(const int& whichAgent)
 	float food = static_cast<float> (landscape[whichLand].dFood) / (static_cast<float>(neighbours));
 
 	// energy in if move is true - loop following is penalised
-	agentEnergyVec[whichAgent] += (population[whichAgent].move) ? food : 0.000001;
+	agentEnergyVec[whichAgent] += (population[whichAgent].move) ? food : 0.000001f;
 }
 
 /// function to deplete landscape
-// all food is depleted if agents visit
+// reduce regrowth by the proportion of visits per generation
 void depleteLand()
 {
 	for (int l = 0; l < landscape.size(); l++)
 	{
-		landscape[l].dFood = (landscape[l].nAgents > 0) ? 0.f : landscape[l].dFood;
+		if (landscape[l].dFood <= 10.f)
+		{
+			landscape[l].dRegrowth += (1.f - static_cast<float>(landscape[l].nTotAgents) / static_cast<float>(popsize * tMax));
+		}
 	}
 }
 
 /// func to reset landscape
-void resetAgentsOnLand()
+void resetAgentsOnLand(const int& thistime)
 {
 	for (int l = 0; l < landscape.size(); l++)
 	{
 		landscape[l].nAgents = 0;
+		if (thistime == tMax)
+		{
+			landscape[l].nTotAgents = 0;
+
+		}
 	}
 }
 
