@@ -23,7 +23,7 @@ using Ann = Network<float,
 >;
 
 // pick rand node weights
-std::uniform_real_distribution<float> nodeDist(-1.f, 1.f);
+std::uniform_real_distribution<float> nodeDist(-10.f, 10.f);
 
 // pick rand move param
 std::uniform_real_distribution<float> movepDist(50.f, 950.f);
