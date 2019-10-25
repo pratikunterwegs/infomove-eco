@@ -14,11 +14,11 @@ float regrowth = 0.1f;
 class gridcell
 {
 public:
-	gridcell() : nAgents(0), dFood(0.0) {};
+	gridcell() : nAgents(0), nTotAgents(0), dFood(1.0), dRegrowth(1.0) {};
 	~gridcell() {};
 
 	// each gridcell stores nAgents and food
-	int nAgents; float dFood;
+	int nAgents, nTotAgents; float dFood, dRegrowth;
 
 };
 
