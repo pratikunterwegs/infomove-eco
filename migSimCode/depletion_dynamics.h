@@ -82,6 +82,9 @@ void addAgentsToLand()
 		
 		// add agent to relevant grid cell
 		landscape[whichLand].nAgents += 1;
+
+		// add total agents
+		landscape[whichLand].nTotAgents += 1;
 	}
 }
 
