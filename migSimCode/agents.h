@@ -179,16 +179,16 @@ void resolveLeaders(const int& whichAgent)
 		//cout_vector(leadchain);
 		//cout << "\n";
 
-		// if leadchain has duplicates, this is a loop
-		// resolve by setting everybody in the chain to not move
-		if (initCount > finalCount) {
-			for (int j = 0; j < leadchain.size(); j++) {
-				population[leadchain[j]].move = false;
+		//// if leadchain has duplicates, this is a loop
+		//// resolve by setting everybody in the chain to not move
+		//if (initCount > finalCount) {
+		//	for (int j = 0; j < leadchain.size(); j++) {
+		//		population[leadchain[j]].move = false;
 
-				// also set their movedistcopy to zero
-				population[leadchain[j]].moveDistCopy = 0.f;
-			}
-		}
+		//		// also set their movedistcopy to zero
+		//		population[leadchain[j]].moveDistCopy = 0.f;
+		//	}
+		//}
 		// link forwards along the chain
 		for (int iter = 0; iter < leadchain.size() - 1; iter++) {
 			// print to check forwards linking
