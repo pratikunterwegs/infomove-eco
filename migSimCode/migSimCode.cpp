@@ -1,129 +1,141 @@
-// migSimCode.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
+/// migSimCode.cpp : This file contains the 'main' function. Program execution begins and ends there.
 
 #include <iostream>
-#include <fstream>
-#include <vector>
-#include <random>
-#include <cstdlib>
-#include <iostream>
-#include <cmath>
 #include <cassert>
-#include <random>
-#include <chrono>
-#include <string>
-#include <algorithm>
-#include <functional>
+#include <vector>
 #include "landscape.h"
+#include "ann.h"
 #include "agents.h"
+#include "depletion_dynamics.h"
 #include <assert.h>
+#include <iterator>
+//#include "testAgents.cpp"
 
-using namespace std;
+// list of tests
+
+/// test neighbour counting
+//void test_neighbour_list() 
+//{
+//	// create a position vector
+//	std::vector<float> testPos(5);
+//
+//	// move last agent (position 4) 100 steps ahead
+//	testPos[4] = testPos[3] = 100.f;
+//
+//	// manually get the neighbours of 0 and update
+//	std::vector<int> neighbours0 = { 1,2 };
+//	std::vector<int> neighbours4 = { 3 };
+//	
+//	// list 0 neighbours using function
+//	std::vector<int> listNbrs0 = list_neighbours(0);
+//	// list 4 neighbours using function
+//	std::vector<int> listNbrs4 = list_neighbours(4);
+//
+//	// assert there are the same neighbours each case - for 0 and 4
+//	assert(std::equal(neighbours0.begin(), neighbours0.end(), listNbrs0.begin()));
+//	assert(std::equal(neighbours4.begin(), neighbours4.end(), listNbrs4.begin()));
+//}
+
+// need to add black box test for the neural network ouput
+
+/// the main function
+int do_main()
+{
+	// run for 100 generations of 100 timesteps
+	for (int gen = 0; gen < genmax; gen++)
+	{
+		std::cout << "gen = " << gen << "\n";
+
+		// loop through timesteps
+		for (int t = 0; t < tMax; t++)
+		{
+			// increment landscape food
+			makeFoodOnLand();
+
+			// loop through agents and do actions
+			for (int ind = 0; ind < popsize; ind++)
+			{
+				// reset leader, movement etc
+				resetLeaderAndMove(ind);
+
+				// return agent neighbours
+				std::vector<int> agentNbrs = list_neighbours(ind);
+
+				// choose a leader from among neighbours
+				int someNbr = 0;
+				while (someNbr < agentNbrs.size() && population[ind].leader == -1) // loop  never entered because leader starts at -1
+				{
+					chooseLeader(ind, agentNbrs[someNbr]);
+					someNbr++;
+				}
+			}
+			
+			// resolve leadership chains at timestep end
+			for (int ind = 0; ind < popsize; ind++)
+			{	
+				// resolve chains
+				resolveLeaders(ind);
+			}
+
+			// handle negative movement
+			movePositive();
+			//std::cout << "neg moves handled\n";
+
+			// extend landscape if necessary - no land extension
+			//extendLandscape();
+			//std::cout << "landscape extended if needed\n";
+
+			// update nAgents on grid cells
+			addAgentsToLand();
+			//std::cout << "agents occupy grid cells\n";
+
+			// agents get food after competition
+			for (int ind = 0; ind < popsize; ind++)
+			{
+				// get food
+				doGetFood(ind);
+			}
+			//std::cout << "agents fed\n";
+
+			// udpate landscape with depletion
+			depleteLand();
+			//std::cout << "landscape depleted\n";
+			// reset landscape to remove agents
+			resetAgentsOnLand();
+			//std::cout << "gridcells cleared of agents\n";
+			
+
+			// output data
+			printData(gen, t);
+
+			// move the resource peak by the wave speed vector
+			//currentpeak += waveSpeedVec[t];
+		}
+
+		// implement reproduction
+		do_reprod();
+		//std::cout << "agents reproduce\n";
+	}
+
+	return 0;
+}
+
+///// test do main
+//void test_domain()
+//{
+//	assert(do_main() == 0);
+//}
 
 int main()
 {
-	// make distance matrix
+	// run tests
+	//test_neighbour_list();
+	//test_domain();
 
+	do_main();
+	
 
-	// open ofstream of agent positions from peak
-	//ofstream ofsAgent("peakdist.csv");
-	ofstream ofsPos("agentpos.csv");
-
-	// write column names
-	//ofsAgent << "gen, id, time, distpeak" << endl;
-	ofsPos << "gen, id, peakpos, energy, neighbours, pos" << endl;
-
-	// run loop
-	for (int igen = 0; igen < nGen; igen++)
-	{
-		cout << "gen = " << igen << endl;
-		// ecological time
-		for (int t = 0; t < tMax; t++)
-		{
-			// sense agents
-			for (int i = 0; i < popsize; i++)
-			{
-				// now sense neighbours
-				population[i].doSenseAgent();
-				// get energy
-				population[i].doGetFood();
-
-				// output energy
-				//cout << "energy = " << population[i].energy << endl;
-			}
-
-			// do move
-			for (int i = 0; i < popsize; i++) { population[i].doMove(); }
-
-			// peak does not reverse after tmax/2
-			currentpeak += waveVelocity; // *(t > tMax / 2 ? -1.f : 1.f);
-
-		}
-
-		if (igen == 0 || igen % 100 == 0)
-		{
-			for (int i = 0; i < popsize; i++) {
-				ofsPos << igen << ","
-					<< i << ","
-					<< currentpeak << ","
-					<< population[i].energy << ","
-					<< population[i].neighbours << ","
-					<< population[i].position
-					<< endl;
-			}
-		}
-
-		// SECTION: MAKE NEW GENERATION
-		// make fitness vec
-		vector<double> fitness_vec;
-		float max = 0.f; float min = 0.f;
-		for (int a = 0; a < popsize; a++) {
-
-			/*max = max > population[a].energy ? max : population[a].energy;
-			min = min < population[a].energy ? min : population[a].energy;*/
-
-			assert(population[a].energy != 0 && "agent energy is 0!");
-
-			//cout << "fitness " << a << " = " << population[a].energy << endl;
-			fitness_vec.push_back(static_cast<double> (population[a].energy));
-
-			//cout << "fitness vec = "  << fitness_vec[a] << endl;
-		}
-
-		// make temp pop vector
-		std::vector<agent> pop2(popsize);
-		// assign parents
-		for (int a = 0; a < popsize; a++) {
-
-			std::discrete_distribution<> weighted_lottery(fitness_vec.begin(), fitness_vec.end());
-			int parent_id = weighted_lottery(rng);
-			// reset next gen position relative to peak
-			pop2[a].position = initpeak - (population[parent_id].position - currentpeak);
-			// replicate ANN
-			pop2[a].brain = population[parent_id].brain;
-
-			// overwrite energy
-			pop2[a].energy = 0.00001f;
-
-			// mutate ann
-			for (auto& w : pop2[a].brain) {
-				std::bernoulli_distribution mut_event(0.01); // mutation probability
-				if (mut_event(rng)) {
-					std::cauchy_distribution<double> m_shift(0.0, 0.1); // how much of mutation
-					w += static_cast<float> (m_shift(rng));
-				}
-			}
-		}
-
-		// overwrite old gen - this is more complex in matteo's code
-		// no doubt we'll find out why
-		population = pop2;
-
-		// reset current peak
-		currentpeak = initpeak;
-
-	}
-	ofsPos.close();
+	cout << "works so far\n";
 	return 0;
 }
 

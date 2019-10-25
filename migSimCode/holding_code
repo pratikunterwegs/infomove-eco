@@ -1,0 +1,47 @@
+/// write functions
+
+/// function to make a new generation CURRENTL WIP
+// make fitness vec
+vector<double> fitness_vec;
+float max = 0.f; float min = 0.f;
+for (int a = 0; a < popsize; a++) {
+
+	/*max = max > population[a].energy ? max : population[a].energy;
+	min = min < population[a].energy ? min : population[a].energy;*/
+
+	assert(population[a].energy != 0 && "agent energy is 0!");
+
+	//cout << "fitness " << a << " = " << population[a].energy << endl;
+	fitness_vec.push_back(static_cast<double> (population[a].energy));
+
+	//cout << "fitness vec = "  << fitness_vec[a] << endl;
+}
+
+// make temp pop vector
+std::vector<agent> pop2(popsize);
+// assign parents
+for (int a = 0; a < popsize; a++) {
+
+	std::discrete_distribution<> weighted_lottery(fitness_vec.begin(), fitness_vec.end());
+	int parent_id = weighted_lottery(rng);
+	// reset next gen position relative to peak
+	pop2[a].position = initpeak - (population[parent_id].position - currentpeak);
+	// replicate ANN
+	pop2[a].brain = population[parent_id].brain;
+
+	// overwrite energy
+	pop2[a].energy = 0.00001f;
+
+	// mutate ann
+	for (auto& w : pop2[a].brain) {
+		std::bernoulli_distribution mut_event(0.01); // mutation probability
+		if (mut_event(rng)) {
+			std::cauchy_distribution<double> m_shift(0.0, 0.1); // how much of mutation
+			w += static_cast<float> (m_shift(rng));
+		}
+	}
+}
+
+// overwrite old gen - this is more complex in matteo's code
+// no doubt we'll find out why
+population = pop2;

@@ -4,33 +4,34 @@
 #include <vector>
 #include <random>
 #include <cstdlib>
-#include <iostream>
 #include <cmath>
 #include <cassert>
-#include <random>
 #include <chrono>
 #include <string>
+#include <fstream>
+#include <ostream>
+
+/// function to print vector output
+template <class T>
+void out_vec(const std::vector<T>& vec)
+{
+	std::copy(std::begin(vec), std::end(vec), std::ostream_iterator<T>(std::cout, " "));
+	std::cout << "\n";
+}
 
 // size parameters
 // const int landsize = 1000; // not necessary
-const int popsize = 1000; // not too many
-const int tMax = 100; // around 200 days
+const int popsize = 500; // not too many
+const int tMax = 25; // not too high
 
-// green wave params
-const float initpeak = 10.f; // arbitrary choice greater than 0
-float currentpeak = initpeak; // to begin
-// const int finalpeak = landsize - initpeak + 100;
+// max landsize
+const int maxLand = 100;
 
-// wave velocity is a float drawn from a normal dist
-// normal dist
+// rand number
 std::mt19937_64 rng;
-std::normal_distribution<float> normDist(1.f, 1.f);
-
-const float waveVelocity = normDist(rng); // how fast the peak moves
-const float peakvalue = 100.f;
-const float steepness = 0.05f;
+//std::normal_distribution<float> normDist(1.f, 6.f);
 
 // seasons or replicates params
-const int nGen = 10000; //arbit choice
+const int genmax = 1000; //arbit choice
 
 // end here
