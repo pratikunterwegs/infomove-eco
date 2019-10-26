@@ -45,15 +45,13 @@ struct flush_rec_nodes
 class agent
 {
 public:
-	agent() : annFollow(nodeDist(rng)), moveDist(50.f), moveDistCopy(moveDist),
+	agent() : annFollow(0.f), moveDist(0.f), moveDistCopy(moveDist),
 		move(true), chainLength(0), leader(-1) {};
 	~agent() {};
-
 	// agents need a brain, an age, fitness, and movement decision
 	Ann annFollow; float moveDist, moveDistCopy;
 	bool move;
 	int chainLength, leader;
-
 	// pointer to param
 	float* movePointer = &moveDistCopy; //points to self unless reset
 
@@ -77,7 +75,6 @@ std::vector<agent> population = initAgents(popsize);
 std::vector<int> list_neighbours(const int& which_agent)
 {
 	std::vector<int> currNbrs;
-
 	// use a for loop
 	for (int iter = 0; iter < popsize; iter++)
 	{
@@ -86,13 +83,10 @@ std::vector<int> list_neighbours(const int& which_agent)
 		currNbrs.push_back(iter);
 		//}
 	}
-
 	// remove self from neighbours
 	currNbrs.erase(std::remove(currNbrs.begin(), currNbrs.end(), which_agent), currNbrs.end());
-
 	// shuffle vector
 	std::random_shuffle(currNbrs.begin(), currNbrs.end());
-
 	return currNbrs;
 }
 
@@ -128,7 +122,7 @@ void chooseLeader(const int& whichAgent, const int& thisNeighbour)
 
 }
 
-void resolveLeaders(const int& whichAgent)
+void resolveLoops(const int& whichAgent)
 {
 	if (population[whichAgent].leader != -1)
 	{
@@ -136,7 +130,6 @@ void resolveLeaders(const int& whichAgent)
 		std::vector<int> leadchain(1);
 		// figure out the first link in the chain
 		leadchain[0] = whichAgent;
-
 		// construct the leadership chain
 		int iter = population[whichAgent].leader;
 		while (population[iter].leader != -1 && leadchain.size() < popsize)
@@ -148,10 +141,8 @@ void resolveLeaders(const int& whichAgent)
 		}
 		// add ultimate leader
 		leadchain.push_back(iter);
-
 		// get length of the raw loopy chain
 		int initCount = leadchain.size();
-
 		// remove duplicates using set insertion
 		int iter2 = 0;
 		// temp leadchain
@@ -169,9 +160,8 @@ void resolveLeaders(const int& whichAgent)
 		leadchain = templeadchain;
 		// get new count
 		int finalCount = leadchain.size();
-
 		// add chain length - this is the length of the raw loopy chain
-			// a value of 200 means a loop was reached
+		// a value of 200 means a loop was reached
 		population[whichAgent].chainLength = finalCount;
 
 		//// print final leadchain
@@ -179,22 +169,26 @@ void resolveLeaders(const int& whichAgent)
 		//cout_vector(leadchain);
 		//cout << "\n";
 
-		//// if leadchain has duplicates, this is a loop
-		//// resolve by setting everybody in the chain to not move
-		//if (initCount > finalCount) {
-		//	for (int j = 0; j < leadchain.size(); j++) {
-		//		population[leadchain[j]].move = false;
+		// if leadchain has duplicates, this is a loop
+		// resolve by setting everybody in the chain to not move
+		if (initCount > finalCount) {
+			// for (int j = 0; j < leadchain.size(); j++) {
+			// 	population[leadchain[j]].move = false;
+			//
+			// 	 also set their movedistcopy to zero
+			// 	population[leadchain[j]].moveDistCopy = 0.f;
+			// }
 
-		//		// also set their movedistcopy to zero
-		//		population[leadchain[j]].moveDistCopy = 0.f;
-		//	}
-		//}
+			// breaks the leadership chain at the end
+			// has an effect for next leadership chain construction
+
+			population[ ( leadchain[ (leadchain.size()) ] ) ].leader = -1;
+		}
 		// link forwards along the chain
 		for (int iter = 0; iter < leadchain.size() - 1; iter++) {
 			// print to check forwards linking
 			population[leadchain[iter]].movePointer = &population[leadchain[(iter + 1)]].moveDistCopy;
 		}
-
 		// update backwards along the chain
 		for (int l = leadchain.size() - 1; l >= 0; l--)
 		{
@@ -298,7 +292,7 @@ void printData(const int& gen_p, const int& time_p)
 	if (gen_p == 0 && time_p == 0) { agentofs << "gen,time,id,movep,movepcopy,chainlength,leader,energy,bmove\n"; }
 
 	// print for each ind
-	//if ((gen_p == 0 || gen_p % 5 == 0) && time_p % 20 == 0) 
+	//if ((gen_p == 0 || gen_p % 5 == 0) && time_p % 20 == 0)
 	{
 		for (int ind2 = 0; ind2 < popsize; ind2++)
 		{
