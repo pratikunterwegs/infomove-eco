@@ -122,7 +122,7 @@ void chooseLeader(const int& whichAgent, const int& thisNeighbour)
 
 }
 
-void resolveLoops(const int& whichAgent)
+void resolveLeaders(const int& whichAgent)
 {
 	if (population[whichAgent].leader != -1)
 	{
