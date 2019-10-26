@@ -45,7 +45,7 @@ struct flush_rec_nodes
 class agent
 {
 public:
-	agent() : annFollow(nodeDist(rng)), moveDist(50.f), moveDistCopy(moveDist),
+	agent() : annFollow(0.f), moveDist(0.f), moveDistCopy(moveDist),
 		move(true), chainLength(0), leader(-1) {};
 	~agent() {};
 
