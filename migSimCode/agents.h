@@ -292,7 +292,7 @@ void printData(const int& gen_p, const int& time_p)
 {
 	// open or append
 	std::ofstream agentofs;
-	agentofs.open("dataOutExp05.csv", std::ofstream::out | std::ofstream::app);
+	agentofs.open("dataOutExp06.csv", std::ofstream::out | std::ofstream::app);
 
 	// col header
 	if (gen_p == 0 && time_p == 0) { agentofs << "gen,time,id,movep,movepcopy,chainlength,leader,energy,bmove\n"; }
