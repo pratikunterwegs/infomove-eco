@@ -21,11 +21,11 @@ void out_vec(const std::vector<T>& vec)
 
 // size parameters
 // const int landsize = 1000; // not necessary
-const int popsize = 500; // not too many
+const int popsize = 100; // not too many
 const int tMax = 25; // not too high
 
 // max landsize
-const int maxLand = 100;
+const int maxLand = 20;
 
 // rand number
 std::mt19937_64 rng;
