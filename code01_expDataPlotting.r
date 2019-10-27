@@ -22,8 +22,7 @@ dataSub = data#[gen %% 5 == 0,]
 #### make plots ####
 # plot difference from optimum of used and inherited param
 {
-  dataSum = dataSub[gen %% 100 == 0,.(gen,id,movep,movepcopy)
-                    ]
+  dataSum = dataSub[gen %% 5 == 0,.(gen,id,movep,movepcopy)              ]
   dataSum = melt(dataSum, id.vars = c("gen","id"))
   #dataSum = dataSum[,`:=`(roundval = plyr::round_any(value, 5))
    #               ][,.N, by = c("gen", "roundval","variable")]
@@ -32,6 +31,7 @@ dataSub = data#[gen %% 5 == 0,]
 # labels
 labels = c(movep = "inherited", movepcopy = "used", diff = "difference")
 
+x11()
 # plot fig
 ggplot(dataSum)+
   geom_density(aes(x = value, fill = variable), alpha=0.6,
