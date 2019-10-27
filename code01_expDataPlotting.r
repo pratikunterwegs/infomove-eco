@@ -24,8 +24,8 @@ dataSub = data#[gen %% 5 == 0,]
 {
   dataSum = dataSub[gen %% 5 == 0,.(gen,id,movep,movepcopy)              ]
   dataSum = melt(dataSum, id.vars = c("gen","id"))
-  #dataSum = dataSum[,`:=`(roundval = plyr::round_any(value, 5))
-   #               ][,.N, by = c("gen", "roundval","variable")]
+  dataSum = dataSum[,`:=`(roundval = plyr::round_any(value, 5))
+                 ][,.N, by = c("gen", "roundval","variable")]
 }
 
 # labels
@@ -34,15 +34,14 @@ labels = c(movep = "inherited", movepcopy = "used", diff = "difference")
 x11()
 # plot fig
 ggplot(dataSum)+
-  geom_density(aes(x = value, fill = variable), alpha=0.6,
-               col = "transparent")+
+  geom_tile(aes(x = gen, y = roundval, fill = N))+
   facet_grid(~gen, 
              labeller = labeller(variable = labels),
              scales = "free_y")+
-  scale_fill_scico_d(palette = "roma")+
+  scale_fill_scico(palette = "bilbao")+
   # scale_x_continuous(breaks = seq(0, 1e3, 25))+
   theme_clean()+
-  xlim(-10, 40)+
+  # xlim(-10, 40)+
   coord_cartesian(ylim=c(0, 0.2))+
   labs(x = "generation", y = "movement distance",
        title = "depletable land, N agents = 100, genMax = 1000, tMax = 25",
