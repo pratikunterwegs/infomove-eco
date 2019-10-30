@@ -8,7 +8,7 @@
 #include <functional>
 #include <numeric>
 #include <unordered_set>
-
+#include <cassert>
 #include "ann.h"
 #include "landscape.h"
 
@@ -158,6 +158,7 @@ void resolveLeaders(const int& whichAgent)
 
 		// set leadchain to reduced size
 		leadchain = templeadchain;
+
 		// get new count
 		int finalCount = leadchain.size();
 		// add chain length - this is the length of the raw loopy chain
@@ -182,8 +183,13 @@ void resolveLeaders(const int& whichAgent)
 			// breaks the leadership chain at the end
 			// has an effect for next leadership chain construction
 
-			population[ ( leadchain[ (leadchain.size()) ] ) ].leader = -1;
+			population[ leadchain.back() ].leader = -1;
 		}
+
+		// check that ultimate leader has no other leader
+		int ultLead = leadchain.back();
+		assert((population[ultLead].leader) == -1);
+
 		// link forwards along the chain
 		for (int iter = 0; iter < leadchain.size() - 1; iter++) {
 			// print to check forwards linking
