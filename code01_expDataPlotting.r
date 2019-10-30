@@ -22,9 +22,10 @@ dataSub = data#[gen %% 5 == 0,]
 #### make plots ####
 # plot difference from optimum of used and inherited param
 {
-  dataSum = dataSub[gen %% 5 == 0,.(gen,id,movep,movepcopy)              ]
+  dataSum = dataSub[#gen %% 5 == 0
+                    ,.(gen,id,movep,movepcopy)]
   dataSum = melt(dataSum, id.vars = c("gen","id"))
-  dataSum = dataSum[,`:=`(roundval = plyr::round_any(value, 5))
+  dataSum = dataSum[,`:=`(roundval = plyr::round_any(value, 1))
                  ][,.N, by = c("gen", "roundval","variable")]
 }
 
@@ -35,18 +36,17 @@ x11()
 # plot fig
 ggplot(dataSum)+
   geom_tile(aes(x = gen, y = roundval, fill = N))+
-  facet_grid(~gen, 
+  facet_wrap(~variable, 
              labeller = labeller(variable = labels),
              scales = "free_y")+
-  scale_fill_scico(palette = "bilbao")+
+  scale_fill_scico(palette = "lajolla")+
   # scale_x_continuous(breaks = seq(0, 1e3, 25))+
   theme_clean()+
-  # xlim(-10, 40)+
-  coord_cartesian(ylim=c(0, 0.2))+
+  ylim(-10, quantile(dataSum$roundval, 0.95))+
+  # coord_cartesian(ylim=c(0, 10))+
   labs(x = "generation", y = "movement distance",
        title = "depletable land, N agents = 100, genMax = 1000, tMax = 25",
        subtitle = "init move = 0.0, init follow = 0.0")
-
 
 # export plot
 ggsave(filename = "figs/figGenExploit.png", device = png(), width = 10, 
