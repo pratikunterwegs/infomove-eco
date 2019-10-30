@@ -22,11 +22,11 @@ dataSub = data#[gen %% 5 == 0,]
 #### make plots ####
 # plot difference from optimum of used and inherited param
 {
-  dataSum = dataSub[#gen %% 5 == 0
-                    ,.(gen,id,movep,movepcopy)]
-  dataSum = melt(dataSum, id.vars = c("gen","id"))
-  dataSum = dataSum[,`:=`(roundval = plyr::round_any(value, 1))
-                 ][,.N, by = c("gen", "roundval","variable")]
+  dataSum = dataSub[(gen %% 5 == 0) & (time %% 4 == 0)
+                    ,.(gen,id,movep,movepcopy,time)]
+  dataSum = melt(dataSum, id.vars = c("gen","id","time"))
+  dataSum = dataSum[,`:=`(roundval = plyr::round_any(value, 2))
+                 ][,.N, by = c("gen", "roundval","variable", "time")]
 }
 
 # labels
@@ -36,10 +36,12 @@ x11()
 # plot fig
 ggplot(dataSum)+
   geom_tile(aes(x = gen, y = roundval, fill = N))+
-  facet_wrap(~variable, 
+  facet_grid(time~variable, 
              labeller = labeller(variable = labels),
              scales = "free_y")+
-  scale_fill_scico(palette = "lajolla")+
+  scale_fill_scico(limits = c(0, 60),
+                   palette = "lajolla",
+                   na.value = "blue")+
   # scale_x_continuous(breaks = seq(0, 1e3, 25))+
   theme_clean()+
   ylim(-10, quantile(dataSum$roundval, 0.95))+
