@@ -119,7 +119,7 @@ void chooseLeader(const int& whichAgent, const int& thisNeighbour)
 
 }
 
-void resolveLeaders(const int& whichAgent)
+void resolveLeaders(std::vector<agent> &population, const int& whichAgent)
 {
 	if (population[whichAgent].leader != -1)
 	{
