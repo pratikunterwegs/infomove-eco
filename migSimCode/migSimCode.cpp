@@ -115,18 +115,21 @@ int do_main()
 			}
 			
 			// reset landscape to remove agents
-			resetAgentsOnLand(t);
+			resetAgentsOverTime();
 			
 			// output data
 			printData(gen, t);
 		}
 
-		// udpate landscape with depletion on a generation basis
+		// update landscape with depletion/regen on a generation basis
 		depleteLand();
 
 		// print land
 		printLand(gen);
 
+		// clear total agent visit info
+		resetAgentsOverGens();
+		
 		// implement reproduction
 		do_reprod();
 		//std::cout << "agents reproduce\n";
@@ -135,8 +138,21 @@ int do_main()
 	return 0;
 }
 
+/// func to test do main
+void test_doMain()
+{
+	// check do main returns 0
+	assert(do_main() == 0 && "errors in the main code");
+}
+
 int main()
 {
+	// run some basic tests
+	test_agentMaker();
+	test_list_neighbours();
+	test_leaderDynamics();
+	   
+	// overall do main
 	do_main();
 
 	cout << "works so far\n";
