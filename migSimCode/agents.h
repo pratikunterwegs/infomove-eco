@@ -212,13 +212,13 @@ void do_reprod()
 
 		/*max = max > population[a].energy ? max : population[a].energy;
 		min = min < population[a].energy ? min : population[a].energy;*/
-
-		assert(agentEnergyVec[a] != 0 && "agent energy is 0!");
+		// cout << agentEnergyVec[a] << "\n";
+		assert(agentEnergyVec[a] >= 0.f && "agent energy is 0!");
 
 		//cout << "fitness " << a << " = " << population[a].energy << endl;
 		fitness_vec.push_back(static_cast<double> (agentEnergyVec[a]));
 
-		//cout << "fitness vec = "  << fitness_vec[a] << endl;
+		// cout << "fitness vec = "  << fitness_vec[a] << endl;
 	}
 
 	// make temp pop vector, position and energy vectors
