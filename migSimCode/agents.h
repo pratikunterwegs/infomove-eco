@@ -89,12 +89,10 @@ std::vector<int> list_neighbours(const int& which_agent)
 	return currNbrs;
 }
 
-void resetLeaderAndMove(const int& whichAgent)
+void resetLeaderAndMove(std::vector<agent>& population, const int& whichAgent)
 {
 	// reset leader
 	population[whichAgent].leader = -1;
-	// reset movement
-	population[whichAgent].move = true;
 	// reset movedistcopy
 	population[whichAgent].moveDistCopy = population[whichAgent].moveDist;
 	// reset param pointer
