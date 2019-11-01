@@ -143,7 +143,7 @@ void printLand(const int& gen_p)
 	landofs.open("landOut.csv", std::ofstream::out | std::ofstream::app);
 
 	// col header
-	if (gen_p == 0) { landofs << "gen,pos,food,visits"; }
+	if (gen_p == 0) { landofs << "gen,pos,food,visits\n"; }
 
 	// print for each land cell
 	{
