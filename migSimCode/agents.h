@@ -45,12 +45,11 @@ struct flush_rec_nodes
 class agent
 {
 public:
-	agent() : annFollow(0.f), moveDist(0.f), moveDistCopy(moveDist),
-		move(true), chainLength(0), leader(-1) {};
+	agent() : annFollow(0.f), moveDist(10.f), moveDistCopy(moveDist),
+		chainLength(0), leader(-1) {};
 	~agent() {};
 	// agents need a brain, an age, fitness, and movement decision
 	Ann annFollow; float moveDist, moveDistCopy;
-	bool move;
 	int chainLength, leader;
 	// pointer to param
 	float* movePointer = &moveDistCopy; //points to self unless reset
@@ -58,7 +57,7 @@ public:
 };
 
 /// make vector of agent energy
-std::vector<float> agentEnergyVec(popsize, 0.f);
+std::vector<float> agentEnergyVec(popsize, 0.0001f);
 
 /// function to init N agents
 std::vector<agent> initAgents(const int& number)
