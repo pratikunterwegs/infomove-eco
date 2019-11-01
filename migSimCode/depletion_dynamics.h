@@ -135,4 +135,29 @@ void resetAgentsOnLand(const int& thistime)
 	}
 }
 
+/// function to print landscape values
+void printLand(const int& gen_p)
+{
+	// open or append
+	std::ofstream landofs;
+	landofs.open("landOut.csv", std::ofstream::out | std::ofstream::app);
+
+	// col header
+	if (gen_p == 0) { landofs << "gen,pos,food,visits"; }
+
+	// print for each land cell
+	{
+		for (int landcell = 0; landcell < landscape.size(); landcell++)
+		{
+			landofs
+				<< gen_p << ","
+				<< landcell << ","
+				<< landscape[landcell].dFood << ","
+				<< landscape[landcell].nTotAgents << "\n";
+		}
+		//close
+		landofs.close();
+	}
+}
+
 // ends here
