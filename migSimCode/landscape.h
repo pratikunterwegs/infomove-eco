@@ -34,4 +34,7 @@ std::mt19937_64 rng;
 // seasons or replicates params
 const int genmax = 1000; //arbit choice
 
+// landscape carrying capacity
+const float maxFood = 1.f;
+
 // end here
