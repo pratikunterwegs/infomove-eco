@@ -23,10 +23,10 @@ using Ann = Network<float,
 >;
 
 // pick rand node weights
-std::uniform_real_distribution<float> nodeDist(-10.f, 10.f);
+//std::uniform_real_distribution<float> nodeDist(-10.f, 10.f);
 
 // pick rand move param
-std::uniform_real_distribution<float> movepDist(50.f, 950.f);
+//std::uniform_real_distribution<float> movepDist(50.f, 950.f);
 
 // clear node state
 struct flush_rec_nodes
