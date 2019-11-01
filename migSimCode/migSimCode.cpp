@@ -94,10 +94,11 @@ int do_main()
 			}
 			
 			// resolve leadership chains at timestep end
+			// must be random order
 			for (int ind = 0; ind < popsize; ind++)
 			{	
 				// resolve chains
-				resolveLeaders(ind);
+				resolveLeaders(population, ind);
 			}
 
 			// handle negative movement
