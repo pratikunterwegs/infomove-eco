@@ -11,33 +11,6 @@
 #include <iterator>
 //#include "testAgents.cpp"
 
-// list of tests
-
-/// test neighbour counting
-//void test_neighbour_list() 
-//{
-//	// create a position vector
-//	std::vector<float> testPos(5);
-//
-//	// move last agent (position 4) 100 steps ahead
-//	testPos[4] = testPos[3] = 100.f;
-//
-//	// manually get the neighbours of 0 and update
-//	std::vector<int> neighbours0 = { 1,2 };
-//	std::vector<int> neighbours4 = { 3 };
-//	
-//	// list 0 neighbours using function
-//	std::vector<int> listNbrs0 = list_neighbours(0);
-//	// list 4 neighbours using function
-//	std::vector<int> listNbrs4 = list_neighbours(4);
-//
-//	// assert there are the same neighbours each case - for 0 and 4
-//	assert(std::equal(neighbours0.begin(), neighbours0.end(), listNbrs0.begin()));
-//	assert(std::equal(neighbours4.begin(), neighbours4.end(), listNbrs4.begin()));
-//}
-
-// need to add black box test for the neural network ouput
-
 /// the main function
 int do_main()
 {
@@ -78,15 +51,9 @@ int do_main()
 
 			// handle negative movement
 			movePositive();
-			//std::cout << "neg moves handled\n";
-
-			// extend landscape if necessary - no land extension
-			//extendLandscape();
-			//std::cout << "landscape extended if needed\n";
 
 			// update nAgents on grid cells
 			addAgentsToLand();
-			//std::cout << "agents occupy grid cells\n";
 
 			// agents get food after competition
 			for (int ind = 0; ind < popsize; ind++)
@@ -94,22 +61,20 @@ int do_main()
 				// get food
 				doGetFood(ind);
 			}
-			//std::cout << "agents fed\n";
-
-			//std::cout << "landscape depleted\n";
+			
 			// reset landscape to remove agents
 			resetAgentsOnLand(t);
-			//std::cout << "gridcells cleared of agents\n";
 			
-
 			// output data
 			printData(gen, t);
-
-			// move the resource peak by the wave speed vector
-			//currentpeak += waveSpeedVec[t];
 		}
+
 		// udpate landscape with depletion on a generation basis
 		depleteLand();
+
+		// print land
+		printLand(gen);
+
 		// implement reproduction
 		do_reprod();
 		//std::cout << "agents reproduce\n";
@@ -118,20 +83,9 @@ int do_main()
 	return 0;
 }
 
-///// test do main
-//void test_domain()
-//{
-//	assert(do_main() == 0);
-//}
-
 int main()
 {
-	// run tests
-	//test_neighbour_list();
-	//test_domain();
-
 	do_main();
-	
 
 	cout << "works so far\n";
 	return 0;
