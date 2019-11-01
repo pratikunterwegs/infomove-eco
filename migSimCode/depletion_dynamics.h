@@ -6,15 +6,11 @@
 #include "landscape.h"
 #include "agents.h"
 
-
-// some params
-float regrowth = 0.1f;
-
 // make gridcell class
 class gridcell
 {
 public:
-	gridcell() : nAgents(0), nTotAgents(0), dFood(1.0), dRegrowth(1.0) {};
+	gridcell() : nAgents(0), nTotAgents(0), dFood(1.f) {};
 	~gridcell() {};
 
 	// each gridcell stores nAgents and food
