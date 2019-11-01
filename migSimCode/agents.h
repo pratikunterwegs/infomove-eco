@@ -279,10 +279,10 @@ void printData(const int& gen_p, const int& time_p)
 {
 	// open or append
 	std::ofstream agentofs;
-	agentofs.open("dataOutExp06.csv", std::ofstream::out | std::ofstream::app);
+	agentofs.open("dataOut.csv", std::ofstream::out | std::ofstream::app);
 
 	// col header
-	if (gen_p == 0 && time_p == 0) { agentofs << "gen,time,id,movep,movepcopy,chainlength,leader,energy,bmove\n"; }
+	if (gen_p == 0 && time_p == 0) { agentofs << "gen,time,id,movep,movepcopy,chainlength,leader,energy\n"; }
 
 	// print for each ind
 	//if ((gen_p == 0 || gen_p % 5 == 0) && time_p % 20 == 0)
@@ -297,8 +297,7 @@ void printData(const int& gen_p, const int& time_p)
 				<< population[ind2].moveDistCopy << ","
 				<< population[ind2].chainLength << ","
 				<< population[ind2].leader << ","
-				<< agentEnergyVec[ind2] << ","
-				<< population[ind2].move << "\n";
+				<< agentEnergyVec[ind2] << "\n";
 		}
 	}
 	// close
