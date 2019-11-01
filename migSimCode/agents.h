@@ -241,11 +241,11 @@ void do_reprod()
 		pop2[a].movePointer = &pop2[a].moveDistCopy;
 
 		// overwrite energy
-		agentEnergy2[a] = 0.f;
+		agentEnergy2[a] = 0.0001f;
 
 		// mutate ann
 		for (auto& w : pop2[a].annFollow) {
-			std::bernoulli_distribution mut_event(0.01); // mutation probability
+			std::bernoulli_distribution mut_event(0.001); // mutation probability
 			// probabilistic mutation of ANN
 			if (mut_event(rng)) {
 				std::cauchy_distribution<double> m_shift(0.0, 0.1); // how much of mutation
