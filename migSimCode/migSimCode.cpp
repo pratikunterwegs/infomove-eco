@@ -11,32 +11,58 @@
 #include <iterator>
 //#include "testAgents.cpp"
 
-// list of tests
+// tests section
+/// function to test correct number of agents made
+void test_agentMaker()
+{
+	// make agent vector and check size
+	std::vector<agent> test_pop = initAgents(500);
+	assert(test_pop.size() == 500);
+}
 
-/// test neighbour counting
-//void test_neighbour_list() 
-//{
-//	// create a position vector
-//	std::vector<float> testPos(5);
-//
-//	// move last agent (position 4) 100 steps ahead
-//	testPos[4] = testPos[3] = 100.f;
-//
-//	// manually get the neighbours of 0 and update
-//	std::vector<int> neighbours0 = { 1,2 };
-//	std::vector<int> neighbours4 = { 3 };
-//	
-//	// list 0 neighbours using function
-//	std::vector<int> listNbrs0 = list_neighbours(0);
-//	// list 4 neighbours using function
-//	std::vector<int> listNbrs4 = list_neighbours(4);
-//
-//	// assert there are the same neighbours each case - for 0 and 4
-//	assert(std::equal(neighbours0.begin(), neighbours0.end(), listNbrs0.begin()));
-//	assert(std::equal(neighbours4.begin(), neighbours4.end(), listNbrs4.begin()));
-//}
+/// functison to test correct number of neighbours listed
+void test_list_neighbours()
+{
+	// make agent vector
+	std::vector<agent> test_pop = initAgents(500);
+	// make neighbours vector
+	std::vector<int> test_vec_neighbours = list_neighbours(21);
+	// test that agent 21 is not in own neighbours
+	assert(std::find(test_vec_neighbours.begin(),
+		test_vec_neighbours.end(), 21) == test_vec_neighbours.end()
+		&& "agent is own neighbour!");
+}
 
-// need to add black box test for the neural network ouput
+/// function to test leader reset
+void test_leaderDynamics()
+{
+	// make agent vector
+	std::vector<agent> test_pop = initAgents(3);
+	// set leader manually
+	for (int i = 0; i < test_pop.size() - 1; i++)
+	{
+		test_pop[i].leader = i + 1;
+		test_pop[i].moveDist = static_cast<float>(i * 10);
+	}
+
+	// resolve leaders
+	for (int i = 0; i < test_pop.size(); i++)
+	{
+		resolveLeaders(test_pop, i);
+	}
+
+	// check that movedistcopy has been updated
+	for (int i = 0; i < test_pop.size(); i++)
+	{
+		assert(test_pop[i].moveDistCopy == 10.f);
+	}
+	
+	// run reset func
+	resetLeaderAndMove(test_pop, 0);
+
+	// test that leader is now -1
+	assert(test_pop[0].leader == -1 && "leader is not reset");
+}
 
 /// the main function
 int do_main()
@@ -45,9 +71,7 @@ int do_main()
 	for (int gen = 0; gen < genmax; gen++)
 	{
 		std::cout << "gen = " << gen << "\n";
-		// increment landscape food on a generation basis
-		makeFoodOnLand();
-
+		
 		// loop through timesteps
 		for (int t = 0; t < tMax; t++)
 		{
@@ -55,7 +79,7 @@ int do_main()
 			for (int ind = 0; ind < popsize; ind++)
 			{
 				// reset leader, movement etc
-				resetLeaderAndMove(ind);
+				resetLeaderAndMove(population, ind);
 
 				// return agent neighbours
 				std::vector<int> agentNbrs = list_neighbours(ind);
@@ -70,23 +94,18 @@ int do_main()
 			}
 			
 			// resolve leadership chains at timestep end
+			// must be random order
 			for (int ind = 0; ind < popsize; ind++)
 			{	
 				// resolve chains
-				resolveLeaders(ind);
+				resolveLeaders(population, ind);
 			}
 
 			// handle negative movement
 			movePositive();
-			//std::cout << "neg moves handled\n";
-
-			// extend landscape if necessary - no land extension
-			//extendLandscape();
-			//std::cout << "landscape extended if needed\n";
 
 			// update nAgents on grid cells
 			addAgentsToLand();
-			//std::cout << "agents occupy grid cells\n";
 
 			// agents get food after competition
 			for (int ind = 0; ind < popsize; ind++)
@@ -94,22 +113,23 @@ int do_main()
 				// get food
 				doGetFood(ind);
 			}
-			//std::cout << "agents fed\n";
-
-			//std::cout << "landscape depleted\n";
-			// reset landscape to remove agents
-			resetAgentsOnLand(t);
-			//std::cout << "gridcells cleared of agents\n";
 			
-
+			// reset landscape to remove agents
+			resetAgentsOverTime();
+			
 			// output data
 			printData(gen, t);
-
-			// move the resource peak by the wave speed vector
-			//currentpeak += waveSpeedVec[t];
 		}
-		// udpate landscape with depletion on a generation basis
+
+		// update landscape with depletion/regen on a generation basis
 		depleteLand();
+
+		// print land
+		printLand(gen);
+
+		// clear total agent visit info
+		resetAgentsOverGens();
+		
 		// implement reproduction
 		do_reprod();
 		//std::cout << "agents reproduce\n";
@@ -118,20 +138,22 @@ int do_main()
 	return 0;
 }
 
-///// test do main
-//void test_domain()
-//{
-//	assert(do_main() == 0);
-//}
+/// func to test do main
+void test_doMain()
+{
+	// check do main returns 0
+	assert(do_main() == 0 && "errors in the main code");
+}
 
 int main()
 {
-	// run tests
-	//test_neighbour_list();
-	//test_domain();
-
+	// run some basic tests
+	test_agentMaker();
+	test_list_neighbours();
+	test_leaderDynamics();
+	   
+	// overall do main
 	do_main();
-	
 
 	cout << "works so far\n";
 	return 0;

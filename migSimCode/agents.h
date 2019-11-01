@@ -8,7 +8,7 @@
 #include <functional>
 #include <numeric>
 #include <unordered_set>
-
+#include <cassert>
 #include "ann.h"
 #include "landscape.h"
 
@@ -23,10 +23,10 @@ using Ann = Network<float,
 >;
 
 // pick rand node weights
-std::uniform_real_distribution<float> nodeDist(-10.f, 10.f);
+//std::uniform_real_distribution<float> nodeDist(-10.f, 10.f);
 
 // pick rand move param
-std::uniform_real_distribution<float> movepDist(50.f, 950.f);
+//std::uniform_real_distribution<float> movepDist(50.f, 950.f);
 
 // clear node state
 struct flush_rec_nodes
@@ -45,12 +45,11 @@ struct flush_rec_nodes
 class agent
 {
 public:
-	agent() : annFollow(0.f), moveDist(0.f), moveDistCopy(moveDist),
-		move(true), chainLength(0), leader(-1) {};
+	agent() : annFollow(0.f), moveDist(10.f), moveDistCopy(moveDist),
+		chainLength(0), leader(-1) {};
 	~agent() {};
 	// agents need a brain, an age, fitness, and movement decision
 	Ann annFollow; float moveDist, moveDistCopy;
-	bool move;
 	int chainLength, leader;
 	// pointer to param
 	float* movePointer = &moveDistCopy; //points to self unless reset
@@ -58,7 +57,7 @@ public:
 };
 
 /// make vector of agent energy
-std::vector<float> agentEnergyVec(popsize, 0.f);
+std::vector<float> agentEnergyVec(popsize, 0.0001f);
 
 /// function to init N agents
 std::vector<agent> initAgents(const int& number)
@@ -90,12 +89,10 @@ std::vector<int> list_neighbours(const int& which_agent)
 	return currNbrs;
 }
 
-void resetLeaderAndMove(const int& whichAgent)
+void resetLeaderAndMove(std::vector<agent>& population, const int& whichAgent)
 {
 	// reset leader
 	population[whichAgent].leader = -1;
-	// reset movement
-	population[whichAgent].move = true;
 	// reset movedistcopy
 	population[whichAgent].moveDistCopy = population[whichAgent].moveDist;
 	// reset param pointer
@@ -122,7 +119,7 @@ void chooseLeader(const int& whichAgent, const int& thisNeighbour)
 
 }
 
-void resolveLeaders(const int& whichAgent)
+void resolveLeaders(std::vector<agent> &population, const int& whichAgent)
 {
 	if (population[whichAgent].leader != -1)
 	{
@@ -158,32 +155,28 @@ void resolveLeaders(const int& whichAgent)
 
 		// set leadchain to reduced size
 		leadchain = templeadchain;
+
 		// get new count
 		int finalCount = leadchain.size();
 		// add chain length - this is the length of the raw loopy chain
 		// a value of 200 means a loop was reached
 		population[whichAgent].chainLength = finalCount;
 
-		//// print final leadchain
-		//cout << "final leadchain...\n";
-		//cout_vector(leadchain);
-		//cout << "\n";
-
 		// if leadchain has duplicates, this is a loop
 		// resolve by setting everybody in the chain to not move
-		if (initCount > finalCount) {
-			// for (int j = 0; j < leadchain.size(); j++) {
-			// 	population[leadchain[j]].move = false;
-			//
-			// 	 also set their movedistcopy to zero
-			// 	population[leadchain[j]].moveDistCopy = 0.f;
-			// }
+		if (initCount > finalCount) 
+		{
 
 			// breaks the leadership chain at the end
 			// has an effect for next leadership chain construction
 
-			population[ ( leadchain[ (leadchain.size()) ] ) ].leader = -1;
+			population[ leadchain.back() ].leader = -1;
 		}
+
+		// check that ultimate leader has no other leader
+		int ultLead = leadchain.back();
+		assert((population[ultLead].leader) == -1);
+
 		// link forwards along the chain
 		for (int iter = 0; iter < leadchain.size() - 1; iter++) {
 			// print to check forwards linking
@@ -219,13 +212,13 @@ void do_reprod()
 
 		/*max = max > population[a].energy ? max : population[a].energy;
 		min = min < population[a].energy ? min : population[a].energy;*/
-
-		assert(agentEnergyVec[a] != 0 && "agent energy is 0!");
+		// cout << agentEnergyVec[a] << "\n";
+		assert(agentEnergyVec[a] >= 0.f && "agent energy is 0!");
 
 		//cout << "fitness " << a << " = " << population[a].energy << endl;
 		fitness_vec.push_back(static_cast<double> (agentEnergyVec[a]));
 
-		//cout << "fitness vec = "  << fitness_vec[a] << endl;
+		// cout << "fitness vec = "  << fitness_vec[a] << endl;
 	}
 
 	// make temp pop vector, position and energy vectors
@@ -248,11 +241,11 @@ void do_reprod()
 		pop2[a].movePointer = &pop2[a].moveDistCopy;
 
 		// overwrite energy
-		agentEnergy2[a] = 0.f;
+		agentEnergy2[a] = 0.0001f;
 
 		// mutate ann
 		for (auto& w : pop2[a].annFollow) {
-			std::bernoulli_distribution mut_event(0.01); // mutation probability
+			std::bernoulli_distribution mut_event(0.001); // mutation probability
 			// probabilistic mutation of ANN
 			if (mut_event(rng)) {
 				std::cauchy_distribution<double> m_shift(0.0, 0.1); // how much of mutation
@@ -286,10 +279,10 @@ void printData(const int& gen_p, const int& time_p)
 {
 	// open or append
 	std::ofstream agentofs;
-	agentofs.open("dataOutExp06.csv", std::ofstream::out | std::ofstream::app);
+	agentofs.open("dataOut.csv", std::ofstream::out | std::ofstream::app);
 
 	// col header
-	if (gen_p == 0 && time_p == 0) { agentofs << "gen,time,id,movep,movepcopy,chainlength,leader,energy,bmove\n"; }
+	if (gen_p == 0 && time_p == 0) { agentofs << "gen,time,id,movep,movepcopy,chainlength,leader,energy\n"; }
 
 	// print for each ind
 	//if ((gen_p == 0 || gen_p % 5 == 0) && time_p % 20 == 0)
@@ -304,8 +297,7 @@ void printData(const int& gen_p, const int& time_p)
 				<< population[ind2].moveDistCopy << ","
 				<< population[ind2].chainLength << ","
 				<< population[ind2].leader << ","
-				<< agentEnergyVec[ind2] << ","
-				<< population[ind2].move << "\n";
+				<< agentEnergyVec[ind2] << "\n";
 		}
 	}
 	// close

@@ -6,15 +6,11 @@
 #include "landscape.h"
 #include "agents.h"
 
-
-// some params
-float regrowth = 0.1f;
-
 // make gridcell class
 class gridcell
 {
 public:
-	gridcell() : nAgents(0), nTotAgents(0), dFood(1.0), dRegrowth(1.0) {};
+	gridcell() : nAgents(0), nTotAgents(0), dFood(1.f) {};
 	~gridcell() {};
 
 	// each gridcell stores nAgents and food
@@ -24,47 +20,6 @@ public:
 
 // init landscape of length maxland 1000
 std::vector<gridcell> landscape(maxLand);
-
-/// functions of landscape size
-// func to extend landscape
-//void extendLandscape()
-//{
-//	float movemax = 1.f;
-//	// get max intrinsic move param of population
-//	for (int p = 0; p < popsize; p++) 
-//	{
-//		movemax = (movemax > population[p].moveDist) ? movemax : population[p].moveDist;
-//	}
-//
-//	// how much to extend
-//	int landExtend = static_cast<int>(floor(movemax)) >= landscape.size();
-//
-//	// extend landscape up to the max land size
-//	if (landscape.size() + landExtend <= 1000) 
-//	{
-//		// compare movemax with landscape length and expand
-//		if (static_cast<int>(floor(movemax)) >= landscape.size())
-//		{
-//			// print extension
-//			// make vector of extra grid cells
-//			std::vector<gridcell> extraland(static_cast<int>(floor(movemax)) - landscape.size() + 1); // adding one to handle errors
-//
-//			landscape.insert(landscape.end(), extraland.begin(), extraland.end());
-//			// print success extend
-//			std::cout << "land extended to " << landscape.size() << "\n";
-//		}
-//	}
-//}
-
-/// functions of landscape dynamics
-// function to generate food
-void makeFoodOnLand()
-{
-	for (int l = 0; l < landscape.size(); l++)
-	{
-		landscape[l].dFood += regrowth;
-	}
-}
 
 // function to count agents on cell
 void addAgentsToLand()
@@ -105,33 +60,61 @@ void doGetFood(const int& whichAgent)
 	float food = static_cast<float> (landscape[whichLand].dFood) / (static_cast<float>(neighbours));
 
 	// energy in if move is true - loop following is penalised
-	agentEnergyVec[whichAgent] += (population[whichAgent].move) ? food : 0.000001f;
+	agentEnergyVec[whichAgent] += food;
 }
 
 /// function to deplete landscape
-// reduce regrowth by the proportion of visits per generation
+// assign food as max - proportion of visits per generation
 void depleteLand()
 {
 	for (int l = 0; l < landscape.size(); l++)
 	{
-		if (landscape[l].dFood <= 10.f)
-		{
-			landscape[l].dRegrowth += (1.f - static_cast<float>(landscape[l].nTotAgents) / static_cast<float>(popsize * tMax));
-		}
+		float foodDiff = (maxFood - (static_cast<float>(landscape[l].nTotAgents) / static_cast<float>(popsize * tMax)));
+		landscape[l].dFood = foodDiff;
 	}
 }
 
-/// func to reset landscape
-void resetAgentsOnLand(const int& thistime)
+/// func to reset agents on landscape in ecological time
+// agents return to roost
+void resetAgentsOverTime()
 {
 	for (int l = 0; l < landscape.size(); l++)
 	{
 		landscape[l].nAgents = 0;
-		if (thistime == tMax)
-		{
-			landscape[l].nTotAgents = 0;
+	}
+}
 
+/// func to reset agents on landscape in evol time
+void resetAgentsOverGens()
+{
+	for (int l = 0; l < landscape.size(); l++)
+	{
+		landscape[l].nTotAgents = 0;
+	}
+}
+
+/// function to print landscape values
+void printLand(const int& gen_p)
+{
+	// open or append
+	std::ofstream landofs;
+	landofs.open("landOut.csv", std::ofstream::out | std::ofstream::app);
+
+	// col header
+	if (gen_p == 0) { landofs << "gen,pos,food,visits\n"; }
+
+	// print for each land cell
+	{
+		for (int landcell = 0; landcell < landscape.size(); landcell++)
+		{
+			landofs
+				<< gen_p << ","
+				<< landcell << ","
+				<< landscape[landcell].dFood << ","
+				<< landscape[landcell].nTotAgents << "\n";
 		}
+		//close
+		landofs.close();
 	}
 }
 
