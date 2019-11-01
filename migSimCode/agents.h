@@ -165,20 +165,10 @@ void resolveLeaders(const int& whichAgent)
 		// a value of 200 means a loop was reached
 		population[whichAgent].chainLength = finalCount;
 
-		//// print final leadchain
-		//cout << "final leadchain...\n";
-		//cout_vector(leadchain);
-		//cout << "\n";
-
 		// if leadchain has duplicates, this is a loop
 		// resolve by setting everybody in the chain to not move
-		if (initCount > finalCount) {
-			// for (int j = 0; j < leadchain.size(); j++) {
-			// 	population[leadchain[j]].move = false;
-			//
-			// 	 also set their movedistcopy to zero
-			// 	population[leadchain[j]].moveDistCopy = 0.f;
-			// }
+		if (initCount > finalCount) 
+		{
 
 			// breaks the leadership chain at the end
 			// has an effect for next leadership chain construction
