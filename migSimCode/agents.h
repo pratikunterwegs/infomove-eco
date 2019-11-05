@@ -12,6 +12,11 @@
 #include "ann.h"
 #include "landscape.h"
 
+//// include gsl for distributions
+//#include <stdio.h>
+//#include <gsl/gsl_rng.h>
+//#include <gsl/gsl_randist.h>
+
 using namespace std;
 using namespace ann;
 
@@ -25,8 +30,8 @@ using Ann = Network<float,
 // pick rand node weights
 //std::uniform_real_distribution<float> nodeDist(-10.f, 10.f);
 
-// pick rand move param
-//std::uniform_real_distribution<float> movepDist(50.f, 950.f);
+// pick rand move angle - uniform distribution over the landscape
+std::uniform_real_distribution<float> angleDist(0.f, static_cast<float>(maxLand));
 
 // clear node state
 struct flush_rec_nodes
@@ -45,14 +50,14 @@ struct flush_rec_nodes
 class agent
 {
 public:
-	agent() : annFollow(0.f), moveDist(10.f), moveDistCopy(moveDist),
+	agent() : annFollow(0.f), moveAngle(angleDist(rng)), moveAngleCopy(moveAngle),
 		chainLength(0), leader(-1) {};
 	~agent() {};
 	// agents need a brain, an age, fitness, and movement decision
-	Ann annFollow; float moveDist, moveDistCopy;
+	Ann annFollow; float moveAngle, moveAngleCopy;
 	int chainLength, leader;
 	// pointer to param
-	float* movePointer = &moveDistCopy; //points to self unless reset
+	float* movePointer = &moveAngleCopy; //points to self unless reset
 
 };
 
@@ -93,10 +98,10 @@ void resetLeaderAndMove(std::vector<agent>& population, const int& whichAgent)
 {
 	// reset leader
 	population[whichAgent].leader = -1;
-	// reset movedistcopy
-	population[whichAgent].moveDistCopy = population[whichAgent].moveDist;
+	// reset moveAnglecopy
+	population[whichAgent].moveAngleCopy = population[whichAgent].moveAngle;
 	// reset param pointer
-	population[whichAgent].movePointer = &population[whichAgent].moveDistCopy;
+	population[whichAgent].movePointer = &population[whichAgent].moveAngleCopy;
 }
 
 /// function to entrain to other agent
@@ -180,27 +185,27 @@ void resolveLeaders(std::vector<agent> &population, const int& whichAgent)
 		// link forwards along the chain
 		for (int iter = 0; iter < leadchain.size() - 1; iter++) {
 			// print to check forwards linking
-			population[leadchain[iter]].movePointer = &population[leadchain[(iter + 1)]].moveDistCopy;
+			population[leadchain[iter]].movePointer = &population[leadchain[(iter + 1)]].moveAngleCopy;
 		}
 		// update backwards along the chain
 		for (int l = leadchain.size() - 1; l >= 0; l--)
 		{
-			population[leadchain[l]].moveDistCopy = *population[leadchain[l]].movePointer;
+			population[leadchain[l]].moveAngleCopy = *population[leadchain[l]].movePointer;
 		}
 	}
 	else {
-		population[whichAgent].moveDistCopy = population[whichAgent].moveDist;
+		population[whichAgent].moveAngleCopy = population[whichAgent].moveAngle;
 	}
 
 	// no else condition but may be necessary later
 }
 
 /// function to handle negative movement values
-void movePositive() {
-	for (int p = 0; p < popsize; p++) {
-		population[p].moveDistCopy = (population[p].moveDistCopy > 0.f) ? population[p].moveDistCopy : 0.f;
-	}
-}
+//void movePositive() {
+//	for (int p = 0; p < popsize; p++) {
+//		population[p].moveAngleCopy = (population[p].moveAngleCopy > 0.f) ? population[p].moveAngleCopy : 0.f;
+//	}
+//}
 
 /// function to reproduce
 void do_reprod()
@@ -232,13 +237,13 @@ void do_reprod()
 		// replicate ANN
 		pop2[a].annFollow = population[parent_id].annFollow;
 		// replicate movement parameters
-		pop2[a].moveDist = population[parent_id].moveDist;
+		pop2[a].moveAngle = population[parent_id].moveAngle;
 		// reset who is being followed
 		pop2[a].leader = -1;
-		// overwrite movedist copy
-		pop2[a].moveDistCopy = pop2[a].moveDist;
+		// overwrite moveAngle copy
+		pop2[a].moveAngleCopy = pop2[a].moveAngle;
 		//overwrite movement pointer
-		pop2[a].movePointer = &pop2[a].moveDistCopy;
+		pop2[a].movePointer = &pop2[a].moveAngleCopy;
 
 		// overwrite energy
 		agentEnergy2[a] = 0.0001f;
@@ -254,13 +259,14 @@ void do_reprod()
 		}
 
 		// mutate movement parameter
-		{std::bernoulli_distribution mut_event(0.01); // mutation probability
-			// probabilistic mutation of ANN
-		if (mut_event(rng))
 		{
-			std::cauchy_distribution<double> m_shift(0.0, 5.0); // how much of mutation
-			pop2[a].moveDist += static_cast<float> (m_shift(rng));
-		}
+			std::bernoulli_distribution mut_event(0.001); // mutation probability
+			// probabilistic mutation of ANN
+			if (mut_event(rng))
+			{
+			std::cauchy_distribution<double> m_shift(0.0, 0.1); // how much of mutation
+			pop2[a].moveAngle += static_cast<float> (m_shift(rng));
+			}
 		}
 
 	}
@@ -293,8 +299,8 @@ void printData(const int& gen_p, const int& time_p)
 				<< gen_p << ","
 				<< time_p << ","
 				<< ind2 << ","
-				<< population[ind2].moveDist << ","
-				<< population[ind2].moveDistCopy << ","
+				<< population[ind2].moveAngle << ","
+				<< population[ind2].moveAngleCopy - static_cast<float>(maxLand) << ","
 				<< population[ind2].chainLength << ","
 				<< population[ind2].leader << ","
 				<< agentEnergyVec[ind2] << "\n";
