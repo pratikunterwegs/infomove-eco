@@ -30,7 +30,7 @@ void addAgentsToLand()
 		int agentPos = static_cast<int> (floor(population[p].moveAngleCopy));
 
 		// wrap agent position to landscape
-		agentPos = (agentPos - maxLand) % maxLand;
+		agentPos = (agentPos % maxLand);
 
 		// print agent pos
 		// std::cout << "agent pos = " << agentPos << "\n";
@@ -51,7 +51,7 @@ void doGetFood(const int& whichAgent)
 	int agentPos = static_cast<int> (floor(population[whichAgent].moveAngleCopy));
 
 	// wrap agent position to landscape
-	agentPos = (agentPos - maxLand) % maxLand;
+	agentPos = (agentPos % maxLand);
 
 	// count agents at pos
 	int neighbours = landscape[agentPos].nAgents > 0 ? landscape[agentPos].nAgents : 1;

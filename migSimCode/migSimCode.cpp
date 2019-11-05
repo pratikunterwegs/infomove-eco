@@ -42,7 +42,6 @@ void test_leaderDynamics()
 	for (int i = 0; i < test_pop.size() - 1; i++)
 	{
 		test_pop[i].leader = i + 1;
-		test_pop[i].moveAngle = static_cast<float>(i * 10);
 	}
 
 	// resolve leaders
@@ -52,9 +51,10 @@ void test_leaderDynamics()
 	}
 
 	// check that moveAnglecopy has been updated
-	for (int i = 0; i < test_pop.size(); i++)
+	for (int i = 0; i < test_pop.size() - 1; i++)
 	{
-		assert(test_pop[i].moveAngleCopy == 10.f);
+		cout << "move angle copy = " << test_pop[i].moveAngleCopy << "\n";
+		assert(test_pop[i].moveAngleCopy == test_pop[i+1].moveAngleCopy);
 	}
 	
 	// run reset func
@@ -100,9 +100,6 @@ int do_main()
 				// resolve chains
 				resolveLeaders(population, ind);
 			}
-
-			// handle negative movement
-			movePositive();
 
 			// update nAgents on grid cells
 			addAgentsToLand();
