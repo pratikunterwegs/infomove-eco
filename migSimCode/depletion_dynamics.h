@@ -27,19 +27,19 @@ void addAgentsToLand()
 	for (int p = 0; p < popsize; p++)
 	{
 		// get agent integer position
-		int agentPos = static_cast<int> (floor(population[p].moveDistCopy));
+		int agentPos = static_cast<int> (floor(population[p].moveAngleCopy));
+
+		// wrap agent position to landscape
+		agentPos = (agentPos - maxLand) % 100;
 
 		// print agent pos
 		// std::cout << "agent pos = " << agentPos << "\n";
 
-		// if agents try to cross max land they stop at max land
-		int whichLand = (agentPos >= maxLand) ? (maxLand - 1) : agentPos;
-		
 		// add agent to relevant grid cell
-		landscape[whichLand].nAgents += 1;
+		landscape[agentPos].nAgents += 1;
 
 		// add total agents
-		landscape[whichLand].nTotAgents += 1;
+		landscape[agentPos].nTotAgents += 1;
 	}
 }
 
@@ -47,17 +47,17 @@ void addAgentsToLand()
 /// function to get energy
 void doGetFood(const int& whichAgent)
 {
-	// get agent position
-	int agentPos = static_cast<int> (floor(population[whichAgent].moveDistCopy));
+	// get agent integer position
+	int agentPos = static_cast<int> (floor(population[whichAgent].moveAngleCopy));
 
-	// if agents try to cross max land they stop at max land
-	int whichLand = (agentPos >= maxLand) ? (maxLand - 1) : agentPos;
+	// wrap agent position to landscape
+	agentPos = (agentPos - maxLand) % 100;
 
 	// count agents at pos
-	int neighbours = landscape[whichLand].nAgents > 0 ? landscape[whichLand].nAgents : 1;
+	int neighbours = landscape[agentPos].nAgents > 0 ? landscape[agentPos].nAgents : 1;
 
 	// value of food shared with neighbours
-	float food = static_cast<float> (landscape[whichLand].dFood) / (static_cast<float>(neighbours));
+	float food = static_cast<float> (landscape[agentPos].dFood) / (static_cast<float>(neighbours));
 
 	// energy in if move is true - loop following is penalised
 	agentEnergyVec[whichAgent] += food;
