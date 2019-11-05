@@ -42,7 +42,7 @@ void test_leaderDynamics()
 	for (int i = 0; i < test_pop.size() - 1; i++)
 	{
 		test_pop[i].leader = i + 1;
-		test_pop[i].moveDist = static_cast<float>(i * 10);
+		test_pop[i].moveAngle = static_cast<float>(i * 10);
 	}
 
 	// resolve leaders
@@ -51,10 +51,10 @@ void test_leaderDynamics()
 		resolveLeaders(test_pop, i);
 	}
 
-	// check that movedistcopy has been updated
+	// check that moveAnglecopy has been updated
 	for (int i = 0; i < test_pop.size(); i++)
 	{
-		assert(test_pop[i].moveDistCopy == 10.f);
+		assert(test_pop[i].moveAngleCopy == 10.f);
 	}
 	
 	// run reset func
