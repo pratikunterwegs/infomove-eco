@@ -34,3 +34,18 @@ ggplot()+
   theme_fivethirtyeight()+
   theme(axis.title = element_text())+
   labs(x = "diff. from optimum", y = "resource gained")
+
+#### looking at continuous agent depletion ####
+# is the distribution wrapped?
+x = seq(0,100,0.1)
+maxland = 100
+pos = 95
+point1 = 5
+point2 = 85
+# this is the distance on a ring
+diffpos = matrix(c(abs(x - pos), maxland - abs(x - pos)),ncol = 2, byrow = T)
+distonring = apply(diffpos, 1, min)
+dep = (1/(1+(distonring)))
+res = 1 - dep
+plot(x, res, type = "l")
+abline(h = 0, col = 2)
