@@ -10,16 +10,16 @@
 class gridcell
 {
 public:
-	gridcell() : nAgents(0), nTotAgents(0), dFood(1.f) {};
+	gridcell() : dFood(1.f) {};
 	~gridcell() {};
 
 	// each gridcell stores nAgents and food
-	int nAgents, nTotAgents; float dFood, dRegrowth;
+	float dFood;
 
 };
 
 // init landscape of length maxland 1000
-std::vector<gridcell> landscape(maxLand);
+std::vector<gridcell> landscape(maxLandVec);
 
 // function to count agents on cell
 void addAgentsToLand()
