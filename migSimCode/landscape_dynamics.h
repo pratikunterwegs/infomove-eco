@@ -31,6 +31,9 @@ for(int i = 0; i < maxLandVec; i++)
 float getWrappedDist(const float& x1, const float& x2, const float& x_max)
 {
     const float tempdist = abs(x2 - x1);
+
+    assert(tempdist <= maxLandPos && "tempdist is too high");
+
     tempdist = std::min(tempdist, x_max - tempdist);
 
     return tempdist;
@@ -64,5 +67,19 @@ void doGetFood(const int& whichAgent)
     }
 
     // left bound is right bound - 1
-    break;
+    int bound_left = (bound_right - 1 >= 0)? (bound_right - 1): maxLandVec + (bound_right - 1);
+
+    // energy is left bound / left distance + right bound / right distance
+
+    float dist_left = getWrappedDist(population[whichAgent].moveAngleCopy, landscape[bound_left].dPos, maxLandPos);
+    float dist_right = getWrappedDist(population[whichAgent].moveAngleCopy, landscape[bound_right].dPos, maxLandPos);
+
+    float food_left = landscape[bound_left].dFood;
+    float food_right = landscape[bound_right].dFood;
+
+    // agent foraging is interpolated
+    population[whichAgent] = ((food_left * dist_left) + (food_right * dist_right)) / (dist_left + dist_right);
+    
 }
+
+// ends here
