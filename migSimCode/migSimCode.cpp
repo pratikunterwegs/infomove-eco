@@ -132,6 +132,7 @@ int do_main()
 		//std::cout << "agents reproduce\n";
 	}
 
+	exit(EXIT_FAILURE);
 	return 0;
 }
 
