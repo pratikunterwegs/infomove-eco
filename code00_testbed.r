@@ -37,13 +37,15 @@ ggplot()+
 
 #### looking at continuous agent depletion ####
 # is the distribution wrapped?
-x = seq(0,100,0.01)
-maxland = 100
-pos = 95
-# this is the distance on a ring
-diffpos = matrix(c(abs(x - pos), maxland - abs(x - pos)), ncol = 2, byrow = T)
-distonring = apply(diffpos, 1, min)
-res = 1/(1 + exp(-5*(distonring - 3)))
-#res = 1 - dep
-plot(x, res, type = "l")
-abline(h = 0, col = 2)
+{
+  x = seq(0,100,0.01)
+  maxland = 100
+  pos = 95
+  # this is the distance on a ring
+  diffpos = matrix(c(abs(x - pos), maxland - abs(x - pos)), ncol = 2)
+  distonring = apply(diffpos, 1, min)
+  res = 1/(1 + exp(-5*(distonring-2)))
+  #res = 1 - dep
+  plot(x, res, type = "l", xlim = c(80, 100))
+  abline(h = 0, col = 2)
+}
