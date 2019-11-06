@@ -19,22 +19,20 @@ void out_vec(const std::vector<T>& vec)
 	std::cout << "\n";
 }
 
-// size parameters
-// const int landsize = 1000; // not necessary
+// population params
 const int popsize = 100; // not too many
-const int tMax = 25; // not too high
 
-// max landsize
-const int maxLand = 20;
+// landscape params
+const int maxLandVec = 100;
+const float maxLandPos = 20.f;
+const float maxFood = 1.f;
+
+// time params
+const int genmax = 1000; //arbit choice
+const int tMax = 25;
 
 // rand number
 std::mt19937_64 rng;
 //std::normal_distribution<float> normDist(1.f, 6.f);
-
-// seasons or replicates params
-const int genmax = 1000; //arbit choice
-
-// landscape carrying capacity
-const float maxFood = 1.f;
 
 // end here
