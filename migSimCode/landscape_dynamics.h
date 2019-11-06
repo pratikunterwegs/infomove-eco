@@ -10,7 +10,7 @@
 class gridcell
 {
 public:
-	gridcell() : dFood(1.f), dPos {};
+	gridcell() : dFood(1.f), dPos(0.f) {};
 	~gridcell() {};
 
 	// each gridcell stores nAgents and food
@@ -21,10 +21,13 @@ public:
 // init landscape of length maxlandvec
 std::vector<gridcell> landscape(maxLandVec);
 
-// assign positions
-for(int i = 0; i < maxLandVec; i++)
+/// function to make positions
+void makePositions(std::vector<gridcell>& landscape)
 {
-    landscape[i].dPos = static_cast<float>(i) / maxLandPos;
+	for (int i = 0; i < maxLandVec; i++)
+	{
+		landscape[i].dPos = static_cast<float>(i) / maxLandPos;
+	}
 }
 
 /// function for wrapped distance
