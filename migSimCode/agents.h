@@ -11,7 +11,6 @@
 #include <cassert>
 #include "ann.h"
 #include "params.h"
-#include "landscape_dynamics.h"
 
 //// include gsl for distributions
 //#include <stdio.h>

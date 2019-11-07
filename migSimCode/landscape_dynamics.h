@@ -4,7 +4,7 @@
 // to be imported after agents.h
 
 #include "params.h"
-
+#include "agents.h"
 // make gridcell class
 class gridcell
 {
