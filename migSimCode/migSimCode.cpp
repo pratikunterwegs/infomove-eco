@@ -68,6 +68,8 @@
 int do_main()
 {
 	makePositions(landscape);
+	std::vector<int> agentIdVec(popsize);
+	for (int i = 0; i < popsize; i++) { agentIdVec.push_back(i); }
 	// run for 100 generations of 100 timesteps
 	for (int gen = 0; gen < genmax; gen++)
 	{
