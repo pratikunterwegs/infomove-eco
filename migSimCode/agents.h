@@ -221,10 +221,16 @@ void convertAngleToPos(const int& whichAgent)
 }
 
 /// function to walk along the circle
-void circleWalk(const int& whichAgent)
+void circleWalkAndLearn(const int& whichAgent)
 {
 	bool direction = walkDirection(rng);
+	float oldPos = population[whichAgent].circPos;
 	population[whichAgent].circPos += ( population[whichAgent].circWalkDist * (direction ? 1.f : -1.f) );
+
+	// here, if resources at original pos given by
+	// angle used are less than at new pos
+	// adopt the new position ANGLE as the new
+	// angle to use in the next step
 }
 
 /// function to reproduce
