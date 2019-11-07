@@ -241,8 +241,8 @@ void do_reprod()
 		int parent_id = weighted_lottery(rng);
 		// replicate ANN
 		pop2[a].annFollow = population[parent_id].annFollow;
-		// replicate movement parameters
-		pop2[a].moveAngle = population[parent_id].moveAngle;
+		// random movement angle
+		pop2[a].moveAngle = angleDist(rng);
 		// reset who is being followed
 		pop2[a].leader = -1;
 		// overwrite moveAngle copy
