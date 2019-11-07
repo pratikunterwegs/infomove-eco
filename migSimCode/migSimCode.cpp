@@ -136,9 +136,9 @@ void test_doMain()
 int main()
 {
 	// run some basic tests
-	/*test_agentMaker();
+	test_agentMaker();
 	test_list_neighbours();
-	test_leaderDynamics();*/
+	test_leaderDynamics();
 	   
 	// overall do main
 	do_main();

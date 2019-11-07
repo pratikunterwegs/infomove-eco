@@ -34,6 +34,9 @@ using Ann = Network<float,
 // pick rand move angle - uniform distribution over the landscape
 std::uniform_real_distribution<float> angleDist(-2.f*Pi, 2.f*Pi);
 
+// bernoulli dist for circlewalk
+std::bernoulli_distribution walkDirection(0.5);
+
 // clear node state
 struct flush_rec_nodes
 {
@@ -51,12 +54,12 @@ struct flush_rec_nodes
 class agent
 {
 public:
-	agent() : annFollow(0.f), moveAngle(angleDist(rng)), moveAngleCopy(moveAngle),
+	agent() : annFollow(0.f), moveAngle(angleDist(rng)), moveAngleCopy(moveAngle), circWalkDist(1.f),
 		circPos(0.f),
 		chainLength(0), leader(-1) {};
 	~agent() {};
 	// agents need a brain, an age, fitness, and movement decision
-	Ann annFollow; float moveAngle, moveAngleCopy, circPos;
+	Ann annFollow; float moveAngle, moveAngleCopy, circPos, circWalkDist;
 	int chainLength, leader;
 	// pointer to param
 	float* movePointer = &moveAngleCopy; //points to self unless reset
@@ -215,6 +218,13 @@ void convertAngleToPos(const int& whichAgent)
 {
 	float circProp = (sin(population[whichAgent].moveAngleCopy) + 1.f) / 2.f;
 	population[whichAgent].circPos = circProp * maxLandPos; 
+}
+
+/// function to walk along the circle
+void circleWalk(const int& whichAgent)
+{
+	bool direction = walkDirection(rng);
+	population[whichAgent].circPos += ( population[whichAgent].circWalkDist * (direction ? 1.f : -1.f) );
 }
 
 /// function to reproduce
