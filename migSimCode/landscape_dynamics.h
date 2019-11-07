@@ -5,6 +5,7 @@
 
 #include "params.h"
 #include "agents.h"
+
 // make gridcell class
 class gridcell
 {
@@ -82,6 +83,29 @@ void doGetFood(const int& whichAgent)
 
     // std::cout << "agent " << whichAgent << " energy = " << agentEnergyVec[whichAgent] << "\n";
     
+}
+
+/// function to walk along the circle
+void circleWalkAndLearn(const int& whichAgent)
+{
+	bool direction = walkDirection(rng);
+	// save old pos, bound, and value
+	float oldPos = population[whichAgent].circPos;
+	int oldPosBound = static_cast<int>(ceil((oldPos / maxLandPos) * static_cast<float>(landPoints)));
+	float oldVal = landscape[oldPosBound].dFood;
+
+	// move agent left or right
+	population[whichAgent].circPos += (population[whichAgent].circWalkDist * (direction ? 1.f : -1.f));
+
+	// new position bound
+	int newPosBound = static_cast<int>(ceil((population[whichAgent].circPos / maxLandPos) * static_cast<float>(landPoints)));
+	float newVal = landscape[newPosBound].dFood;
+
+	// change angle if new val better than old val
+	if (newVal > oldVal)
+	{
+		population[whichAgent].moveAngleCopy = convertPosToAngle(population[whichAgent].circPos);
+	}
 }
 
 /// function to print landscape values
