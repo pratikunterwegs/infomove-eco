@@ -11,6 +11,7 @@
 #include <cassert>
 #include "ann.h"
 #include "params.h"
+#include "landscape_dynamics.h"
 
 //// include gsl for distributions
 //#include <stdio.h>
@@ -32,7 +33,7 @@ using Ann = Network<float,
 #define Pi      3.14159f
 
 // pick rand move angle - uniform distribution over the landscape
-std::uniform_real_distribution<float> angleDist(-2.f*Pi, 2.f*Pi);
+std::uniform_real_distribution<float> angleDist(0.f, 360.f);
 
 // bernoulli dist for circlewalk
 std::bernoulli_distribution walkDirection(0.5);
@@ -220,6 +221,16 @@ void convertAngleToPos(const int& whichAgent)
 	population[whichAgent].circPos = circProp * maxLandPos; 
 }
 
+/// convert pos to angle
+float convertPosToAngle(const int& whichAgent)
+{
+	float circProp = population[i].circProp / maxLandPos;
+	float newAngle = circProp * 360.f;
+
+	return newAngle;
+
+}
+
 /// function to walk along the circle
 void circleWalkAndLearn(const int& whichAgent)
 {
@@ -227,10 +238,57 @@ void circleWalkAndLearn(const int& whichAgent)
 	float oldPos = population[whichAgent].circPos;
 	population[whichAgent].circPos += ( population[whichAgent].circWalkDist * (direction ? 1.f : -1.f) );
 
+	if()
+
 	// here, if resources at original pos given by
 	// angle used are less than at new pos
 	// adopt the new position ANGLE as the new
 	// angle to use in the next step
+}
+
+/// function to deplete landscape
+// update dFood based on wrapped agent effect
+void depleteFood(const int& whichAgent)
+{
+    assert(population[whichAgent].circPos >= 0 && "pop has neg moves");
+    for(int l = 0; l < landPoints; l++)
+    {
+        // wrapped distance from agent
+        float dist = getWrappedDist(population[whichAgent].circPos, landscape[l].dPos);
+		float depleted = (maxDepletion / (1.f + exp(depletionSlope * (dist - depletionRadius))));
+
+		landscape[l].dFood -= (landscape[l].dFood - depleted) > 0.f ? depleted : landscape[l].dFood;
+
+		assert(landscape[l].dFood >= 0.f && "landscape food has become negative!");
+    }    
+}
+
+/// function to get energy
+void doGetFood(const int& whichAgent)
+{
+	// loop through landscape looking for pair of positions
+    int l = 0;
+    int bound_right = 0;
+    while((l < landPoints))
+    {
+        // get right bound
+        bound_right = landscape[bound_right].dPos > population[whichAgent].circPos ? bound_right : l;
+        l++;
+    }
+
+    // left bound is right bound - 1
+    int bound_left = (bound_right - 1 >= 0)? (bound_right - 1): landPoints + (bound_right - 1);
+    // energy is left bound / left distance + right bound / right distance
+    float dist_left = getWrappedDist(population[whichAgent].circPos, landscape[bound_left].dPos);
+    float dist_right = getWrappedDist(population[whichAgent].circPos, landscape[bound_right].dPos);
+
+    float food_left = landscape[bound_left].dFood;
+    float food_right = landscape[bound_right].dFood;
+    // agent foraging is interpolated
+    agentEnergyVec[whichAgent] += ((food_left * dist_left) + (food_right * dist_right)) / (dist_left + dist_right);
+
+    // std::cout << "agent " << whichAgent << " energy = " << agentEnergyVec[whichAgent] << "\n";
+    
 }
 
 /// function to reproduce
