@@ -44,8 +44,16 @@ ggplot()+
   # this is the distance on a ring
   diffpos = matrix(c(abs(x - pos), maxland - abs(x - pos)), ncol = 2)
   distonring = apply(diffpos, 1, min)
-  res = 1/(1 + exp(5*(distonring-4)))
-  #res = 1 - dep
-  plot(x, res, type = "l", xlim = c(0, 100), ylim = c(0,1))
-  abline(h = 0, col = 2)
+  dep = 1/(1 + exp(5*(distonring - 2)))
+  res = 10 - dep
+  plot(x, res, type = "l", xlim = c(0, 100), ylim = c(0,10))
+  abline(h = 1, col = 2)
+}
+
+#### angle issues ####
+{
+  angle = seq(-2*pi, 2*pi, 0.001)
+  prop = (sin(angle) + 1)/2
+  plot(prop~angle, type = "l")
+  abline(h = 0.5, col =2)
 }
