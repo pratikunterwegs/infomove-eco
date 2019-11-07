@@ -60,6 +60,8 @@ public:
 	int chainLength, leader;
 	// pointer to param
 	float* movePointer = &moveAngleCopy; //points to self unless reset
+
+	void resetAngle();
 };
 
 /// make vector of agent energy
@@ -70,6 +72,13 @@ std::vector<agent> initAgents(const int& number)
 {
 	std::vector<agent> population(number);
 	return population;
+}
+
+/// choose random angle
+void agent::resetAngle()
+{
+	moveAngle = angleDist(rng);
+	moveAngleCopy = moveAngle;
 }
 
 /// init agents
