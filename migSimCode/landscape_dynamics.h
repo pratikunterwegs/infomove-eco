@@ -28,11 +28,11 @@ void makePositions(std::vector<gridcell>& landscape)
 }
 
 /// function for wrapped distance
-float getWrappedDist(const float& x1, const float& x2, const float& x_max)
+float getWrappedDist(const float& x1, const float& x2)
 {
     float tempdist = abs(x2 - x1);
-    assert(tempdist <= maxLandPos && "tempdist is too high");
-    tempdist = std::min(tempdist, x_max - tempdist);
+    assert(tempdist <= maxLandPos && "tempdist is beyond land");
+    tempdist = std::min(tempdist, maxLandPos - tempdist);
     return tempdist;
 }
 
@@ -40,10 +40,11 @@ float getWrappedDist(const float& x1, const float& x2, const float& x_max)
 // update dFood based on wrapped agent effect
 void depleteFood(const int& whichAgent)
 {
+    assert(population[whichAgent].moveAngleCopy >= 0 && "pop has neg moves");
     for(int l = 0; l < landPoints; l++)
     {
         // wrapped distance from agent
-        float dist = getWrappedDist(population[whichAgent].moveAngleCopy, landscape[l].dPos, maxLandPos);
+        float dist = getWrappedDist(population[whichAgent].moveAngleCopy, landscape[l].dPos);
         landscape[l].dFood -= maxFood/(maxFood + exp(depletionSlope * (dist - depletionRadius)));
     }
 }
