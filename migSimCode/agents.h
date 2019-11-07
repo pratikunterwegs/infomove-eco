@@ -10,14 +10,13 @@
 #include <unordered_set>
 #include <cassert>
 #include "ann.h"
-#include "landscape.h"
+#include "params.h"
 
 //// include gsl for distributions
 //#include <stdio.h>
 //#include <gsl/gsl_rng.h>
 //#include <gsl/gsl_randist.h>
 
-using namespace std;
 using namespace ann;
 
 // spec ann structure
@@ -30,8 +29,10 @@ using Ann = Network<float,
 // pick rand node weights
 //std::uniform_real_distribution<float> nodeDist(-10.f, 10.f);
 
+#define Pi      3.14159f
+
 // pick rand move angle - uniform distribution over the landscape
-std::uniform_real_distribution<float> angleDist(0.f, static_cast<float>(maxLand));
+std::uniform_real_distribution<float> angleDist(-2.f*Pi, 2.f*Pi);
 
 // clear node state
 struct flush_rec_nodes
@@ -51,14 +52,14 @@ class agent
 {
 public:
 	agent() : annFollow(0.f), moveAngle(angleDist(rng)), moveAngleCopy(moveAngle),
+		circPos(0.f),
 		chainLength(0), leader(-1) {};
 	~agent() {};
 	// agents need a brain, an age, fitness, and movement decision
-	Ann annFollow; float moveAngle, moveAngleCopy;
+	Ann annFollow; float moveAngle, moveAngleCopy, circPos;
 	int chainLength, leader;
 	// pointer to param
 	float* movePointer = &moveAngleCopy; //points to self unless reset
-
 };
 
 /// make vector of agent energy
@@ -150,7 +151,7 @@ void resolveLeaders(std::vector<agent> &population, const int& whichAgent)
 		// temp leadchain
 		std::vector<int> templeadchain;
 		// make un unordered set to check if duplicates are being added
-		unordered_set<int> checkDups;
+		std::unordered_set<int> checkDups;
 
 		for (int j = 0; j < initCount && checkDups.find(leadchain[j]) == checkDups.end(); j++)
 		{
@@ -200,30 +201,25 @@ void resolveLeaders(std::vector<agent> &population, const int& whichAgent)
 	// no else condition but may be necessary later
 }
 
-/// function to handle negative movement values
-//void movePositive() {
-//	for (int p = 0; p < popsize; p++) {
-//		population[p].moveAngleCopy = (population[p].moveAngleCopy > 0.f) ? population[p].moveAngleCopy : 0.f;
-//	}
-//}
+/// function to convert angle to position
+void convertAngleToPos(const int& whichAgent)
+{
+	float circProp = (sin(population[whichAgent].moveAngleCopy) + 1.f) / 2.f;
+	population[whichAgent].circPos = circProp * maxLandPos; 
+}
 
 /// function to reproduce
 void do_reprod()
 {
 	// make fitness vec
-	vector<double> fitness_vec;
+	std::vector<double> fitness_vec;
 	float max = 0.f; float min = 0.f;
-	for (int a = 0; a < popsize; a++) {
-
-		/*max = max > population[a].energy ? max : population[a].energy;
-		min = min < population[a].energy ? min : population[a].energy;*/
-		// cout << agentEnergyVec[a] << "\n";
+	for (int a = 0; a < popsize; a++) 
+	{
 		assert(agentEnergyVec[a] >= 0.f && "agent energy is 0!");
 
-		//cout << "fitness " << a << " = " << population[a].energy << endl;
+		// std::cout << "fitness " << a << " = " << agentEnergyVec[a] << "\n";
 		fitness_vec.push_back(static_cast<double> (agentEnergyVec[a]));
-
-		// cout << "fitness vec = "  << fitness_vec[a] << endl;
 	}
 
 	// make temp pop vector, position and energy vectors
@@ -244,6 +240,7 @@ void do_reprod()
 		pop2[a].moveAngleCopy = pop2[a].moveAngle;
 		//overwrite movement pointer
 		pop2[a].movePointer = &pop2[a].moveAngleCopy;
+		pop2[a].moveAngleCopy = pop2[a].circPos = 0.f;
 
 		// overwrite energy
 		agentEnergy2[a] = 0.0001f;
@@ -281,11 +278,11 @@ void do_reprod()
 
 /// function to print data
 // func must print gen, id, distance from peak, move param, leader, energy at the end of each generation
-void printData(const int& gen_p, const int& time_p)
+void printAgents(const int& gen_p, const int& time_p)
 {
 	// open or append
 	std::ofstream agentofs;
-	agentofs.open("dataOut.csv", std::ofstream::out | std::ofstream::app);
+	agentofs.open("dataAgents.csv", std::ofstream::out | std::ofstream::app);
 
 	// col header
 	if (gen_p == 0 && time_p == 0) { agentofs << "gen,time,id,movep,movepcopy,chainlength,leader,energy\n"; }
@@ -300,7 +297,7 @@ void printData(const int& gen_p, const int& time_p)
 				<< time_p << ","
 				<< ind2 << ","
 				<< population[ind2].moveAngle << ","
-				<< population[ind2].moveAngleCopy - static_cast<float>(maxLand) << ","
+				<< population[ind2].moveAngleCopy - maxLandPos << ","
 				<< population[ind2].chainLength << ","
 				<< population[ind2].leader << ","
 				<< agentEnergyVec[ind2] << "\n";

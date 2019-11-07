@@ -12,7 +12,7 @@ library(scico)
 ci = function(x){qnorm(0.975)*sd(x, na.rm = T)/sqrt(length(x))}
 
 # load datas
-data = fread("migSimCode/dataOut.csv")
+data = fread("migSimCode/dataAgents.csv")
 
 # make numeric
 data = data[,lapply(.SD, as.numeric), .SDcols = c(names(data))]
@@ -104,11 +104,5 @@ ggsave(filename = "figs/figFollowPropExpCopy.png", device = png(),
 }
 
 ggplot(land)+
-  geom_tile(aes(x = pos, y = gen, fill = visits))+
+  geom_tile(aes(x = pos, y = gen, fill = food))
   # facet_wrap(~variable)+
-  scale_fill_distiller(palette = "YlOrRd", 
-                       limits = c(0, 1000),
-                       na.value = "white", 
-                       direction = 1)+
-  scale_y_reverse()+
-  ggthemes::theme_clean()
