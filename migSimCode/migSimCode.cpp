@@ -97,6 +97,8 @@ int do_main()
 			{	
 				// resolve chains
 				resolveLeaders(population, ind);
+				// convert angle to position
+				convertAngleToPos(ind);
 			}
 			// shuffle agent id vector for random order
 			std::random_shuffle(agentIdVec.begin(), agentIdVec.end());
@@ -107,6 +109,12 @@ int do_main()
 				depleteFood(agentIdVec[ind]);
 			}
 			
+			for (int i =0; i < landPoints; i++)
+			{
+				std::cout << landscape[i].dFood << " ";
+			}
+			std::cout << "\n";
+
 			// output data
 			printAgents(gen, t);
 		}
