@@ -10,14 +10,13 @@
 #include <unordered_set>
 #include <cassert>
 #include "ann.h"
-#include "landscape.h"
+#include "params.h"
 
 //// include gsl for distributions
 //#include <stdio.h>
 //#include <gsl/gsl_rng.h>
 //#include <gsl/gsl_randist.h>
 
-using namespace std;
 using namespace ann;
 
 // spec ann structure
@@ -31,7 +30,7 @@ using Ann = Network<float,
 //std::uniform_real_distribution<float> nodeDist(-10.f, 10.f);
 
 // pick rand move angle - uniform distribution over the landscape
-std::uniform_real_distribution<float> angleDist(0.f, static_cast<float>(maxLandPos));
+std::uniform_real_distribution<float> angleDist(0.f, maxLandPos);
 
 // clear node state
 struct flush_rec_nodes
@@ -149,7 +148,7 @@ void resolveLeaders(std::vector<agent> &population, const int& whichAgent)
 		// temp leadchain
 		std::vector<int> templeadchain;
 		// make un unordered set to check if duplicates are being added
-		unordered_set<int> checkDups;
+		std::unordered_set<int> checkDups;
 
 		for (int j = 0; j < initCount && checkDups.find(leadchain[j]) == checkDups.end(); j++)
 		{
@@ -210,7 +209,7 @@ void resolveLeaders(std::vector<agent> &population, const int& whichAgent)
 void do_reprod()
 {
 	// make fitness vec
-	vector<double> fitness_vec;
+	std::vector<double> fitness_vec;
 	float max = 0.f; float min = 0.f;
 	for (int a = 0; a < popsize; a++) {
 
@@ -219,10 +218,10 @@ void do_reprod()
 		// cout << agentEnergyVec[a] << "\n";
 		assert(agentEnergyVec[a] >= 0.f && "agent energy is 0!");
 
-		//cout << "fitness " << a << " = " << population[a].energy << endl;
+		// std::cout << "fitness " << a << " = " << agentEnergyVec[a] << "\n";
 		fitness_vec.push_back(static_cast<double> (agentEnergyVec[a]));
 
-		// cout << "fitness vec = "  << fitness_vec[a] << endl;
+		std::cout << "fitness vec "  << a << " = " << fitness_vec[a] << "\n";
 	}
 
 	// make temp pop vector, position and energy vectors
@@ -284,7 +283,7 @@ void printAgents(const int& gen_p, const int& time_p)
 {
 	// open or append
 	std::ofstream agentofs;
-	agentofs.open("dataOut.csv", std::ofstream::out | std::ofstream::app);
+	agentofs.open("dataAgents.csv", std::ofstream::out | std::ofstream::app);
 
 	// col header
 	if (gen_p == 0 && time_p == 0) { agentofs << "gen,time,id,movep,movepcopy,chainlength,leader,energy\n"; }
@@ -299,7 +298,7 @@ void printAgents(const int& gen_p, const int& time_p)
 				<< time_p << ","
 				<< ind2 << ","
 				<< population[ind2].moveAngle << ","
-				<< population[ind2].moveAngleCopy - static_cast<float>(maxLand) << ","
+				<< population[ind2].moveAngleCopy - maxLandPos << ","
 				<< population[ind2].chainLength << ","
 				<< population[ind2].leader << ","
 				<< agentEnergyVec[ind2] << "\n";
