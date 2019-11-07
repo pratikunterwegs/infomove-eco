@@ -44,6 +44,46 @@ void doMakeFood()
 		landscape[l].dFood = maxFood;
 	}
 }
+
+/// function to deplete landscape
+// update dFood based on wrapped agent effect
+void depleteFood(const int& whichAgent)
+{
+    assert(population[whichAgent].circPos >= 0 && "pop has neg moves");
+    for(int l = 0; l < landPoints; l++)
+    {
+        // wrapped distance from agent
+        float dist = getWrappedDist(population[whichAgent].circPos, landscape[l].dPos);
+		float depleted = (maxDepletion / (1.f + exp(depletionSlope * (dist - depletionRadius))));
+
+		landscape[l].dFood -= (landscape[l].dFood - depleted) > 0.f ? depleted : landscape[l].dFood;
+
+		assert(landscape[l].dFood >= 0.f && "landscape food has become negative!");
+    }    
+}
+
+/// function to get energy
+void doGetFood(const int& whichAgent)
+{
+	// loop through landscape looking for pair of positions
+    int l = 0;
+    int bound_right = static_cast<int>(ceil((population[whichAgent].circPos / maxLandPos) * static_cast<float>(landPoints)));
+
+    // left bound is right bound - 1
+    int bound_left = (bound_right - 1 >= 0)? (bound_right - 1): landPoints + (bound_right - 1);
+    // energy is left bound / left distance + right bound / right distance
+    float dist_left = getWrappedDist(population[whichAgent].circPos, landscape[bound_left].dPos);
+    float dist_right = getWrappedDist(population[whichAgent].circPos, landscape[bound_right].dPos);
+
+    float food_left = landscape[bound_left].dFood;
+    float food_right = landscape[bound_right].dFood;
+    // agent foraging is interpolated
+    agentEnergyVec[whichAgent] += ((food_left * dist_left) + (food_right * dist_right)) / (dist_left + dist_right);
+
+    // std::cout << "agent " << whichAgent << " energy = " << agentEnergyVec[whichAgent] << "\n";
+    
+}
+
 /// function to print landscape values
 void printLand(const int& gen_p)
 {
