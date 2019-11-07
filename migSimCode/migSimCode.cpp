@@ -3,7 +3,7 @@
 #include <iostream>
 #include <cassert>
 #include <vector>
-#include "landscape.h"
+#include "params.h"
 #include "ann.h"
 #include "agents.h"
 #include "landscape_dynamics.h"
@@ -71,7 +71,7 @@ int do_main()
 	std::vector<int> agentIdVec(popsize);
 	for (int i = 0; i < popsize; i++) { agentIdVec.push_back(i); }
 	// run for 100 generations of 100 timesteps
-	for (int gen = 0; gen < genmax; gen++)
+	for (int gen = 0; gen < 1; gen++)
 	{
 		std::cout << "gen = " << gen << "\n";
 		// loop through timesteps
@@ -108,16 +108,17 @@ int do_main()
 			}
 			
 			// output data
-			printData(gen, t);
+			printAgents(gen, t);
 		}
 		// print land
 		printLand(gen);
+		//replenish landscape
+		doMakeFood();
 		// implement reproduction
 		do_reprod();
 		//std::cout << "agents reproduce\n";
 	}
 
-	exit(EXIT_FAILURE);
 	return 0;
 }
 
@@ -138,7 +139,7 @@ int main()
 	// overall do main
 	do_main();
 
-	cout << "works so far\n";
+	std::cout << "works so far\n";
 	return 0;
 }
 
