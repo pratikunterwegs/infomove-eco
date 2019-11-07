@@ -26,6 +26,7 @@ const int popsize = 100; // not too many
 const int landPoints = 100;
 const float maxLandPos = 20.f;
 const float maxFood = 1.f;
+const float depletionParam = 10.f;
 const float depletionSlope = 5.f;
 const float depletionRadius = 2.f;
 
