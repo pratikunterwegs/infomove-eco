@@ -5,7 +5,6 @@
 
 #include "landscape.h"
 #include "agents.h"
-
 // make gridcell class
 class gridcell
 {
@@ -33,7 +32,7 @@ void makePositions(std::vector<gridcell>& landscape)
 /// function for wrapped distance
 float getWrappedDist(const float& x1, const float& x2, const float& x_max)
 {
-    const float tempdist = abs(x2 - x1);
+    float tempdist = abs(x2 - x1);
 
     assert(tempdist <= maxLandPos && "tempdist is too high");
 
@@ -49,9 +48,9 @@ void depleteFood(const int& whichAgent)
     for(int l = 0; l < maxLandVec; l++)
     {
         // wrapped distance from agent
-        float dist = getWrappedDist(population[i].moveAngleCopy, landscape[l].dPos, maxLandPos);
+        float dist = getWrappedDist(population[whichAgent].moveAngleCopy, landscape[l].dPos, maxLandPos);
 
-        dFood -= (1.f/(1.f + dist));
+        landscape[l].dFood -= 1/(1 + exp(5*(dist-2)));
     }
 }
 
@@ -81,7 +80,7 @@ void doGetFood(const int& whichAgent)
     float food_right = landscape[bound_right].dFood;
 
     // agent foraging is interpolated
-    population[whichAgent] = ((food_left * dist_left) + (food_right * dist_right)) / (dist_left + dist_right);
+    agentEnergyVec[whichAgent] = ((food_left * dist_left) + (food_right * dist_right)) / (dist_left + dist_right);
     
 }
 
