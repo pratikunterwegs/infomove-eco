@@ -31,7 +31,7 @@ using Ann = Network<float,
 //std::uniform_real_distribution<float> nodeDist(-10.f, 10.f);
 
 // pick rand move angle - uniform distribution over the landscape
-std::uniform_real_distribution<float> angleDist(0.f, static_cast<float>(maxLand));
+std::uniform_real_distribution<float> angleDist(0.f, static_cast<float>(maxLandPos));
 
 // clear node state
 struct flush_rec_nodes
@@ -58,7 +58,6 @@ public:
 	int chainLength, leader;
 	// pointer to param
 	float* movePointer = &moveAngleCopy; //points to self unless reset
-
 };
 
 /// make vector of agent energy
