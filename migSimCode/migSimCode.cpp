@@ -13,56 +13,52 @@
 
 // tests section
 /// function to test correct number of agents made
-//void test_agentMaker()
-//{
-//	// make agent vector and check size
-//	std::vector<agent> test_pop = initAgents(500);
-//	assert(test_pop.size() == 500);
-//}
+void test_agentMaker()
+{
+	// make agent vector and check size
+	std::vector<agent> test_pop = initAgents(500);
+	assert(test_pop.size() == 500);
+}
 
 /// functison to test correct number of neighbours listed
-//void test_list_neighbours()
-//{
-//	// make agent vector
-//	std::vector<agent> test_pop = initAgents(500);
-//	// make neighbours vector
-//	std::vector<int> test_vec_neighbours = list_neighbours(21);
-//	// test that agent 21 is not in own neighbours
-//	assert(std::find(test_vec_neighbours.begin(),
-//		test_vec_neighbours.end(), 21) == test_vec_neighbours.end()
-//		&& "agent is own neighbour!");
-//}
+void test_list_neighbours()
+{
+	// make agent vector
+	std::vector<agent> test_pop = initAgents(500);
+	// make neighbours vector
+	std::vector<int> test_vec_neighbours = list_neighbours(21);
+	// test that agent 21 is not in own neighbours
+	assert(std::find(test_vec_neighbours.begin(),
+		test_vec_neighbours.end(), 21) == test_vec_neighbours.end()
+		&& "agent is own neighbour!");
+}
 
 /// function to test leader reset
-//void test_leaderDynamics()
-//{
-//	// make agent vector
-//	std::vector<agent> test_pop = initAgents(3);
-//	// set leader manually
-//	for (int i = 0; i < test_pop.size() - 1; i++)
-//	{
-//		test_pop[i].leader = i + 1;
-//	}
-//
-//	// resolve leaders
-//	for (int i = 0; i < test_pop.size(); i++)
-//	{
-//		resolveLeaders(test_pop, i);
-//	}
-//
-//	// check that moveAnglecopy has been updated
-//	for (int i = 0; i < test_pop.size() - 1; i++)
-//	{
-//		cout << "move angle copy = " << test_pop[i].moveAngleCopy << "\n";
-//		assert(test_pop[i].moveAngleCopy == test_pop[i+1].moveAngleCopy);
-//	}
-//	
-//	// run reset func
-//	resetLeaderAndMove(test_pop, 0);
-//
-//	// test that leader is now -1
-//	assert(test_pop[0].leader == -1 && "leader is not reset");
-//}
+void test_leaderDynamics()
+{
+	// make agent vector
+	std::vector<agent> test_pop = initAgents(3);
+	// set leader manually
+	for (int i = 0; i < test_pop.size() - 1; i++)
+	{
+		test_pop[i].leader = i + 1;
+	}
+	// resolve leaders
+	for (int i = 0; i < test_pop.size(); i++)
+	{
+		resolveLeaders(test_pop, i);
+	}
+	// check that moveAnglecopy has been updated
+	for (int i = 0; i < test_pop.size() - 1; i++)
+	{
+		cout << "move angle copy = " << test_pop[i].moveAngleCopy << "\n";
+		assert(test_pop[i].moveAngleCopy == test_pop[i+1].moveAngleCopy);
+	}
+	// run reset func
+	resetLeaderAndMove(test_pop, 0);
+	// test that leader is now -1
+	assert(test_pop[0].leader == -1 && "leader is not reset");
+}
 
 /// the main function
 int do_main()
