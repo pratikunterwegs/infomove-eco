@@ -12,10 +12,8 @@ class gridcell
 public:
 	gridcell() : dFood(1.f) {};
 	~gridcell() {};
-
 	// each gridcell stores nAgents and food
 	float dFood;
-
 };
 
 // init landscape of length maxland 1000
@@ -28,16 +26,12 @@ void addAgentsToLand()
 	{
 		// get agent integer position
 		int agentPos = static_cast<int> (floor(population[p].moveAngleCopy));
-
 		// wrap agent position to landscape
 		agentPos = (agentPos % maxLand);
-
 		// print agent pos
 		// std::cout << "agent pos = " << agentPos << "\n";
-
 		// add agent to relevant grid cell
 		landscape[agentPos].nAgents += 1;
-
 		// add total agents
 		landscape[agentPos].nTotAgents += 1;
 	}
@@ -49,16 +43,12 @@ void doGetFood(const int& whichAgent)
 {
 	// get agent integer position
 	int agentPos = static_cast<int> (floor(population[whichAgent].moveAngleCopy));
-
 	// wrap agent position to landscape
 	agentPos = (agentPos % maxLand);
-
 	// count agents at pos
 	int neighbours = landscape[agentPos].nAgents > 0 ? landscape[agentPos].nAgents : 1;
-
 	// value of food shared with neighbours
 	float food = static_cast<float> (landscape[agentPos].dFood) / (static_cast<float>(neighbours));
-
 	// energy in if move is true - loop following is penalised
 	agentEnergyVec[whichAgent] += food;
 }
@@ -99,10 +89,8 @@ void printLand(const int& gen_p)
 	// open or append
 	std::ofstream landofs;
 	landofs.open("landOut.csv", std::ofstream::out | std::ofstream::app);
-
 	// col header
 	if (gen_p == 0) { landofs << "gen,pos,food,visits\n"; }
-
 	// print for each land cell
 	{
 		for (int landcell = 0; landcell < landscape.size(); landcell++)
