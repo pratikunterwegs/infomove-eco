@@ -65,8 +65,8 @@ void doGetFood(const int& whichAgent)
     // left bound is right bound - 1
     int bound_left = (bound_right - 1 >= 0)? (bound_right - 1): landPoints + (bound_right - 1);
     // energy is left bound / left distance + right bound / right distance
-    float dist_left = getWrappedDist(population[whichAgent].moveAngleCopy, landscape[bound_left].dPos, maxLandPos);
-    float dist_right = getWrappedDist(population[whichAgent].moveAngleCopy, landscape[bound_right].dPos, maxLandPos);
+    float dist_left = getWrappedDist(population[whichAgent].moveAngleCopy, landscape[bound_left].dPos);
+    float dist_right = getWrappedDist(population[whichAgent].moveAngleCopy, landscape[bound_right].dPos);
 
     float food_left = landscape[bound_left].dFood;
     float food_right = landscape[bound_right].dFood;
@@ -82,16 +82,15 @@ void printLand(const int& gen_p)
 	std::ofstream landofs;
 	landofs.open("landOut.csv", std::ofstream::out | std::ofstream::app);
 	// col header
-	if (gen_p == 0) { landofs << "gen,pos,food,visits\n"; }
+	if (gen_p == 0) { landofs << "gen,pos,food\n"; }
 	// print for each land cell
 	{
 		for (int landcell = 0; landcell < landscape.size(); landcell++)
 		{
 			landofs
 				<< gen_p << ","
-				<< landcell << ","
-				<< landscape[landcell].dFood << ","
-				<< landscape[landcell].nTotAgents << "\n";
+				<< landscape[landcell].dPos << ","
+				<< landscape[landcell].dFood << "\n";
 		}
 		//close
 		landofs.close();
