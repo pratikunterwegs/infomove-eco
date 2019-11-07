@@ -268,13 +268,7 @@ void doGetFood(const int& whichAgent)
 {
 	// loop through landscape looking for pair of positions
     int l = 0;
-    int bound_right = 0;
-    while((l < landPoints))
-    {
-        // get right bound
-        bound_right = landscape[bound_right].dPos > population[whichAgent].circPos ? bound_right : l;
-        l++;
-    }
+    int bound_right = static_cast<int>(ceil((population[whichAgent].circPos / maxLandPos) * static_cast<float>(landPoints)));
 
     // left bound is right bound - 1
     int bound_left = (bound_right - 1 >= 0)? (bound_right - 1): landPoints + (bound_right - 1);
