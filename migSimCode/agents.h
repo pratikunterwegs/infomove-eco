@@ -29,8 +29,10 @@ using Ann = Network<float,
 // pick rand node weights
 //std::uniform_real_distribution<float> nodeDist(-10.f, 10.f);
 
+#define Pi      3.14159f
+
 // pick rand move angle - uniform distribution over the landscape
-std::uniform_real_distribution<float> angleDist(0.f, maxLandPos);
+std::uniform_real_distribution<float> angleDist(-2.f*Pi, 2.f*Pi);
 
 // clear node state
 struct flush_rec_nodes
@@ -50,10 +52,11 @@ class agent
 {
 public:
 	agent() : annFollow(0.f), moveAngle(angleDist(rng)), moveAngleCopy(moveAngle),
+		circPos(0.f),
 		chainLength(0), leader(-1) {};
 	~agent() {};
 	// agents need a brain, an age, fitness, and movement decision
-	Ann annFollow; float moveAngle, moveAngleCopy;
+	Ann annFollow; float moveAngle, moveAngleCopy, circPos;
 	int chainLength, leader;
 	// pointer to param
 	float* movePointer = &moveAngleCopy; //points to self unless reset
@@ -198,12 +201,12 @@ void resolveLeaders(std::vector<agent> &population, const int& whichAgent)
 	// no else condition but may be necessary later
 }
 
-/// function to handle negative movement values
-//void movePositive() {
-//	for (int p = 0; p < popsize; p++) {
-//		population[p].moveAngleCopy = (population[p].moveAngleCopy > 0.f) ? population[p].moveAngleCopy : 0.f;
-//	}
-//}
+/// function to convert angle to position
+void convertAngleToPos(const int& whichAgent)
+{
+	float circProp = (sin(population[whichAgent].moveAngleCopy) + 1.f) / 2.f;
+	population[whichAgent].circPos = circProp * maxLandPos; 
+}
 
 /// function to reproduce
 void do_reprod()
@@ -211,17 +214,12 @@ void do_reprod()
 	// make fitness vec
 	std::vector<double> fitness_vec;
 	float max = 0.f; float min = 0.f;
-	for (int a = 0; a < popsize; a++) {
-
-		/*max = max > population[a].energy ? max : population[a].energy;
-		min = min < population[a].energy ? min : population[a].energy;*/
-		// cout << agentEnergyVec[a] << "\n";
+	for (int a = 0; a < popsize; a++) 
+	{
 		assert(agentEnergyVec[a] >= 0.f && "agent energy is 0!");
 
 		// std::cout << "fitness " << a << " = " << agentEnergyVec[a] << "\n";
 		fitness_vec.push_back(static_cast<double> (agentEnergyVec[a]));
-
-		std::cout << "fitness vec "  << a << " = " << fitness_vec[a] << "\n";
 	}
 
 	// make temp pop vector, position and energy vectors
@@ -242,6 +240,7 @@ void do_reprod()
 		pop2[a].moveAngleCopy = pop2[a].moveAngle;
 		//overwrite movement pointer
 		pop2[a].movePointer = &pop2[a].moveAngleCopy;
+		pop2[a].moveAngleCopy = pop2[a].circPos = 0.f;
 
 		// overwrite energy
 		agentEnergy2[a] = 0.0001f;
