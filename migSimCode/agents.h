@@ -280,7 +280,7 @@ void do_reprod()
 
 /// function to print data
 // func must print gen, id, distance from peak, move param, leader, energy at the end of each generation
-void printData(const int& gen_p, const int& time_p)
+void printAgents(const int& gen_p, const int& time_p)
 {
 	// open or append
 	std::ofstream agentofs;
