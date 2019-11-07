@@ -2,7 +2,7 @@
 
 Code for an individual-based model of agent movement and information use.
 
-Please contact the following before cloning or in case of interest:
+## Contact
 
 - Pratik Gupte (author and maintainer)
   - PhD student, University of Groningen
