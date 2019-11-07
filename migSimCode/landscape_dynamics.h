@@ -3,13 +3,13 @@
 /// header controlling depletion dynamics
 // to be imported after agents.h
 
-#include "landscape.h"
+#include "params.h"
 #include "agents.h"
 // make gridcell class
 class gridcell
 {
 public:
-	gridcell() : dFood(1.f), dPos(0.f) {};
+	gridcell() : dFood(10.f), dPos(0.f) {};
 	~gridcell() {};
 	// each gridcell stores nAgents and food
 	float dFood, dPos;
@@ -23,7 +23,7 @@ void makePositions(std::vector<gridcell>& landscape)
 {
 	for (int i = 0; i < landPoints; i++)
 	{
-		landscape[i].dPos = static_cast<float>(i) / maxLandPos;
+		landscape[i].dPos = static_cast<float>(i) * maxLandPos / static_cast<float>(landPoints);
 	}
 }
 
@@ -45,7 +45,8 @@ void depleteFood(const int& whichAgent)
     {
         // wrapped distance from agent
         float dist = getWrappedDist(population[whichAgent].moveAngleCopy, landscape[l].dPos);
-        landscape[l].dFood -= maxFood/(maxFood + exp(depletionSlope * (dist - depletionRadius)));
+
+        landscape[l].dFood -= (1/(depletionParam + exp(depletionSlope * (dist - depletionRadius))));
     }
 }
 
@@ -71,16 +72,24 @@ void doGetFood(const int& whichAgent)
     float food_left = landscape[bound_left].dFood;
     float food_right = landscape[bound_right].dFood;
     // agent foraging is interpolated
-    agentEnergyVec[whichAgent] = ((food_left * dist_left) + (food_right * dist_right)) / (dist_left + dist_right);
+    agentEnergyVec[whichAgent] += ((food_left * dist_left) + (food_right * dist_right)) / (dist_left + dist_right);
     
 }
 
+/// function to replenish food each generations
+void doMakeFood()
+{
+	for (int l = 0; l < landPoints; l++)
+	{
+		landscape[l].dFood = maxFood;
+	}
+}
 /// function to print landscape values
 void printLand(const int& gen_p)
 {
 	// open or append
 	std::ofstream landofs;
-	landofs.open("landOut.csv", std::ofstream::out | std::ofstream::app);
+	landofs.open("dataLand.csv", std::ofstream::out | std::ofstream::app);
 	// col header
 	if (gen_p == 0) { landofs << "gen,pos,food\n"; }
 	// print for each land cell
