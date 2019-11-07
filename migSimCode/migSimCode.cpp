@@ -98,33 +98,20 @@ int do_main()
 				// resolve chains
 				resolveLeaders(population, ind);
 			}
-
-			// update nAgents on grid cells
-			addAgentsToLand();
-
-			// agents get food after competition
+			// shuffle agent id vector for random order
+			std::random_shuffle(agentIdVec.begin(), agentIdVec.end());
+			// agents get food and deplete
 			for (int ind = 0; ind < popsize; ind++)
 			{
-				// get food
-				doGetFood(ind);
+				doGetFood(agentIdVec[ind]);
+				depleteFood(agentIdVec[ind]);
 			}
-			
-			// reset landscape to remove agents
-			resetAgentsOverTime();
 			
 			// output data
 			printData(gen, t);
 		}
-
-		// update landscape with depletion/regen on a generation basis
-		depleteLand();
-
 		// print land
 		printLand(gen);
-
-		// clear total agent visit info
-		resetAgentsOverGens();
-		
 		// implement reproduction
 		do_reprod();
 		//std::cout << "agents reproduce\n";
