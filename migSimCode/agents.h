@@ -235,15 +235,23 @@ float convertPosToAngle(const float& thisValue)
 void circleWalkAndLearn(const int& whichAgent)
 {
 	bool direction = walkDirection(rng);
+	// save old pos, bound, and value
 	float oldPos = population[whichAgent].circPos;
+	int oldPosBound = static_cast<int>(ceil((oldPos / maxLandPos) * static_cast<float>(landPoints)));
+	float oldVal = landscape[oldPosBound].dFood;
+
+	// move agent left or right
 	population[whichAgent].circPos += ( population[whichAgent].circWalkDist * (direction ? 1.f : -1.f) );
 
-	if()
+	// new position bound
+	int newPosBound = static_cast<int>(ceil((population[i].circPos / maxLandPos) * static_cast<float>(landPoints)));
+	float newVal = landscape[newPosBound].dFood;
 
-	// here, if resources at original pos given by
-	// angle used are less than at new pos
-	// adopt the new position ANGLE as the new
-	// angle to use in the next step
+	// change angle if new val better than old val
+	if(newVal > oldVal)
+	{
+		population[whichAgent].moveAngleCopy = convertPosToAngle(population[whichAgent].circPos);
+	}
 }
 
 /// function to reproduce
