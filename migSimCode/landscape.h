@@ -26,6 +26,8 @@ const int popsize = 100; // not too many
 const int maxLandVec = 100;
 const float maxLandPos = 20.f;
 const float maxFood = 1.f;
+const float depletionSteep = 5.f;
+const float depletionRadius = 2.f;
 
 // time params
 const int genmax = 1000; //arbit choice
