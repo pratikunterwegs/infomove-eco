@@ -222,9 +222,9 @@ void convertAngleToPos(const int& whichAgent)
 }
 
 /// convert pos to angle
-float convertPosToAngle(const int& whichAgent)
+float convertPosToAngle(const float& thisValue)
 {
-	float circProp = population[i].circProp / maxLandPos;
+	float circProp = thisValue / maxLandPos;
 	float newAngle = circProp * 360.f;
 
 	return newAngle;
