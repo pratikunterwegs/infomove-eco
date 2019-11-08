@@ -17,7 +17,7 @@ void test_agentMaker()
 {
 	// make agent vector and check size
 	std::vector<agent> test_pop = initAgents(500);
-	assert(test_pop.size() == 500);
+	assert(test_pop.size() == 500 && "wrong popsize\n");
 }
 
 /// functison to test correct number of neighbours listed
