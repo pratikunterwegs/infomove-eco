@@ -129,19 +129,20 @@ void circleWalkAndLearn(const int& whichAgent)
 }
 
 /// function to print landscape values
-void printLand(const int& gen_p)
+void printLand(const int& gen_p, const int& t_p)
 {
 	// open or append
 	std::ofstream landofs;
 	landofs.open("dataLand.csv", std::ofstream::out | std::ofstream::app);
 	// col header
-	if (gen_p == 0) { landofs << "gen,pos,food\n"; }
+	if (gen_p == 0) { landofs << "gen,t,pos,food\n"; }
 	// print for each land cell
 	{
 		for (int landcell = 0; landcell < landscape.size(); landcell++)
 		{
 			landofs
 				<< gen_p << ","
+				<< t_p << ","
 				<< landscape[landcell].dPos << ","
 				<< landscape[landcell].dFood << "\n";
 		}
