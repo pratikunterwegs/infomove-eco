@@ -71,7 +71,7 @@ void doGetFood(const int& whichAgent)
 	assert(population[whichAgent].circPos <= maxLandPos && "func doGetFood: agent walked over max land!");
 	assert(population[whichAgent].circPos >= 0.f && "func doGetFood: agent walked over min land!");
 	// get right bound by rounding proportion on the landscape
-    int bound_right = static_cast<int>(floor((population[whichAgent].circPos / maxLandPos) * static_cast<float>(landPoints)));
+    int bound_right = static_cast<int>(floor((population[whichAgent].circPos / maxLandPos) * static_cast<float>(landPoints-1)));
 
     // left bound is right bound - 1
     int bound_left = (bound_right - 1 >= 0)? (bound_right - 1): landPoints + (bound_right - 1);
@@ -102,7 +102,7 @@ void circleWalkAndLearn(const int& whichAgent)
 	assert(population[whichAgent].circPos >= 0.f && "func circleWalk: agent walked over min land!");
 	// save old pos, bound, and value
 	float oldPos = population[whichAgent].circPos;
-	int oldPosBound = static_cast<int>(floor((oldPos / maxLandPos) * static_cast<float>(landPoints)));
+	int oldPosBound = static_cast<int>(floor((oldPos / maxLandPos) * static_cast<float>(landPoints-1)));
 	// check if bounds are too high
 	assert(oldPosBound <= landPoints && "func circleWalk: forage pos beyond landscape");
 	float oldVal = landscape[oldPosBound].dFood;
