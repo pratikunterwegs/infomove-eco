@@ -51,8 +51,8 @@ void test_leaderDynamics()
 	// check that moveAnglecopy has been updated
 	for (int i = 0; i < test_pop.size() - 1; i++)
 	{
-		std::cout << "move angle copy = " << test_pop[i].moveAngleCopy << "\n";
-		assert(test_pop[i].moveAngleCopy == test_pop[i+1].moveAngleCopy);
+		std::cout << "move angle copy = " << test_pop[i].moveAngle << "\n";
+		assert(test_pop[i].moveAngleCopy == test_pop[i+1].moveAngle;
 	}
 	// run reset func
 	resetLeaderAndMove(test_pop, 0);

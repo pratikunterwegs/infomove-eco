@@ -104,7 +104,7 @@ void circleWalkAndLearn(const int& whichAgent)
 	// change angle if new val better than old val
 	if (newVal > oldVal)
 	{
-		population[whichAgent].moveAngleCopy = convertPosToAngle(population[whichAgent].circPos);
+		population[whichAgent].moveAngle = convertPosToAngle(population[whichAgent].circPos);
 	}
 }
 
