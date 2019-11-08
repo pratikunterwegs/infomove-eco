@@ -18,20 +18,19 @@ land = fread("migSimCode/dataLand.csv")
 
 # make numeric
 data = data[,lapply(.SD, as.numeric), .SDcols = c(names(data))]
+land = land[,lapply(.SD, as.numeric), .SDcols = c(names(land))]
 
 #### diagnostic plot ###
 
 ggplot()+
-  geom_line(aes(x = 0:20, y = 25), 
-            col = "darkgreen", size = 1, alpha = 0.1)+
-  geom_line(data = land, aes(x = pos, y = food*2.5), 
-            col = "red", size = 1, alpha = 0.2)+
-  geom_jitter(data = data, aes(x = circPos, y = time, col = time), 
-              alpha = 0.1)+
-  
- 
-  
-  coord_polar()+
-  scale_colour_scico()+
-  scale_x_continuous(breaks = c(0:19.9))+
+  # geom_line(aes(x = 0:20, y = 25),
+  #           col = "darkgreen", size = 1, alpha = 0.1)+
+  geom_path(data = land, aes(x = pos, y = food, group = t),
+            col = 4, size = 1, alpha = 0.2)+
+  # geom_point(data = data, aes(x = circPos, y = time), 
+  #             alpha = 0.1, col = 2)+
+  #coord_polar(start = 0)+
+  facet_wrap(~gen)+
+  scale_colour_scico(palette = "lajolla")+
+  scale_x_continuous(breaks = c(0:20))+
   theme_bw()
