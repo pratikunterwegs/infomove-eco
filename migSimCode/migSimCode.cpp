@@ -67,9 +67,9 @@ int do_main()
 	std::vector<int> agentIdVec;
 	for (int i = 0; i < popsize; i++) { agentIdVec.push_back(i); }
 	// run for 100 generations of 100 timesteps
-	for (int gen = 0; gen < 1; gen++)
+	for (int gen = 0; gen < genmax; gen++)
 	{
-		std::cout << "gen = " << genmax << "\n";
+		std::cout << "gen = " << gen << "\n";
 		// loop through timesteps
 		for (int t = 0; t < tMax; t++)
 		{
