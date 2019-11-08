@@ -101,17 +101,12 @@ int do_main()
 			// agents get food and deplete
 			for (int ind = 0; ind < popsize; ind++)
 			{
+				assert(agentIdVec[ind] >= 0 && agentIdVec[ind] < popsize);
 				doGetFood(agentIdVec[ind]);
 				depleteFood(agentIdVec[ind]);
 				circleWalkAndLearn(agentIdVec[ind]);
 			}
 			
-			for (int i =0; i < landPoints; i++)
-			{
-				std::cout << landscape[i].dFood << " ";
-			}
-			std::cout << "\n";
-
 			// output data
 			printAgents(gen, t);
 		}
@@ -123,8 +118,6 @@ int do_main()
 		do_reprod();
 		//std::cout << "agents reproduce\n";
 	}
-
-	exit(EXIT_FAILURE);
 	return 0;
 }
 
