@@ -27,7 +27,7 @@ using Ann = Network<float,
 >;
 
 // pick rand node weights
-//std::uniform_real_distribution<float> nodeDist(-10.f, 10.f);
+std::uniform_real_distribution<float> nodeDist(-10.f, 10.f);
 
 #define Pi      3.14159f
 
@@ -54,7 +54,7 @@ struct flush_rec_nodes
 class agent
 {
 public:
-	agent() : annFollow(0.f), moveAngle(0.f), circWalkDist(1.f),
+	agent() : annFollow(nodeDist(rng)), moveAngle(0.f), circWalkDist(1.f),
 		circPos(0.f),
 		chainLength(0), leader(-1) {};
 	~agent() {};
@@ -102,10 +102,6 @@ void resetLeader(std::vector<agent>& population, const int& whichAgent)
 {
 	// reset leader
 	population[whichAgent].leader = -1;
-	// // reset moveAnglecopy
-	// population[whichAgent].moveAngle = angleDist(rng);
-	// // reset param pointer
-	// population[whichAgent].movePointer = &population[whichAgent].moveAngle;
 }
 
 /// function to entrain to other agent
@@ -124,7 +120,6 @@ void chooseLeader(const int& whichAgent, const int& thisNeighbour)
 
 	// assign leader if output greater than 0
 	population[whichAgent].leader = (output[0] > 0.f ? thisNeighbour : -1);
-
 
 }
 
@@ -207,14 +202,19 @@ void resolveLeaders(std::vector<agent> &population, const int& whichAgent)
 void convertAngleToPos(const int& whichAgent)
 {
 	float circProp = (sin(population[whichAgent].moveAngle) + 1.f) / 2.f;
+	assert(circProp <= 1.f && circProp >= 0.f && "func angleToPos: circProp not 0-1");
 	population[whichAgent].circPos = circProp * maxLandPos; 
+
+	assert(population[whichAgent].circPos <= maxLandPos && "func angleToPos: circ pos calc-ed over land max");
 }
 
 /// convert pos to angle
 float convertPosToAngle(const float& thisValue)
 {
 	float circProp = thisValue / maxLandPos;
-	float newAngle = circProp * 360.f;
+	assert(circProp <= 1.f && circProp >= 0.f && "func posToAngle: circProp not 0-1");
+	float newAngle = circProp * 359.f;
+	assert(newAngle <= 359.f && "func posToAngle: angle above 359!");
 	return newAngle;
 }
 
@@ -307,7 +307,7 @@ void printAgents(const int& gen_p, const int& time_p)
 				<< gen_p << ","
 				<< time_p << ","
 				<< ind2 << ","
-				<< population[ind2].moveAngle << ","
+				<< population[ind2].circWalkDist << ","
 				<< population[ind2].circPos << ","
 				<< population[ind2].chainLength << ","
 				<< population[ind2].leader << ","
