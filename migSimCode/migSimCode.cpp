@@ -51,11 +51,11 @@ void test_leaderDynamics()
 	// check that moveAnglecopy has been updated
 	for (int i = 0; i < test_pop.size() - 1; i++)
 	{
-		std::cout << "move angle copy = " << test_pop[i].moveAngle << "\n";
-		assert(test_pop[i].moveAngleCopy == test_pop[i+1].moveAngle;
+		std::cout << "move angle = " << test_pop[i].moveAngle << "\n";
+		assert(test_pop[i].moveAngle == test_pop[(i+1)].moveAngle);
 	}
 	// run reset func
-	resetLeaderAndMove(test_pop, 0);
+	resetLeader(test_pop, 0);
 	// test that leader is now -1
 	assert(test_pop[0].leader == -1 && "leader is not reset");
 }
@@ -77,7 +77,7 @@ int do_main()
 			for (int ind = 0; ind < popsize; ind++)
 			{
 				// reset leader, movement etc
-				resetLeaderAndMove(population, ind);
+				resetLeader(population, ind);
 				// return agent neighbours
 				std::vector<int> agentNbrs = list_neighbours(ind);
 				// choose a leader from among neighbours
