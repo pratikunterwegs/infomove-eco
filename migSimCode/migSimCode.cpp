@@ -103,6 +103,7 @@ int do_main()
 			{
 				doGetFood(agentIdVec[ind]);
 				depleteFood(agentIdVec[ind]);
+				circleWalkAndLearn(agentIdVec[ind]);
 			}
 			
 			for (int i =0; i < landPoints; i++)
