@@ -54,15 +54,15 @@ struct flush_rec_nodes
 class agent
 {
 public:
-	agent() : annFollow(0.f), moveAngle(angleDist(rng)), moveAngleCopy(moveAngle), circWalkDist(1.f),
+	agent() : annFollow(0.f), moveAngle(0.f), circWalkDist(1.f),
 		circPos(0.f),
 		chainLength(0), leader(-1) {};
 	~agent() {};
 	// agents need a brain, an age, fitness, and movement decision
-	Ann annFollow; float moveAngle, moveAngleCopy, circPos, circWalkDist;
+	Ann annFollow; float moveAngle, circPos, circWalkDist;
 	int chainLength, leader;
 	// pointer to param
-	float* movePointer = &moveAngleCopy; //points to self unless reset
+	float* movePointer = &moveAngle; //points to self unless reset
 
 	void resetAngle();
 };
@@ -112,9 +112,9 @@ void resetLeaderAndMove(std::vector<agent>& population, const int& whichAgent)
 	// reset leader
 	population[whichAgent].leader = -1;
 	// reset moveAnglecopy
-	population[whichAgent].moveAngleCopy = population[whichAgent].moveAngle;
+	population[whichAgent].moveAngle = angleDist(rng);
 	// reset param pointer
-	population[whichAgent].movePointer = &population[whichAgent].moveAngleCopy;
+	population[whichAgent].movePointer = &population[whichAgent].moveAngle;
 }
 
 /// function to entrain to other agent
@@ -137,6 +137,7 @@ void chooseLeader(const int& whichAgent, const int& thisNeighbour)
 
 }
 
+/// function to resolve leadership chains
 void resolveLeaders(std::vector<agent> &population, const int& whichAgent)
 {
 	if (population[whichAgent].leader != -1)
@@ -198,25 +199,23 @@ void resolveLeaders(std::vector<agent> &population, const int& whichAgent)
 		// link forwards along the chain
 		for (int iter = 0; iter < leadchain.size() - 1; iter++) {
 			// print to check forwards linking
-			population[leadchain[iter]].movePointer = &population[leadchain[(iter + 1)]].moveAngleCopy;
+			population[leadchain[iter]].movePointer = &population[leadchain[(iter + 1)]].moveAngle;
 		}
 		// update backwards along the chain
 		for (int l = leadchain.size() - 1; l >= 0; l--)
 		{
-			population[leadchain[l]].moveAngleCopy = *population[leadchain[l]].movePointer;
+			population[leadchain[l]].moveAngle = *population[leadchain[l]].movePointer;
 		}
 	}
-	else {
-		population[whichAgent].moveAngleCopy = population[whichAgent].moveAngle;
-	}
-
-	// no else condition but may be necessary later
+	// else {
+	// 	population[whichAgent].moveAngleCopy = population[whichAgent].moveAngle;
+	// }
 }
 
 /// function to convert angle to position
 void convertAngleToPos(const int& whichAgent)
 {
-	float circProp = (sin(population[whichAgent].moveAngleCopy) + 1.f) / 2.f;
+	float circProp = (sin(population[whichAgent].moveAngle) + 1.f) / 2.f;
 	population[whichAgent].circPos = circProp * maxLandPos; 
 }
 
@@ -254,15 +253,16 @@ void do_reprod()
 		int parent_id = weighted_lottery(rng);
 		// replicate ANN
 		pop2[a].annFollow = population[parent_id].annFollow;
-		// random movement angle
-		pop2[a].moveAngle = angleDist(rng);
 		// reset who is being followed
 		pop2[a].leader = -1;
-		// overwrite moveAngle copy
-		pop2[a].moveAngleCopy = pop2[a].moveAngle;
+		// get random movement angle
+		pop2[a].moveAngle = angleDist(rng);
 		//overwrite movement pointer
-		pop2[a].movePointer = &pop2[a].moveAngleCopy;
-		pop2[a].moveAngleCopy = pop2[a].circPos = 0.f;
+		pop2[a].movePointer = &pop2[a].moveAngle;
+		// inherit movement param along circle
+		pop2[a].circWalkDist = population[parent_id].circWalkDist;
+		// reset circular position
+		pop2[a].circPos = 0.f;
 
 		// overwrite energy
 		agentEnergy2[a] = 0.0001f;
@@ -284,7 +284,7 @@ void do_reprod()
 			if (mut_event(rng))
 			{
 			std::cauchy_distribution<double> m_shift(0.0, 0.1); // how much of mutation
-			pop2[a].moveAngle += static_cast<float> (m_shift(rng));
+			pop2[a].circWalkDist += static_cast<float> (m_shift(rng));
 			}
 		}
 
@@ -307,7 +307,7 @@ void printAgents(const int& gen_p, const int& time_p)
 	agentofs.open("dataAgents.csv", std::ofstream::out | std::ofstream::app);
 
 	// col header
-	if (gen_p == 0 && time_p == 0) { agentofs << "gen,time,id,movep,movepcopy,chainlength,leader,energy\n"; }
+	if (gen_p == 0 && time_p == 0) { agentofs << "gen,time,id,movep,circPos,chainlength,leader,energy\n"; }
 
 	// print for each ind
 	//if ((gen_p == 0 || gen_p % 5 == 0) && time_p % 20 == 0)
@@ -319,7 +319,7 @@ void printAgents(const int& gen_p, const int& time_p)
 				<< time_p << ","
 				<< ind2 << ","
 				<< population[ind2].moveAngle << ","
-				<< population[ind2].moveAngleCopy - maxLandPos << ","
+				<< population[ind2].circPos << ","
 				<< population[ind2].chainLength << ","
 				<< population[ind2].leader << ","
 				<< agentEnergyVec[ind2] << "\n";
