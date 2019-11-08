@@ -125,6 +125,8 @@ void circleWalkAndLearn(const int& whichAgent)
 	if (newVal > oldVal)
 	{
 		population[whichAgent].moveAngle = convertPosToAngle(population[whichAgent].circPos);
+		// reset move angle
+		population[whichAgent].movePointer = &population[whichAgent].moveAngle;
 	}
 }
 
