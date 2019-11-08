@@ -69,7 +69,7 @@ int do_main()
 	// run for 100 generations of 100 timesteps
 	for (int gen = 0; gen < 1; gen++)
 	{
-		std::cout << "gen = " << 1 << "\n";
+		std::cout << "gen = " << genmax << "\n";
 		// loop through timesteps
 		for (int t = 0; t < tMax; t++)
 		{
