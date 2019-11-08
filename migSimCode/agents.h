@@ -63,8 +63,6 @@ public:
 	int chainLength, leader;
 	// pointer to param
 	float* movePointer = &moveAngle; //points to self unless reset
-
-	void resetAngle();
 };
 
 /// make vector of agent energy
@@ -75,13 +73,6 @@ std::vector<agent> initAgents(const int& number)
 {
 	std::vector<agent> population(number);
 	return population;
-}
-
-/// choose random angle
-void agent::resetAngle()
-{
-	moveAngle = angleDist(rng);
-	moveAngleCopy = moveAngle;
 }
 
 /// init agents
@@ -107,7 +98,7 @@ std::vector<int> list_neighbours(const int& which_agent)
 	return currNbrs;
 }
 
-void resetLeaderAndMove(std::vector<agent>& population, const int& whichAgent)
+void resetLeader(std::vector<agent>& population, const int& whichAgent)
 {
 	// reset leader
 	population[whichAgent].leader = -1;
@@ -224,9 +215,7 @@ float convertPosToAngle(const float& thisValue)
 {
 	float circProp = thisValue / maxLandPos;
 	float newAngle = circProp * 360.f;
-
 	return newAngle;
-
 }
 
 /// function to reproduce
