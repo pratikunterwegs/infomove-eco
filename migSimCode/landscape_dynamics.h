@@ -66,9 +66,9 @@ void depleteFood(const int& whichAgent)
 /// function to get energy
 void doGetFood(const int& whichAgent)
 {
-	// loop through landscape looking for pair of positions
+	// get right bound by rounding proportion on the landscape
     int l = 0;
-    int bound_right = static_cast<int>(ceil((population[whichAgent].circPos / maxLandPos) * static_cast<float>(landPoints)));
+    int bound_right = static_cast<int>(floor((population[whichAgent].circPos / maxLandPos) * static_cast<float>(landPoints)));
 
     // left bound is right bound - 1
     int bound_left = (bound_right - 1 >= 0)? (bound_right - 1): landPoints + (bound_right - 1);
