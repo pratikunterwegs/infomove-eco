@@ -109,9 +109,10 @@ int do_main()
 			
 			// output data
 			printAgents(gen, t);
+			// print land
+			printLand(gen, t);
 		}
-		// print land
-		printLand(gen);
+		
 		//replenish landscape
 		doMakeFood();
 		// implement reproduction
