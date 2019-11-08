@@ -5,6 +5,7 @@
 
 #include "params.h"
 #include "agents.h"
+#include <math.h>
 
 // make gridcell class
 class gridcell
@@ -108,7 +109,10 @@ void circleWalkAndLearn(const int& whichAgent)
 
 	// move agent left or right
 	// HANDLE TO ENSURE AGENT STAYS ON WRAPPED LANDSCAPE
-	population[whichAgent].circPos += (population[whichAgent].circWalkDist * (direction ? 1.f : -1.f));
+	float moveDist = (population[whichAgent].circWalkDist * (direction ? 1.f : -1.f));
+	population[whichAgent].circPos += moveDist;
+	population[whichAgent].circPos = fmod( (maxLandPos+population[whichAgent].circPos), maxLandPos);
+
 
 	assert(population[whichAgent].circPos <= maxLandPos && "func circleWalk: agent newpos over max land!");
 	assert(population[whichAgent].circPos >= 0.f && "func circleWalk: agent newpos over min land!");
