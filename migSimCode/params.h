@@ -23,9 +23,9 @@ void out_vec(const std::vector<T>& vec)
 const int popsize = 100; // not too many
 
 // landscape params
-const int landPoints = 10;
+const int landPoints = 100;
 const float maxLandPos = 20.f;
-const float maxFood = 1.f;
+const float maxFood = 10.f;
 const float maxDepletion = 0.01f;
 const float depletionSlope = 5.f;
 const float depletionRadius = 2.f;
