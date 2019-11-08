@@ -111,10 +111,10 @@ void resetLeaderAndMove(std::vector<agent>& population, const int& whichAgent)
 {
 	// reset leader
 	population[whichAgent].leader = -1;
-	// reset moveAnglecopy
-	population[whichAgent].moveAngle = angleDist(rng);
-	// reset param pointer
-	population[whichAgent].movePointer = &population[whichAgent].moveAngle;
+	// // reset moveAnglecopy
+	// population[whichAgent].moveAngle = angleDist(rng);
+	// // reset param pointer
+	// population[whichAgent].movePointer = &population[whichAgent].moveAngle;
 }
 
 /// function to entrain to other agent
