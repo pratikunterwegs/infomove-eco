@@ -50,7 +50,7 @@ void doMakeFood()
 // update dFood based on wrapped agent effect
 void depleteFood(const int& whichAgent)
 {
-    assert(population[whichAgent].circPos >= 0 && "pop has neg moves");
+    assert(population[whichAgent].circPos >= 0.f && "pop has neg moves");
     for(int l = 0; l < landPoints; l++)
     {
         // wrapped distance from agent
