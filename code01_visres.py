@@ -40,9 +40,11 @@ for col in dataAgents.columns:
 #     .reset_index()
 
 # filter generations modulo 50
-dataAgents = dataAgents[(dataAgents['gen'] % 50 == 0)]
+dataAgents = dataAgents[(dataAgents['gen'] % 10 == 0) &
+                        (dataAgents['gen'] < 100) &
+                        (dataAgents['time'] % 10 == 0)]
 
 # summarise as in R for historgram of distance to peak over time
-g = sns.FacetGrid(col="gen", margin_titles=True, data=dataAgents, col_wrap=5)
+g = sns.FacetGrid(col="gen", row="time", margin_titles=True, data=dataAgents)
 bins = np.linspace(0, 20, 40)
 g.map(plt.hist, "circPos", color="steelblue", bins=bins)
