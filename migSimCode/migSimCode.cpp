@@ -17,7 +17,7 @@ void test_agentMaker()
 {
 	// make agent vector and check size
 	std::vector<agent> test_pop = initAgents(500);
-	assert(test_pop.size() == 500);
+	assert(test_pop.size() == 500 && "wrong popsize\n");
 }
 
 /// functison to test correct number of neighbours listed
@@ -51,11 +51,11 @@ void test_leaderDynamics()
 	// check that moveAnglecopy has been updated
 	for (int i = 0; i < test_pop.size() - 1; i++)
 	{
-		cout << "move angle copy = " << test_pop[i].moveAngleCopy << "\n";
-		assert(test_pop[i].moveAngleCopy == test_pop[i+1].moveAngleCopy);
+		std::cout << "move angle = " << test_pop[i].moveAngle << "\n";
+		assert(test_pop[i].moveAngle == test_pop[(i+1)].moveAngle);
 	}
 	// run reset func
-	resetLeaderAndMove(test_pop, 0);
+	resetLeader(test_pop, 0);
 	// test that leader is now -1
 	assert(test_pop[0].leader == -1 && "leader is not reset");
 }
@@ -64,10 +64,10 @@ void test_leaderDynamics()
 int do_main()
 {
 	makePositions(landscape);
-	std::vector<int> agentIdVec(popsize);
+	std::vector<int> agentIdVec;
 	for (int i = 0; i < popsize; i++) { agentIdVec.push_back(i); }
 	// run for 100 generations of 100 timesteps
-	for (int gen = 0; gen < 1; gen++)
+	for (int gen = 0; gen < genmax; gen++)
 	{
 		std::cout << "gen = " << gen << "\n";
 		// loop through timesteps
@@ -77,7 +77,7 @@ int do_main()
 			for (int ind = 0; ind < popsize; ind++)
 			{
 				// reset leader, movement etc
-				resetLeaderAndMove(population, ind);
+				resetLeader(population, ind);
 				// return agent neighbours
 				std::vector<int> agentNbrs = list_neighbours(ind);
 				// choose a leader from among neighbours
@@ -101,28 +101,24 @@ int do_main()
 			// agents get food and deplete
 			for (int ind = 0; ind < popsize; ind++)
 			{
+				assert(agentIdVec[ind] >= 0 && agentIdVec[ind] < popsize);
 				doGetFood(agentIdVec[ind]);
 				depleteFood(agentIdVec[ind]);
+				circleWalkAndLearn(agentIdVec[ind]);
 			}
 			
-			for (int i =0; i < landPoints; i++)
-			{
-				std::cout << landscape[i].dFood << " ";
-			}
-			std::cout << "\n";
-
 			// output data
 			printAgents(gen, t);
+			// print land
+			//printLand(gen, t);
 		}
-		// print land
-		printLand(gen);
+		
 		//replenish landscape
 		doMakeFood();
 		// implement reproduction
 		do_reprod();
 		//std::cout << "agents reproduce\n";
 	}
-
 	return 0;
 }
 
