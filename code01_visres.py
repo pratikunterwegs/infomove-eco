@@ -25,9 +25,13 @@ currentWd = p # os.path.dirname(os.path.abspath(__file__)) #os.getcwd()
 print(currentWd)
 
 # read in data
-d = pd.read_csv("migSimCode/dataOut.csv")
-for col in d.columns:
+dataAgents = pd.read_csv("migSimCode/dataAgents.csv")
+for col in dataAgents.columns:
     print(col)
+
+# dataLand = pd.read_csv("migSimCode/dataLand.csv")
+# for col in dataLand.columns:
+#     print(col)
 
 #### summarised data frame
 # get data summary of mean dist peak
