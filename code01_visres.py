@@ -3,10 +3,6 @@
 # check python path
 import sys
 
-# should yield python 3.7 file path
-for p in sys.path:
-    print(p)
-
 # load libraries
 import pandas as pd # similar to dplyr! yay!
 import os  # has list dir functions etc
@@ -17,6 +13,10 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 from scipy import stats
 
+# should yield python 3.7 file path
+for p in sys.path:
+    print(p)
+
 # check the current working directory
 os.getcwd()
 currentWd = p # os.path.dirname(os.path.abspath(__file__)) #os.getcwd()
@@ -25,7 +25,7 @@ currentWd = p # os.path.dirname(os.path.abspath(__file__)) #os.getcwd()
 print(currentWd)
 
 # read in data
-dataAgents = pd.read_csv("migSimCode/dataAgents.csv")
+dataAgents = pd.read_csv("data/dataAgents.csv")
 for col in dataAgents.columns:
     print(col)
 
@@ -34,22 +34,15 @@ for col in dataAgents.columns:
 #     print(col)
 
 #### summarised data frame
-# get data summary of mean dist peak
-dsmrpeakdist = d.assign(peakdist = d.peakpos - d.pos)\
-    .groupby(['gen','id','movep'])['peakdist'] \
-    .agg(['mean', 'var'])
-
 # get summary of leader switches per id and gen
-dsmrleadswitch = d.groupby(['gen', 'id'])\
-    .apply(lambda x: pd.Series({'leadswitch':len(x.leader.unique())}))\
-    .reset_index()
+# dsmrleadswitch = d.groupby(['gen', 'id'])\
+#     .apply(lambda x: pd.Series({'leadswitch':len(x.leader.unique())}))\
+#     .reset_index()
 
-#### this is really bad, seems like the agents fix on their first
-# neighbour and are not really choosing who to follow
-
+# filter generations modulo 50
+dataAgents = dataAgents[(dataAgents['gen'] % 50 == 0)]
 
 # summarise as in R for historgram of distance to peak over time
-g = sns.FacetGrid(col="gen", margin_titles=True, data=dsmrleadswitch, col_wrap=5)
-bins = np.linspace(0, 10, 10)
-g.map(plt.hist, "leadswitch", color="steelblue", bins=bins)
-# g.map(plt.hist, x=" peakpos", ymin=0,ymax=10, color="steelblue", alpha=0.8)
+g = sns.FacetGrid(col="gen", margin_titles=True, data=dataAgents, col_wrap=5)
+bins = np.linspace(0, 20, 40)
+g.map(plt.hist, "circPos", color="steelblue", bins=bins)
