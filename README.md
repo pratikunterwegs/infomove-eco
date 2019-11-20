@@ -1,10 +1,10 @@
-# migStratSim
+# Modelling movement strategies at information centres
 
 Code for an individual-based model of agent movement and information use.
 
 ## Contact
 
-- Pratik Gupte (author and maintainer)
+- Pratik Gupte
   - PhD student, University of Groningen
   - Guest researcher, NIOZ
   - p.r.gupte@rug.nl or pratik.gupte@nioz.nl
