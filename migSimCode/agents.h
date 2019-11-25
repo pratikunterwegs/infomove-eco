@@ -1,4 +1,5 @@
 #pragma once
+#define _USE_MATH_DEFINES
 
 // code to init agents
 
@@ -9,6 +10,7 @@
 #include <numeric>
 #include <unordered_set>
 #include <cassert>
+#include <math.h>
 #include "ann.h"
 #include "params.h"
 
@@ -28,8 +30,6 @@ using Ann = Network<float,
 
 // pick rand node weights
 std::uniform_real_distribution<float> nodeDist(-10.f, 10.f);
-
-#define Pi      3.14159f
 
 // pick rand move angle - uniform distribution over the landscape
 std::uniform_real_distribution<float> angleDist(0.f, 359.f);
@@ -128,19 +128,18 @@ void resolveLeaders(std::vector<agent> &population, const int& whichAgent)
 {
 	if (population[whichAgent].leader != -1)
 	{
-		// constructing leadchains
-		std::vector<int> leadchain(1);
-		// figure out the first link in the chain
-		leadchain[0] = whichAgent;
+		// constructing leadchains starting from this agent
+		std::vector<int> leadchain{ whichAgent };
 		// construct the leadership chain
 		int iter = population[whichAgent].leader;
-		while (population[iter].leader != -1 && leadchain.size() < popsize)
+		while ((population[iter].leader != -1) && (leadchain.size() < popsize))
 		{
 			// add to chain after updating
 			leadchain.push_back(iter);
 
 			iter = population[iter].leader;
 		}
+
 		// add ultimate leader
 		leadchain.push_back(iter);
 		// get length of the raw loopy chain
@@ -152,7 +151,7 @@ void resolveLeaders(std::vector<agent> &population, const int& whichAgent)
 		// make un unordered set to check if duplicates are being added
 		std::unordered_set<int> checkDups;
 
-		for (int j = 0; j < initCount && checkDups.find(leadchain[j]) == checkDups.end(); j++)
+		for (int j = 0; (j < initCount) && (checkDups.find(leadchain[j]) == checkDups.end() ); j++)
 		{
 			templeadchain.push_back(leadchain[j]);
 			checkDups.insert(leadchain[j]);
