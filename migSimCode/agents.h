@@ -66,14 +66,11 @@ public:
 
 	void resetLeader();
 	void chooseFollow(const agent& someagent);
+	void convertAngleToPos();
+	void convertPosToAngle();
+	void doGetFood();
+	void circleWalkAndLearn();
 };
-
-///// function to init N agents
-//std::vector<agent> initAgents(const int& number)
-//{
-//	std::vector<agent> population(number);
-//	return population;
-//}
 
 /// init agents
 std::vector<agent> population(popsize);
@@ -88,7 +85,7 @@ void agent::resetLeader()
 /// function to shuffle agents for movement order
 void shufflePopSeq(std::vector<agent>& vecSomeAgents)
 {
-	std::random_shuffle(vecSomeAgents.begin(), vecSomeAgents.end());
+	std::shuffle(vecSomeAgents.begin(), vecSomeAgents.end(), rng);
 }
 
 /// function to entrain to other agent
@@ -114,47 +111,63 @@ void agent::chooseFollow(const agent& someagent)
 // create a temp move queue by shuffling the population
 // assign first agent as default moveQ leader
 // from second agent allow assessment using chooseFollow()
+// if a lead is chosen add to processed q
 // update moveQ by removing agents who have chosen a leader
 // repeat until moveQ size is 1
+// assign procssed q to old q
 void doFollowDynamic(std::vector<agent>& vecSomeAgents)
 {
 	std::vector<agent> tempMoveQ = vecSomeAgents;
+	std::vector<agent> processedMoveQ;
 	assert(tempMoveQ.size() > 0 && "doFollowDynamic: moveQ is empty at start");
 	
 	while (tempMoveQ.size() > 1)
 	{
 		agent moveQLeader = tempMoveQ[0];
+		int id_mqleader = moveQLeader.id_self;
+		processedMoveQ.push_back(moveQLeader);
 		tempMoveQ.erase(tempMoveQ.begin());
 
 		for (int i_moveq = 0; i_moveq < tempMoveQ.size(); i_moveq++)
 		{
 			tempMoveQ[i_moveq].chooseFollow(moveQLeader);
+
+			if (tempMoveQ[i_moveq].id_leader != -1)
+			{
+				processedMoveQ.push_back(tempMoveQ[i_moveq]);
+			}
 		}
 
 		tempMoveQ.erase(std::remove_if(tempMoveQ.begin(), tempMoveQ.end(),
-			[](const agent & thisAgent, const agent &moveQLeader) {return(thisAgent.id_leader == moveQLeader.id_self); }));
+			[](const agent & thisAgent, int id_mqleader) {return(thisAgent.id_leader == id_mqleader); }));
 	}
+
+	processedMoveQ.push_back(tempMoveQ[0]);
+
+	assert(processedMoveQ.size() == tempMoveQ.size() && "doFollow: processed queue smaller than input");
+
+	vecSomeAgents = processedMoveQ;
 
 }
 
 /// function to convert angle to position
-void convertAngleToPos(const int& whichAgent)
+void agent::convertAngleToPos()
 {
-	float circProp = (sin(population[whichAgent].moveAngle) + 1.f) / 2.f;
+	float circProp = (sin(moveAngle) + 1.f) / 2.f;
 	assert(circProp <= 1.f && circProp >= 0.f && "func angleToPos: circProp not 0-1");
-	population[whichAgent].circPos = circProp * maxLandPos; 
+	circPos = circProp * maxLandPos; 
 
-	assert(population[whichAgent].circPos <= maxLandPos && "func angleToPos: circ pos calc-ed over land max");
+	assert(circPos <= maxLandPos && "func angleToPos: circ pos calc-ed over land max");
 }
 
 /// convert pos to angle
-float convertPosToAngle(const float& thisValue)
+void agent::convertPosToAngle()
 {
-	float circProp = thisValue / maxLandPos;
+	float circProp = circPos / maxLandPos;
 	assert(circProp <= 1.f && circProp >= 0.f && "func posToAngle: circProp not 0-1");
 	float newAngle = circProp * 359.f;
 	assert(newAngle <= 359.f && "func posToAngle: angle above 359!");
-	return newAngle;
+	moveAngle = newAngle;
 }
 
 /// function to reproduce
