@@ -110,7 +110,7 @@ int do_main()
 			// output data
 			printAgents(gen, t);
 			// print land
-			//printLand(gen, t);
+			printLand(gen, t);
 		}
 		
 		//replenish landscape
