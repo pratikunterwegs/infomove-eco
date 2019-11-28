@@ -65,13 +65,13 @@ void depleteFood(const int& whichAgent)
 }
 
 /// function to get energy
-void doGetFood(const int& whichAgent)
+void agent::doGetFood()
 {
 	// check where agent is
-	assert(population[whichAgent].circPos <= maxLandPos && "func doGetFood: agent walked over max land!");
-	assert(population[whichAgent].circPos >= 0.f && "func doGetFood: agent walked over min land!");
+	assert(circPos <= maxLandPos && "func doGetFood: agent walked over max land!");
+	assert(circPos >= 0.f && "func doGetFood: agent walked over min land!");
 	// get right bound by rounding proportion on the landscape
-    int bound_right = static_cast<int>(floor((population[whichAgent].circPos / maxLandPos) * static_cast<float>(landPoints-1)));
+    int bound_right = static_cast<int>(floor((circPos / maxLandPos) * static_cast<float>(landPoints-1)));
 
     // left bound is right bound - 1
     int bound_left = (bound_right - 1 >= 0)? (bound_right - 1): landPoints + (bound_right - 1);
@@ -81,27 +81,27 @@ void doGetFood(const int& whichAgent)
 	assert(bound_right <= (landPoints - 1) && "func doGetFood: right bound above max land points");
 
     // energy is left bound / left distance + right bound / right distance
-    float dist_left = getWrappedDist(population[whichAgent].circPos, landscape[bound_left].dPos);
-    float dist_right = getWrappedDist(population[whichAgent].circPos, landscape[bound_right].dPos);
+    float dist_left = getWrappedDist(circPos, landscape[bound_left].dPos);
+    float dist_right = getWrappedDist(circPos, landscape[bound_right].dPos);
 
     float food_left = landscape[bound_left].dFood;
     float food_right = landscape[bound_right].dFood;
     // agent foraging is interpolated
-    agentEnergyVec[whichAgent] += ((food_left * dist_left) + (food_right * dist_right)) / (dist_left + dist_right);
+    energy += ((food_left * dist_left) + (food_right * dist_right)) / (dist_left + dist_right);
 
     // std::cout << "agent " << whichAgent << " energy = " << agentEnergyVec[whichAgent] << "\n";
     
 }
 
 /// function to walk along the circle
-void circleWalkAndLearn(const int& whichAgent)
+void agent::circleWalkAndLearn()
 {
 	bool direction = walkDirection(rng);
 	// check where agent is
-	assert(population[whichAgent].circPos <= maxLandPos && "func circleWalk: agent walked over max land!");
-	assert(population[whichAgent].circPos >= 0.f && "func circleWalk: agent walked over min land!");
+	assert(circPos <= maxLandPos && "func circleWalk: agent walked over max land!");
+	assert(circPos >= 0.f && "func circleWalk: agent walked over min land!");
 	// save old pos, bound, and value
-	float oldPos = population[whichAgent].circPos;
+	float oldPos = circPos;
 	int oldPosBound = static_cast<int>(floor((oldPos / maxLandPos) * static_cast<float>(landPoints-1)));
 	// check if bounds are too high
 	assert(oldPosBound <= landPoints && "func circleWalk: forage pos beyond landscape");
@@ -109,24 +109,24 @@ void circleWalkAndLearn(const int& whichAgent)
 
 	// move agent left or right
 	// HANDLE TO ENSURE AGENT STAYS ON WRAPPED LANDSCAPE
-	float moveDist = (population[whichAgent].circWalkDist * (direction ? 1.f : -1.f));
-	population[whichAgent].circPos += moveDist;
-	population[whichAgent].circPos = fmod( (maxLandPos+population[whichAgent].circPos), maxLandPos);
+	float moveDist = (circWalkDist * (direction ? 1.f : -1.f));
+	circPos += moveDist;
+	circPos = fmod( (maxLandPos+circPos), maxLandPos);
 
 
-	assert(population[whichAgent].circPos <= maxLandPos && "func circleWalk: agent newpos over max land!");
-	assert(population[whichAgent].circPos >= 0.f && "func circleWalk: agent newpos over min land!");
+	assert(circPos <= maxLandPos && "func circleWalk: agent newpos over max land!");
+	assert(circPos >= 0.f && "func circleWalk: agent newpos over min land!");
 
 	// new position bound
-	int newPosBound = static_cast<int>(floor((population[whichAgent].circPos / maxLandPos) * static_cast<float>(landPoints)));
+	int newPosBound = static_cast<int>(floor((circPos / maxLandPos) * static_cast<float>(landPoints)));
 	float newVal = landscape[newPosBound].dFood;
 
 	// change angle if new val better than old val
 	if (newVal > oldVal)
 	{
-		population[whichAgent].moveAngle = convertPosToAngle(population[whichAgent].circPos);
+		convertPosToAngle();
 		// reset move angle
-		population[whichAgent].movePointer = &population[whichAgent].moveAngle;
+		movePointer = &moveAngle;
 	}
 }
 

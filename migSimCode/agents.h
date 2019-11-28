@@ -55,166 +55,119 @@ class agent
 {
 public:
 	agent() : annFollow(nodeDist(rng)), moveAngle(0.f), circWalkDist(1.f),
-		circPos(0.f),
-		chainLength(0), leader(-1) {};
+		circPos(0.f), energy(0.000001f), id_self(),
+		chainLength(0), id_leader(-1) {};
 	~agent() {};
 	// agents need a brain, an age, fitness, and movement decision
-	Ann annFollow; float moveAngle, circPos, circWalkDist;
-	int chainLength, leader;
+	Ann annFollow; float moveAngle, circPos, circWalkDist, energy;
+	int chainLength, id_leader, id_self;
 	// pointer to param
 	float* movePointer = &moveAngle; //points to self unless reset
+
+	void resetLeader();
+	void chooseFollow(const agent& someagent);
+	void convertAngleToPos();
+	void convertPosToAngle();
+	void doGetFood();
+	void circleWalkAndLearn();
 };
 
-/// make vector of agent energy
-std::vector<float> agentEnergyVec(popsize, 0.0001f);
-
-/// function to init N agents
-std::vector<agent> initAgents(const int& number)
-{
-	std::vector<agent> population(number);
-	return population;
-}
-
 /// init agents
-std::vector<agent> population = initAgents(popsize);
+std::vector<agent> population(popsize);
 
-/// function to list neighbours
-// retained in case sensory radius becomes an open topic
-std::vector<int> list_neighbours(const int& which_agent)
-{
-	std::vector<int> currNbrs;
-	// use a for loop
-	for (int iter = 0; iter < popsize; iter++)
-	{
-		// collect agent id within sensory range
-		//if ((abs(agentPosVec[which_agent] - agentPosVec[iter]) < prange) && which_agent != iter) {
-		currNbrs.push_back(iter);
-		//}
-	}
-	// remove self from neighbours
-	currNbrs.erase(std::remove(currNbrs.begin(), currNbrs.end(), which_agent), currNbrs.end());
-	// shuffle vector
-	std::random_shuffle(currNbrs.begin(), currNbrs.end());
-	return currNbrs;
-}
-
-void resetLeader(std::vector<agent>& population, const int& whichAgent)
+/// agent class func to reset leader
+void agent::resetLeader()
 {
 	// reset leader
-	population[whichAgent].leader = -1;
+	id_leader = -1;
+}
+
+/// function to shuffle agents for movement order
+void shufflePopSeq(std::vector<agent>& vecSomeAgents)
+{
+	std::shuffle(vecSomeAgents.begin(), vecSomeAgents.end(), rng);
 }
 
 /// function to entrain to other agent
-void chooseLeader(const int& whichAgent, const int& thisNeighbour)
+void agent::chooseFollow(const agent& someagent)
 {
 	// agents assess neighbour body reserves
 	Ann::input_t inputs;
 	// get energy cue
-	float cueSelf = agentEnergyVec[whichAgent];
-	float cueOther = agentEnergyVec[thisNeighbour];
+	float cueSelf = energy;
+	float cueOther = someagent.energy;
 
 	inputs[0] = static_cast<float> (cueSelf); // debatable function to calc energy
 	inputs[1] = static_cast<float> (cueOther); // neighbour energy
 	// inputs[1] = energy;
-	auto output = population[whichAgent].annFollow(inputs);
+	auto output = annFollow(inputs);
 
 	// assign leader if output greater than 0
-	population[whichAgent].leader = (output[0] > 0.f ? thisNeighbour : -1);
+	id_leader = (output[0] > 0.f ? someagent.id_self : -1);
 
 }
 
-/// function to resolve leadership chains
-void resolveLeaders(std::vector<agent> &population, const int& whichAgent)
+/// function to assess remaining agents and shrink move queue
+// create a temp move queue by shuffling the population
+// assign first agent as default moveQ leader
+// from second agent allow assessment using chooseFollow()
+// if a lead is chosen add to processed q
+// update moveQ by removing agents who have chosen a leader
+// repeat until moveQ size is 1
+// assign procssed q to old q
+void doFollowDynamic(std::vector<agent>& vecSomeAgents)
 {
-	if (population[whichAgent].leader != -1)
+	std::vector<agent> tempMoveQ = vecSomeAgents;
+	std::vector<agent> processedMoveQ;
+	assert(tempMoveQ.size() > 0 && "doFollowDynamic: moveQ is empty at start");
+	
+	while (tempMoveQ.size() > 1)
 	{
-		// constructing leadchains starting from this agent
-		std::vector<int> leadchain{ whichAgent };
-		// construct the leadership chain
-		int iter = population[whichAgent].leader;
-		while ((population[iter].leader != -1) && (leadchain.size() < popsize))
+		agent moveQLeader = tempMoveQ[0];
+		int id_mqleader = moveQLeader.id_self;
+		processedMoveQ.push_back(moveQLeader);
+		tempMoveQ.erase(tempMoveQ.begin());
+
+		for (int i_moveq = 0; i_moveq < tempMoveQ.size(); i_moveq++)
 		{
-			// add to chain after updating
-			leadchain.push_back(iter);
+			tempMoveQ[i_moveq].chooseFollow(moveQLeader);
 
-			iter = population[iter].leader;
+			if (tempMoveQ[i_moveq].id_leader != -1)
+			{
+				processedMoveQ.push_back(tempMoveQ[i_moveq]);
+			}
 		}
 
-		// add ultimate leader
-		leadchain.push_back(iter);
-		// get length of the raw loopy chain
-		int initCount = leadchain.size();
-		// remove duplicates using set insertion
-		int iter2 = 0;
-		// temp leadchain
-		std::vector<int> templeadchain;
-		// make un unordered set to check if duplicates are being added
-		std::unordered_set<int> checkDups;
-
-		for (int j = 0; (j < initCount) && (checkDups.find(leadchain[j]) == checkDups.end() ); j++)
-		{
-			templeadchain.push_back(leadchain[j]);
-			checkDups.insert(leadchain[j]);
-		}
-
-		// set leadchain to reduced size
-		leadchain = templeadchain;
-
-		// get new count
-		int finalCount = leadchain.size();
-		// add chain length - this is the length of the raw loopy chain
-		// a value of 200 means a loop was reached
-		population[whichAgent].chainLength = finalCount;
-
-		// if leadchain has duplicates, this is a loop
-		// resolve by setting everybody in the chain to not move
-		if (initCount > finalCount) 
-		{
-
-			// breaks the leadership chain at the end
-			// has an effect for next leadership chain construction
-
-			population[ leadchain.back() ].leader = -1;
-		}
-
-		// check that ultimate leader has no other leader
-		int ultLead = leadchain.back();
-		assert((population[ultLead].leader) == -1);
-
-		// link forwards along the chain
-		for (int iter = 0; iter < leadchain.size() - 1; iter++) {
-			// print to check forwards linking
-			population[leadchain[iter]].movePointer = &population[leadchain[(iter + 1)]].moveAngle;
-		}
-		// update backwards along the chain
-		for (int l = leadchain.size() - 1; l >= 0; l--)
-		{
-			population[leadchain[l]].moveAngle = *population[leadchain[l]].movePointer;
-		}
+		tempMoveQ.erase(std::remove_if(tempMoveQ.begin(), tempMoveQ.end(),
+			[](const agent & thisAgent, int id_mqleader) {return(thisAgent.id_leader == id_mqleader); }));
 	}
-	// else {
-	// 	population[whichAgent].moveAngleCopy = population[whichAgent].moveAngle;
-	// }
+
+	processedMoveQ.push_back(tempMoveQ[0]);
+
+	assert(processedMoveQ.size() == tempMoveQ.size() && "doFollow: processed queue smaller than input");
+
+	vecSomeAgents = processedMoveQ;
+
 }
 
 /// function to convert angle to position
-void convertAngleToPos(const int& whichAgent)
+void agent::convertAngleToPos()
 {
-	float circProp = (sin(population[whichAgent].moveAngle) + 1.f) / 2.f;
+	float circProp = (sin(moveAngle) + 1.f) / 2.f;
 	assert(circProp <= 1.f && circProp >= 0.f && "func angleToPos: circProp not 0-1");
-	population[whichAgent].circPos = circProp * maxLandPos; 
+	circPos = circProp * maxLandPos; 
 
-	assert(population[whichAgent].circPos <= maxLandPos && "func angleToPos: circ pos calc-ed over land max");
+	assert(circPos <= maxLandPos && "func angleToPos: circ pos calc-ed over land max");
 }
 
 /// convert pos to angle
-float convertPosToAngle(const float& thisValue)
+void agent::convertPosToAngle()
 {
-	float circProp = thisValue / maxLandPos;
+	float circProp = circPos / maxLandPos;
 	assert(circProp <= 1.f && circProp >= 0.f && "func posToAngle: circProp not 0-1");
 	float newAngle = circProp * 359.f;
 	assert(newAngle <= 359.f && "func posToAngle: angle above 359!");
-	return newAngle;
+	moveAngle = newAngle;
 }
 
 /// function to reproduce
@@ -225,10 +178,10 @@ void do_reprod()
 	float max = 0.f; float min = 0.f;
 	for (int a = 0; a < popsize; a++) 
 	{
-		assert(agentEnergyVec[a] >= 0.f && "agent energy is 0!");
+		assert(population[a].energy >= 0.f && "agent energy is 0!");
 
 		// std::cout << "fitness " << a << " = " << agentEnergyVec[a] << "\n";
-		fitness_vec.push_back(static_cast<double> (agentEnergyVec[a]));
+		fitness_vec.push_back(static_cast<double> (population[a].energy));
 	}
 
 	// make temp pop vector, position and energy vectors
@@ -242,7 +195,7 @@ void do_reprod()
 		// replicate ANN
 		pop2[a].annFollow = population[parent_id].annFollow;
 		// reset who is being followed
-		pop2[a].leader = -1;
+		pop2[a].id_leader = -1;
 		// get random movement angle
 		pop2[a].moveAngle = angleDist(rng);
 		//overwrite movement pointer
@@ -282,8 +235,6 @@ void do_reprod()
 	// no doubt we'll find out why
 	population = pop2;
 
-	// now overwrite position and energy vectors
-	agentEnergyVec = agentEnergy2;
 }
 
 /// function to print data
@@ -309,8 +260,8 @@ void printAgents(const int& gen_p, const int& time_p)
 				<< population[ind2].circWalkDist << ","
 				<< population[ind2].circPos << ","
 				<< population[ind2].chainLength << ","
-				<< population[ind2].leader << ","
-				<< agentEnergyVec[ind2] << "\n";
+				<< population[ind2].id_leader << ","
+				<< population[ind2].energy << "\n";
 		}
 	}
 	// close

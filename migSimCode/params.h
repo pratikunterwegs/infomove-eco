@@ -35,6 +35,7 @@ const int genmax = 1000; //arbit choice
 const int tMax = 25;
 
 // rand number
+std::random_device rd;
 std::mt19937_64 rng;
 //std::normal_distribution<float> normDist(1.f, 6.f);
 
