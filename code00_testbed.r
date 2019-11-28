@@ -5,6 +5,8 @@
 # MARM group, GELIFES-RUG, NL
 # Contact p.r.gupte@rug.nl
 
+# source smootherstep
+source("smootherstep.r")
 #### load libs ####
 
 library(ggplot2)
@@ -38,16 +40,29 @@ ggplot()+
 #### looking at continuous agent depletion ####
 # is the distribution wrapped?
 {
+  png(filename = "fig_smootherstep.png", res = 300, height = 500, width = 800)
   x = seq(0,100,0.01)
   maxland = 100
   pos = 95
   # this is the distance on a ring
   diffpos = matrix(c(abs(x - pos), maxland - abs(x - pos)), ncol = 2)
   distonring = apply(diffpos, 1, min)
-  dep = 1/(1 + exp(5*(distonring - 2)))
+  dep = sapply(distonring, smootherstep, deadzone=5, deprange=20)
+  dep2 = sapply(distonring, smootherstep, deadzone=10, deprange=40)
+  #dep3 = sapply(distonring, smootherstep, deadzone=5, deprange=20)
   res = 10 - dep
-  plot(x, res, type = "l", xlim = c(0, 100), ylim = c(0,10))
-  abline(h = 1, col = 2)
+  res2 = 10 - dep2
+  #res3 = 10-dep3
+  library(ggplot2)
+  
+  print(ggplot()+
+          geom_line(aes(x, res))+
+          geom_path(aes(x, res2), colour="red")+
+          geom_vline(xintercept = c(95-10,95-40), lty = 2, colour = "red")+
+          geom_vline(xintercept = 95, colour="blue")+
+          ggthemes::theme_few()+
+          labs(x = "position", y = "resource value"))
+  dev.off()
 }
 
 #### angle issues ####
