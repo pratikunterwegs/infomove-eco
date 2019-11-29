@@ -146,7 +146,7 @@ void doFollowDynamic(std::vector<agent>& vecSomeAgents)
 		}
 
 		tempMoveQ.erase(std::remove_if(tempMoveQ.begin(), tempMoveQ.end(),
-			[](const agent & thisAgent, int id_mqleader) {return(thisAgent.id_leader == id_mqleader); }));
+			[](const agent & thisAgent) {return(thisAgent.id_leader != -1); }));
 	}
 
 	processedMoveQ.push_back(tempMoveQ[0]);
