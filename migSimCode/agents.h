@@ -157,26 +157,6 @@ void doFollowDynamic(std::vector<agent>& vecSomeAgents)
 
 }
 
-/// function to convert angle to position
-void agent::convertAngleToPos()
-{
-	float circProp = (sin(moveAngle) + 1.f) / 2.f;
-	assert(circProp <= 1.f && circProp >= 0.f && "func angleToPos: circProp not 0-1");
-	circPos = circProp * maxLandPos; 
-
-	assert(circPos <= maxLandPos && "func angleToPos: circ pos calc-ed over land max");
-}
-
-/// convert pos to angle
-void agent::convertPosToAngle()
-{
-	float circProp = circPos / maxLandPos;
-	assert(circProp <= 1.f && circProp >= 0.f && "func posToAngle: circProp not 0-1");
-	float newAngle = circProp * 359.f;
-	assert(newAngle <= 359.f && "func posToAngle: angle above 359!");
-	moveAngle = newAngle;
-}
-
 /// function to reproduce
 void do_reprod()
 {
@@ -204,11 +184,9 @@ void do_reprod()
 		// reset who is being followed
 		pop2[a].id_leader = -1;
 		// get random movement angle
-		pop2[a].moveAngle = angleDist(rng);
-		//overwrite movement pointer
-		pop2[a].movePointer = &pop2[a].moveAngle;
-		// inherit movement param along circle
-		pop2[a].circWalkDist = population[parent_id].circWalkDist;
+		pop2[a].circPos = circPosDist(rng);
+		// inherit tradeoff parameter
+		pop2[a].tradeOffParam = population[parent_id].tradeOffParam;
 		// reset circular position
 		pop2[a].circPos = 0.f;
 
@@ -232,7 +210,7 @@ void do_reprod()
 			if (mut_event(rng))
 			{
 			std::cauchy_distribution<double> m_shift(0.0, 0.1); // how much of mutation
-			pop2[a].circWalkDist += static_cast<float> (m_shift(rng));
+			pop2[a].tradeOffParam += static_cast<float> (m_shift(rng));
 			}
 		}
 
@@ -264,7 +242,7 @@ void printAgents(const int& gen_p, const int& time_p)
 				<< gen_p << ","
 				<< time_p << ","
 				<< ind2 << ","
-				<< population[ind2].circWalkDist << ","
+				<< population[ind2].tradeOffParam << ","
 				<< population[ind2].circPos << ","
 				<< population[ind2].chainLength << ","
 				<< population[ind2].id_leader << ","
