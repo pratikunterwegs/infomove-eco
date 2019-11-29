@@ -54,26 +54,33 @@ struct flush_rec_nodes
 class agent
 {
 public:
-	agent() : annFollow(nodeDist(rng)), moveAngle(0.f), circWalkDist(1.f),
-		circPos(0.f), energy(0.000001f), id_self(),
-		chainLength(0), id_leader(-1) {};
+	agent() : 
+		annFollow(nodeDist(rng)),
+		circPos(0.f), tradeOffParam(0.5), energy(0.000001f), id_self(0), id_leader(-1) {};
 	~agent() {};
 	// agents need a brain, an age, fitness, and movement decision
-	Ann annFollow; float moveAngle, circPos, circWalkDist, energy;
+	Ann annFollow; float tradeOffParam, circPos, energy;
 	int chainLength, id_leader, id_self;
-	// pointer to param
-	float* movePointer = &moveAngle; //points to self unless reset
 
 	void resetLeader();
 	void chooseFollow(const agent& someagent);
-	void convertAngleToPos();
-	void convertPosToAngle();
 	void doGetFood();
-	void circleWalkAndLearn();
+	void circleWalk();
+	void depleteFood();
 };
 
 /// init agents
 std::vector<agent> population(popsize);
+void initPop(std::vector<agent>& pop)
+{
+	for (int i = 0; i < pop.size(); i++)
+	{
+		pop[i].id_self = i;
+	}
+
+}
+
+
 
 /// agent class func to reset leader
 void agent::resetLeader()
