@@ -8,7 +8,7 @@ geometry: margin=1.2in
 mainfont: "Source Serif Pro"
 sansfont: "Lato"
 monofont: "IBM Plex Mono"
-bibliography: "/home/pratik/Exported Items.bib"
+bibliography: "bibliography_infomove.bib"
 header-includes:
    - \usepackage{lineno}
 ---
