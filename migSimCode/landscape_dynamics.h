@@ -25,7 +25,7 @@ void makePositions(std::vector<gridcell>& landscape)
 {
 	for (int i = 0; i < landPoints; i++)
 	{
-		landscape[i].dPos = static_cast<float>(i) * maxLandPos / static_cast<float>(landPoints);
+		landscape[i].dPos = static_cast<float>(i) / static_cast<float>(landPoints);
 	}
 }
 
@@ -33,9 +33,21 @@ void makePositions(std::vector<gridcell>& landscape)
 float getWrappedDist(const float& x1, const float& x2)
 {
     float tempdist = abs(x2 - x1);
-    assert(tempdist <= maxLandPos && "tempdist is beyond land");
-    tempdist = std::min(tempdist, maxLandPos - tempdist);
+    assert(tempdist <= 1.f && "tempdist is beyond land");
+    tempdist = std::min(tempdist, 1.f - tempdist);
     return tempdist;
+}
+
+/// function for smootherstep
+// take distance from agent, deadzone and deplzone
+float smootherstep(float& x, const float& deadZone, const float& deplZone) {
+	
+	if (x < deadZone) { x = deadZone; }
+	if (x > deplZone) { x = deplZone; }
+	x = (x - deplZone) / (deadZone - deplZone);
+
+	assert(deadZone <= deplZone && "smootherstep: deplZone gt deadZone");
+	return x * x * x * (x * (x * 6 - 15) + 10);
 }
 
 /// function to replenish food each generations
@@ -49,14 +61,15 @@ void doMakeFood()
 
 /// function to deplete landscape
 // update dFood based on wrapped agent effect
-void depleteFood(const int& whichAgent)
+// agent effect is specified by smootherstep above
+void agent::depleteFood()
 {
-    assert(population[whichAgent].circPos >= 0.f && "func depleteFood: pop has neg moves");
+    assert(circPos >= 0.f && "func depleteFood: pop has neg moves");
     for(int l = 0; l < landPoints; l++)
     {
         // wrapped distance from agent
-        float dist = getWrappedDist(population[whichAgent].circPos, landscape[l].dPos);
-		float depleted = (maxDepletion / (1.f + exp(depletionSlope * (dist - depletionRadius))));
+        float dist = getWrappedDist(circPos, landscape[l].dPos);
+		float depleted = maxDepletion * landscape[l].dFood * smootherstep(dist, deadZone, deplZone);
 
 		landscape[l].dFood -= (landscape[l].dFood - depleted) > 0.f ? depleted : landscape[l].dFood;
 
@@ -68,10 +81,10 @@ void depleteFood(const int& whichAgent)
 void agent::doGetFood()
 {
 	// check where agent is
-	assert(circPos <= maxLandPos && "func doGetFood: agent walked over max land!");
+	assert(circPos <= 1.f && "func doGetFood: agent walked over max land!");
 	assert(circPos >= 0.f && "func doGetFood: agent walked over min land!");
 	// get right bound by rounding proportion on the landscape
-    int bound_right = static_cast<int>(floor((circPos / maxLandPos) * static_cast<float>(landPoints-1)));
+    int bound_right = static_cast<int>(floor((circPos) * static_cast<float>(landPoints-1)));
 
     // left bound is right bound - 1
     int bound_left = (bound_right - 1 >= 0)? (bound_right - 1): landPoints + (bound_right - 1);
@@ -94,40 +107,20 @@ void agent::doGetFood()
 }
 
 /// function to walk along the circle
-void agent::circleWalkAndLearn()
+void agent::circleWalk()
 {
 	bool direction = walkDirection(rng);
 	// check where agent is
-	assert(circPos <= maxLandPos && "func circleWalk: agent walked over max land!");
+	assert(circPos <= 1.f && "func circleWalk: agent now over max land!");
+	assert(circPos >= 0.f && "func circleWalk: agent now over min land!");
+	
+	circPos += direction ? (moveDist) : (-moveDist);
+
+	circPos = fmod(circPos, 1.f);
+
+	assert(circPos <= 1.f && "func circleWalk: agent walked over max land!");
 	assert(circPos >= 0.f && "func circleWalk: agent walked over min land!");
-	// save old pos, bound, and value
-	float oldPos = circPos;
-	int oldPosBound = static_cast<int>(floor((oldPos / maxLandPos) * static_cast<float>(landPoints-1)));
-	// check if bounds are too high
-	assert(oldPosBound <= landPoints && "func circleWalk: forage pos beyond landscape");
-	float oldVal = landscape[oldPosBound].dFood;
 
-	// move agent left or right
-	// HANDLE TO ENSURE AGENT STAYS ON WRAPPED LANDSCAPE
-	float moveDist = (circWalkDist * (direction ? 1.f : -1.f));
-	circPos += moveDist;
-	circPos = fmod( (maxLandPos+circPos), maxLandPos);
-
-
-	assert(circPos <= maxLandPos && "func circleWalk: agent newpos over max land!");
-	assert(circPos >= 0.f && "func circleWalk: agent newpos over min land!");
-
-	// new position bound
-	int newPosBound = static_cast<int>(floor((circPos / maxLandPos) * static_cast<float>(landPoints)));
-	float newVal = landscape[newPosBound].dFood;
-
-	// change angle if new val better than old val
-	if (newVal > oldVal)
-	{
-		convertPosToAngle();
-		// reset move angle
-		movePointer = &moveAngle;
-	}
 }
 
 /// function to print landscape values

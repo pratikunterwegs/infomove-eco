@@ -32,7 +32,7 @@ using Ann = Network<float,
 std::uniform_real_distribution<float> nodeDist(-10.f, 10.f);
 
 // pick rand move angle - uniform distribution over the landscape
-std::uniform_real_distribution<float> angleDist(0.f, 359.f);
+std::uniform_real_distribution<float> circPosDist(0.f, 1.f);
 
 // bernoulli dist for circlewalk
 std::bernoulli_distribution walkDirection(0.5);
@@ -54,26 +54,33 @@ struct flush_rec_nodes
 class agent
 {
 public:
-	agent() : annFollow(nodeDist(rng)), moveAngle(0.f), circWalkDist(1.f),
-		circPos(0.f), energy(0.000001f), id_self(),
-		chainLength(0), id_leader(-1) {};
+	agent() : 
+		annFollow(nodeDist(rng)),
+		circPos(0.f), tradeOffParam(0.5), energy(0.000001f), id_self(0), id_leader(-1) {};
 	~agent() {};
 	// agents need a brain, an age, fitness, and movement decision
-	Ann annFollow; float moveAngle, circPos, circWalkDist, energy;
+	Ann annFollow; float tradeOffParam, circPos, energy;
 	int chainLength, id_leader, id_self;
-	// pointer to param
-	float* movePointer = &moveAngle; //points to self unless reset
 
 	void resetLeader();
 	void chooseFollow(const agent& someagent);
-	void convertAngleToPos();
-	void convertPosToAngle();
 	void doGetFood();
-	void circleWalkAndLearn();
+	void circleWalk();
+	void depleteFood();
 };
 
 /// init agents
 std::vector<agent> population(popsize);
+void initPop(std::vector<agent>& pop)
+{
+	for (int i = 0; i < pop.size(); i++)
+	{
+		pop[i].id_self = i;
+	}
+
+}
+
+
 
 /// agent class func to reset leader
 void agent::resetLeader()
@@ -139,7 +146,7 @@ void doFollowDynamic(std::vector<agent>& vecSomeAgents)
 		}
 
 		tempMoveQ.erase(std::remove_if(tempMoveQ.begin(), tempMoveQ.end(),
-			[](const agent & thisAgent, int id_mqleader) {return(thisAgent.id_leader == id_mqleader); }));
+			[](const agent & thisAgent) {return(thisAgent.id_leader != -1); }));
 	}
 
 	processedMoveQ.push_back(tempMoveQ[0]);
@@ -148,26 +155,6 @@ void doFollowDynamic(std::vector<agent>& vecSomeAgents)
 
 	vecSomeAgents = processedMoveQ;
 
-}
-
-/// function to convert angle to position
-void agent::convertAngleToPos()
-{
-	float circProp = (sin(moveAngle) + 1.f) / 2.f;
-	assert(circProp <= 1.f && circProp >= 0.f && "func angleToPos: circProp not 0-1");
-	circPos = circProp * maxLandPos; 
-
-	assert(circPos <= maxLandPos && "func angleToPos: circ pos calc-ed over land max");
-}
-
-/// convert pos to angle
-void agent::convertPosToAngle()
-{
-	float circProp = circPos / maxLandPos;
-	assert(circProp <= 1.f && circProp >= 0.f && "func posToAngle: circProp not 0-1");
-	float newAngle = circProp * 359.f;
-	assert(newAngle <= 359.f && "func posToAngle: angle above 359!");
-	moveAngle = newAngle;
 }
 
 /// function to reproduce
@@ -197,11 +184,9 @@ void do_reprod()
 		// reset who is being followed
 		pop2[a].id_leader = -1;
 		// get random movement angle
-		pop2[a].moveAngle = angleDist(rng);
-		//overwrite movement pointer
-		pop2[a].movePointer = &pop2[a].moveAngle;
-		// inherit movement param along circle
-		pop2[a].circWalkDist = population[parent_id].circWalkDist;
+		pop2[a].circPos = circPosDist(rng);
+		// inherit tradeoff parameter
+		pop2[a].tradeOffParam = population[parent_id].tradeOffParam;
 		// reset circular position
 		pop2[a].circPos = 0.f;
 
@@ -225,7 +210,7 @@ void do_reprod()
 			if (mut_event(rng))
 			{
 			std::cauchy_distribution<double> m_shift(0.0, 0.1); // how much of mutation
-			pop2[a].circWalkDist += static_cast<float> (m_shift(rng));
+			pop2[a].tradeOffParam += static_cast<float> (m_shift(rng));
 			}
 		}
 
@@ -257,7 +242,7 @@ void printAgents(const int& gen_p, const int& time_p)
 				<< gen_p << ","
 				<< time_p << ","
 				<< ind2 << ","
-				<< population[ind2].circWalkDist << ","
+				<< population[ind2].tradeOffParam << ","
 				<< population[ind2].circPos << ","
 				<< population[ind2].chainLength << ","
 				<< population[ind2].id_leader << ","
