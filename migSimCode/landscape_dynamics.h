@@ -33,9 +33,21 @@ void makePositions(std::vector<gridcell>& landscape)
 float getWrappedDist(const float& x1, const float& x2)
 {
     float tempdist = abs(x2 - x1);
-    assert(tempdist <= maxLandPos && "tempdist is beyond land");
-    tempdist = std::min(tempdist, maxLandPos - tempdist);
+    assert(tempdist <= 1.f && "tempdist is beyond land");
+    tempdist = std::min(tempdist, 1.f - tempdist);
     return tempdist;
+}
+
+/// function for smootherstep
+// take distance from agent, deadzone and deplzone
+float smootherstep(float& x, const float& deadZone, const float& deplZone) {
+	
+	if (x < deadZone) { x = deadZone; }
+	if (x > deplZone) { x = deplZone; }
+	x = (x - deplZone) / (deadZone - deplZone);
+
+	assert(deadZone <= deplZone && "smootherstep: deplZone gt deadZone");
+	return x * x * x * (x * (x * 6 - 15) + 10);
 }
 
 /// function to replenish food each generations
