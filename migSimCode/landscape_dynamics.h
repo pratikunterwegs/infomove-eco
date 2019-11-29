@@ -25,7 +25,7 @@ void makePositions(std::vector<gridcell>& landscape)
 {
 	for (int i = 0; i < landPoints; i++)
 	{
-		landscape[i].dPos = static_cast<float>(i) * maxLandPos / static_cast<float>(landPoints);
+		landscape[i].dPos = static_cast<float>(i) / static_cast<float>(landPoints);
 	}
 }
 
@@ -68,10 +68,10 @@ void depleteFood(const int& whichAgent)
 void agent::doGetFood()
 {
 	// check where agent is
-	assert(circPos <= maxLandPos && "func doGetFood: agent walked over max land!");
+	assert(circPos <= 1.f && "func doGetFood: agent walked over max land!");
 	assert(circPos >= 0.f && "func doGetFood: agent walked over min land!");
 	// get right bound by rounding proportion on the landscape
-    int bound_right = static_cast<int>(floor((circPos / maxLandPos) * static_cast<float>(landPoints-1)));
+    int bound_right = static_cast<int>(floor((circPos) * static_cast<float>(landPoints-1)));
 
     // left bound is right bound - 1
     int bound_left = (bound_right - 1 >= 0)? (bound_right - 1): landPoints + (bound_right - 1);
