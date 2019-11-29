@@ -61,14 +61,15 @@ void doMakeFood()
 
 /// function to deplete landscape
 // update dFood based on wrapped agent effect
-void depleteFood(const int& whichAgent)
+// agent effect is specified by smootherstep above
+void agent::depleteFood()
 {
-    assert(population[whichAgent].circPos >= 0.f && "func depleteFood: pop has neg moves");
+    assert(circPos >= 0.f && "func depleteFood: pop has neg moves");
     for(int l = 0; l < landPoints; l++)
     {
         // wrapped distance from agent
-        float dist = getWrappedDist(population[whichAgent].circPos, landscape[l].dPos);
-		float depleted = (maxDepletion / (1.f + exp(depletionSlope * (dist - depletionRadius))));
+        float dist = getWrappedDist(circPos, landscape[l].dPos);
+		float depleted = maxDepletion * landscape[l].dFood * smootherstep(dist, deadZone, deplZone);
 
 		landscape[l].dFood -= (landscape[l].dFood - depleted) > 0.f ? depleted : landscape[l].dFood;
 
