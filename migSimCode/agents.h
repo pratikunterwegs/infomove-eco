@@ -233,7 +233,7 @@ void printAgents(const int& gen_p, const int& time_p)
 	agentofs.open("dataAgents.csv", std::ofstream::out | std::ofstream::app);
 
 	// col header
-	if (gen_p == 0 && time_p == 0) { agentofs << "gen,time,id,movep,circPos,chainlength,leader,energy\n"; }
+	if (gen_p == 0 && time_p == 0) { agentofs << "gen,time,id,eeParam,pos,leader,energy\n"; }
 
 	// print for each ind
 	//if ((gen_p == 0 || gen_p % 5 == 0) && time_p % 20 == 0)
@@ -246,7 +246,6 @@ void printAgents(const int& gen_p, const int& time_p)
 				<< ind2 << ","
 				<< population[ind2].tradeOffParam << ","
 				<< population[ind2].circPos << ","
-				<< population[ind2].chainLength << ","
 				<< population[ind2].id_leader << ","
 				<< population[ind2].energy << "\n";
 		}
