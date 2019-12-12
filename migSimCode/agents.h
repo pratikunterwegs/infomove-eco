@@ -111,6 +111,9 @@ void agent::chooseFollow(const agent& someagent)
 	// assign leader if output greater than 0
 	id_leader = (output[0] > 0.f ? someagent.id_self : -1);
 
+	// copy leader foraging site
+	circPos = (population[id_leader]).circPos;
+
 }
 
 /// function to assess remaining agents and shrink move queue
