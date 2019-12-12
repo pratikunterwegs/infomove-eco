@@ -130,17 +130,20 @@ void doFollowDynamic(std::vector<agent>& vecSomeAgents)
 	std::vector<agent> processedMoveQ;
 	assert(tempMoveQ.size() > 0 && "doFollowDynamic: moveQ is empty at start");
 	
-	while (tempMoveQ.size() > 1)
+	while (tempMoveQ.size() > 1) // at least 2 agents in q
 	{
 		agent moveQLeader = tempMoveQ[0];
 		int id_mqleader = moveQLeader.id_self;
 		processedMoveQ.push_back(moveQLeader);
 		tempMoveQ.erase(tempMoveQ.begin());
-
+		
 		for (int i_moveq = 0; i_moveq < tempMoveQ.size(); i_moveq++)
 		{
 			tempMoveQ[i_moveq].chooseFollow(moveQLeader);
+		}
 
+		for (int i_moveq = tempMoveQ.size()-1; i_moveq >=0; i_moveq--)
+		{
 			if (tempMoveQ[i_moveq].id_leader != -1)
 			{
 				processedMoveQ.push_back(tempMoveQ[i_moveq]);
