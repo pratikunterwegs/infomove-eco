@@ -69,6 +69,13 @@ public:
 	void depleteFood();
 };
 
+/// function to shuffle agents for movement order
+void shufflePopSeq(std::vector<agent>& vecSomeAgents)
+{
+	std::shuffle(vecSomeAgents.begin(), vecSomeAgents.end(), rng);
+}
+
+
 /// init agents
 std::vector<agent> population(popsize);
 void initPop(std::vector<agent>& pop)
@@ -80,19 +87,11 @@ void initPop(std::vector<agent>& pop)
 
 }
 
-
-
 /// agent class func to reset leader
 void agent::resetLeader()
 {
 	// reset leader
 	id_leader = -1;
-}
-
-/// function to shuffle agents for movement order
-void shufflePopSeq(std::vector<agent>& vecSomeAgents)
-{
-	std::shuffle(vecSomeAgents.begin(), vecSomeAgents.end(), rng);
 }
 
 /// function to entrain to other agent
