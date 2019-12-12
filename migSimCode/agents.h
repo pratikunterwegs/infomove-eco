@@ -60,7 +60,7 @@ public:
 	~agent() {};
 	// agents need a brain, an age, fitness, and movement decision
 	Ann annFollow; float tradeOffParam, circPos, energy;
-	int chainLength, id_leader, id_self;
+	int id_leader, id_self;
 
 	void resetLeader();
 	void chooseFollow(const agent& someagent);
