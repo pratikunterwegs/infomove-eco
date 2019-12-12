@@ -56,7 +56,7 @@ class agent
 public:
 	agent() : 
 		annFollow(nodeDist(rng)),
-		circPos(0.f), tradeOffParam(0.5), energy(0.000001f), id_self(0), id_leader(-1) {};
+		circPos(circPosDist(rng)), tradeOffParam(0.5), energy(0.000001f), id_self(0), id_leader(-1) {};
 	~agent() {};
 	// agents need a brain, an age, fitness, and movement decision
 	Ann annFollow; float tradeOffParam, circPos, energy;
