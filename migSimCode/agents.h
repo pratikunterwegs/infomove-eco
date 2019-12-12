@@ -151,12 +151,12 @@ void doFollowDynamic(std::vector<agent>& vecSomeAgents)
 		}
 
 		tempMoveQ.erase(std::remove_if(tempMoveQ.begin(), tempMoveQ.end(),
-			[](const agent & thisAgent) {return(thisAgent.id_leader != -1); }));
+			[](const agent & thisAgent) {return(thisAgent.id_leader != -1); }), tempMoveQ.end());
 	}
 
 	processedMoveQ.push_back(tempMoveQ[0]);
 
-	assert(processedMoveQ.size() == tempMoveQ.size() && "doFollow: processed queue smaller than input");
+	assert(processedMoveQ.size() == popsize && "doFollow: processed queue smaller than input");
 
 	vecSomeAgents = processedMoveQ;
 
