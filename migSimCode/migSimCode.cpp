@@ -17,6 +17,7 @@
 int do_main()
 {
 	makePositions(landscape);
+	initPop(population);
 	
 	// run for 100 generations of 100 timesteps
 	for (int gen = 0; gen < genmax; gen++)
@@ -25,13 +26,21 @@ int do_main()
 		// loop through timesteps
 		for (int t = 0; t < tMax; t++)
 		{
-			// loop through agents and do actions
-			for (int ind = 0; ind < popsize; ind++)
-			{
-				// reset leader, movement etc
-				//population[ind].resetLeader();
+			// shuffle the population, making the first move
+			// queue. no further shuffling in this timestep
 
-				// main dynamics here
+			shufflePopSeq(population);
+
+			// restting the leaders and implementing follow dynamics
+			for (int ind = 0; ind < popsize; ind++) { population[ind].resetLeader(); }
+			
+			doFollowDynamic(population);
+
+			// depletion and movement
+			// restting the leaders and implementing follow dynamics
+			for (int ind = 0; ind < popsize; ind++) { 
+				population[ind].doGetFood();
+				population[ind].depleteFood();
 			}
 			
 			// output data
