@@ -108,11 +108,11 @@ void agent::chooseFollow(const agent& someagent)
 	// inputs[1] = energy;
 	auto output = annFollow(inputs);
 
-	// assign leader if output greater than 0
-	id_leader = (output[0] > 0.f ? someagent.id_self : -1);
-
-	// copy leader foraging site
-	circPos = (population[id_leader]).circPos;
+	if(output[0] > 0.f) {
+		// assign leader if output greater than 0
+		id_leader = someagent.id_self;
+		// copy leader foraging site
+		circPos = someagent.circPos;}
 
 }
 
