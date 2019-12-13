@@ -123,6 +123,8 @@ void agent::circleWalk()
 
 }
 
+/// needs funcs for explore exploit and memory
+
 /// function to print landscape values
 void printLand(const int& gen_p, const int& t_p)
 {

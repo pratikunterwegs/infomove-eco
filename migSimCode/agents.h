@@ -56,11 +56,11 @@ class agent
 public:
 	agent() : 
 		annFollow(nodeDist(rng)),
-		circPos(0.f), tradeOffParam(0.5), energy(0.000001f), id_self(0), id_leader(-1) {};
+		circPos(circPosDist(rng)), tradeOffParam(0.5), energy(0.000001f), id_self(0), id_leader(-1) {};
 	~agent() {};
 	// agents need a brain, an age, fitness, and movement decision
 	Ann annFollow; float tradeOffParam, circPos, energy;
-	int chainLength, id_leader, id_self;
+	int id_leader, id_self;
 
 	void resetLeader();
 	void chooseFollow(const agent& someagent);
@@ -68,6 +68,13 @@ public:
 	void circleWalk();
 	void depleteFood();
 };
+
+/// function to shuffle agents for movement order
+void shufflePopSeq(std::vector<agent>& vecSomeAgents)
+{
+	std::shuffle(vecSomeAgents.begin(), vecSomeAgents.end(), rng);
+}
+
 
 /// init agents
 std::vector<agent> population(popsize);
@@ -80,19 +87,11 @@ void initPop(std::vector<agent>& pop)
 
 }
 
-
-
 /// agent class func to reset leader
 void agent::resetLeader()
 {
 	// reset leader
 	id_leader = -1;
-}
-
-/// function to shuffle agents for movement order
-void shufflePopSeq(std::vector<agent>& vecSomeAgents)
-{
-	std::shuffle(vecSomeAgents.begin(), vecSomeAgents.end(), rng);
 }
 
 /// function to entrain to other agent
@@ -109,8 +108,11 @@ void agent::chooseFollow(const agent& someagent)
 	// inputs[1] = energy;
 	auto output = annFollow(inputs);
 
-	// assign leader if output greater than 0
-	id_leader = (output[0] > 0.f ? someagent.id_self : -1);
+	if(output[0] > 0.f) {
+		// assign leader if output greater than 0
+		id_leader = someagent.id_self;
+		// copy leader foraging site
+		circPos = someagent.circPos;}
 
 }
 
@@ -128,17 +130,20 @@ void doFollowDynamic(std::vector<agent>& vecSomeAgents)
 	std::vector<agent> processedMoveQ;
 	assert(tempMoveQ.size() > 0 && "doFollowDynamic: moveQ is empty at start");
 	
-	while (tempMoveQ.size() > 1)
+	while (tempMoveQ.size() > 1) // at least 2 agents in q
 	{
 		agent moveQLeader = tempMoveQ[0];
 		int id_mqleader = moveQLeader.id_self;
 		processedMoveQ.push_back(moveQLeader);
 		tempMoveQ.erase(tempMoveQ.begin());
-
+		
 		for (int i_moveq = 0; i_moveq < tempMoveQ.size(); i_moveq++)
 		{
 			tempMoveQ[i_moveq].chooseFollow(moveQLeader);
+		}
 
+		for (int i_moveq = tempMoveQ.size()-1; i_moveq >=0; i_moveq--)
+		{
 			if (tempMoveQ[i_moveq].id_leader != -1)
 			{
 				processedMoveQ.push_back(tempMoveQ[i_moveq]);
@@ -146,12 +151,12 @@ void doFollowDynamic(std::vector<agent>& vecSomeAgents)
 		}
 
 		tempMoveQ.erase(std::remove_if(tempMoveQ.begin(), tempMoveQ.end(),
-			[](const agent & thisAgent) {return(thisAgent.id_leader != -1); }));
+			[](const agent & thisAgent) {return(thisAgent.id_leader != -1); }), tempMoveQ.end());
 	}
 
 	processedMoveQ.push_back(tempMoveQ[0]);
 
-	assert(processedMoveQ.size() == tempMoveQ.size() && "doFollow: processed queue smaller than input");
+	assert(processedMoveQ.size() == popsize && "doFollow: processed queue smaller than input");
 
 	vecSomeAgents = processedMoveQ;
 
@@ -231,7 +236,7 @@ void printAgents(const int& gen_p, const int& time_p)
 	agentofs.open("dataAgents.csv", std::ofstream::out | std::ofstream::app);
 
 	// col header
-	if (gen_p == 0 && time_p == 0) { agentofs << "gen,time,id,movep,circPos,chainlength,leader,energy\n"; }
+	if (gen_p == 0 && time_p == 0) { agentofs << "gen,time,id,eeParam,pos,leader,energy\n"; }
 
 	// print for each ind
 	//if ((gen_p == 0 || gen_p % 5 == 0) && time_p % 20 == 0)
@@ -244,7 +249,6 @@ void printAgents(const int& gen_p, const int& time_p)
 				<< ind2 << ","
 				<< population[ind2].tradeOffParam << ","
 				<< population[ind2].circPos << ","
-				<< population[ind2].chainLength << ","
 				<< population[ind2].id_leader << ","
 				<< population[ind2].energy << "\n";
 		}

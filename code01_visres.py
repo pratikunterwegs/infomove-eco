@@ -25,19 +25,13 @@ currentWd = p # os.path.dirname(os.path.abspath(__file__)) #os.getcwd()
 print(currentWd)
 
 # read in data
-dataAgents = pd.read_csv("data/dataAgents.csv")
+dataAgents = pd.read_csv("migSimCode/dataAgents.csv")
 for col in dataAgents.columns:
     print(col)
 
 # dataLand = pd.read_csv("migSimCode/dataLand.csv")
 # for col in dataLand.columns:
 #     print(col)
-
-#### summarised data frame
-# get summary of leader switches per id and gen
-# dsmrleadswitch = d.groupby(['gen', 'id'])\
-#     .apply(lambda x: pd.Series({'leadswitch':len(x.leader.unique())}))\
-#     .reset_index()
 
 # filter generations modulo 50
 dataAgents = dataAgents[(dataAgents['gen'] % 10 == 0) &
@@ -47,4 +41,4 @@ dataAgents = dataAgents[(dataAgents['gen'] % 10 == 0) &
 # summarise as in R for historgram of distance to peak over time
 g = sns.FacetGrid(col="gen", row="time", margin_titles=True, data=dataAgents)
 bins = np.linspace(0, 20, 40)
-g.map(plt.hist, "circPos", color="steelblue", bins=bins)
+g.map(plt.hist, "pos", color="steelblue", bins=bins)
