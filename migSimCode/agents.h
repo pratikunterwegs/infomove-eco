@@ -29,7 +29,7 @@ using Ann = Network<float,
 >;
 
 // pick rand node weights
-std::uniform_real_distribution<float> nodeDist(-10.f, 10.f);
+std::uniform_real_distribution<float> nodeDist(-0.1f, 0.1f);
 
 // pick rand move angle - uniform distribution over the landscape
 std::uniform_real_distribution<float> circPosDist(0.f, 1.f);
@@ -188,12 +188,10 @@ void do_reprod()
 		pop2[a].annFollow = population[parent_id].annFollow;
 		// reset who is being followed
 		pop2[a].id_leader = -1;
-		// get random movement angle
+		// get random position
 		pop2[a].circPos = circPosDist(rng);
 		// inherit tradeoff parameter
 		pop2[a].tradeOffParam = population[parent_id].tradeOffParam;
-		// reset circular position
-		pop2[a].circPos = 0.f;
 
 		// overwrite energy
 		agentEnergy2[a] = 0.0001f;
