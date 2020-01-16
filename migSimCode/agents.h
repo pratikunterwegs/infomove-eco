@@ -9,7 +9,7 @@
 #include <numeric>
 #include <unordered_set>
 #include <cassert>
-#include <math.h>
+#include <cmath>
 #include "ann.h"
 #include "params.h"
 

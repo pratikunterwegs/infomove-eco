@@ -5,7 +5,7 @@
 
 #include "params.h"
 #include "agents.h"
-#include <math.h>
+#include <cmath>
 
 // make gridcell class
 class gridcell
@@ -117,14 +117,16 @@ void agent::circleWalk()
 	if (tradeOffParam < normDist(rng)) {
 		circPos += direction ? (moveDist) : (-moveDist);
 
-		circPos = fmod(circPos, 1.f);
+		circPos = fmod(circPos, 1.0f);
+
+		circPos = circPos > 0.f ? circPos : 1.f + circPos;
 	}
 	assert(circPos <= 1.f && "func circleWalk: agent walked over max land!");
 	assert(circPos >= 0.f && "func circleWalk: agent walked over min land!");
 
 }
 
-/// needs funcs for explore exploit and memory
+/// needs funcs memory
 
 /// function to print landscape values
 void printLand(const int& gen_p, const int& t_p)
