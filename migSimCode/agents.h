@@ -31,7 +31,7 @@ using Ann = Network<float,
 std::uniform_real_distribution<float> nodeDist(-0.1f, 0.1f);
 
 // pick rand move angle - uniform distribution over the landscape
-std::uniform_real_distribution<float> circPosDist(0.f, 1.f);
+std::uniform_real_distribution<float> circPosDist(0.f, 0.99f);
 
 // bernoulli dist for circlewalk
 std::bernoulli_distribution walkDirection(0.5);
@@ -111,7 +111,8 @@ void agent::chooseFollow(const agent& someagent)
 		// assign leader if output greater than 0
 		id_leader = someagent.id_self;
 		// copy leader foraging site
-		circPos = someagent.circPos;}
+		circPos = someagent.circPos;
+	}
 
 }
 
