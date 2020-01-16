@@ -30,8 +30,8 @@ using Ann = Network<float,
 // pick rand node weights
 std::uniform_real_distribution<float> nodeDist(-0.1f, 0.1f);
 
-// pick rand move angle - uniform distribution over the landscape
-std::uniform_real_distribution<float> circPosDist(0.f, 0.99f);
+// pick rand move angle - uniform distribution over 10% of the landscape
+std::uniform_real_distribution<float> circPosDist(0.f, 0.1f);
 
 // bernoulli dist for circlewalk
 std::bernoulli_distribution walkDirection(0.5);
