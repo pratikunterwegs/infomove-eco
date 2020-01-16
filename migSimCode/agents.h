@@ -1,5 +1,4 @@
 #pragma once
-#define _USE_MATH_DEFINES
 
 // code to init agents
 
