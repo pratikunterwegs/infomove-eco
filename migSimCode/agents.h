@@ -117,13 +117,6 @@ void agent::chooseFollow(const agent& someagent)
 }
 
 /// function to assess remaining agents and shrink move queue
-// create a temp move queue by shuffling the population
-// assign first agent as default moveQ leader
-// from second agent allow assessment using chooseFollow()
-// if a lead is chosen add to processed q
-// update moveQ by removing agents who have chosen a leader
-// repeat until moveQ size is 1
-// assign procssed q to old q
 void doFollowDynamic(std::vector<agent>& vecSomeAgents)
 {
 	//std::vector<agent> tempMoveQ = vecSomeAgents;
@@ -136,9 +129,8 @@ void doFollowDynamic(std::vector<agent>& vecSomeAgents)
 	{
 		// iterator position of first independent agent
 		std::vector<agent>::iterator moveQleader = std::find_if(vecSomeAgents.begin(), vecSomeAgents.end(), [](agent i) {return i.id_leader == -1; });
-		//processedMoveQ.push_back(moveQLeader);s
-		//tempMoveQ.erase(tempMoveQ.begin()); // for q size 2, size now 1
 		
+		// do follow
 		for (auto next_agent = moveQleader + 1; next_agent != vecSomeAgents.end(); next_agent++)
 		{
 			next_agent->chooseFollow(*moveQleader);
