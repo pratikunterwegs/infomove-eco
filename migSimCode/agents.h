@@ -33,6 +33,9 @@ std::uniform_real_distribution<float> nodeDist(-0.1f, 0.1f);
 // pick rand move angle - uniform distribution over 10% of the landscape
 std::uniform_real_distribution<float> circPosDist(0.f, 0.1f);
 
+// normal distribution for tradeoff
+std::normal_distribution<float> normDist(0.5, 0.2);
+
 // bernoulli dist for circlewalk
 std::bernoulli_distribution walkDirection(0.5);
 
@@ -208,8 +211,7 @@ void do_reprod()
 
 	}
 
-	// overwrite old gen - this is more complex in matteo's code
-	// no doubt we'll find out why
+	//overwrite old pop
 	population = pop2;
 
 }

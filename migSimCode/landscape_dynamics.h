@@ -114,10 +114,11 @@ void agent::circleWalk()
 	assert(circPos <= 1.f && "func circleWalk: agent now over max land!");
 	assert(circPos >= 0.f && "func circleWalk: agent now over min land!");
 	
-	circPos += direction ? (moveDist) : (-moveDist);
+	if (tradeOffParam < normDist(rng)) {
+		circPos += direction ? (moveDist) : (-moveDist);
 
-	circPos = fmod(circPos, 1.f);
-
+		circPos = fmod(circPos, 1.f);
+	}
 	assert(circPos <= 1.f && "func circleWalk: agent walked over max land!");
 	assert(circPos >= 0.f && "func circleWalk: agent walked over min land!");
 
