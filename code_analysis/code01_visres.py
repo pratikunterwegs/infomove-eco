@@ -29,15 +29,18 @@ dataAgents = pd.read_csv("migSimCode/dataAgents.csv")
 for col in dataAgents.columns:
     print(col)
 
-# dataLand = pd.read_csv("migSimCode/dataLand.csv")
-# for col in dataLand.columns:
-#     print(col)
+dataLand = pd.read_csv("migSimCode/dataLand.csv")
+for col in dataLand.columns:
+    print(col)
+
+dataLand = dataLand[(dataLand['gen'] % 100 == 0) &
+                    (dataLand['t'] % 10 == 0)]
 
 # filter generations modulo 50
-dataAgents = dataAgents[(dataAgents['gen'] % 10 == 0) &
-                        (dataAgents['gen'] < 100) &
+dataAgents = dataAgents[(dataAgents['gen'] % 50 == 0) &
                         (dataAgents['time'] % 10 == 0)]
 
+# plot agent attribute histograms
 # summarise as in R for histogram of distance to peak over time
 g = sns.FacetGrid(col="gen", row="time", margin_titles=True, data=dataAgents)
 bins = np.linspace(0, 1, 50)
@@ -47,5 +50,9 @@ g.map(plt.hist, "pos", color="steelblue", bins=bins)
 g = sns.FacetGrid(col="gen", row="time", margin_titles=True, data=dataAgents)
 bins = np.linspace(-1, 99, 100)
 g.map(plt.hist, "leader", color="indianred", bins=bins)
+
+# plot landscape values
+h = sns.FacetGrid(dataLand, col="gen", row="t")
+h.map(plt.plot, "pos", "food")
 
 # ends here
