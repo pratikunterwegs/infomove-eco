@@ -161,6 +161,10 @@ void do_reprod()
 
 	// make temp pop vector, position and energy vectors
 	std::vector<agent> pop2(popsize);
+
+	// assign ids
+	initPop(pop2);
+
 	std::vector<float> agentEnergy2(popsize);
 	// assign parents
 	for (int a = 0; a < popsize; a++) {
