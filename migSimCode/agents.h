@@ -28,10 +28,10 @@ using Ann = Network<float,
 >;
 
 // pick rand node weights
-std::uniform_real_distribution<float> nodeDist(-0.1f, 0.1f);
+std::uniform_real_distribution<float> nodeDist(-1.f, 1.f);
 
 // pick rand move angle - uniform distribution over 10% of the landscape
-std::uniform_real_distribution<float> circPosDist(0.f, 0.1f);
+std::uniform_real_distribution<float> circPosDist(0.f, 0.99f);
 
 // normal distribution for tradeoff
 std::normal_distribution<float> normDist(0.5, 0.2);
@@ -57,8 +57,8 @@ class agent
 {
 public:
 	agent() : 
-		annFollow(0.f),
-		circPos(0.f), tradeOffParam(0.5), energy(0.000001f), id_self(0), id_leader(-1) {};
+		annFollow(nodeDist(rng)),
+		circPos(circPosDist(rng)), tradeOffParam(0.5), energy(0.000001f), id_self(0), id_leader(-1) {};
 	~agent() {};
 	// agents need a brain, an age, fitness, and movement decision
 	Ann annFollow; float tradeOffParam, circPos, energy;
@@ -228,7 +228,7 @@ void printAgents(const int& gen_p, const int& time_p)
 	if (gen_p == 0 && time_p == 0) { agentofs << "gen,time,id,eeParam,pos,leader,energy\n"; }
 
 	// print for each ind
-	//if ((gen_p == 0 || gen_p % 5 == 0) && time_p % 20 == 0)
+	if ((gen_p == 0 || gen_p % 20 == 0) && time_p % 5 == 0)
 	{
 		for (int ind2 = 0; ind2 < popsize; ind2++)
 		{
