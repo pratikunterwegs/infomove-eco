@@ -126,39 +126,30 @@ void agent::chooseFollow(const agent& someagent)
 // assign procssed q to old q
 void doFollowDynamic(std::vector<agent>& vecSomeAgents)
 {
-	std::vector<agent> tempMoveQ = vecSomeAgents;
-	std::vector<agent> processedMoveQ;
-	assert(tempMoveQ.size() > 0 && "doFollowDynamic: moveQ is empty at start");
+	//std::vector<agent> tempMoveQ = vecSomeAgents;
+	//std::vector<agent> processedMoveQ;
+	assert(vecSomeAgents.size() > 0 && "doFollowDynamic: moveQ is empty at start");
 	
-	while (tempMoveQ.size() > 1) // at least 2 agents in q
+	int indep_agents = std::count_if(vecSomeAgents.begin(), vecSomeAgents.end(), [](agent thisAgent) {return thisAgent.id_leader == -1; });
+
+	while (indep_agents > 1) // at least 2 agents are independent
 	{
-		agent moveQLeader = tempMoveQ[0];
-		int id_mqleader = moveQLeader.id_self;
-		processedMoveQ.push_back(moveQLeader);
-		tempMoveQ.erase(tempMoveQ.begin());
+		// iterator position of first independent agent
+		std::vector<agent>::iterator moveQleader = std::find_if(vecSomeAgents.begin(), vecSomeAgents.end(), [](agent i) {return i.id_leader == -1; });
+		//processedMoveQ.push_back(moveQLeader);s
+		//tempMoveQ.erase(tempMoveQ.begin()); // for q size 2, size now 1
 		
-		for (int i_moveq = 0; i_moveq < tempMoveQ.size(); i_moveq++)
+		for (auto next_agent = moveQleader + 1; next_agent != vecSomeAgents.end(); next_agent++)
 		{
-			tempMoveQ[i_moveq].chooseFollow(moveQLeader);
+			next_agent->chooseFollow(*moveQleader);
 		}
 
-		for (int i_moveq = tempMoveQ.size()-1; i_moveq >=0; i_moveq--)
-		{
-			if (tempMoveQ[i_moveq].id_leader != -1)
-			{
-				processedMoveQ.push_back(tempMoveQ[i_moveq]);
-			}
-		}
+		// assigned move q leader follows itself 
+		// this fiction is to prevent inifinite looping
+		moveQleader->id_leader = moveQleader->id_self;
 
-		tempMoveQ.erase(std::remove_if(tempMoveQ.begin(), tempMoveQ.end(),
-			[](const agent & thisAgent) {return(thisAgent.id_leader != -1); }), tempMoveQ.end());
+		indep_agents = std::count_if(vecSomeAgents.begin(), vecSomeAgents.end(), [](agent thisAgent) {return thisAgent.id_leader == -1; });
 	}
-
-	processedMoveQ.push_back(tempMoveQ[0]);
-
-	assert(processedMoveQ.size() == popsize && "doFollow: processed queue smaller than input");
-
-	vecSomeAgents = processedMoveQ;
 
 }
 
