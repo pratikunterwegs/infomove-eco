@@ -130,10 +130,12 @@ void doFollowDynamic(std::vector<agent>& vecSomeAgents)
 		// iterator position of first independent agent
 		std::vector<agent>::iterator moveQleader = std::find_if(vecSomeAgents.begin(), vecSomeAgents.end(), [](agent i) {return i.id_leader == -1; });
 		
-		// do follow
+		// choose follow if independent
 		for (auto next_agent = moveQleader + 1; next_agent != vecSomeAgents.end(); next_agent++)
 		{
-			next_agent->chooseFollow(*moveQleader);
+			if (next_agent->id_leader == -1) {
+				next_agent->chooseFollow(*moveQleader);
+			}
 		}
 
 		// assigned move q leader follows itself 
