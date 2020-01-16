@@ -23,7 +23,7 @@
 const int popsize = 100; // not too many
 
 // agent params
-const float moveDist = 0.01f;
+const float moveDist = 0.1f;
 
 // landscape params
 const int landPoints = 100;

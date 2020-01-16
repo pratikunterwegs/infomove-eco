@@ -41,12 +41,13 @@ int do_main()
 			for (int ind = 0; ind < popsize; ind++) { 
 				population[ind].doGetFood();
 				population[ind].depleteFood();
+				population[ind].circleWalk();
 			}
 			
 			// output data
-			printAgents(gen, t);
-			// print land
-			printLand(gen, t);
+			//printAgents(gen, t);
+			//// print land
+			//printLand(gen, t);
 		}
 		
 		//replenish landscape

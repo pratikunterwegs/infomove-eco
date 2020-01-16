@@ -9,7 +9,7 @@
 #include <numeric>
 #include <unordered_set>
 #include <cassert>
-#include <math.h>
+#include <cmath>
 #include "ann.h"
 #include "params.h"
 
@@ -30,8 +30,11 @@ using Ann = Network<float,
 // pick rand node weights
 std::uniform_real_distribution<float> nodeDist(-0.1f, 0.1f);
 
-// pick rand move angle - uniform distribution over the landscape
-std::uniform_real_distribution<float> circPosDist(0.f, 0.99f);
+// pick rand move angle - uniform distribution over 10% of the landscape
+std::uniform_real_distribution<float> circPosDist(0.f, 0.1f);
+
+// normal distribution for tradeoff
+std::normal_distribution<float> normDist(0.5, 0.2);
 
 // bernoulli dist for circlewalk
 std::bernoulli_distribution walkDirection(0.5);
@@ -54,8 +57,8 @@ class agent
 {
 public:
 	agent() : 
-		annFollow(nodeDist(rng)),
-		circPos(circPosDist(rng)), tradeOffParam(0.5), energy(0.000001f), id_self(0), id_leader(-1) {};
+		annFollow(0.f),
+		circPos(0.f), tradeOffParam(0.5), energy(0.000001f), id_self(0), id_leader(-1) {};
 	~agent() {};
 	// agents need a brain, an age, fitness, and movement decision
 	Ann annFollow; float tradeOffParam, circPos, energy;
@@ -117,13 +120,6 @@ void agent::chooseFollow(const agent& someagent)
 }
 
 /// function to assess remaining agents and shrink move queue
-// create a temp move queue by shuffling the population
-// assign first agent as default moveQ leader
-// from second agent allow assessment using chooseFollow()
-// if a lead is chosen add to processed q
-// update moveQ by removing agents who have chosen a leader
-// repeat until moveQ size is 1
-// assign procssed q to old q
 void doFollowDynamic(std::vector<agent>& vecSomeAgents)
 {
 	//std::vector<agent> tempMoveQ = vecSomeAgents;
@@ -136,12 +132,13 @@ void doFollowDynamic(std::vector<agent>& vecSomeAgents)
 	{
 		// iterator position of first independent agent
 		std::vector<agent>::iterator moveQleader = std::find_if(vecSomeAgents.begin(), vecSomeAgents.end(), [](agent i) {return i.id_leader == -1; });
-		//processedMoveQ.push_back(moveQLeader);s
-		//tempMoveQ.erase(tempMoveQ.begin()); // for q size 2, size now 1
 		
+		// choose follow if independent
 		for (auto next_agent = moveQleader + 1; next_agent != vecSomeAgents.end(); next_agent++)
 		{
-			next_agent->chooseFollow(*moveQleader);
+			if (next_agent->id_leader == -1) {
+				next_agent->chooseFollow(*moveQleader);
+			}
 		}
 
 		// assigned move q leader follows itself 
@@ -169,6 +166,10 @@ void do_reprod()
 
 	// make temp pop vector, position and energy vectors
 	std::vector<agent> pop2(popsize);
+
+	// assign ids
+	initPop(pop2);
+
 	std::vector<float> agentEnergy2(popsize);
 	// assign parents
 	for (int a = 0; a < popsize; a++) {
@@ -210,8 +211,7 @@ void do_reprod()
 
 	}
 
-	// overwrite old gen - this is more complex in matteo's code
-	// no doubt we'll find out why
+	//overwrite old pop
 	population = pop2;
 
 }
@@ -235,7 +235,7 @@ void printAgents(const int& gen_p, const int& time_p)
 			agentofs
 				<< gen_p << ","
 				<< time_p << ","
-				<< ind2 << ","
+				<< population[ind2].id_self << ","
 				<< population[ind2].tradeOffParam << ","
 				<< population[ind2].circPos << ","
 				<< population[ind2].id_leader << ","
