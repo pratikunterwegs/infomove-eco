@@ -37,7 +37,7 @@ dataLand = dataLand[(dataLand['gen'] % 100 == 0) &
                     (dataLand['t'] % 10 == 0)]
 
 # filter generations modulo 50
-dataAgents = dataAgents[(dataAgents['gen'] % 50 == 0) &
+dataAgents = dataAgents[(dataAgents['gen'] % 100 == 0) &
                         (dataAgents['time'] % 10 == 0)]
 
 # plot agent attribute histograms

@@ -41,4 +41,4 @@ dataAgents = dataAgents.reset_index()
 
 # plot landscape values
 h = sns.FacetGrid(dataAgents, col="gen")
-h.map(plt.scatter, "eeParam", "indep")
+h.map(plt.scatter, "eeParam", "indep", s=0.2)
