@@ -4,7 +4,7 @@
     <list default="true" id="2610db84-0cc4-424b-87e7-a2ab24e0fd4f" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/code_analysis/code01_visres.py" beforeDir="false" afterPath="$PROJECT_DIR$/code_analysis/code01_visres.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/migSimCode/migSimCode.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/migSimCode/migSimCode.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/code_analysis/code02_ee_follow.py" beforeDir="false" afterPath="$PROJECT_DIR$/code_analysis/code02_ee_follow.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -17,8 +17,17 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/code_analysis/code01_visres.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="640">
-              <caret line="42" column="26" selection-start-line="42" selection-start-column="26" selection-end-line="42" selection-end-column="26" />
+            <state relative-caret-position="223">
+              <caret line="37" lean-forward="true" selection-start-line="37" selection-end-line="37" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/code_analysis/code02_ee_follow.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="720">
+              <caret line="40" lean-forward="true" selection-start-line="40" selection-end-line="40" />
             </state>
           </provider>
         </entry>
@@ -39,6 +48,7 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/code01_visres.py" />
+        <option value="$PROJECT_DIR$/code_analysis/code02_ee_follow.py" />
         <option value="$PROJECT_DIR$/code_analysis/code01_visres.py" />
       </list>
     </option>
@@ -54,6 +64,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -61,11 +72,15 @@
               <item name="gooseMigStrat" type="b2602c69:ProjectViewProjectNode" />
               <item name="gooseMigStrat" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="gooseMigStrat" type="b2602c69:ProjectViewProjectNode" />
+              <item name="gooseMigStrat" type="462c0819:PsiDirectoryNode" />
+              <item name="code_analysis" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -102,8 +117,8 @@
     <frame x="1025" y="0" width="1542" height="1447" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49925148" visible="true" weight="0.18085106" />
-      <window_info id="Structure" order="1" sideWeight="0.5007485" side_tool="true" visible="true" weight="0.18085106" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.498503" visible="true" weight="0.18085106" />
+      <window_info id="Structure" order="1" sideWeight="0.50149703" side_tool="true" visible="true" weight="0.18085106" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
@@ -155,20 +170,18 @@
     </option>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/code01_visres.py">
+    <entry file="file://$PROJECT_DIR$/code01_visres.py" />
+    <entry file="file://$PROJECT_DIR$/code_analysis/code01_visres.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="343">
-          <caret line="27" column="24" selection-start-line="27" selection-start-column="24" selection-end-line="27" selection-end-column="24" />
-          <folding>
-            <element signature="e#55#65#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="655">
+          <caret line="55" column="29" lean-forward="true" selection-start-line="55" selection-start-column="29" selection-end-line="55" selection-end-column="29" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/code_analysis/code01_visres.py">
+    <entry file="file://$PROJECT_DIR$/code_analysis/code02_ee_follow.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="640">
-          <caret line="42" column="26" selection-start-line="42" selection-start-column="26" selection-end-line="42" selection-end-column="26" />
+        <state relative-caret-position="792">
+          <caret line="43" column="45" lean-forward="true" selection-start-line="43" selection-start-column="45" selection-end-line="43" selection-end-column="45" />
         </state>
       </provider>
     </entry>
