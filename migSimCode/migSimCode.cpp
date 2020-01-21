@@ -45,8 +45,8 @@ int do_main()
 			}
 			
 			// output data
-			//printAgents(gen, t);
-			//// print land
+			printAgents(gen, t);
+			// print land
 			//printLand(gen, t);
 		}
 		

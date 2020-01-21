@@ -20,10 +20,10 @@
 //}
 
 // population params
-const int popsize = 100; // not too many
+const int popsize = 1000; // not too many
 
 // agent params
-const float moveDist = 0.1f;
+const float moveDist = 0.01f;
 
 // landscape params
 const int landPoints = 100;
@@ -33,7 +33,7 @@ const float deadZone = 0.001f * 1.0f; // 0.1 % of the landscape size is a deadzo
 const float deplZone = 0.005f * 1.0f; // 0.5 % of the landscape size on each side of the agent is a deadzone
 
 // time params
-const int genmax = 100; //arbit choice
+const int genmax = 1000; //arbit choice
 const int tMax = 25;
 
 // rand number
