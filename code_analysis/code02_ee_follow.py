@@ -31,14 +31,21 @@ for col in dataAgents.columns:
 
 # filter generations modulo 50
 dataAgents = dataAgents[(dataAgents['gen'] % 50 == 0) &
-                        (dataAgents['time'] % 10 == 0)]
+                        (dataAgents['time'] % 5 == 0)]
 
 # summarise agents
 dataAgents = dataAgents.assign(indep = (dataAgents.leader == dataAgents.id))
-dataAgents = dataAgents.groupby(['gen', 'eeParam'])['indep']\
+dataAgents = dataAgents.groupby(['gen', 'time', 'eeParam'])['indep']\
     .sum()
 dataAgents = dataAgents.reset_index()
 
+
+def hexbin(x, y, color, **kwargs):
+    cmap = sns.light_palette(color, as_cmap=True)
+    plt.hexbin(x, y, gridsize=15, cmap=cmap, **kwargs)
+
+
 # plot landscape values
-h = sns.FacetGrid(dataAgents, col="gen")
-h.map(plt.scatter, "eeParam", "indep", s=0.2)
+h = sns.FacetGrid(dataAgents, col="gen", row="time")
+h.map(plt.plot, "eeParam", "indep")
+h.map(plt.scatter, "eeParam", "indep", color='brown')
