@@ -28,16 +28,16 @@ using Ann = Network<float,
 >;
 
 // pick rand node weights
-std::uniform_real_distribution<float> nodeDist(-1.f, 1.f);
+std::uniform_real_distribution<float> node_weight_picker(-1.f, 1.f);
 
 // pick rand move angle - uniform distribution over 10% of the landscape
-std::uniform_real_distribution<float> circPosDist(0.f, 0.99f);
+std::uniform_int_distribution<int> position_picker(0, n_patches - 1);
 
 // normal distribution for tradeoff
-std::normal_distribution<float> normDist(0.5, 0.2);
+std::normal_distribution<float> tradeoff_picker(0.5f, 0.2f);
 
 // bernoulli dist for circlewalk
-std::bernoulli_distribution walkDirection(0.5);
+std::bernoulli_distribution walk_direction(0.5);
 
 // clear node state
 struct flush_rec_nodes
