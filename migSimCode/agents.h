@@ -215,8 +215,8 @@ void do_reprod()
 			// probabilistic mutation of ANN
 			if (mut_event(rng))
 			{
-			std::cauchy_distribution<double> m_shift(0.0, 0.1); // how much of mutation
-			pop2[a].tradeOffParam += static_cast<float> (m_shift(rng));
+				std::cauchy_distribution<double> m_shift(0.0, 0.01); // how much of mutation
+				pop2[a].tradeOffParam += static_cast<float> (m_shift(rng));
 			if (pop2[a].tradeOffParam > 1.f) {
 				pop2[a].tradeOffParam = 1.f;
 			}
@@ -232,6 +232,8 @@ void do_reprod()
 	population = pop2;
 
 }
+
+
 
 /// function to print data
 // func must print gen, id, distance from peak, move param, leader, energy at the end of each generation
