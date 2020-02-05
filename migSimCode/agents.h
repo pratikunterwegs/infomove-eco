@@ -247,7 +247,7 @@ void printAgents(const int& gen_p, const int& time_p)
 	if (gen_p == 0 && time_p == 0) { agentofs << "gen,time,id,eeParam,pos,leader,energy\n"; }
 
 	// print for each ind
-	if ((gen_p == 0 || gen_p % 20 == 0) && time_p % 5 == 0)
+	if ((gen_p == 0 || gen_p % 1 == 0) && time_p % 5 == 0)
 	{
 		for (int ind2 = 0; ind2 < popsize; ind2++)
 		{
@@ -256,8 +256,35 @@ void printAgents(const int& gen_p, const int& time_p)
 				<< time_p << ","
 				<< population[ind2].id_self << ","
 				<< population[ind2].tradeOffParam << ","
-				<< population[ind2].circPos << ","
+				<< population[ind2].pos << ","
 				<< population[ind2].id_leader << ","
+				<< population[ind2].energy << "\n";
+		}
+	}
+	// close
+	agentofs.close();
+}
+
+/// print agent summary after gen
+void print_agent_summary(const int& gen_p)
+{
+	// open or append
+	std::ofstream agentofs;
+	agentofs.open("data_agent_summary.csv", std::ofstream::out | std::ofstream::app);
+
+	// col header
+	if (gen_p == 0) { agentofs << "gen,tradeoff,distance,prop_indep,energy\n"; }
+
+	// print for each ind
+	if ((gen_p == 0 || gen_p % 1 == 0))
+	{
+		for (int ind2 = 0; ind2 < popsize; ind2++)
+		{
+			agentofs
+				<< gen_p << ","
+				<< population[ind2].tradeOffParam << ","
+				<< population[ind2].total_distance << ","
+				<< static_cast<float>(population[ind2].follow_instances) / static_cast<float>(tMax) << ","
 				<< population[ind2].energy << "\n";
 		}
 	}
