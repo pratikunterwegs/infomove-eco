@@ -37,14 +37,14 @@ int do_main()
 
 			do_foraging_dynamic(population, foraging_turns);
 			
+			//replenish landscape
+			doMakeFood();
 			// print land
 			//printLand(gen, t);
 		}
 		// output data
 		print_agent_summary(gen);
 
-		//replenish landscape
-		doMakeFood();
 		// implement reproduction
 		do_reprod();
 		//std::cout << "agents reproduce\n";
