@@ -120,7 +120,9 @@ void agent::chooseFollow(const agent& someagent)
 		// assign leader if output greater than 0
 		id_leader = someagent.id_self;
 		// copy leader foraging site
-		circPos = someagent.circPos;
+		pos = someagent.pos;
+		// update independent proportion
+		follow_instances++;
 	}
 
 }
