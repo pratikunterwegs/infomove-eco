@@ -134,12 +134,14 @@ void doFollowDynamic(std::vector<agent>& vecSomeAgents)
 	//std::vector<agent> processedMoveQ;
 	assert(vecSomeAgents.size() > 0 && "doFollowDynamic: moveQ is empty at start");
 	
-	int indep_agents = std::count_if(vecSomeAgents.begin(), vecSomeAgents.end(), [](agent thisAgent) {return thisAgent.id_leader == -1; });
+	int indep_agents = std::count_if(vecSomeAgents.begin(), 
+		vecSomeAgents.end(), [](agent thisAgent) {return thisAgent.id_leader == -1; });
 
 	while (indep_agents > 1) // at least 2 agents are independent
 	{
 		// iterator position of first independent agent
-		std::vector<agent>::iterator moveQleader = std::find_if(vecSomeAgents.begin(), vecSomeAgents.end(), [](agent i) {return i.id_leader == -1; });
+		std::vector<agent>::iterator moveQleader = std::find_if(vecSomeAgents.begin(), 
+			vecSomeAgents.end(), [](agent i) {return i.id_leader == -1; });
 		
 		// choose follow if independent
 		for (auto next_agent = moveQleader + 1; next_agent != vecSomeAgents.end(); next_agent++)
@@ -153,7 +155,8 @@ void doFollowDynamic(std::vector<agent>& vecSomeAgents)
 		// this fiction is to prevent inifinite looping
 		moveQleader->id_leader = moveQleader->id_self;
 
-		indep_agents = std::count_if(vecSomeAgents.begin(), vecSomeAgents.end(), [](agent thisAgent) {return thisAgent.id_leader == -1; });
+		indep_agents = std::count_if(vecSomeAgents.begin(), 
+			vecSomeAgents.end(), [](agent thisAgent) {return thisAgent.id_leader == -1; });
 	}
 
 }
