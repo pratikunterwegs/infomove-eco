@@ -192,7 +192,7 @@ void do_reprod()
 		// reset who is being followed
 		pop2[a].id_leader = -1;
 		// get random position
-		pop2[a].circPos = circPosDist(rng);
+		pop2[a].pos = position_picker(rng);
 		// inherit tradeoff parameter
 		pop2[a].tradeOffParam = population[parent_id].tradeOffParam;
 
@@ -204,7 +204,7 @@ void do_reprod()
 			std::bernoulli_distribution mut_event(0.001); // mutation probability
 			// probabilistic mutation of ANN
 			if (mut_event(rng)) {
-				std::cauchy_distribution<double> m_shift(0.0, 0.1); // how much of mutation
+				std::cauchy_distribution<double> m_shift(0.0, 0.01); // how much of mutation
 				w += static_cast<float> (m_shift(rng));
 			}
 		}
