@@ -56,19 +56,25 @@ struct flush_rec_nodes
 class agent
 {
 public:
-	agent() : 
-		annFollow(0.f),
-		circPos(0.f), tradeOffParam(0.f), energy(0.000001f), id_self(0), id_leader(-1) {};
+	agent() :
+		annFollow(node_weight_picker(rng)),
+		pos(position_picker(rng)), tradeOffParam(tradeoff_picker(rng)),
+		energy(0.000001f), id_self(0), id_leader(-1), follow_instances(0),
+		total_distance(0)
+		{};
 	~agent() {};
 	// agents need a brain, an age, fitness, and movement decision
-	Ann annFollow; float tradeOffParam, circPos, energy;
+	Ann annFollow; float tradeOffParam; int pos; float energy;
+	int follow_instances, total_distance;
 	int id_leader, id_self;
 
 	void resetLeader();
 	void chooseFollow(const agent& someagent);
+	void goToLandscape();
+	void exploreOrExploit();
 	void doGetFood();
-	void circleWalk();
 	void depleteFood();
+	void circleWalk();
 };
 
 /// function to shuffle agents for movement order
