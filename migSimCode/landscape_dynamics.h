@@ -55,7 +55,8 @@ void doMakeFood()
 {
 	for (size_t l = 0; l < n_patches; l++)
 	{
-		landscape[l].dFood += maxFood;
+		float food_diff = maxFood - landscape[l].dFood;
+		landscape[l].dFood += ((food_diff > max_regrowth) ? max_regrowth : food_diff);
 	}
 
 }
@@ -100,14 +101,15 @@ void agent::circleWalk()
 	assert(pos <= n_patches - 1 && "func circleWalk: agent now over max land!");
 	assert(pos >= 0 && "func circleWalk: agent now over min land!");
 
-	bool direction = walk_direction(rng);
-	int move_dist = direction ? 1 : -1;
+	// move up the peak
+	int pos_left = wrapper(-1, pos, n_patches);
+	int pos_right = wrapper(1, pos, n_patches);
 
 	// remove agent from previous cell
 	landscape[pos].n_foragers -= 1;
 	assert(landscape[pos].n_foragers >= 0 && "func circleWalk: cell has neg agents!");
 
-	pos = wrapper(move_dist, pos, n_patches);
+	pos = (landscape[pos_left].dFood > landscape[pos_right].dFood) ? pos_left : pos_right;
 
 	landscape[pos].n_foragers += 1;
 
