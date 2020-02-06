@@ -38,10 +38,11 @@ int do_main()
 			do_foraging_dynamic(population, foraging_turns);
 			
 			//replenish landscape
-			doMakeFood();
+			
 			// print land
 			//printLand(gen, t);
 		}
+		doMakeFood();
 		// output data
 		print_agent_summary(gen);
 
