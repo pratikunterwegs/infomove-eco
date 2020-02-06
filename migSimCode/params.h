@@ -22,18 +22,16 @@
 // population params
 const int popsize = 100; // not too many
 
-// agent params
-const float moveDist = 0.01f;
-
 // landscape params
-const int n_patches = 10;
-const float maxFood = 10.f;
-const float maxDepletion = 0.01f;
+const int n_patches = 1000;
+const float maxFood = 1.f;
+const float maxDepletion = 0.1f;
+const float max_regrowth = 0.2f;
 //const float deadZone = 0.001f * 1.0f; // 0.1 % of the landscape size is a deadzone around each agent
 //const float deplZone = 0.005f * 1.0f; // 0.5 % of the landscape size on each side of the agent is a deadzone
 
 // time params
-const int genmax = 100; //arbit choice
+const int genmax = 10000; //arbit choice
 const int tMax = 100;
 const int foraging_turns = 10;
 
