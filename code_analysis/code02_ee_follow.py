@@ -6,12 +6,10 @@ import sys
 # load libraries
 import pandas as pd # similar to dplyr! yay!
 import os  # has list dir functions etc
-import numpy as np  # some matrix functions
-import scipy.special
 
 import seaborn as sns
 import matplotlib.pyplot as plt
-from scipy import stats
+from mpl_toolkits.mplot3d import Axes3D
 
 # should yield python 3.7 file path
 for p in sys.path:
@@ -25,20 +23,15 @@ currentWd = p # os.path.dirname(os.path.abspath(__file__)) #os.getcwd()
 print(currentWd)
 
 # read in data
-dataAgents = pd.read_csv("migSimCode/dataAgents.csv")
-for col in dataAgents.columns:
+data = pd.read_csv("migSimCode/data_agent_summary.csv")
+for col in data.columns:
     print(col)
 
-# filter generations modulo 50
-dataAgents = dataAgents[(dataAgents['gen'] % 50 == 0) &
-                        (dataAgents['time'] % 10 == 0)]
+# plot agent values
+sns.scatterplot(x='gen', y='prop_indep', data=data, linewidth=0, s=1)
+sns.scatterplot(x='gen', y='tradeoff', data=data, linewidth=0, s=1)
 
-# summarise agents
-dataAgents = dataAgents.assign(indep = (dataAgents.leader == dataAgents.id))
-dataAgents = dataAgents.groupby(['gen', 'eeParam'])['indep']\
-    .sum()
-dataAgents = dataAgents.reset_index()
-
-# plot landscape values
-h = sns.FacetGrid(dataAgents, col="gen")
-h.map(plt.scatter, "eeParam", "indep", s=0.2)
+# 3d plot
+fig = plt.figure()
+ax = fig.add_subplot(111, projection='3d')
+ax.scatter(xs = data['prop_indep'], ys= data['tradeoff'], zs= data['energy'], c=data['gen'], cmap="Reds")

@@ -16,7 +16,6 @@
 /// the main function
 int do_main()
 {
-	makePositions(landscape);
 	initPop(population);
 	
 	// run for 100 generations of 100 timesteps
@@ -36,22 +35,17 @@ int do_main()
 			
 			doFollowDynamic(population);
 
-			// depletion and movement
-			// restting the leaders and implementing follow dynamics
-			for (int ind = 0; ind < popsize; ind++) { 
-				population[ind].doGetFood();
-				population[ind].depleteFood();
-				population[ind].circleWalk();
-			}
+			do_foraging_dynamic(population, foraging_turns);
 			
-			// output data
-			printAgents(gen, t);
+			//replenish landscape
+			
 			// print land
 			//printLand(gen, t);
 		}
-		
-		//replenish landscape
 		doMakeFood();
+		// output data
+		print_agent_summary(gen);
+
 		// implement reproduction
 		do_reprod();
 		//std::cout << "agents reproduce\n";
@@ -69,7 +63,7 @@ void test_doMain()
 int main()
 {
 	// run some basic tests
-	// all funcs are now removed write new tests
+	// test_doMain();
 	   
 	// overall do main
 	do_main();

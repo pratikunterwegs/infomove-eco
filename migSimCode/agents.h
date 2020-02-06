@@ -23,21 +23,21 @@ using namespace ann;
 // spec ann structure
 using Ann = Network<float,
 	Layer< Neuron<2, activation::rtlu>, 3>, // for now, 2 input for energy cues
-	// Layer< Neuron<3, activation::rtlu>, 3>,
+	Layer< Neuron<3, activation::rtlu>, 3>,
 	Layer< Neuron<3, activation::rtlu>, 1> // one output, true false
 >;
 
 // pick rand node weights
-std::uniform_real_distribution<float> nodeDist(-1.f, 1.f);
+std::uniform_real_distribution<float> node_weight_picker(-1.f, 1.f);
 
 // pick rand move angle - uniform distribution over 10% of the landscape
-std::uniform_real_distribution<float> circPosDist(0.f, 0.99f);
+std::uniform_int_distribution<int> position_picker(0, n_patches - 1);
 
 // normal distribution for tradeoff
-std::normal_distribution<float> normDist(0.5, 0.2);
+std::normal_distribution<float> tradeoff_picker(0.5f, 0.2f);
 
 // bernoulli dist for circlewalk
-std::bernoulli_distribution walkDirection(0.5);
+std::bernoulli_distribution walk_direction(0.5);
 
 // clear node state
 struct flush_rec_nodes
@@ -56,19 +56,27 @@ struct flush_rec_nodes
 class agent
 {
 public:
-	agent() : 
+	agent() :
 		annFollow(0.f),
-		circPos(0.f), tradeOffParam(0.f), energy(0.000001f), id_self(0), id_leader(-1) {};
+		pos(0), tradeOffParam(0.f),
+		energy(0.000001f), id_self(0), id_leader(-1), follow_instances(0),
+		total_distance(0),
+		mem_last_pos(0.f)
+		{};
 	~agent() {};
 	// agents need a brain, an age, fitness, and movement decision
-	Ann annFollow; float tradeOffParam, circPos, energy;
+	Ann annFollow; float tradeOffParam; int pos; 
+	float energy, mem_last_pos;
+	int follow_instances, total_distance;
 	int id_leader, id_self;
 
 	void resetLeader();
 	void chooseFollow(const agent& someagent);
+	void goToLandscape();
+	void exploreOrExploit();
 	void doGetFood();
-	void circleWalk();
 	void depleteFood();
+	void circleWalk();
 };
 
 /// function to shuffle agents for movement order
@@ -102,7 +110,7 @@ void agent::chooseFollow(const agent& someagent)
 	// agents assess neighbour body reserves
 	Ann::input_t inputs;
 	// get energy cue
-	float cueSelf = energy;
+	float cueSelf = mem_last_pos;
 	float cueOther = someagent.energy;
 
 	inputs[0] = static_cast<float> (cueSelf); // debatable function to calc energy
@@ -114,7 +122,9 @@ void agent::chooseFollow(const agent& someagent)
 		// assign leader if output greater than 0
 		id_leader = someagent.id_self;
 		// copy leader foraging site
-		circPos = someagent.circPos;
+		pos = someagent.pos;
+		// update independent proportion
+		follow_instances++;
 	}
 
 }
@@ -126,12 +136,14 @@ void doFollowDynamic(std::vector<agent>& vecSomeAgents)
 	//std::vector<agent> processedMoveQ;
 	assert(vecSomeAgents.size() > 0 && "doFollowDynamic: moveQ is empty at start");
 	
-	int indep_agents = std::count_if(vecSomeAgents.begin(), vecSomeAgents.end(), [](agent thisAgent) {return thisAgent.id_leader == -1; });
+	int indep_agents = std::count_if(vecSomeAgents.begin(), 
+		vecSomeAgents.end(), [](agent thisAgent) {return thisAgent.id_leader == -1; });
 
 	while (indep_agents > 1) // at least 2 agents are independent
 	{
 		// iterator position of first independent agent
-		std::vector<agent>::iterator moveQleader = std::find_if(vecSomeAgents.begin(), vecSomeAgents.end(), [](agent i) {return i.id_leader == -1; });
+		std::vector<agent>::iterator moveQleader = std::find_if(vecSomeAgents.begin(), 
+			vecSomeAgents.end(), [](agent i) {return i.id_leader == -1; });
 		
 		// choose follow if independent
 		for (auto next_agent = moveQleader + 1; next_agent != vecSomeAgents.end(); next_agent++)
@@ -145,7 +157,8 @@ void doFollowDynamic(std::vector<agent>& vecSomeAgents)
 		// this fiction is to prevent inifinite looping
 		moveQleader->id_leader = moveQleader->id_self;
 
-		indep_agents = std::count_if(vecSomeAgents.begin(), vecSomeAgents.end(), [](agent thisAgent) {return thisAgent.id_leader == -1; });
+		indep_agents = std::count_if(vecSomeAgents.begin(), 
+			vecSomeAgents.end(), [](agent thisAgent) {return thisAgent.id_leader == -1; });
 	}
 
 }
@@ -181,7 +194,7 @@ void do_reprod()
 		// reset who is being followed
 		pop2[a].id_leader = -1;
 		// get random position
-		pop2[a].circPos = circPosDist(rng);
+		pop2[a].pos = position_picker(rng);
 		// inherit tradeoff parameter
 		pop2[a].tradeOffParam = population[parent_id].tradeOffParam;
 
@@ -193,7 +206,7 @@ void do_reprod()
 			std::bernoulli_distribution mut_event(0.001); // mutation probability
 			// probabilistic mutation of ANN
 			if (mut_event(rng)) {
-				std::cauchy_distribution<double> m_shift(0.0, 0.1); // how much of mutation
+				std::cauchy_distribution<double> m_shift(0.0, 0.01); // how much of mutation
 				w += static_cast<float> (m_shift(rng));
 			}
 		}
@@ -204,8 +217,8 @@ void do_reprod()
 			// probabilistic mutation of ANN
 			if (mut_event(rng))
 			{
-			std::cauchy_distribution<double> m_shift(0.0, 0.1); // how much of mutation
-			pop2[a].tradeOffParam += static_cast<float> (m_shift(rng));
+				std::cauchy_distribution<double> m_shift(0.0, 0.01); // how much of mutation
+				pop2[a].tradeOffParam += static_cast<float> (m_shift(rng));
 			if (pop2[a].tradeOffParam > 1.f) {
 				pop2[a].tradeOffParam = 1.f;
 			}
@@ -222,6 +235,8 @@ void do_reprod()
 
 }
 
+
+
 /// function to print data
 // func must print gen, id, distance from peak, move param, leader, energy at the end of each generation
 void printAgents(const int& gen_p, const int& time_p)
@@ -234,7 +249,7 @@ void printAgents(const int& gen_p, const int& time_p)
 	if (gen_p == 0 && time_p == 0) { agentofs << "gen,time,id,eeParam,pos,leader,energy\n"; }
 
 	// print for each ind
-	if ((gen_p == 0 || gen_p % 20 == 0) && time_p % 5 == 0)
+	if ((gen_p == 0 || gen_p % 1 == 0) && time_p % 5 == 0)
 	{
 		for (int ind2 = 0; ind2 < popsize; ind2++)
 		{
@@ -243,8 +258,35 @@ void printAgents(const int& gen_p, const int& time_p)
 				<< time_p << ","
 				<< population[ind2].id_self << ","
 				<< population[ind2].tradeOffParam << ","
-				<< population[ind2].circPos << ","
+				<< population[ind2].pos << ","
 				<< population[ind2].id_leader << ","
+				<< population[ind2].energy << "\n";
+		}
+	}
+	// close
+	agentofs.close();
+}
+
+/// print agent summary after gen
+void print_agent_summary(const int& gen_p)
+{
+	// open or append
+	std::ofstream agentofs;
+	agentofs.open("data_agent_summary.csv", std::ofstream::out | std::ofstream::app);
+
+	// col header
+	if (gen_p == 0) { agentofs << "gen,tradeoff,distance,prop_indep,energy\n"; }
+
+	// print for each ind
+	if ((gen_p == 0 || gen_p % 1 == 0))
+	{
+		for (int ind2 = 0; ind2 < popsize; ind2++)
+		{
+			agentofs
+				<< gen_p << ","
+				<< population[ind2].tradeOffParam << ","
+				<< population[ind2].total_distance << ","
+				<< static_cast<float>(population[ind2].follow_instances) / static_cast<float>(tMax) << ","
 				<< population[ind2].energy << "\n";
 		}
 	}
