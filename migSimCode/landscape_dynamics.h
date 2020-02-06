@@ -5,130 +5,154 @@
 
 #include "params.h"
 #include "agents.h"
-#include <math.h>
+#include <cmath>
 
 // make gridcell class
 class gridcell
 {
 public:
-	gridcell() : dFood(10.f), dPos(0.f) {};
+	gridcell() : dFood(10.f), n_foragers(0) {};
 	~gridcell() {};
 	// each gridcell stores nAgents and food
-	float dFood, dPos;
+	float dFood; int n_foragers;
 };
 
 // init landscape of length landPoints
-std::vector<gridcell> landscape(landPoints);
+std::vector<gridcell> landscape(n_patches);
 
-/// function to make positions
-void makePositions(std::vector<gridcell>& landscape)
-{
-	for (int i = 0; i < landPoints; i++)
-	{
-		landscape[i].dPos = static_cast<float>(i) * maxLandPos / static_cast<float>(landPoints);
-	}
-}
+///// function to make positions
+//void makePositions(std::vector<gridcell>& landscape)
+//{
+//	for (int i = 0; i < landPoints; i++)
+//	{
+//		landscape[i].dPos = static_cast<float>(i) / static_cast<float>(landPoints);
+//	}
+//}
 
 /// function for wrapped distance
-float getWrappedDist(const float& x1, const float& x2)
-{
-    float tempdist = abs(x2 - x1);
-    assert(tempdist <= maxLandPos && "tempdist is beyond land");
-    tempdist = std::min(tempdist, maxLandPos - tempdist);
-    return tempdist;
-}
+//float getWrappedDist(const float& x1, const float& x2)
+//{
+//    float tempdist = abs(x2 - x1);
+//    assert(tempdist <= 1.f && "tempdist is beyond land");
+//    tempdist = std::min(tempdist, 1.f - tempdist);
+//    return tempdist;
+//}
+
+/// function for smootherstep
+// take distance from agent, deadzone and deplzone
+//float smootherstep(float& x, const float& deadZone, const float& deplZone) {
+//	
+//	if (x < deadZone) { x = deadZone; }
+//	if (x > deplZone) { x = deplZone; }
+//	x = (x - deplZone) / (deadZone - deplZone);
+//
+//	assert(deadZone <= deplZone && "smootherstep: deplZone gt deadZone");
+//	return x * x * x * (x * (x * 6 - 15) + 10);
+//}
 
 /// function to replenish food each generations
 void doMakeFood()
 {
-	for (int l = 0; l < landPoints; l++)
+	for (size_t l = 0; l < n_patches; l++)
 	{
-		landscape[l].dFood = maxFood;
+		landscape[l].dFood += maxFood;
 	}
-}
 
-/// function to deplete landscape
-// update dFood based on wrapped agent effect
-void depleteFood(const int& whichAgent)
-{
-    assert(population[whichAgent].circPos >= 0.f && "func depleteFood: pop has neg moves");
-    for(int l = 0; l < landPoints; l++)
-    {
-        // wrapped distance from agent
-        float dist = getWrappedDist(population[whichAgent].circPos, landscape[l].dPos);
-		float depleted = (maxDepletion / (1.f + exp(depletionSlope * (dist - depletionRadius))));
-
-		landscape[l].dFood -= (landscape[l].dFood - depleted) > 0.f ? depleted : landscape[l].dFood;
-
-		assert(landscape[l].dFood >= 0.f && "func depleteFood: landscape food has become negative!");
-    }    
 }
 
 /// function to get energy
 void agent::doGetFood()
 {
 	// check where agent is
-	assert(circPos <= maxLandPos && "func doGetFood: agent walked over max land!");
-	assert(circPos >= 0.f && "func doGetFood: agent walked over min land!");
-	// get right bound by rounding proportion on the landscape
-    int bound_right = static_cast<int>(floor((circPos / maxLandPos) * static_cast<float>(landPoints-1)));
+	assert(pos <= n_patches - 1 && "func doGetFood: agent walked over max land!");
+	assert(pos >= 0 && "func doGetFood: agent walked over min land!");
 
-    // left bound is right bound - 1
-    int bound_left = (bound_right - 1 >= 0)? (bound_right - 1): landPoints + (bound_right - 1);
+	// get energy
+	energy += landscape[pos].dFood / static_cast<float> (landscape[pos].n_foragers);
 
-	// check bounds
-	assert(bound_left >= 0 && "func doGetFood: left bound is negative");
-	assert(bound_right <= (landPoints - 1) && "func doGetFood: right bound above max land points");
+}
 
-    // energy is left bound / left distance + right bound / right distance
-    float dist_left = getWrappedDist(circPos, landscape[bound_left].dPos);
-    float dist_right = getWrappedDist(circPos, landscape[bound_right].dPos);
+/// function to deplete landscape
+// update dFood based on wrapped agent effect
+// agent effect is specified by smootherstep above
+void agent::depleteFood()
+{
+	landscape[pos].dFood -= maxDepletion;
+	if (landscape[pos].dFood < 0.f) { landscape[pos].dFood = 0.f; }
+}
 
-    float food_left = landscape[bound_left].dFood;
-    float food_right = landscape[bound_right].dFood;
-    // agent foraging is interpolated
-    energy += ((food_left * dist_left) + (food_right * dist_right)) / (dist_left + dist_right);
+/// wrapper function
+int wrapper(int distance, int current_val, int max_val) {
 
-    // std::cout << "agent " << whichAgent << " energy = " << agentEnergyVec[whichAgent] << "\n";
-    
+	int new_pos = (max_val + current_val + distance) % max_val;
+	return new_pos;
+}
+
+void agent::goToLandscape()
+{
+	landscape[pos].n_foragers += 1;
 }
 
 /// function to walk along the circle
-void agent::circleWalkAndLearn()
+void agent::circleWalk()
 {
-	bool direction = walkDirection(rng);
 	// check where agent is
-	assert(circPos <= maxLandPos && "func circleWalk: agent walked over max land!");
-	assert(circPos >= 0.f && "func circleWalk: agent walked over min land!");
-	// save old pos, bound, and value
-	float oldPos = circPos;
-	int oldPosBound = static_cast<int>(floor((oldPos / maxLandPos) * static_cast<float>(landPoints-1)));
-	// check if bounds are too high
-	assert(oldPosBound <= landPoints && "func circleWalk: forage pos beyond landscape");
-	float oldVal = landscape[oldPosBound].dFood;
+	assert(pos <= n_patches - 1 && "func circleWalk: agent now over max land!");
+	assert(pos >= 0 && "func circleWalk: agent now over min land!");
 
-	// move agent left or right
-	// HANDLE TO ENSURE AGENT STAYS ON WRAPPED LANDSCAPE
-	float moveDist = (circWalkDist * (direction ? 1.f : -1.f));
-	circPos += moveDist;
-	circPos = fmod( (maxLandPos+circPos), maxLandPos);
+	bool direction = walk_direction(rng);
+	int move_dist = direction ? 1 : -1;
 
+	// remove agent from previous cell
+	landscape[pos].n_foragers -= 1;
+	assert(landscape[pos].n_foragers >= 0 && "func circleWalk: cell has neg agents!");
 
-	assert(circPos <= maxLandPos && "func circleWalk: agent newpos over max land!");
-	assert(circPos >= 0.f && "func circleWalk: agent newpos over min land!");
+	pos = wrapper(move_dist, pos, n_patches);
 
-	// new position bound
-	int newPosBound = static_cast<int>(floor((circPos / maxLandPos) * static_cast<float>(landPoints)));
-	float newVal = landscape[newPosBound].dFood;
+	landscape[pos].n_foragers += 1;
 
-	// change angle if new val better than old val
-	if (newVal > oldVal)
+	assert(pos <= n_patches - 1 && "func circleWalk: agent walked over max land!");
+	assert(pos >= 0 && "func circleWalk: agent walked over min land!");
+
+}
+
+/// function to choose explore or exploit
+void agent::exploreOrExploit() {
+	if (tradeOffParam <= tradeoff_picker(rng))
 	{
-		convertPosToAngle();
-		// reset move angle
-		movePointer = &moveAngle;
+		circleWalk();
+		total_distance += 1;
+	}
+	else
+	{
+		doGetFood();
+		depleteFood();
 	}
 }
+
+
+/// function to implement the foraging dynamic with turns and tradeoff
+void do_foraging_dynamic(std::vector<agent>& population, int turns)
+{
+	// all agents go to landscape
+	for (size_t indiv = 0; indiv < popsize; indiv++)
+	{
+		population[indiv].goToLandscape();
+	}
+
+	for (size_t turn_value = 0; turn_value < turns; turn_value++)
+	{
+		// over as many iterations as foraging_turns agents choose
+		// to explore or exploit
+		for (size_t indiv = 0; indiv < popsize; indiv++)
+		{
+			population[indiv].exploreOrExploit();
+		}
+	}
+}
+
+
+/// memory function to be added here?
 
 /// function to print landscape values
 void printLand(const int& gen_p, const int& t_p)
@@ -145,7 +169,7 @@ void printLand(const int& gen_p, const int& t_p)
 			landofs
 				<< gen_p << ","
 				<< t_p << ","
-				<< landscape[landcell].dPos << ","
+				<< landcell << ","
 				<< landscape[landcell].dFood << "\n";
 		}
 		//close
