@@ -60,11 +60,13 @@ public:
 		annFollow(0.f),
 		pos(0), tradeOffParam(0.f),
 		energy(0.000001f), id_self(0), id_leader(-1), follow_instances(0),
-		total_distance(0)
+		total_distance(0),
+		mem_last_pos(0.f)
 		{};
 	~agent() {};
 	// agents need a brain, an age, fitness, and movement decision
-	Ann annFollow; float tradeOffParam; int pos; float energy;
+	Ann annFollow; float tradeOffParam; int pos; 
+	float energy, mem_last_pos;
 	int follow_instances, total_distance;
 	int id_leader, id_self;
 
@@ -108,7 +110,7 @@ void agent::chooseFollow(const agent& someagent)
 	// agents assess neighbour body reserves
 	Ann::input_t inputs;
 	// get energy cue
-	float cueSelf = energy;
+	float cueSelf = mem_last_pos;
 	float cueOther = someagent.energy;
 
 	inputs[0] = static_cast<float> (cueSelf); // debatable function to calc energy
