@@ -57,8 +57,8 @@ class agent
 {
 public:
 	agent() :
-		annFollow(node_weight_picker(rng)),
-		pos(position_picker(rng)), tradeOffParam(tradeoff_picker(rng)),
+		annFollow(0.f),
+		pos(0), tradeOffParam(0.f),
 		energy(0.000001f), id_self(0), id_leader(-1), follow_instances(0),
 		total_distance(0)
 		{};
