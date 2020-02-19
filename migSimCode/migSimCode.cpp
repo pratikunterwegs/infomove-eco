@@ -14,7 +14,8 @@
 /// the main function
 int do_main()
 {
-//	initPop(population);
+    std::vector<agent> pop = initPop(popsize);
+    std::cout << pop.size() << "\n";
 	
 //	// run for 100 generations of 100 timesteps
 //	for (int gen = 0; gen < genmax; gen++)
