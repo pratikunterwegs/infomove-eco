@@ -27,7 +27,7 @@ const int n_patches = 100;
 const float maxFood = 1.f;
 const float maxDepletion = 0.1f;
 const float max_regrowth = 0.2f;
-float predation_cost = 0.1f;
+const float predation_cost = 0.1f;
 
 // time params
 const int genmax = 10000; //arbit choice
@@ -35,11 +35,10 @@ const int tMax = 100;
 const int foraging_turns = 10;
 
 // agent params
-float move_cost = 0.01f;
+const float move_cost = 0.01f;
 
-// rand number
+// random number generators
 std::random_device rd;
 std::mt19937_64 rng;
-//std::normal_distribution<float> normDist(1.f, 6.f);
 
 // end here
