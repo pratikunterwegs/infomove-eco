@@ -34,6 +34,9 @@ const int genmax = 10000; //arbit choice
 const int tMax = 100;
 const int foraging_turns = 10;
 
+// environmental regime
+const std::vector<float> vec_R = {0.f, 0.5f, 1.f, 1.5f, 2.f, 2.5f, 3.f, 3.5f, 4.f, 4.5f, 5.f};
+
 // agent params
 const float move_cost = 0.01f;
 
