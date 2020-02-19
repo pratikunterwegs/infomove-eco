@@ -1,0 +1,4 @@
+#ifndef LANDSCAPE_HPP
+#define LANDSCAPE_HPP
+
+#endif // LANDSCAPE_HPP

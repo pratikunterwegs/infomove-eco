@@ -12,7 +12,7 @@
 #include <cmath>
 #include "params.hpp"
 #include "ann/ann2.hpp"
-#include "ann/rnd.hpp"
+#include "landscape.hpp"
 
 using namespace ann;
 
@@ -56,18 +56,18 @@ public:
 
 	void resetLeader();
 	void chooseFollow(const agent& someagent);
-	void goToLandscape();
-	void exploreOrExploit();
-	void doGetFood();
-	void depleteFood();
-	void circleWalk();
+	void goToLandscape(landscape& landscape);
+	void exploreOrExploit(landscape& landscape);
+	void doGetFood(landscape& landscape);
+	void depleteFood(landscape& landscape);
+	void circleWalk(landscape& landscape);
 };
 
 /// agent functions here
 /// function to shuffle agents for movement order
 void shufflePopSeq(std::vector<agent>& vecSomeAgents)
 {
-    std::shuffle(vecSomeAgents.begin(), vecSomeAgents.end(), rnd::reng);
+    std::shuffle(vecSomeAgents.begin(), vecSomeAgents.end(), rng);
 }
 
 /// agent class func to reset leader
@@ -140,6 +140,9 @@ void doFollowDynamic(std::vector<agent>& vecSomeAgents)
 // pick random patch
 std::uniform_int_distribution<int> position_picker(0, n_patches - 1);
 
+// tradeoff picker
+std::normal_distribution<float> tradeoff_picker(0.5, 0.2);
+
 // bernoulli distribution for circlewalk
 std::bernoulli_distribution walk_direction(0.5);
 
@@ -181,23 +184,23 @@ void do_reprod(std::vector<agent>& pop)
     // assign parents
     for (size_t a = 0; static_cast<int>(a) < popsize; a++) {
 
-        size_t parent_id = static_cast<size_t> (weighted_lottery(rnd::reng));
+        size_t parent_id = static_cast<size_t> (weighted_lottery(rng));
 
         // replicate ANN
         tmp_pop[a].annFollow = pop[parent_id].annFollow;
         // reset who is being followed
         tmp_pop[a].id_leader = -1;
         // get random position
-        tmp_pop[a].pos = position_picker(rnd::reng);
+        tmp_pop[a].pos = position_picker(rng);
         // inherit tradeoff parameter
         tmp_pop[a].tradeOffParam = pop[parent_id].tradeOffParam;
 
         // mutate ann
         for (auto& w : tmp_pop[a].annFollow) {
             // probabilistic mutation of ANN
-            if (mut_event(rnd::reng)) {
+            if (mut_event(rng)) {
 
-                w += static_cast<float> (m_shift(rnd::reng));
+                w += static_cast<float> (m_shift(rng));
             }
         }
 
@@ -205,10 +208,10 @@ void do_reprod(std::vector<agent>& pop)
         {
             std::bernoulli_distribution mut_event(0.001); // mutation probability
             // probabilistic mutation of ANN
-            if (mut_event(rnd::reng))
+            if (mut_event(rng))
             {
                 std::cauchy_distribution<double> m_shift(0.0, 0.01); // how much of mutation
-                tmp_pop[a].tradeOffParam += static_cast<float> (m_shift(rnd::reng));
+                tmp_pop[a].tradeOffParam += static_cast<float> (m_shift(rng));
                 if (tmp_pop[a].tradeOffParam > 1.f) {
                     tmp_pop[a].tradeOffParam = 1.f;
                 }
