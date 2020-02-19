@@ -206,11 +206,9 @@ void do_reprod(std::vector<agent>& pop)
 
         // mutate movement parameter
         {
-            std::bernoulli_distribution mut_event(0.001); // mutation probability
             // probabilistic mutation of ANN
             if (mut_event(rng))
             {
-                std::cauchy_distribution<double> m_shift(0.0, 0.01); // how much of mutation
                 tmp_pop[a].tradeOffParam += static_cast<float> (m_shift(rng));
                 if (tmp_pop[a].tradeOffParam > 1.f) {
                     tmp_pop[a].tradeOffParam = 1.f;
