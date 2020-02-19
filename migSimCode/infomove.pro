@@ -26,7 +26,8 @@ HEADERS += \
         params.hpp \
         agents.hpp \
         landscape_dynamics.hpp \
-        utilities.hpp
+        utilities.hpp \
+    landscape.hpp
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
