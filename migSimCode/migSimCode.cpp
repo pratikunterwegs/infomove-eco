@@ -2,10 +2,12 @@
 
 #include <iostream>
 #include <assert.h>
-//#include "ann/ann2.hpp"
-//#include "ann/rnd.hpp"
-#include <agents.hpp>
+#include "ann/rnd.hpp"
+#include "ann/ann2.hpp"
+#include <params.hpp>
 #include <landscape.hpp>
+#include <agents.hpp>
+#include <landscape_dynamics.hpp>
 
 // tests section
 
