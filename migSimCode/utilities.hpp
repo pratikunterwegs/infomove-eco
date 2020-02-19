@@ -56,3 +56,28 @@ void print_agent_summary(std::vector<agent> population, const int& gen_p)
 	// close
 	agentofs.close();
 }
+
+/// function to print landscape values
+//void printLand(const int& gen_p, const int& t_p)
+//{
+//	// open or append
+//	std::ofstream landofs;
+//	landofs.open("dataLand.csv", std::ofstream::out | std::ofstream::app);
+//	// col header
+//	if ((gen_p == 0) && (t_p == 0)) { landofs << "gen,t,pos,food\n"; }
+//	// print for each land cell
+//	{
+//		for (int landcell = 0; landcell < landscape.size(); landcell++)
+//		{
+//			landofs
+//				<< gen_p << ","
+//				<< t_p << ","
+//				<< landcell << ","
+//				<< landscape[landcell].dFood << "\n";
+//		}
+//		//close
+//		landofs.close();
+//	}
+//}
+
+// ends here

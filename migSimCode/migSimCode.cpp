@@ -4,6 +4,8 @@
 #include <assert.h>
 //#include "ann/ann2.hpp"
 //#include "ann/rnd.hpp"
+#include <agents.hpp>
+#include <landscape.hpp>
 
 // tests section
 

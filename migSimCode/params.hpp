@@ -37,4 +37,8 @@ const int foraging_turns = 10;
 // agent params
 const float move_cost = 0.01f;
 
+// random number generators
+std::random_device rd;
+std::mt19937_64 rng;
+
 // end here
