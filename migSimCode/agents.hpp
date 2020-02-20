@@ -19,7 +19,7 @@ using namespace ann;
 // spec ann structure
 using Ann = Network<float,
     Layer< Neuron<2, activation::rtlu>, 3>, // for now, 2 input for energy cues
-    Layer< Neuron<3, activation::rtlu>, 3>,
+//    Layer< Neuron<3, activation::rtlu>, 3>,
     Layer< Neuron<3, activation::rtlu>, 1> // one output, true false
 >;
 
