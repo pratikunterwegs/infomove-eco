@@ -20,26 +20,29 @@
 //}
 
 // population params
-const int popsize = 100; // not too many
+const int popsize = 1000; // not too many
 
 // landscape params
 const int n_patches = 100;
 const float maxFood = 1.f;
 const float maxDepletion = 0.1f;
 const float max_regrowth = 0.2f;
-float predation_cost = 0.1f;
+const float predation_cost = 0.1f;
 
 // time params
 const int genmax = 10000; //arbit choice
-const int tMax = 100;
+const int tMax = 10;
 const int foraging_turns = 10;
+const int genmax_shift = 1000;
+
+// environmental regime
+const std::vector<float> vec_R = {0.f, 0.5f, 1.f, 1.5f, 2.f, 2.5f, 3.f, 3.5f, 4.f, 4.5f, 5.f};
 
 // agent params
-float move_cost = 0.01f;
+const float move_cost = 0.01f;
 
-// rand number
+// random number generators
 std::random_device rd;
 std::mt19937_64 rng;
-//std::normal_distribution<float> normDist(1.f, 6.f);
 
 // end here
