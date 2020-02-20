@@ -17,7 +17,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-        migSimCode.cpp
+    source.cpp
 
 HEADERS += \
         ann/rndutils.hpp \
@@ -27,7 +27,8 @@ HEADERS += \
         agents.hpp \
         landscape_dynamics.hpp \
         utilities.hpp \
-    landscape.hpp
+    landscape.hpp \
+    simulations.hpp
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

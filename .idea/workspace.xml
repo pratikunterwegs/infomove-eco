@@ -4,10 +4,6 @@
     <list default="true" id="2610db84-0cc4-424b-87e7-a2ab24e0fd4f" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/code_analysis/code02_ee_follow.py" beforeDir="false" afterPath="$PROJECT_DIR$/code_analysis/code02_ee_follow.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/migSimCode/agents.h" beforeDir="false" afterPath="$PROJECT_DIR$/migSimCode/agents.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/migSimCode/landscape_dynamics.h" beforeDir="false" afterPath="$PROJECT_DIR$/migSimCode/landscape_dynamics.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/migSimCode/migSimCode.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/migSimCode/migSimCode.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/migSimCode/params.h" beforeDir="false" afterPath="$PROJECT_DIR$/migSimCode/params.h" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -20,8 +16,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/code_analysis/code02_ee_follow.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="629">
-              <caret line="32" selection-start-line="24" selection-start-column="14" selection-end-line="32" />
+            <state relative-caret-position="432">
+              <caret line="18" column="11" lean-forward="true" selection-start-line="18" selection-start-column="11" selection-end-line="18" selection-end-column="11" />
               <folding>
                 <element signature="e#55#65#0" expanded="true" />
               </folding>
@@ -59,9 +55,8 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="1001" />
-    <option name="y" value="79" />
-    <option name="width" value="1542" />
+    <option name="x" value="56" />
+    <option name="width" value="1517" />
     <option name="height" value="1447" />
   </component>
   <component name="ProjectId" id="1QF4EtVC40KyAHwNoiJgEeAIB8i" />
@@ -117,11 +112,11 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="1001" y="79" width="1542" height="1447" extended-state="0" />
+    <frame x="56" y="0" width="1517" height="1447" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49401197" visible="true" weight="0.18085106" />
-      <window_info active="true" id="Structure" order="1" sideWeight="0.505988" side_tool="true" visible="true" weight="0.18085106" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49326348" visible="true" weight="0.18390805" />
+      <window_info id="Structure" order="1" sideWeight="0.5067365" side_tool="true" visible="true" weight="0.18390805" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
@@ -133,7 +128,7 @@
       <window_info anchor="bottom" id="Version Control" order="7" />
       <window_info anchor="bottom" id="Terminal" order="8" />
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
-      <window_info anchor="bottom" id="Python Console" order="10" visible="true" weight="0.32934132" />
+      <window_info active="true" anchor="bottom" id="Python Console" order="10" visible="true" weight="0.32934132" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -174,17 +169,11 @@
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/code01_visres.py" />
-    <entry file="file://$PROJECT_DIR$/code_analysis/code01_visres.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="48">
-          <caret line="2" column="19" selection-start-line="2" selection-start-column="19" selection-end-line="2" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/code_analysis/code01_visres.py" />
     <entry file="file://$PROJECT_DIR$/code_analysis/code02_ee_follow.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="629">
-          <caret line="32" selection-start-line="24" selection-start-column="14" selection-end-line="32" />
+        <state relative-caret-position="432">
+          <caret line="18" column="11" lean-forward="true" selection-start-line="18" selection-start-column="11" selection-end-line="18" selection-end-column="11" />
           <folding>
             <element signature="e#55#65#0" expanded="true" />
           </folding>
