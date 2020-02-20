@@ -18,9 +18,6 @@ void agent::doGetFood(landscape& landscape)
             static_cast<float> (landscape.foragers[static_cast<size_t>(pos)]);
     energy -= predation_cost /
             static_cast<float> (landscape.foragers[static_cast<size_t>(pos)]);
-	energy = energy >= 0.000001f ? energy : 0.000001f;
-
-	assert(energy >= 0.000001f && "func doGetFood: energy below 0");
 
 }
 
@@ -83,7 +80,7 @@ void agent::exploreOrExploit(landscape& landscape)
 		total_distance += 1;
 		// deplete energy
 		energy -= move_cost;
-		energy = energy >= 0.000001f ? energy : 0.000001f;
+		// energy = energy >= 0.000001f ? energy : 0.000001f;
 	}
 	else
 	{
