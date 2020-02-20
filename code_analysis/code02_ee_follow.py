@@ -27,9 +27,11 @@ data = pd.read_csv("migSimCode/data_agent_summary.csv")
 for col in data.columns:
     print(col)
 
+data = data[data['gen'] % 100 == 0]
+
 # plot agent values
-sns.scatterplot(x='gen', y='prop_indep', data=data, linewidth=0, s=1)
-sns.scatterplot(x='gen', y='tradeoff', data=data, linewidth=0, s=1)
+sns.scatterplot(x='gen', y='prop_indep', data=data, linewidth=0, s=2)
+sns.scatterplot(x='gen', y='tradeoff', data=data, linewidth=0, s=2)
 
 # 3d plot
 fig = plt.figure()

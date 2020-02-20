@@ -182,12 +182,13 @@ void do_reprod()
 
 	// assign ids
 	initPop(pop2);
+	std::discrete_distribution<> weighted_lottery(fitness_vec.begin(), fitness_vec.end());
 
 	std::vector<float> agentEnergy2(popsize);
 	// assign parents
 	for (int a = 0; a < popsize; a++) {
 
-		std::discrete_distribution<> weighted_lottery(fitness_vec.begin(), fitness_vec.end());
+		
 		int parent_id = weighted_lottery(rng);
 		// replicate ANN
 		pop2[a].annFollow = population[parent_id].annFollow;
