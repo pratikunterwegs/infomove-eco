@@ -166,6 +166,10 @@ void do_reprod(std::vector<agent>& pop)
     std::vector<double> fitness_vec;
     for (size_t a = 0; static_cast<int>(a) < popsize; a++)
     {
+        if (pop[a].energy <= 0.f)
+        {
+            pop[a].energy = 0.000001f;
+        }
         assert(pop[a].energy >= 0.f && "agent energy is 0!");
         fitness_vec.push_back(static_cast<double> (pop[a].energy));
     }
