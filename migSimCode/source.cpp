@@ -6,6 +6,7 @@
 #include <numeric>
 #include <fstream>
 #include <string>
+#include <chrono>
 
 #include "ann/rnd.hpp"
 #include "ann/ann2.hpp"

@@ -9,18 +9,18 @@
 /// function to deplete landscape
 // update dFood based on wrapped agent effect
 // agent effect is specified by smootherstep above
-void agent::depleteFood()
+void agent::depleteFood(landscape& landscape)
 {
     // get energy
-    energy += landscape.resources[pos] /
-            static_cast<float> (landscape.foragers[pos]);
+    energy += landscape.resources[static_cast<size_t>(pos)] /
+            static_cast<float> (landscape.foragers[static_cast<size_t>(pos)]);
     energy -= predation_cost /
-            static_cast<float> (landscape.foragers[pos]);
+            static_cast<float> (landscape.foragers[static_cast<size_t>(pos)]);
 
-    landscape.resources[pos] -= maxDepletion;
-    if (landscape.resources[pos] < 0.f)
+    landscape.resources[static_cast<size_t>(pos)] -= maxDepletion;
+    if (landscape.resources[static_cast<size_t>(pos)] < 0.f)
     {
-        landscape.resources[pos] = 0.f;
+        landscape.resources[static_cast<size_t>(pos)] = 0.f;
     }
 }
 
@@ -75,7 +75,6 @@ void agent::exploreOrExploit(landscape& landscape)
 	}
 	else
 	{
-        doGetFood(landscape);
         depleteFood(landscape);
 	}
 

@@ -65,7 +65,7 @@ std::vector<agent> regime_shift(std::vector<agent> pop, landscape& landscape,
     new_R = powf(10.f, new_R);
 
     // run over n agents
-    for (int gen; gen < genmax; gen++) {
+    for (int gen= 0; gen < genmax; gen++) {
         std::cout << "gen = " << gen << "\n";
         // loop through timesteps
         for (int t = 0; t < timesteps; t++) {
