@@ -44,13 +44,13 @@ class agent
 public:
     agent() :
         annFollow(0.f),
-        pos(0), tradeOffParam(0.f),
+        pos(0), tradeOffParam(0),
         energy(0.000001f), id_self(0), id_leader(-1),
         mem_last_pos(0.f)
     {}
     ~agent() {}
     // agents need a brain, an age, fitness, and movement decision
-    Ann annFollow; int pos; float tradeOffParam;
+    Ann annFollow; int pos; int tradeOffParam;
     float energy;
     int id_self, id_leader, follow_instances, total_distance;
     float mem_last_pos;
@@ -58,10 +58,8 @@ public:
     void resetLeader();
     void chooseFollow(const agent& someagent);
     void goToLandscape(landscape& landscape);
-    void exploreOrExploit(landscape& landscape);
-    void doGetFood(landscape& landscape);
     void depleteFood(landscape& landscape);
-    void circleWalk(landscape& landscape);
+    void circleWalk();
 };
 
 /// agent functions here
