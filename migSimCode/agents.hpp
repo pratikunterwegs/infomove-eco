@@ -100,8 +100,6 @@ void agent::chooseFollow(const agent& someagent)
 /// function to assess remaining agents and shrink move queue
 void doFollowDynamic(std::vector<agent>& vecSomeAgents)
 {
-    //std::vector<agent> tempMoveQ = vecSomeAgents;
-    //std::vector<agent> processedMoveQ;
     assert(vecSomeAgents.size() > 0 && "doFollowDynamic: moveQ is empty at start");
 
     int indep_agents = static_cast<int> (std::count_if(vecSomeAgents.begin(),
