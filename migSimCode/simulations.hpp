@@ -29,10 +29,10 @@ std::vector<agent> evolve_pop(const int genmax, const int timesteps,
     for (int gen = 0; gen < genmax; gen++) {
         auto t1 = std::chrono::high_resolution_clock::now();
         std::cout << "gen = " << gen << " ";
+        // shuffle population once per gen
+        shufflePopSeq(pop);
         // loop through timesteps
         for (int t = 0; t < timesteps; t++) {
-            // shuffle population
-            shufflePopSeq(pop);
             // reset leaders
             for (size_t ind = 0; static_cast<int>(ind) < popsize; ind++) {
                 doFollowDynamic(pop);
@@ -46,8 +46,8 @@ std::vector<agent> evolve_pop(const int genmax, const int timesteps,
         do_reprod(pop);
 
         auto t2 = std::chrono::high_resolution_clock::now();
-        auto duration = std::chrono::duration_cast<std::chrono::seconds>( t2 - t1 ).count();
-        std::cout << duration << "s\n";
+        auto duration = std::chrono::duration_cast<std::chrono::microseconds>( t2 - t1 ).count();
+        std::cout << duration << "ms\n";
 
     }
 
