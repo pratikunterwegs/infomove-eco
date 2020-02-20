@@ -4,6 +4,7 @@
 #include <vector>
 #include <cmath>
 #include <numeric>
+#include <chrono>
 #include <params.hpp>
 #include <ann/rnd.hpp>
 #include <ann/ann2.hpp>
@@ -18,13 +19,16 @@ std::vector<agent> evolve_pop(const int genmax, const int timesteps,
                               const int foraging_turns, float R,
                               landscape& landscape)
 {
-    //Initialization of pop and landscape
-    std::vector<agent> pop;
+
     R = powf(10.f, R);
+    std::cout << "evolving on R = " << R << "\n";
+    //Initialization of pop and landscape
+    std::vector<agent> pop (popsize);
 
     // run over n agents
-    for (int gen; gen < genmax; gen++) {
-        std::cout << "gen = " << gen << "\n";
+    for (int gen = 0; gen < genmax; gen++) {
+        auto t1 = std::chrono::high_resolution_clock::now();
+        std::cout << "gen = " << gen << " ";
         // loop through timesteps
         for (int t = 0; t < timesteps; t++) {
             // shuffle population
@@ -40,6 +44,10 @@ std::vector<agent> evolve_pop(const int genmax, const int timesteps,
                                    (R));
         landscape.doMakeFood(regrowth);
         do_reprod(pop);
+
+        auto t2 = std::chrono::high_resolution_clock::now();
+        auto duration = std::chrono::duration_cast<std::chrono::seconds>( t2 - t1 ).count();
+        std::cout << duration << "s\n";
 
     }
 
