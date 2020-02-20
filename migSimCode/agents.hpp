@@ -70,16 +70,11 @@ void shufflePopSeq(std::vector<agent>& vecSomeAgents)
     std::shuffle(vecSomeAgents.begin(), vecSomeAgents.end(), rng);
 }
 
-/// agent class func to reset leader
-void agent::resetLeader()
-{
-    // reset leader
-    id_leader = -1;
-}
-
 /// function to entrain to other agent
 void agent::chooseFollow(const agent& someagent)
 {
+    // reset leader
+    id_leader = -1;
     // agents assess neighbour body reserves
     Ann::input_t inputs;
     // get energy cue
