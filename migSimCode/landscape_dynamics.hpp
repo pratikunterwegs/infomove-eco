@@ -11,17 +11,17 @@
 // agent effect is specified by smootherstep above
 void agent::depleteFood(landscape& landscape)
 {
-    // get energy
-    energy += landscape.resources[static_cast<size_t>(pos)] /
-            static_cast<float> (landscape.foragers[static_cast<size_t>(pos)]);
-    energy -= predation_cost /
-            static_cast<float> (landscape.foragers[static_cast<size_t>(pos)]);
+    // add to foragers
+    //landscape.foragers[static_cast<size_t>(pos)] += 1;
 
+    // get energy
+    energy += landscape.resources[static_cast<size_t>(pos)]; /*/
+            static_cast<float> (landscape.foragers[static_cast<size_t>(pos)]);*/
+    energy -= predation_cost; /*/
+            static_cast<float> (landscape.foragers[static_cast<size_t>(pos)]);*/
+
+    // deplete landscape
     landscape.resources[static_cast<size_t>(pos)] -= maxDepletion;
-    if (landscape.resources[static_cast<size_t>(pos)] < 0.f)
-    {
-        landscape.resources[static_cast<size_t>(pos)] = 0.f;
-    }
 }
 
 /// wrapper function
