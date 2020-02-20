@@ -78,12 +78,9 @@ void agent::chooseFollow(const agent& someagent)
     id_leader = -1;
     // agents assess neighbour body reserves
     Ann::input_t inputs;
-    // get energy cue
-    float cueSelf = mem_last_pos;
-    float cueOther = someagent.energy;
 
-    inputs[0] = static_cast<float> (cueSelf); // debatable function to calc energy
-    inputs[1] = static_cast<float> (cueOther); // neighbour energy
+    inputs[0] = static_cast<float> (mem_last_pos); // debatable function to calc energy
+    inputs[1] = static_cast<float> (someagent.energy); // neighbour energy
     // inputs[1] = energy;
     auto output = annFollow(inputs);
 
@@ -92,8 +89,6 @@ void agent::chooseFollow(const agent& someagent)
         id_leader = someagent.id_self;
         // copy leader foraging site
         pos = someagent.pos;
-        // update independent proportion
-        follow_instances++;
     }
 
 }
