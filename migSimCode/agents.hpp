@@ -200,19 +200,19 @@ void do_reprod(std::vector<agent>& pop)
         }
 
         // mutate movement parameter
-        {
-            // probabilistic mutation of ANN
-            if (mut_event(rng))
-            {
-                tmp_pop[a].tradeOffParam += static_cast<float> (m_shift(rng));
-                if (tmp_pop[a].tradeOffParam > 1.f) {
-                    tmp_pop[a].tradeOffParam = 1.f;
-                }
-                if (tmp_pop[a].tradeOffParam < 0.f) {
-                    tmp_pop[a].tradeOffParam = 0.f;
-                }
-            }
-        }
+//        {
+//            // probabilistic mutation of ANN
+//            if (mut_event(rng))
+//            {
+//                tmp_pop[a].tradeOffParam += static_cast<float> (m_shift(rng));
+//                if (tmp_pop[a].tradeOffParam > 1.f) {
+//                    tmp_pop[a].tradeOffParam = 1.f;
+//                }
+//                if (tmp_pop[a].tradeOffParam < 0.f) {
+//                    tmp_pop[a].tradeOffParam = 0.f;
+//                }
+//            }
+//        }
 
     }
 
