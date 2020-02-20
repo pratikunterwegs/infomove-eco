@@ -125,9 +125,6 @@ void doFollowDynamic(std::vector<agent>& vecSomeAgents)
 // pick random patch
 std::uniform_int_distribution<int> position_picker(0, n_patches - 1);
 
-// tradeoff picker
-std::normal_distribution<float> tradeoff_picker(0.5, 0.2);
-
 // bernoulli distribution for circlewalk
 std::bernoulli_distribution walk_direction(0.5);
 
