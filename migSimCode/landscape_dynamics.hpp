@@ -6,30 +6,21 @@
 #include <cmath>
 #include <vector>
 
-/// function to get energy
-void agent::doGetFood(landscape& landscape)
-{
-	// check where agent is
-	assert(pos <= n_patches - 1 && "func doGetFood: agent walked over max land!");
-	assert(pos >= 0 && "func doGetFood: agent walked over min land!");
-
-	// get energy
-    energy += landscape.resources[static_cast<size_t>(pos)] /
-            static_cast<float> (landscape.foragers[static_cast<size_t>(pos)]);
-    energy -= predation_cost /
-            static_cast<float> (landscape.foragers[static_cast<size_t>(pos)]);
-
-}
-
 /// function to deplete landscape
 // update dFood based on wrapped agent effect
 // agent effect is specified by smootherstep above
-void agent::depleteFood(landscape& landscape)
+void agent::depleteFood()
 {
-    landscape.resources[static_cast<size_t>(pos)] -= maxDepletion;
-    if (landscape.resources[static_cast<size_t>(pos)] < 0.f)
+    // get energy
+    energy += landscape.resources[pos] /
+            static_cast<float> (landscape.foragers[pos]);
+    energy -= predation_cost /
+            static_cast<float> (landscape.foragers[pos]);
+
+    landscape.resources[pos] -= maxDepletion;
+    if (landscape.resources[pos] < 0.f)
     {
-        landscape.resources[static_cast<size_t>(pos)] = 0.f;
+        landscape.resources[pos] = 0.f;
     }
 }
 
