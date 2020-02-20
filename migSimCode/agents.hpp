@@ -7,10 +7,12 @@
 #include <algorithm>
 #include <functional>
 #include <numeric>
-#include <unordered_set>
 #include <cassert>
 #include <cmath>
+#include <math.h>
 #include "params.hpp"
+#include "ann/rndutils.hpp"
+#include "ann/rnd.hpp"
 #include "ann/ann2.hpp"
 #include "landscape.hpp"
 
@@ -18,49 +20,48 @@ using namespace ann;
 
 // spec ann structure
 using Ann = Network<float,
-    Layer< Neuron<2, activation::rtlu>, 3>, // for now, 2 input for energy cues
+Layer< Neuron<2, activation::rtlu>, 3>, // for now, 2 input for energy cues
 //    Layer< Neuron<3, activation::rtlu>, 3>,
-    Layer< Neuron<3, activation::rtlu>, 1> // one output, true false
+Layer< Neuron<3, activation::rtlu>, 1> // one output, true false
 >;
 
 // clear node state
 struct flush_rec_nodes
 {
-	template <typename Neuron, typename T>
-	void operator()(T* state, size_t /*layer*/, size_t /*neuron*/)
-	{
-		auto it = state + Neuron::feedback_scratch_begin;
-		for (auto i = 0; i < Neuron::feedback_scratch; ++i) {
-			it[i] = T(0);
-		}
-	}
+    template <typename Neuron, typename T>
+    void operator()(T* state, size_t /*layer*/, size_t /*neuron*/)
+    {
+        auto it = state + Neuron::feedback_scratch_begin;
+        for (auto i = 0; i < Neuron::feedback_scratch; ++i) {
+            it[i] = T(0);
+        }
+    }
 };
 
 // agent class
 class agent
 {
 public:
-	agent() :
-	annFollow(0.f),
-	pos(0), tradeOffParam(0.f),
-	energy(0.000001f), id_self(0), id_leader(-1), follow_instances(0),
-	total_distance(0),
-	mem_last_pos(0.f)
-	{}
-	~agent() {}
-	// agents need a brain, an age, fitness, and movement decision
+    agent() :
+        annFollow(0.f),
+        pos(0), tradeOffParam(0.f),
+        energy(0.000001f), id_self(0), id_leader(-1),
+        mem_last_pos(0.f)
+    {}
+    ~agent() {}
+    // agents need a brain, an age, fitness, and movement decision
     Ann annFollow; int pos; float tradeOffParam;
     float energy;
     int id_self, id_leader, follow_instances, total_distance;
     float mem_last_pos;
 
-	void resetLeader();
-	void chooseFollow(const agent& someagent);
-	void goToLandscape(landscape& landscape);
-	void exploreOrExploit(landscape& landscape);
-	void doGetFood(landscape& landscape);
-	void depleteFood(landscape& landscape);
-	void circleWalk(landscape& landscape);
+    void resetLeader();
+    void chooseFollow(const agent& someagent);
+    void goToLandscape(landscape& landscape);
+    void exploreOrExploit(landscape& landscape);
+    void doGetFood(landscape& landscape);
+    void depleteFood(landscape& landscape);
+    void circleWalk(landscape& landscape);
 };
 
 /// agent functions here
