@@ -5,12 +5,14 @@
 #include <cmath>
 #include <numeric>
 #include <chrono>
-#include <params.hpp>
-#include <ann/rnd.hpp>
-#include <ann/ann2.hpp>
-#include <landscape.hpp>
-#include <agents.hpp>
-#include <landscape_dynamics.hpp>
+
+
+#include "params.hpp"
+#include "ann/rnd.hpp"
+#include "ann/ann2.hpp"
+#include "landscape.hpp"
+#include "agents.hpp"
+#include "landscape_dynamics.hpp"
 
 # define M_PIl          3.141592653589793238462643383279502884L /* pi */
 
