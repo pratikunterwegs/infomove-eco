@@ -69,9 +69,7 @@ public:
     int id_self, id_leader, follow_instances, total_distance;
 
     bool chooseFollow(const agent& someagent);
-    void goToLandscape(landscape& landscape);
-    void depleteFood(landscape& landscape);
-    void circleWalk();
+    void deplete_and_move(landscape& landscape);
 };
 
 /// agent functions here
