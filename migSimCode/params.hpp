@@ -21,9 +21,10 @@
 
 // population params
 const int popsize = 1000; // not too many
+const int leader_choices = 10;
 
 // landscape params
-const int n_patches = 100;
+const int n_patches = 5000;
 const float maxFood = 1.f;
 const float maxDepletion = 0.1f;
 const float max_regrowth = 0.2f;
