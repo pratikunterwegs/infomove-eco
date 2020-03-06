@@ -174,45 +174,55 @@ void do_reprod(std::vector<agent>& pop)
     std::discrete_distribution<> weighted_lottery(fitness_vec.begin(), fitness_vec.end());
 
     // create new population
-    std::vector<agent> tmp_pop = initPop(popsize);
+    std::vector<agent> tmp_pop(popsize);
 
     // assign parents
     for (size_t a = 0; static_cast<int>(a) < popsize; a++) {
 
-        size_t parent_id = static_cast<size_t> (weighted_lottery(rng));
+        size_t parent_id = static_cast<size_t> (weighted_lottery(rnd::reng));
 
         // replicate ANN
         tmp_pop[a].annFollow = pop[parent_id].annFollow;
-        // reset who is being followed
-        tmp_pop[a].id_leader = -1;
         // get random position
-        tmp_pop[a].pos = position_picker(rng);
-        // inherit tradeoff parameter
-        tmp_pop[a].tradeOffParam = pop[parent_id].tradeOffParam;
+        tmp_pop[a].pos = position_picker(rnd::reng);
+        // inherit giving up density parameter
+        tmp_pop[a].D = pop[parent_id].D;
+        // inherit exploration parameter
+        tmp_pop[a].M = pop[parent_id].M;
 
         // mutate ann
         for (auto& w : tmp_pop[a].annFollow) {
             // probabilistic mutation of ANN
             if (mut_event(rng)) {
 
-                w += static_cast<float> (m_shift(rng));
+                w += static_cast<float> (m_shift(rnd::reng));
             }
         }
 
-        // mutate movement parameter
-//        {
-//            // probabilistic mutation of ANN
-//            if (mut_event(rng))
-//            {
-//                tmp_pop[a].tradeOffParam += static_cast<float> (m_shift(rng));
-//                if (tmp_pop[a].tradeOffParam > 1.f) {
-//                    tmp_pop[a].tradeOffParam = 1.f;
-//                }
-//                if (tmp_pop[a].tradeOffParam < 0.f) {
-//                    tmp_pop[a].tradeOffParam = 0.f;
-//                }
-//            }
-//        }
+        // mutate giving up density parameter
+        {
+            // probabilistic mutation of giving up density
+            if (mut_event(rnd::reng))
+            {
+                tmp_pop[a].D += static_cast<float> (m_shift(rnd::reng));
+                if (tmp_pop[a].D > 1.f) {
+                    tmp_pop[a].D = 1.f;
+                }
+                if (tmp_pop[a].D < 0.f) {
+                    tmp_pop[a].D = 0.f;
+                }
+            }
+        }
+        // mutate exploration parameter
+        {
+            if (mut_event(rnd::reng))
+            {
+                tmp_pop[a].M += static_cast<int> (m_shift(rnd::reng));
+                if (tmp_pop[a].M < 0) {
+                    tmp_pop[a].M = 0;
+                }
+            }
+        }
 
     }
 
