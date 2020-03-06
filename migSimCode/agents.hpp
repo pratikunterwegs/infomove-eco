@@ -181,12 +181,12 @@ void do_reprod(std::vector<agent>& pop)
     // assign parents
     for (size_t a = 0; static_cast<int>(a) < popsize; a++) {
 
-        size_t parent_id = static_cast<size_t> (weighted_lottery(rnd::reng));
+        size_t parent_id = static_cast<size_t> (weighted_lottery(rng));
 
         // replicate ANN
         tmp_pop[a].annFollow = pop[parent_id].annFollow;
         // get random position
-        tmp_pop[a].pos = position_picker(rnd::reng);
+        tmp_pop[a].pos = position_picker(rng);
         // inherit giving up density parameter
         tmp_pop[a].D = pop[parent_id].D;
         // inherit exploration parameter
@@ -197,16 +197,16 @@ void do_reprod(std::vector<agent>& pop)
             // probabilistic mutation of ANN
             if (mut_event(rng)) {
 
-                w += static_cast<float> (m_shift(rnd::reng));
+                w += static_cast<float> (m_shift(rng));
             }
         }
 
         // mutate giving up density parameter
         {
             // probabilistic mutation of giving up density
-            if (mut_event(rnd::reng))
+            if (mut_event(rng))
             {
-                tmp_pop[a].D += static_cast<float> (m_shift(rnd::reng));
+                tmp_pop[a].D += static_cast<float> (m_shift(rng));
                 if (tmp_pop[a].D > 1.f) {
                     tmp_pop[a].D = 1.f;
                 }
@@ -217,9 +217,9 @@ void do_reprod(std::vector<agent>& pop)
         }
         // mutate exploration parameter
         {
-            if (mut_event(rnd::reng))
+            if (mut_event(rng))
             {
-                tmp_pop[a].M += static_cast<int> (m_shift(rnd::reng));
+                tmp_pop[a].M += static_cast<int> (m_shift(rng));
                 if (tmp_pop[a].M < 0) {
                     tmp_pop[a].M = 0;
                 }
