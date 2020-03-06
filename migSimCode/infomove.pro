@@ -1,7 +1,6 @@
 QT -= gui
 
 CONFIG += c++17 console
-CONFIG -= app_bundle
 
 QMAKE_CXXFLAGS += -std=c++17
 
