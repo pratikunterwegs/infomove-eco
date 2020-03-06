@@ -38,25 +38,37 @@ struct flush_rec_nodes
     }
 };
 
+/* define distributions */
+// pick random patch
+std::uniform_int_distribution<int> position_picker(0, n_patches - 1);
+
+// bernoulli distribution for circlewalk
+std::bernoulli_distribution walk_direction(0.5);
+
+// mutation distributions
+std::bernoulli_distribution mut_event(0.001); // mutation probability
+std::cauchy_distribution<double> m_shift(0.0, 0.01); // how much of mutation
+
 // agent class
 class agent
 {
 public:
     agent() :
-        annFollow(0.f),
-        pos(0), tradeOffParam(0),
-        energy(0.000001f), id_self(0), id_leader(-1),
-        mem_last_pos(0.f)
+        annFollow(0.f), // ann to follow
+        pos(0), M(0), D(0.f), // vector position, exploration range, giving up density
+        mem_pos(0), // last foraged position
+        energy(0.000001f),
+        mem_energy(0.f)
     {}
     ~agent() {}
-    // agents need a brain, an age, fitness, and movement decision
-    Ann annFollow; int pos; int tradeOffParam;
-    float energy;
-    int id_self, id_leader, follow_instances, total_distance;
-    float mem_last_pos;
 
-    void resetLeader();
-    void chooseFollow(const agent& someagent);
+    // agents need a brain, an age, fitness, and movement decision
+    Ann annFollow; int pos, M; float D;
+    int mem_pos;
+    float energy, mem_energy;
+    int id_self, id_leader, follow_instances, total_distance;
+
+    bool chooseFollow(const agent& someagent);
     void goToLandscape(landscape& landscape);
     void depleteFood(landscape& landscape);
     void circleWalk();
