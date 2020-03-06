@@ -10,12 +10,12 @@
 
 #include "ann/rnd.hpp"
 #include "ann/ann2.hpp"
-#include <params.hpp>
-#include <landscape.hpp>
-#include <agents.hpp>
-#include <landscape_dynamics.hpp>
-#include <simulations.hpp>
-#include <utilities.hpp>
+#include "params.hpp"
+#include "landscape.hpp"
+#include "agents.hpp"
+#include "landscape_dynamics.hpp"
+#include "simulations.hpp"
+#include "utilities.hpp"
 
 // tests section
 
