@@ -82,25 +82,25 @@ void shufflePopSeq(std::vector<agent>& vecSomeAgents)
 }
 
 /// function to entrain to other agent
-void agent::chooseFollow(const agent& someagent)
+bool agent::chooseFollow(const agent& someagent)
 {
     // reset leader
     id_leader = -1;
     // agents assess neighbour body reserves
     Ann::input_t inputs;
 
-    inputs[0] = static_cast<float> (mem_last_pos); // debatable function to calc energy
+    inputs[0] = static_cast<float> (energy); // debatable function to calc energy
     inputs[1] = static_cast<float> (someagent.energy); // neighbour energy
     // inputs[1] = energy;
     auto output = annFollow(inputs);
 
-    if(output[0] > 0.f) {
-        // assign leader if output greater than 0
-        id_leader = someagent.id_self;
+    bool do_follow = output[0] > 0.f;
+    if(do_follow) {
         // copy leader foraging site
         pos = someagent.pos;
     }
 
+    return do_follow;
 }
 
 /// function to assess remaining agents and shrink move queue
