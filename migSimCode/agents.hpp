@@ -122,7 +122,7 @@ void doFollowDynamic(std::vector<agent>& vecSomeAgents)
             if(ptl_leaders > 0){
                 // first pick a random position
                 follow_q[static_cast<size_t>(ind)].pos =
-                        position_picker(rnd::reng);
+                        position_picker(rng);
 
                 // change to leader's choice if choose_follow = TRUE
                 for (int ld = ptl_leaders; ld >
@@ -130,21 +130,25 @@ void doFollowDynamic(std::vector<agent>& vecSomeAgents)
                     bool follow_outcome = follow_q[static_cast<size_t>(ind)].chooseFollow(lead_q[static_cast<size_t>(ld)]);
                     if(follow_outcome){
                         // move the agent to the leader q
-                        ptl_followers --;
-                        ptl_leaders ++;
                         lead_q.push_back(std::move(follow_q[static_cast<size_t>(ind)]));
                         break;
                     }
                 }
             }
             else{
-                follow_q[static_cast<size_t>(ind)].pos = position_picker(rnd::reng);
+                follow_q[static_cast<size_t>(ind)].pos = position_picker(rng);
+                lead_q.push_back(std::move(follow_q[static_cast<size_t>(ind)]));
             }
         }
-    }
+        else {
+            lead_q.push_back(std::move(follow_q[static_cast<size_t>(ind)]));
+        }
 
-    assert(ptl_followers == 0 && "doFollow: followers > 0");
-    assert(ptl_leaders == popsize && "doFollow: not all processed");
+        ptl_followers --;
+        ptl_leaders ++;
+    }
+    std::cout << vecSomeAgents.size();
+    //assert(lead_q.size() == vecSomeAgents.size() && "agents lost from q");
 
     // replace population with processed leader queue
     std::swap(vecSomeAgents, lead_q);
