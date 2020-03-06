@@ -6,44 +6,54 @@
 #include <cmath>
 #include <vector>
 
-/// function to deplete landscape
-// update dFood based on wrapped agent effect
-// agent effect is specified by smootherstep above
-void agent::depleteFood(landscape& landscape)
-{
-    // add to foragers
-    //landscape.foragers[static_cast<size_t>(pos)] += 1;
-
-    // get energy
-    energy += landscape.resources[static_cast<size_t>(pos)]; /*/
-            static_cast<float> (landscape.foragers[static_cast<size_t>(pos)]);*/
-    energy -= predation_cost; /*/
-            static_cast<float> (landscape.foragers[static_cast<size_t>(pos)]);*/
-
-    // deplete landscape
-    landscape.resources[static_cast<size_t>(pos)] -= maxDepletion;
-}
-
 /// wrapper function
 int wrapper(int distance, int current_val, int max_val) {
 
-	int new_pos = (max_val + current_val + distance) % max_val;
-	return new_pos;
+    int new_pos = (max_val + current_val + distance) % max_val;
+    return new_pos;
 }
 
-/// function to walk along the circle
-void agent::circleWalk()
+/// function to deplete landscape
+void agent::deplete_and_move(landscape& landscape)
 {
-	// check where agent is
-	assert(pos <= n_patches - 1 && "func circleWalk: agent now over max land!");
-	assert(pos >= 0 && "func circleWalk: agent now over min land!");
+   size_t to_deplete = static_cast<size_t> (wrapper(-M, pos, n_patches));
 
-    pos = wrapper(tradeOffParam, pos, n_patches);
+   float avg_left = 0.f;
+   float avg_right = 0.f;
+   float curr_pos = landscape.resources[static_cast<size_t>(pos)];
 
-    //landscape.foragers[static_cast<size_t>(pos)] += 1;
+    // get vector of assessed positions and food at those positions
+    std::vector<int> vec_pos(static_cast<size_t>(2 * M + 1));
 
-	assert(pos <= n_patches - 1 && "func circleWalk: agent walked over max land!");
-	assert(pos >= 0 && "func circleWalk: agent walked over min land!");
+    for (int m = -M; m <= M; m++) {
+        size_t tmp_p = static_cast<size_t>(wrapper(m, pos, n_patches));
+
+        if (m > 0){
+            avg_right += landscape.resources[tmp_p];
+        }
+        if (m < 0){
+            avg_left += landscape.resources[tmp_p];
+        }
+
+        if(landscape.resources[tmp_p] > landscape.resources[to_deplete]){
+            to_deplete = tmp_p;
+        }
+    }
+
+    // get real averages
+    avg_left = avg_left/static_cast<float>(M);
+    avg_right = avg_right/static_cast<float>(M);
+
+    // deplete food from the highest position
+    // should depletion happen before assessing averages on either side?
+    energy += landscape.resources[to_deplete];
+    // update memory
+    mem_energy = landscape.resources[to_deplete];
+    landscape.resources[to_deplete] = 0;
+
+    // movement section
+    if(avg_right > avg_left && avg_right > curr_pos){ pos = wrapper(1, pos, n_patches); }
+    else if (avg_left > avg_right && avg_left > curr_pos) { pos = wrapper(-1, pos, n_patches);  }
 
 }
 
@@ -56,11 +66,7 @@ void do_foraging_dynamic(landscape& landscape, std::vector<agent>& population, i
         // to explore or exploit
         for (size_t indiv = 0; indiv < popsize; indiv++)
         {
-            population[indiv].circleWalk();
-            population[indiv].depleteFood(landscape);
-
-            // remember food at current pos
-            population[indiv].mem_last_pos = landscape.resources[static_cast<size_t>(population[indiv].pos)];
+            population[indiv].deplete_and_move(landscape);
         }
     }
 }
