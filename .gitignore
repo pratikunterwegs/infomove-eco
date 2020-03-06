@@ -46,6 +46,9 @@ Debug/
 *zip
 *doc*
 
+# pdfs
+*.pdf
+
 # pycharm files - let them be
 
 # r files
