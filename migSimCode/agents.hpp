@@ -108,55 +108,52 @@ void doFollowDynamic(std::vector<agent>& vecSomeAgents)
 {
     assert(vecSomeAgents.size() > 0 && "doFollowDynamic: moveQ is empty at start");
 
-    int indep_agents = static_cast<int> (std::count_if(vecSomeAgents.begin(),
-                                                       vecSomeAgents.end(), [](agent thisAgent) {return thisAgent.id_leader == -1; }));
+    // make one leader q and one follower q
+    std::vector<agent> lead_q;
+    std::vector<agent> follow_q = vecSomeAgents;
 
-    while (indep_agents > 1) // at least 2 agents are independent
-    {
-        // iterator position of first independent agent
-        std::vector<agent>::iterator moveQleader = std::find_if(vecSomeAgents.begin(),
-                                                                vecSomeAgents.end(), [](agent i) {return i.id_leader == -1; });
+    int ptl_followers = static_cast<int>(vecSomeAgents.size());
+    int ptl_leaders = 0;
 
-        // choose follow if independent
-        for (auto next_agent = moveQleader + 1; next_agent != moveQleader + 10; next_agent++)
+    for (int ind = ptl_followers; ind >= 0; ind--) {
+        // choose from among leaders if memory of last position is less than D
+        if(follow_q[static_cast<size_t>(ind)].mem_energy <
+                follow_q[static_cast<size_t>(ind)].D)
         {
-            if (next_agent->id_leader == -1) {
-                next_agent->chooseFollow(*moveQleader);
+            // choose a leader if available
+            if(ptl_leaders > 0){
+                // first pick a random position
+                follow_q[static_cast<size_t>(ind)].pos =
+                        position_picker(rnd::reng);
+
+                // change to leader's choice if choose_follow = TRUE
+                for (int ld = ptl_leaders; ld >
+                     (ptl_leaders - leader_choices) && ld >= (0); ld--) {
+                    bool follow_outcome = follow_q[static_cast<size_t>(ind)].chooseFollow(lead_q[static_cast<size_t>(ld)]);
+                    if(follow_outcome){
+                        // move the agent to the leader q
+                        ptl_followers --;
+                        ptl_leaders ++;
+                        lead_q.push_back(std::move(follow_q[static_cast<size_t>(ind)]));
+                        break;
+                    }
+                }
+            }
+            else{
+                follow_q[static_cast<size_t>(ind)].pos = position_picker(rnd::reng);
             }
         }
-        // assigned move q leader follows itself
-        // this fiction is to prevent inifinite looping
-        moveQleader->id_leader = moveQleader->id_self;
-
-        indep_agents = static_cast<int> (std::count_if(vecSomeAgents.begin(),
-                                                       vecSomeAgents.end(), [](agent thisAgent) {return thisAgent.id_leader == -1; }));
     }
+
+    assert(ptl_followers == 0 && "doFollow: followers > 0");
+    assert(ptl_leaders == popsize && "doFollow: not all processed");
+
+    // replace population with processed leader queue
+    std::swap(vecSomeAgents, lead_q);
+    lead_q.clear();
 }
-
-/* define distributions */
-// pick random patch
-std::uniform_int_distribution<int> position_picker(0, n_patches - 1);
-
-// bernoulli distribution for circlewalk
-std::bernoulli_distribution walk_direction(0.5);
-
-// mutation distributions
-std::bernoulli_distribution mut_event(0.001); // mutation probability
-std::cauchy_distribution<double> m_shift(0.0, 0.01); // how much of mutation
-
 
 /* population level functions */
-
-/// init population
-std::vector<agent> initPop(const int popsize)
-{
-    std::vector<agent> tmp_pop(static_cast<size_t> (popsize));
-    for (size_t i = 0; static_cast<int>(i) < popsize; i++)
-    {
-        tmp_pop[i].id_self = static_cast<int>(i);
-    }
-    return tmp_pop;
-}
 
 /// function to reproduce
 void do_reprod(std::vector<agent>& pop)
