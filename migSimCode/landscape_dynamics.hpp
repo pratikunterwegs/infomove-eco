@@ -62,6 +62,7 @@ void do_foraging_dynamic(landscape& landscape, std::vector<agent>& population, i
 {
     for (size_t turn_value = 0; static_cast<int>(turn_value) < turns; turn_value++)
     {
+//        std::cout << "turn = " << turn_value << "\n";
         // over as many iterations as foraging_turns agents choose
         // to explore or exploit
         for (size_t indiv = 0; indiv < popsize; indiv++)
