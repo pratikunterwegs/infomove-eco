@@ -61,14 +61,14 @@ std::vector<agent> evolve_pop(const int genmax, const int timesteps,
 /// function to change regime
 /// function to evolve population
 std::vector<agent> regime_shift(std::vector<agent> pop, landscape& landscape,
-                                const int genmax, const int timesteps,
+                                const int genmax_shift, const int timesteps,
                               const int foraging_turns, float new_R)
 {
     //select a new R
     new_R = powf(10.f, new_R);
 
     // run over n agents
-    for (int gen= 0; gen < genmax; gen++) {
+    for (int gen= 0; gen < genmax_shift; gen++) {
         std::cout << "gen = " << gen << "\n";
         // loop through timesteps
         for (int t = 0; t < timesteps; t++) {
