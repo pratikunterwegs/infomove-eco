@@ -82,8 +82,6 @@ void shufflePopSeq(std::vector<agent>& vecSomeAgents)
 /// function to entrain to other agent
 bool agent::chooseFollow(const agent& someagent)
 {
-    // reset leader
-    id_leader = -1;
     // agents assess neighbour body reserves
     Ann::input_t inputs;
 
