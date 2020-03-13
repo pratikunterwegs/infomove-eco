@@ -111,8 +111,10 @@ void doFollowDynamic(std::vector<agent>& vecSomeAgents)
     int ptl_followers = static_cast<int>(vecSomeAgents.size());
     int ptl_leaders = 0;
 
-    for (int ind = (ptl_followers - 1); ind >= 0; ind--) {
-        assert(ptl_followers > 0 && "do_follow: no followers remain");
+    int ind = ptl_followers - 1;
+
+    while(ptl_followers > 0) {
+
         // choose from among leaders if memory of last position is less than D
         if(follow_q[static_cast<size_t>(ind)].mem_energy <
                 follow_q[static_cast<size_t>(ind)].D)
@@ -121,33 +123,46 @@ void doFollowDynamic(std::vector<agent>& vecSomeAgents)
             follow_q[static_cast<size_t>(ind)].pos =
                     position_picker(rng);
 
-            // choose a leader if available
-            if(ptl_leaders > 0){
-                bool follow_outcome = false;
-                int ld = ptl_leaders - 1;
-                while(follow_outcome == false && ld >
-                      static_cast<int>(lead_q.size())){
+            bool follow_outcome = false;
+            int ld = ptl_leaders - 1;
 
+            // choose a leader if available
+            if(ptl_leaders == 0){
+
+                lead_q.push_back(std::move(follow_q[static_cast<size_t>(ind)]));
+                follow_q.pop_back();
+            }
+
+            else if(ptl_leaders < leader_choices){
+                while (ld >= 0 && follow_outcome == false) {
                     follow_outcome = follow_q[static_cast<size_t>(ind)].chooseFollow(lead_q[static_cast<size_t>(ld)]);
+                    // move indiv from follow to lead
                     if(follow_outcome){
+
                         lead_q.push_back(std::move(follow_q[static_cast<size_t>(ind)]));
                         follow_q.pop_back();
                     }
                     ld --;
                 }
             }
-            else{
-                lead_q.push_back(std::move(follow_q[static_cast<size_t>(ind)]));
-                follow_q.pop_back();
-                assert(static_cast<int>(lead_q.size()) == (ptl_leaders+1) && "do_follow: leaders not increased");
-                assert(static_cast<int>(follow_q.size()) == (ptl_followers-1) && "do_follow: followers not reduced");
+
+            else {
+
+                while(follow_outcome == false && ld > ptl_leaders - leader_choices){
+                    follow_outcome = follow_q[static_cast<size_t>(ind)].chooseFollow(lead_q[static_cast<size_t>(ld)]);
+
+                    if(follow_outcome){
+
+                        lead_q.push_back(std::move(follow_q[static_cast<size_t>(ind)]));
+                        follow_q.pop_back();
+                    }
+                    ld --;
+                }
             }
         }
         else {
             lead_q.push_back(std::move(follow_q[static_cast<size_t>(ind)]));
             follow_q.pop_back();
-            assert(static_cast<int>(lead_q.size()) == (ptl_leaders+1) && "do_follow: leaders not increased");
-            assert(static_cast<int>(follow_q.size()) == (ptl_followers-1) && "do_follow: followers not reduced");
         }
 
         ptl_followers --;
