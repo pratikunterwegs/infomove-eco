@@ -24,20 +24,13 @@ int main()
 {
     // init new landscape
     landscape landscape;
-//  float R = //something from cli args
     std::vector<agent> evolved_pop (popsize);
-    float R = 1.f;
+
+    float RHO = 1.f;
+    float PHI = 1.f;
+
     evolved_pop = evolve_pop(genmax, tMax, foraging_turns,
-                                                R, landscape);
-
-    // test population on different regimes
-    for (size_t r = 0; r < vec_R.size(); r++) {
-        std::vector<agent> shifted_pop;
-        shifted_pop = regime_shift(evolved_pop, landscape, genmax_shift, tMax,
-                                   foraging_turns, vec_R[r]);
-
-        std::cout << "evolved shifted pop: new R =" << vec_R[r] << "\n";
-    }
+                                                RHO, PHI, landscape);
 
 	std::cout << "works so far\n";
 	return 0;
