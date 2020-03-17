@@ -1,5 +1,5 @@
 language: cpp
-dist: eoan
+dist: bionic
 compiler:
   - gcc
   # - clang 
@@ -15,7 +15,7 @@ install:
   # Codecov
   - sudo pip install codecov
   # OCLint
-  - ./install_oclint
+  - sudo ./install_oclint
   # valgrind, for helgrind and memcheck
   - sudo apt-get install -qq valgrind
   # SLOCcount
