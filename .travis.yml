@@ -18,7 +18,7 @@ install:
   # Codecov
   - sudo pip install codecov
   # OCLint
-  - sudo ./install_oclint
+  # - ./install_oclint
   # valgrind, for helgrind and memcheck
   - sudo apt-get install -qq valgrind
   # SLOCcount
