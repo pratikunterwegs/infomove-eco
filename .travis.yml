@@ -48,12 +48,12 @@ script:
   # - gprof the_richel_setup > gprof.log
   # - head gprof.log -n 1000
   # Get code coverage
-  - ./get_code_cov >/dev/null
+  # - ./get_code_cov >/dev/null
   - codecov >/dev/null
   # cppcheck
   - cppcheck --quiet --error-exitcode=1 . 
   # Call OCLint
-  - ./do_oclint
+  # - ./do_oclint
   # proselint
   - proselint README.md
   # Get my folder
