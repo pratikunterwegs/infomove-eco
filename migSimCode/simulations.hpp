@@ -52,14 +52,4 @@ std::vector<agent> evolve_pop(std::vector<agent> &pop,
     return pop;
 }
 
-/// function to change regime
-/// function to evolve population
-std::vector<agent> regime_shift(std::vector<agent> pop, const int genmax_shift, 
-                                const int timesteps, const int foraging_turns, 
-                                float new_RHO, float new_PHI, landscape& landscape)
-{
-   std::cout << "regime shifted...\n";
-   return pop;
-}
-
 // ends here
