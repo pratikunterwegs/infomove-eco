@@ -19,9 +19,6 @@ SOURCES += \
     source.cpp
 
 HEADERS += \
-        ann/rndutils.hpp \
-        ann/rnd.hpp \
-        ann/ann2.hpp \
         params.hpp \
         agents.hpp \
         landscape_dynamics.hpp \
