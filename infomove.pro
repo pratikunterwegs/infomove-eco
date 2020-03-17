@@ -1,19 +1,25 @@
-QT -= gui
+# files
 
-CONFIG += c++17 console
-
+# use cpp17
+CONFIG += c++17
 QMAKE_CXXFLAGS += -std=c++17
 
-# The following define makes your compiler emit warnings if you use
-# any Qt feature that has been marked deprecated (the exact warnings
-# depend on your compiler). Please consult the documentation of the
-# deprecated API in order to know how to port your code away from it.
-DEFINES += QT_DEPRECATED_WARNINGS
+# warning levels
+QMAKE_CXXFLAGS += -Wall
 
-# You can also make your code fail to compile if it uses deprecated APIs.
-# In order to do so, uncomment the following line.
-# You can also select to disable deprecated APIs only up to a certain version of Qt.
-#DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
+# allow debug and release
+CONFIG += debug_and_release
+
+
+# In release mode, turn on profiling
+CONFIG(release, debug|release) {
+
+  DEFINES += NDEBUG
+
+  # gprof
+  QMAKE_CXXFLAGS += -pg
+  QMAKE_LFLAGS += -pg
+}
 
 SOURCES += \
     source.cpp
@@ -23,8 +29,8 @@ HEADERS += \
         agents.hpp \
         landscape_dynamics.hpp \
         utilities.hpp \
-    landscape.hpp \
-    simulations.hpp
+    	landscape.hpp \
+    	simulations.hpp
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
