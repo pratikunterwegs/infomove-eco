@@ -29,7 +29,7 @@ int main()
     float RHO = 1.f;
     float PHI = 1.f;
 
-    evolved_pop = evolve_pop(genmax, tMax, foraging_turns,
+    evolved_pop = evolve_pop(evolved_pop, genmax, tMax, foraging_turns,
                                                 RHO, PHI, landscape);
 
 	std::cout << "works so far\n";
