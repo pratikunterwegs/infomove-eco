@@ -11,36 +11,14 @@
 #include <cmath>
 #include <math.h>
 #include "params.hpp"
-#include "ann/rndutils.hpp"
-#include "ann/rnd.hpp"
-#include "ann/ann2.hpp"
 #include "landscape.hpp"
-
-using namespace ann;
-
-// spec ann structure
-using Ann = Network<float,
-Layer< Neuron<2, activation::rtlu>, 3>, // for now, 2 input for energy cues
-//    Layer< Neuron<3, activation::rtlu>, 3>,
-Layer< Neuron<3, activation::rtlu>, 1> // one output, true false
->;
-
-// clear node state
-struct flush_rec_nodes
-{
-    template <typename Neuron, typename T>
-    void operator()(T* state, size_t /*layer*/, size_t /*neuron*/)
-    {
-        auto it = state + Neuron::feedback_scratch_begin;
-        for (auto i = 0; i < Neuron::feedback_scratch; ++i) {
-            it[i] = T(0);
-        }
-    }
-};
 
 /* define distributions */
 // pick random patch
 std::uniform_int_distribution<int> position_picker(0, n_patches - 1);
+
+// normal distribution for follow prob
+std::normal_distribution<float> follow_prob_picker(0.5f, 0.2f);
 
 // bernoulli distribution for circlewalk
 std::bernoulli_distribution walk_direction(0.5);
@@ -54,7 +32,10 @@ class agent
 {
 public:
     agent() :
-        annFollow(0.f), // ann to follow
+        // heritable params for interaction follow botero et al. 2010
+        a(0.f), // inflection point
+        b(0.f), // slope for own quality
+        c(0.f), // slope for leader quality
         pos(0), M(0), D(0.f), // vector position, exploration range, giving up density
         mem_pos(0), // last foraged position
         energy(0.000001f),
@@ -63,7 +44,8 @@ public:
     ~agent() {}
 
     // agents need a brain, an age, fitness, and movement decision
-    Ann annFollow; int pos, M; float D;
+    float a, b, c;
+    int pos, M; float D;
     int mem_pos;
     float energy, mem_energy;
     int id_self, id_leader, follow_instances, total_distance;
@@ -83,14 +65,10 @@ void shufflePopSeq(std::vector<agent>& vecSomeAgents)
 bool agent::chooseFollow(const agent& someagent)
 {
     // agents assess neighbour body reserves
-    Ann::input_t inputs;
 
-    inputs[0] = static_cast<float> (energy); // debatable function to calc energy
-    inputs[1] = static_cast<float> (someagent.energy); // neighbour energy
-    // inputs[1] = energy;
-    auto output = annFollow(inputs);
+    float p_follow = 1 / (1 + (exp(a - (b*energy) - (c*someagent.energy))));
 
-    bool do_follow = output[0] > 0.f;
+    bool do_follow = p_follow > follow_prob_picker(rng);
     if(do_follow) {
         // copy leader foraging site
         pos = someagent.pos;
@@ -184,14 +162,14 @@ void do_reprod(std::vector<agent>& pop)
 {
     // make fitness vec
     std::vector<double> fitness_vec;
-    for (size_t a = 0; static_cast<int>(a) < popsize; a++)
+    for (size_t ind_2 = 0; static_cast<int>(ind_2) < popsize; ind_2++)
     {
-        if (pop[a].energy <= 0.f)
+        if (pop[ind_2].energy <= 0.f)
         {
-            pop[a].energy = 0.000001f;
+            pop[ind_2].energy = 0.000001f;
         }
-        assert(pop[a].energy >= 0.f && "agent energy is 0!");
-        fitness_vec.push_back(static_cast<double> (pop[a].energy));
+        assert(pop[ind_2].energy >= 0.f && "agent energy is 0!");
+        fitness_vec.push_back(static_cast<double> (pop[ind_2].energy));
     }
 
     // weighted lottery
@@ -201,39 +179,32 @@ void do_reprod(std::vector<agent>& pop)
     std::vector<agent> tmp_pop(popsize);
 
     // assign parents
-    for (size_t a = 0; static_cast<int>(a) < popsize; a++) {
+    for (size_t ind_2 = 0; static_cast<int>(ind_2) < popsize; ind_2++) {
 
         size_t parent_id = static_cast<size_t> (weighted_lottery(rng));
 
-        // replicate ANN
-        tmp_pop[a].annFollow = pop[parent_id].annFollow;
+        // replicate gene loci controlling following
+        tmp_pop[ind_2].a = pop[parent_id].a;
+        tmp_pop[ind_2].b = pop[parent_id].b;
+        tmp_pop[ind_2].c = pop[parent_id].c;
         // get random position
-        tmp_pop[a].pos = position_picker(rng);
+        tmp_pop[ind_2].pos = position_picker(rng);
         // inherit giving up density parameter
-        tmp_pop[a].D = pop[parent_id].D;
+        tmp_pop[ind_2].D = pop[parent_id].D;
         // inherit exploration parameter
-        tmp_pop[a].M = pop[parent_id].M;
-
-        // mutate ann
-        for (auto& w : tmp_pop[a].annFollow) {
-            // probabilistic mutation of ANN
-            if (mut_event(rng)) {
-
-                w += static_cast<float> (m_shift(rng));
-            }
-        }
+        tmp_pop[ind_2].M = pop[parent_id].M;
 
         // mutate giving up density parameter
         {
             // probabilistic mutation of giving up density
             if (mut_event(rng))
             {
-                tmp_pop[a].D += static_cast<float> (m_shift(rng));
-                if (tmp_pop[a].D > 1.f) {
-                    tmp_pop[a].D = 1.f;
+                tmp_pop[ind_2].D += static_cast<float> (m_shift(rng));
+                if (tmp_pop[ind_2].D > 1.f) {
+                    tmp_pop[ind_2].D = 1.f;
                 }
-                if (tmp_pop[a].D < 0.f) {
-                    tmp_pop[a].D = 0.f;
+                if (tmp_pop[ind_2].D < 0.f) {
+                    tmp_pop[ind_2].D = 0.f;
                 }
             }
         }
@@ -241,9 +212,48 @@ void do_reprod(std::vector<agent>& pop)
         {
             if (mut_event(rng))
             {
-                tmp_pop[a].M += static_cast<int> (m_shift(rng));
-                if (tmp_pop[a].M < 0) {
-                    tmp_pop[a].M = 0;
+                tmp_pop[ind_2].M += static_cast<int> (m_shift(rng));
+                if (tmp_pop[ind_2].M < 0) {
+                    tmp_pop[ind_2].M = 0;
+                }
+            }
+        }
+        // mutate a
+        {
+            if (mut_event(rng))
+            {
+                tmp_pop[ind_2].a += static_cast<int> (m_shift(rng));
+                if (tmp_pop[ind_2].a < 0.f) {
+                    tmp_pop[ind_2].a = 0.f;
+                }
+                if (tmp_pop[ind_2].a > 1.f) {
+                    tmp_pop[ind_2].a = 1.f;
+                }
+            }
+        }
+        // mutate b
+        {
+            if (mut_event(rng))
+            {
+                tmp_pop[ind_2].b += static_cast<int> (m_shift(rng));
+                if (tmp_pop[ind_2].b < 0.f) {
+                    tmp_pop[ind_2].b = 0.f;
+                }
+                if (tmp_pop[ind_2].b > 1.f) {
+                    tmp_pop[ind_2].b = 1.f;
+                }
+            }
+        }
+        // mutate c
+        {
+            if (mut_event(rng))
+            {
+                tmp_pop[ind_2].c += static_cast<int> (m_shift(rng));
+                if (tmp_pop[ind_2].c < 0.f) {
+                    tmp_pop[ind_2].c = 0.f;
+                }
+                if (tmp_pop[ind_2].c > 1.f) {
+                    tmp_pop[ind_2].c = 1.f;
                 }
             }
         }

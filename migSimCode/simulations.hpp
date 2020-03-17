@@ -8,8 +8,6 @@
 
 
 #include "params.hpp"
-#include "ann/rnd.hpp"
-#include "ann/ann2.hpp"
 #include "landscape.hpp"
 #include "agents.hpp"
 #include "landscape_dynamics.hpp"

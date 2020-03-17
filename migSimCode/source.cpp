@@ -8,8 +8,6 @@
 #include <string>
 #include <chrono>
 
-#include "ann/rnd.hpp"
-#include "ann/ann2.hpp"
 #include "params.hpp"
 #include "landscape.hpp"
 #include "agents.hpp"
