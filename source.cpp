@@ -28,6 +28,8 @@ int do_main()
     evolved_pop = evolve_pop(evolved_pop, genmax, tMax, foraging_turns,
                                                 RHO, PHI, landscape);
 
+    print_agents("data/data_agents.csv", evolved_pop);
+
     std::cout << "works so far\n";
     return 0;
 }
@@ -36,12 +38,6 @@ int do_main()
 /// function to test program
 void basic_test()
 {
-    landscape test_landscape;
-    std::vector<agent> test_pop(10);
-    test_pop = evolve_pop(test_pop, 10, 10, 10, 1.f, 1.f, test_landscape);
-
-    // check basic output
-    assert(static_cast<int>(test_pop.size()) == 10);
     assert(do_main() == 0);
 }
 
