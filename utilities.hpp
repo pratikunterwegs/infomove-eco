@@ -21,8 +21,7 @@ void print_agents(std::string output, std::vector<agent> pop)
 			<< pop[iout].M << ","
 			<< pop[iout].a << "," << pop[iout].b << "," << pop[iout].c << ","
 			<< pop[iout].prop_follow << ","
-			<< pop[iout].pos << ","
-			<< pop[iout].energy << "\n";
+            << pop[iout].pos << "\n";
 	}
 	agentofs.close();
 }
