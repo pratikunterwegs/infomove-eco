@@ -39,7 +39,8 @@ public:
         pos(0), M(0), D(0.f), // vector position, exploration range, giving up density
         mem_pos(0), // last foraged position
         energy(0.000001f),
-        mem_energy(0.f)
+        mem_energy(0.f),
+        prop_follow(0.f)
     {}
     ~agent() {}
 
@@ -47,7 +48,7 @@ public:
     float a, b, c;
     int pos, M; float D;
     int mem_pos;
-    float energy, mem_energy;
+    float energy, mem_energy, prop_follow;
     int id_self, id_leader, follow_instances, total_distance;
 
     bool chooseFollow(const agent& someagent);
@@ -72,6 +73,7 @@ bool agent::chooseFollow(const agent& someagent)
     if(do_follow) {
         // copy leader foraging site
         pos = someagent.pos;
+        prop_follow = (prop_follow + 1.f)/2.f;
     }
 
     return do_follow;
