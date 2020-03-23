@@ -1,8 +1,6 @@
 <!-- badges: start -->
-Branch|[Travis CI](https://travis-ci.org)|[Codecov](https://www.codecov.io)
----|---|---
-master|[![Build Status](https://travis-ci.org/pratikunterwegs/sim_Infomove.svg?branch=master)](https://travis-ci.org/pratikunterwegs/sim_Infomove)|[![codecov.io](https://codecov.io/github/pratikunterwegs/sim_Infomove/coverage.svg?branch=master)](https://codecov.io/github/pratikunterwegs/sim_Infomove/branch/master)
-
+master:[![Build Status](https://travis-ci.org/pratikunterwegs/sim_Infomove.svg?branch=master)](https://travis-ci.org/pratikunterwegs/sim_Infomove)
+[![codecov.io](https://codecov.io/github/pratikunterwegs/sim_Infomove/coverage.svg?branch=master)](https://codecov.io/github/pratikunterwegs/sim_Infomove/branch/master)
 [![Project Status: WIP – Initial development is in progress, but there has not yet been a stable, usable release suitable for the public.](https://www.repostatus.org/badges/latest/wip.svg)](https://www.repostatus.org/#wip)
 <!-- badges: end -->
 
