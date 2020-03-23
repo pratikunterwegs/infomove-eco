@@ -14,14 +14,14 @@ void print_agents(std::string output, std::vector<agent> pop)
 	// col header
 	// D = giving up density, M = exploration range
 	// a,b,c = evolved params for agent assessment
-    agentofs << "D,M,a,b,c,F,pos,energy\n";
+    agentofs << "D,M,a,b,c,F,pos\n";
     for (size_t iout = 0; iout < pop.size(); iout++)
 	{
 		agentofs << pop[iout].D << ","
 			<< pop[iout].M << ","
 			<< pop[iout].a << "," << pop[iout].b << "," << pop[iout].c << ","
 			<< pop[iout].prop_follow << ","
-            << pop[iout].pos << "\n";
+      << pop[iout].pos << "\n";
 	}
 	agentofs.close();
 }
