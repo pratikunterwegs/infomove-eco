@@ -144,11 +144,8 @@ void doFollowDynamic(std::vector<agent>& vecSomeAgents)
             lead_q.push_back(std::move(follow_q[static_cast<size_t>(ind)]));
             follow_q.pop_back();
         }
-
         ptl_followers --;
         ptl_leaders ++;
-
-//        std::cout << "leaders = " << ptl_leaders << "\n";
     }
     assert(lead_q.size() == vecSomeAgents.size() && "agents lost from q");
 
