@@ -31,7 +31,7 @@ std::vector<agent> evolve_pop(std::vector<agent> &pop,
         shufflePopSeq(pop);
         // loop through timesteps
         for (int t = 0; t < timesteps; t++) {
-            std::cout << "time = " << t << "\n";
+
             // reset leaders
             for (size_t ind = 0; static_cast<int>(ind) < popsize; ind++) {
                 doFollowDynamic(pop);
