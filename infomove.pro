@@ -31,6 +31,8 @@ HEADERS += \
     	landscape.hpp \
     	simulations.hpp
 
+LIBS += -L/usr/local/lib -lgsl -lgslcblas -lm
+
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
