@@ -10,7 +10,6 @@ QMAKE_CXXFLAGS += -Wall
 # allow debug and release
 CONFIG += debug_and_release
 
-
 # In release mode, turn on profiling
 CONFIG(release, debug|release) {
 
