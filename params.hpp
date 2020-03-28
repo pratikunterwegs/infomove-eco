@@ -11,13 +11,11 @@
 #include <fstream>
 #include <ostream>
 
-/// function to print vector output
-//template <class T>
-//void out_vec(const std::vector<T>& vec)
-//{
-//	std::copy(std::begin(vec), std::end(vec), std::ostream_iterator<T>(std::cout, " "));
-//	std::cout << "\n";
-//}
+// gsl libraries
+#include <stdio.h>
+#include <gsl/gsl_rng.h>
+#include <gsl/gsl_randist.h>
+
 
 // population params
 const int popsize = 25; // not too many
