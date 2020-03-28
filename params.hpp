@@ -42,8 +42,12 @@ const int DELTA = 100;
 // agent params
 const float move_cost = 0.01f;
 
-// random number generators
-std::random_device rd;
-std::mt19937_64 rng;
+// mutation params
+float m_prob = 0.001f;
+float m_shift = 0.01f;
+
+// make a gsl rng and a regular rng
+gsl_rng * r ;
+std::mt19937 rng;
 
 // end here
