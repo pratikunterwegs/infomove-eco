@@ -13,20 +13,6 @@
 #include "params.hpp"
 #include "landscape.hpp"
 
-/* define distributions */
-// pick random patch
-std::uniform_int_distribution<int> position_picker(0, n_patches - 1);
-
-// normal distribution for follow prob
-std::normal_distribution<float> follow_prob_picker(0.5f, 0.2f);
-
-// bernoulli distribution for circlewalk
-std::bernoulli_distribution walk_direction(0.5);
-
-// mutation distributions
-std::bernoulli_distribution mut_event(0.001); // mutation probability
-std::cauchy_distribution<double> m_shift(0.0, 0.01); // how much of mutation
-
 // agent class
 class agent
 {
