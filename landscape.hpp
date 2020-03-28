@@ -23,15 +23,14 @@ landscape::landscape(){
     resources = std::vector<float> (n_patches, maxFood);
 }
 
-std::normal_distribution<float> res_error(0.f, 0.1f);
-
 /// function to replenish food each generations
 void landscape::doMakeFood(const float& rho, const float& phi, const float& delta)
 {
     float max_land, min_land, range_land;
     for (size_t l = 0; static_cast<int>(l) < n_patches; l++)
     {
-        resources[l] = sinf(static_cast<float>(M_PIl) * l * phi + delta) + (rho * res_error(rng));
+        resources[l] = sinf(static_cast<float>(M_PIl) * l * phi + delta) +
+                (rho * static_cast<float>(gsl_ran_gaussian(r, 0.1)));
         max_land = max_land > resources[l] ? max_land : resources[l];
         min_land = min_land < resources[l] ? min_land : resources[l];
         range_land = max_land - min_land;
