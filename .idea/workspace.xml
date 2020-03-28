@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2610db84-0cc4-424b-87e7-a2ab24e0fd4f" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/code_analysis/code_peregrine.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/code_analysis/code_scratch.py" beforeDir="false" afterPath="$PROJECT_DIR$/code_analysis/code_scratch.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/infomove.pro" beforeDir="false" afterPath="$PROJECT_DIR$/infomove.pro" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/infomove.pro.user" beforeDir="false" afterPath="$PROJECT_DIR$/infomove.pro.user" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
