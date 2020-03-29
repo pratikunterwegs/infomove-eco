@@ -26,7 +26,7 @@ HEADERS += \
     	landscape.hpp \
     	simulations.hpp
 
-# LIBS += -L/usr/local/lib -lgsl -lgslcblas -lm
+LIBS += -L/usr/local/lib -lgsl -lgslcblas -lm
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
