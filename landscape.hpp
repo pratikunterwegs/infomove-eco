@@ -26,7 +26,7 @@ landscape::landscape(){
 /// function to replenish food each generations
 void landscape::doMakeFood(const float& rho, const float& phi, const float& delta)
 {
-    float max_land, min_land, range_land;
+    float max_land = 0.f, min_land = 0.f, range_land = 0.f;
     for (size_t l = 0; static_cast<int>(l) < n_patches; l++)
     {
         resources[l] = sinf(static_cast<float>(M_PIl) * l * phi + delta) +
