@@ -30,7 +30,7 @@ ssh_exec_wait(s, command = c("cd infomove/",
 
 # send commands
 shebang <- readLines("code_analysis/template_job.sh")
-pmap(sim_params, function(rho, phi, gens, timesteps, turns){
+pwalk(sim_params, function(rho, phi, gens, timesteps, turns){
   
   if(!dir.exists("jobs")){
     dir.create("jobs")
@@ -42,17 +42,17 @@ pmap(sim_params, function(rho, phi, gens, timesteps, turns){
     jobfile <- glue('jobs/job_infomove_phi{phi}_rho{rho}_time{timesteps}_turns{turns}.sh')
     
     writeLines(c(shebang, command), con = jobfile)
-    scp_upload(s, jobfile, to = "infomove/")
+    scp_upload(s, jobfile, to = "infomove/jobs/")
     file.remove(jobfile)
   }
   
   # run jobs; we are in infomove
-  ssh_exec_wait(s, command = glue('dos2unix {jobfile}'))
-  ssh_exec_wait(s, command = c(glue('sbatch {jobfile}')))
+  # ssh_exec_wait(s, command = glue('dos2unix {jobfile}'))
+  # ssh_exec_wait(s, command = c(glue('sbatch {jobfile}')))
 })
 
 # move into jobs, delete scripts and disconnect
-ssh_exec_wait(s, command = c("cd jobs",
+ssh_exec_wait(s, command = c("cd infomove/jobs",
                              "rm *.sh",
                              "cd .."))
 ssh_disconnect(s)
