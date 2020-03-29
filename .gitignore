@@ -56,3 +56,5 @@ Debug/
 
 # access params
 private/
+data/*.csv
+jobs/*.sh
