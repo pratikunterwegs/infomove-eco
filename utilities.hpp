@@ -39,8 +39,6 @@ void print_agents(std::vector<agent> &pop,
                  << pop[i].prop_follow << "\n";
     }
 
-    agent_ofs.close();
-
     // write summary with filename to agent data
     // and parameter files
     // start with outfile name
@@ -61,7 +59,6 @@ void print_agents(std::vector<agent> &pop,
                 << timesteps << ","
                 << turns << ","
                 << rep << "\n";
-    summary_ofs.close();
 }
 
 #endif /* end of include guard: UTILITIES */
