@@ -18,17 +18,11 @@ void print_agents(std::vector<agent> pop,
             std::to_string(turns)+
             "_rep_" + std::to_string(rep) +
             ".csv";
+
     std::ofstream agent_ofs;
-
-    // check if exists and write col names
-    std::ifstream f(outfile.c_str());
-    if(!f.good()){
-        agent_ofs.open(outfile, std::ofstream::out);
-        agent_ofs << "id,D,M,a,b,c,F\n";
-    }
-
     // append data to existing ofs
-    agent_ofs.open(outfile, std::ofstream::out|std::ofstream::app);
+    agent_ofs.open(outfile, std::ofstream::out);
+    agent_ofs << "id,D,M,a,b,c,F\n";
     for (size_t i = 0; i < pop.size(); i++) {
         agent_ofs << i << ","
                  << pop[i].D << ","

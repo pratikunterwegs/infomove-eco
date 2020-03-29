@@ -74,6 +74,7 @@ int main(int argc, char* argv[])
     // do simulation
     std::vector<agent> evolved_pop = evolve_pop(pop, genmax, timesteps, turns, RHO, PHI, landscape_);
 
+    std::cout << "pop evolved!" << "\n";
     // print evolved population params
     print_agents(evolved_pop, RHO, PHI, timesteps, turns, std::stoi(rep));
 
