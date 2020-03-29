@@ -16,13 +16,14 @@
 #include "utilities.hpp"
 
 // test wraparound
-void test_wraparound()
+void test_wrap_distance()
 {
-    int wrapped_val = wraparound(120, 100, 0);
-    assert(wrapped_val == 20);
+    int wrapped_val;
+    wrapped_val = wrap_distance(-1, 0, 100);
+    assert(wrapped_val == 99);
 
-    wrapped_val = wraparound(-20, 100, 0);
-    assert(wrapped_val == 80);
+    wrapped_val = wrap_distance(2, 99, 100);
+    assert(wrapped_val == 1);
 }
 
 
@@ -48,7 +49,7 @@ void test_cli_args(std::vector<std::string> cli_args) noexcept
 int main(int argc, char* argv[])
 {
     //basic tests
-    test_wraparound();
+    test_wrap_distance();
     std::vector<std::string> cli_args(argv, argv+argc);
     test_cli_args(cli_args);
 
