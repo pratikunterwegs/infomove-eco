@@ -12,7 +12,7 @@ phi = as.character(0.99)
 gens = factor("100000")
 timesteps = 100
 turns = 10
-rep = 1:2}
+rep = 1:10}
 
 sim_params = crossing(rho, phi, gens, timesteps, turns, rep)
 rm(rho, phi, gens, timesteps, turns)
