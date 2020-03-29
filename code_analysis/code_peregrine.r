@@ -7,11 +7,11 @@ library(glue)
 
 # make dataframe of strategy, m_param, and t_max
 # these will be passed as cli args
-{rho = as.character(seq(0.5, 5, 0.5))
-phi = as.character(1.0)
-gens = 100000
+{rho = as.character(seq(0.5, 5, 0.499))
+phi = as.character(0.99)
+gens = factor("100000")
 timesteps = 100
-turns = 5
+turns = 10
 rep = 1:2}
 
 sim_params = crossing(rho, phi, gens, timesteps, turns, rep)
@@ -34,8 +34,10 @@ ssh_exec_wait(s, command = c("cd infomove/",
                              "qmake infomove.pro",
                              "make --silent"))
 
-# send commands
+# read job shebang
 shebang <- readLines("code_analysis/template_job.sh")
+
+# send commands
 pwalk(sim_params, function(rho, phi, gens, timesteps, turns, rep){
   
   if(!dir.exists("jobs")){
