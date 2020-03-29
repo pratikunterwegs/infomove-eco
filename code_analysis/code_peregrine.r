@@ -14,7 +14,7 @@ timesteps = 100
 turns = 5}
 
 sim_params = crossing(rho, phi, gens, timesteps, turns)
-rm(strategy, m_param, t_max, rep)
+rm(rho, phi, gens, timesteps, turns)
 
 # read peregrine password
 password = read_lines("private/password.txt")
@@ -26,37 +26,35 @@ ssh_exec_wait(s, command = c("cd infomove/",
                              "rm *.sh",
                              "cd ..",
                              "git pull",
-                             "qmake infomove.pro",
-                             "make --silent debug",
-                             "make --silent release"))
+                             "make --silent"))
 
 # send commands
-shebang <- readLines("code_r/template_job.sh")
-pmap(sim_params, function(strategy, m_param, t_max, rep){
+shebang <- readLines("code_analysis/template_job.sh")
+pmap(sim_params, function(rho, phi, gens, timesteps, turns){
   
   if(!dir.exists("jobs")){
     dir.create("jobs")
   }
   
-  shebang[2] <- glue('#SBATCH --job-name=run_pathomove_{strategy}_{m_param}_{t_max}_{rep}')
+  shebang[2] <- glue('#SBATCH --job-name=run_infomove_phi{phi}_rho{rho}_time{timesteps}_turns{turns}')
   {
-    command <- glue('./pathomove {strategy} {m_param} {t_max} {rep}')
-    jobfile <- glue('jobs/job_pathomove_{strategy}_{m_param}_{t_max}_{rep}.sh')
+    command <- glue('./infomove {phi} {rho} {gens} {timesteps} {turns}')
+    jobfile <- glue('jobs/job_infomove_phi{phi}_rho{rho}_time{timesteps}_turns{turns}.sh')
     
     writeLines(c(shebang, command), con = jobfile)
-    scp_upload(s, jobfile, to = "pathomove/")
+    scp_upload(s, jobfile, to = "infomove/")
     file.remove(jobfile)
   }
   
-  # run jobs
+  # run jobs; we are in infomove
   ssh_exec_wait(s, command = glue('dos2unix {jobfile}'))
-  ssh_exec_wait(s, command = c("cd pathomove",
-                               glue('sbatch {jobfile}')))
+  ssh_exec_wait(s, command = c(glue('sbatch {jobfile}')))
 })
 
-# delete all jobfiles from peregrine and disconnect
-ssh_exec_wait(s, command = c("cd pathomove/jobs",
-                             "rm *.sh"))
+# move into jobs, delete scripts and disconnect
+ssh_exec_wait(s, command = c("cd jobs",
+                             "rm *.sh",
+                             "cd .."))
 ssh_disconnect(s)
 
 # ends here
