@@ -12,7 +12,7 @@ phi = as.character(1.0)
 gens = 100000
 timesteps = 100
 turns = 5
-rep = 1:10}
+rep = 1:2}
 
 sim_params = crossing(rho, phi, gens, timesteps, turns, rep)
 rm(rho, phi, gens, timesteps, turns)
@@ -59,6 +59,7 @@ pwalk(sim_params, function(rho, phi, gens, timesteps, turns, rep){
 # move into jobs, delete scripts and disconnect
 ssh_exec_wait(s, command = c("cd infomove/jobs",
                              "rm *.sh",
+                             "mv data/*csv ../data",
                              "cd .."))
 ssh_disconnect(s)
 
