@@ -10,7 +10,6 @@ QMAKE_CXXFLAGS += -Wall
 # allow debug and release
 CONFIG += debug_and_release
 
-
 # In release mode, turn on profiling
 CONFIG(release, debug|release) {
 
@@ -31,6 +30,8 @@ HEADERS += \
         utilities.hpp \
     	landscape.hpp \
     	simulations.hpp
+
+LIBS += -L/usr/local/lib -lgsl -lgslcblas -lm
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

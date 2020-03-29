@@ -13,20 +13,6 @@
 #include "params.hpp"
 #include "landscape.hpp"
 
-/* define distributions */
-// pick random patch
-std::uniform_int_distribution<int> position_picker(0, n_patches - 1);
-
-// normal distribution for follow prob
-std::normal_distribution<float> follow_prob_picker(0.5f, 0.2f);
-
-// bernoulli distribution for circlewalk
-std::bernoulli_distribution walk_direction(0.5);
-
-// mutation distributions
-std::bernoulli_distribution mut_event(0.001); // mutation probability
-std::cauchy_distribution<double> m_shift(0.0, 0.01); // how much of mutation
-
 // agent class
 class agent
 {
@@ -69,7 +55,8 @@ bool agent::chooseFollow(const agent& someagent)
 
     float p_follow = 1 / (1 + (exp(a - (b*energy) - (c*someagent.energy))));
 
-    bool do_follow = p_follow > follow_prob_picker(rng);
+    bool do_follow = p_follow >
+            (0.5f + static_cast<float>(gsl_ran_gaussian(r, 0.2)));
     if(do_follow) {
         // copy leader foraging site
         pos = someagent.pos;
@@ -101,7 +88,7 @@ void doFollowDynamic(std::vector<agent>& vecSomeAgents)
         {
             // first pick a random position
             follow_q[static_cast<size_t>(ind)].pos =
-                    position_picker(rng);
+                    static_cast<int>(gsl_rng_uniform_int(r, n_patches));
 
             bool follow_outcome = false;
             int ld = ptl_leaders - 1;
@@ -144,11 +131,8 @@ void doFollowDynamic(std::vector<agent>& vecSomeAgents)
             lead_q.push_back(std::move(follow_q[static_cast<size_t>(ind)]));
             follow_q.pop_back();
         }
-
         ptl_followers --;
         ptl_leaders ++;
-
-//        std::cout << "leaders = " << ptl_leaders << "\n";
     }
     assert(lead_q.size() == vecSomeAgents.size() && "agents lost from q");
 
@@ -174,8 +158,10 @@ void do_reprod(std::vector<agent>& pop)
         fitness_vec.push_back(static_cast<double> (pop[ind_2].energy));
     }
 
-    // weighted lottery
-    std::discrete_distribution<> weighted_lottery(fitness_vec.begin(), fitness_vec.end());
+    // weighted lottery setup using gsl
+    gsl_ran_discrete_t * g;
+    double* f_v = &fitness_vec[0];
+    g = gsl_ran_discrete_preproc(fitness_vec.size(), f_v);
 
     // create new population
     std::vector<agent> tmp_pop(popsize);
@@ -183,14 +169,14 @@ void do_reprod(std::vector<agent>& pop)
     // assign parents
     for (size_t ind_2 = 0; static_cast<int>(ind_2) < popsize; ind_2++) {
 
-        size_t parent_id = static_cast<size_t> (weighted_lottery(rng));
+        size_t parent_id = gsl_ran_discrete(r, g);
 
         // replicate gene loci controlling following
         tmp_pop[ind_2].a = pop[parent_id].a;
         tmp_pop[ind_2].b = pop[parent_id].b;
         tmp_pop[ind_2].c = pop[parent_id].c;
         // get random position
-        tmp_pop[ind_2].pos = position_picker(rng);
+        tmp_pop[ind_2].pos = static_cast<int>(gsl_rng_uniform_int(r, n_patches));
         // inherit giving up density parameter
         tmp_pop[ind_2].D = pop[parent_id].D;
         // inherit exploration parameter
@@ -199,9 +185,9 @@ void do_reprod(std::vector<agent>& pop)
         // mutate giving up density parameter
         {
             // probabilistic mutation of giving up density
-            if (mut_event(rng))
+            if (gsl_ran_bernoulli(r, static_cast<double>(m_prob)) == 1)
             {
-                tmp_pop[ind_2].D += static_cast<float> (m_shift(rng));
+                tmp_pop[ind_2].D += static_cast<float> (gsl_ran_cauchy(r, static_cast<double>(m_shift)));
                 if (tmp_pop[ind_2].D > 1.f) {
                     tmp_pop[ind_2].D = 1.f;
                 }
@@ -212,9 +198,9 @@ void do_reprod(std::vector<agent>& pop)
         }
         // mutate exploration parameter
         {
-            if (mut_event(rng))
+            if (gsl_ran_bernoulli(r, static_cast<double>(m_prob)) == 1)
             {
-                tmp_pop[ind_2].M += static_cast<int> (m_shift(rng));
+                tmp_pop[ind_2].M += static_cast<float> (gsl_ran_cauchy(r, static_cast<double>(m_shift)));
                 if (tmp_pop[ind_2].M < 0) {
                     tmp_pop[ind_2].M = 0;
                 }
@@ -222,9 +208,9 @@ void do_reprod(std::vector<agent>& pop)
         }
         // mutate a
         {
-            if (mut_event(rng))
+            if (gsl_ran_bernoulli(r, static_cast<double>(m_prob)) == 1)
             {
-                tmp_pop[ind_2].a += static_cast<int> (m_shift(rng));
+                tmp_pop[ind_2].a += static_cast<float> (gsl_ran_cauchy(r, static_cast<double>(m_shift)));
                 if (tmp_pop[ind_2].a < 0.f) {
                     tmp_pop[ind_2].a = 0.f;
                 }
@@ -235,9 +221,9 @@ void do_reprod(std::vector<agent>& pop)
         }
         // mutate b
         {
-            if (mut_event(rng))
+            if (gsl_ran_bernoulli(r, static_cast<double>(m_prob)) == 1)
             {
-                tmp_pop[ind_2].b += static_cast<int> (m_shift(rng));
+                tmp_pop[ind_2].b += static_cast<float> (gsl_ran_cauchy(r, static_cast<double>(m_shift)));
                 if (tmp_pop[ind_2].b < 0.f) {
                     tmp_pop[ind_2].b = 0.f;
                 }
@@ -248,9 +234,9 @@ void do_reprod(std::vector<agent>& pop)
         }
         // mutate c
         {
-            if (mut_event(rng))
+            if (gsl_ran_bernoulli(r, static_cast<double>(m_prob)) == 1)
             {
-                tmp_pop[ind_2].c += static_cast<int> (m_shift(rng));
+                tmp_pop[ind_2].c += static_cast<float> (gsl_ran_cauchy(r, static_cast<double>(m_shift)));
                 if (tmp_pop[ind_2].c < 0.f) {
                     tmp_pop[ind_2].c = 0.f;
                 }

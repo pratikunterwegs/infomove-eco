@@ -13,7 +13,7 @@
 #include "landscape_dynamics.hpp"
 
 /// function to evolve population
-std::vector<agent> evolve_pop(std::vector<agent> &pop,
+void evolve_pop(std::vector<agent> &pop,
                             const int genmax, const int timesteps,
                             const int foraging_turns,
                             const float RHO, const float PHI,
@@ -21,17 +21,14 @@ std::vector<agent> evolve_pop(std::vector<agent> &pop,
 {
 
     std::cout << "evolving on PHI = " << PHI << " RHO = " << RHO << "\n";
-
+    auto t1 = std::chrono::high_resolution_clock::now();
     // run over n agents
     for (int gen = 0; gen < genmax; gen++) {
-        auto t1 = std::chrono::high_resolution_clock::now();
-        std::cout << "gen = " << gen << " ";
-
         // shuffle population once per gen
         shufflePopSeq(pop);
         // loop through timesteps
         for (int t = 0; t < timesteps; t++) {
-            std::cout << "time = " << t << "\n";
+
             // reset leaders
             for (size_t ind = 0; static_cast<int>(ind) < popsize; ind++) {
                 doFollowDynamic(pop);
@@ -41,15 +38,10 @@ std::vector<agent> evolve_pop(std::vector<agent> &pop,
 
         landscape.doMakeFood(RHO, PHI, DELTA);
         do_reprod(pop);
-
-        auto t2 = std::chrono::high_resolution_clock::now();
-        auto duration = std::chrono::duration_cast<std::chrono::microseconds>( t2 - t1 ).count();
-        std::cout << duration << "ms\n";
-
     }
-
-    std::cout << "pop evolved...\n";
-    return pop;
+    auto t2 = std::chrono::high_resolution_clock::now();
+    auto duration = std::chrono::duration_cast<std::chrono::microseconds>( t2 - t1 ).count();
+    std::cout << "pop evolve time: " << duration << "\n";
 }
 
 // ends here

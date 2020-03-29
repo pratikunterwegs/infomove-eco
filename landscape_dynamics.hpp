@@ -2,12 +2,13 @@
 
 /// header controlling depletion dynamics
 #include "params.hpp"
+#include "landscape.hpp"
 #include "agents.hpp"
 #include <cmath>
 #include <vector>
 
-/// wrapper function
-int wrapper(int distance, int current_val, int max_val) {
+/// wrap_distance function
+int wrap_distance(int distance, int current_val, int max_val) {
 
     int new_pos = (max_val + current_val + distance) % max_val;
     return new_pos;
@@ -16,7 +17,7 @@ int wrapper(int distance, int current_val, int max_val) {
 /// function to deplete landscape
 void agent::deplete_and_move(landscape& landscape)
 {
-   size_t to_deplete = static_cast<size_t> (wrapper(-M, pos, n_patches));
+   size_t to_deplete = static_cast<size_t> (wrap_distance(-M, pos, n_patches));
 
    float avg_left = 0.f;
    float avg_right = 0.f;
@@ -26,7 +27,7 @@ void agent::deplete_and_move(landscape& landscape)
     std::vector<int> vec_pos(static_cast<size_t>(2 * M + 1));
 
     for (int m = -M; m <= M; m++) {
-        size_t tmp_p = static_cast<size_t>(wrapper(m, pos, n_patches));
+        size_t tmp_p = static_cast<size_t>(wrap_distance(m, pos, n_patches));
 
         if (m > 0){
             avg_right += landscape.resources[tmp_p];
@@ -52,8 +53,8 @@ void agent::deplete_and_move(landscape& landscape)
     landscape.resources[to_deplete] = 0;
 
     // movement section
-    if(avg_right > avg_left && avg_right > curr_pos){ pos = wrapper(1, pos, n_patches); }
-    else if (avg_left > avg_right && avg_left > curr_pos) { pos = wrapper(-1, pos, n_patches);  }
+    if(avg_right > avg_left && avg_right > curr_pos){ pos = wrap_distance(1, pos, n_patches); }
+    else if (avg_left > avg_right && avg_left > curr_pos) { pos = wrap_distance(-1, pos, n_patches);  }
 
 }
 
