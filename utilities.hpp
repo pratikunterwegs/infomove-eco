@@ -5,7 +5,7 @@
 #include <vector>
 
 /// function to print data from an evolved population
-void print_agents(std::vector<agent> &pop,
+void print_agents(std::vector<agent> pop,
                   const float rho, const float phi,
                   const int timesteps, const int turns,
                   const int rep){
@@ -24,11 +24,11 @@ void print_agents(std::vector<agent> &pop,
     std::ifstream f(outfile.c_str());
     if(!f.good()){
         agent_ofs.open(outfile, std::ofstream::out);
-        agent_ofs << "id,D,M,a,b,c,F";
+        agent_ofs << "id,D,M,a,b,c,F\n";
     }
 
     // append data to existing ofs
-    agent_ofs.open(outfile, std::ofstream::app);
+    agent_ofs.open(outfile, std::ofstream::out|std::ofstream::app);
     for (size_t i = 0; i < pop.size(); i++) {
         agent_ofs << i << ","
                  << pop[i].D << ","

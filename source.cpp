@@ -72,10 +72,10 @@ int main(int argc, char* argv[])
     landscape landscape_;
 
     // do simulation
-    evolve_pop(pop, genmax, timesteps, turns, RHO, PHI, landscape_);
+    std::vector<agent> evolved_pop = evolve_pop(pop, genmax, timesteps, turns, RHO, PHI, landscape_);
 
     // print evolved population params
-    print_agents(pop, RHO, PHI, timesteps, turns, std::stoi(rep));
+    print_agents(evolved_pop, RHO, PHI, timesteps, turns, std::stoi(rep));
 
     // print landscape as well -- later
 }
