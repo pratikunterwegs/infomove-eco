@@ -5,7 +5,7 @@
 #include <vector>
 
 /// function to print data from an evolved population
-void print_agents(std::vector<agent> &pop,
+void print_agents(std::vector<agent> pop,
                   const float rho, const float phi,
                   const int timesteps, const int turns,
                   const int rep){

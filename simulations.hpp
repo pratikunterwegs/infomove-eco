@@ -13,7 +13,7 @@
 #include "landscape_dynamics.hpp"
 
 /// function to evolve population
-void evolve_pop(std::vector<agent> &pop,
+std::vector<agent> evolve_pop(std::vector<agent> &pop,
                             const int genmax, const int timesteps,
                             const int foraging_turns,
                             const float RHO, const float PHI,
@@ -42,6 +42,8 @@ void evolve_pop(std::vector<agent> &pop,
     auto t2 = std::chrono::high_resolution_clock::now();
     auto duration = std::chrono::duration_cast<std::chrono::microseconds>( t2 - t1 ).count();
     std::cout << "pop evolve time: " << duration << "\n";
+
+    return pop;
 }
 
 // ends here
