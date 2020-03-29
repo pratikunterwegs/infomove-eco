@@ -11,14 +11,14 @@ QMAKE_CXXFLAGS += -Wall
 CONFIG += debug_and_release
 
 # In release mode, turn on profiling
-CONFIG(release, debug|release) {
-
-  DEFINES += NDEBUG
-
-  # gprof
-  QMAKE_CXXFLAGS += -pg
-  QMAKE_LFLAGS += -pg
-}
+# CONFIG(release, debug|release) {
+#
+# DEFINES += NDEBUG
+# 
+# # gprof
+# QMAKE_CXXFLAGS += -pg
+# QMAKE_LFLAGS += -pg
+# }
 
 SOURCES += \
     source.cpp

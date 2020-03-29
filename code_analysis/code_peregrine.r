@@ -22,7 +22,9 @@ password = read_lines("private/password.txt")
 # connect to cluster and pull from master
 s <- ssh_connect("p284074@peregrine.hpc.rug.nl", passwd = password)
 ssh_exec_wait(s, command = c("cd infomove/",
-                             "rm jobs/*.sh",
+                             "cd jobs",
+                             "rm *.sh",
+                             "cd ..",
                              "git pull",
                              "qmake infomove.pro",
                              "make --silent debug",
