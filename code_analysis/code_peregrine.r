@@ -7,15 +7,15 @@ library(glue)
 
 # make dataframe of strategy, m_param, and t_max
 # these will be passed as cli args
-{rho = as.character(seq(0.5, 5, 0.5))
-phi = as.character(1.0)
-gens = 100000
+{phi = as.character(seq(5, 15, 5)) # number of peaks
+rho = as.character(0.09)
+gens = factor("1000")
 timesteps = 100
-turns = 5
-rep = 1:2}
+init_d = c(0.1, 0.5, 1.0)
+rep = 1:10}
 
-sim_params = crossing(rho, phi, gens, timesteps, turns, rep)
-rm(rho, phi, gens, timesteps, turns)
+sim_params = crossing(rho, phi, gens, timesteps, init_d, rep)
+rm(phi, rho, gens, timesteps, init_d)
 
 # read peregrine password
 password = read_lines("private/password.txt")
@@ -26,32 +26,33 @@ ssh_exec_wait(s, command = c("cd infomove/",
                              "cd jobs",
                              "rm *.sh",
                              "cd ..",
-                             "git checkout Makefile",
-                             "git checkout infomove",
                              "git pull",
                              "ml load GCC/8.3.0",
                              "ml load GSL/2.6-GCC-8.3.0",
                              "qmake infomove.pro",
-                             "make --silent"))
+                             "make clean -j4",
+                             "make -j4"))
+
+# read job shebang
+shebang <- readLines("code_analysis/template_job.sh")
 
 # send commands
-shebang <- readLines("code_analysis/template_job.sh")
-pwalk(sim_params, function(rho, phi, gens, timesteps, turns, rep){
-  
+pwalk(sim_params, function(rho, phi, gens, timesteps, init_d, rep){
+
   if(!dir.exists("jobs")){
     dir.create("jobs")
   }
-  
-  shebang[2] <- glue('#SBATCH --job-name=run_infomove_phi{phi}_rho{rho}_time{timesteps}_turns{turns}_rep{rep}')
+
+  shebang[2] <- glue('#SBATCH --job-name=run_infomove_phi{phi}_rho{rho}_time{timesteps}_init_d{init_d}_rep{rep}')
   {
-    command <- glue('.././infomove {phi} {rho} {gens} {timesteps} {turns} {rep}')
-    jobfile <- glue('job_infomove_phi{phi}_rho{rho}_time{timesteps}_turns{turns}_rep{rep}.sh')
-    
+    command <- glue('./infomove {phi} {rho} {gens} {timesteps} {init_d} {rep}')
+    jobfile <- glue('job_infomove_phi{phi}_rho{rho}_time{timesteps}_init_d{init_d}_rep{rep}.sh')
+
     writeLines(c(shebang, command), con = glue('jobs/{jobfile}'))
     scp_upload(s, glue('jobs/{jobfile}'), to = "infomove/jobs/")
     file.remove(glue('jobs/{jobfile}'))
   }
-  
+
   # run jobs; we are in infomove
   ssh_exec_wait(s, command = c("cd infomove/jobs",
                                glue('dos2unix {jobfile}'),
