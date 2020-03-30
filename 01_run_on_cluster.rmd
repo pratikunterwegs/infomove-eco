@@ -1,5 +1,5 @@
 ---
-editor_options: 
+editor_options:
   chunk_output_type: console
 ---
 
@@ -86,4 +86,3 @@ ssh_exec_wait(s, command = c("cd infomove/jobs",
                              "cd .."))
 ssh_disconnect(s)
 ```
-
