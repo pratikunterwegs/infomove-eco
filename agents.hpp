@@ -20,9 +20,8 @@ public:
     agent() :
         // heritable params for interaction follow botero et al. 2010
         a(0.f), // inflection point
-        b(0.f), // slope for own quality
-        c(0.f), // slope for leader quality
-        pos(0), M(0), D(0.f), // vector position, exploration range, giving up density
+        b(0.f), // slope for difference in quality
+        pos(0), M(2), D(0.5), // vector position, exploration range, giving up density
         mem_pos(0), // last foraged position
         energy(0.000001f),
         mem_energy(0.f),
@@ -31,7 +30,7 @@ public:
     ~agent() {}
 
     // agents need a brain, an age, fitness, and movement decision
-    float a, b, c;
+    float a, b;
     int pos, M; float D;
     int mem_pos;
     float energy, mem_energy, prop_follow;
@@ -40,6 +39,12 @@ public:
     bool chooseFollow(const agent& someagent);
     void deplete_and_move(landscape& landscape);
 };
+
+void force_d(std::vector<agent>& pop, const float d){
+  for(size_t i = 0; i < pop.size(); i++){
+    pop[i].D = d;
+  }
+}
 
 /// agent functions here
 /// function to shuffle agents for movement order
@@ -53,7 +58,7 @@ bool agent::chooseFollow(const agent& someagent)
 {
     // agents assess neighbour body reserves
 
-    float p_follow = 1 / (1 + (exp(a - (b*energy) - (c*someagent.energy))));
+    float p_follow = 1 / (1 + (exp(-b*(mem_energy - someagent.mem_energy - a))));
 
     bool do_follow = p_follow >
             (0.5f + static_cast<float>(gsl_ran_gaussian(r, 0.2)));
@@ -144,7 +149,7 @@ void doFollowDynamic(std::vector<agent>& vecSomeAgents)
 /* population level functions */
 
 /// function to reproduce
-void do_reprod(std::vector<agent>& pop)
+void do_reprod(std::vector<agent>& pop, bool evolve_m)
 {
     // make fitness vec
     std::vector<double> fitness_vec;
@@ -174,7 +179,7 @@ void do_reprod(std::vector<agent>& pop)
         // replicate gene loci controlling following
         tmp_pop[ind_2].a = pop[parent_id].a;
         tmp_pop[ind_2].b = pop[parent_id].b;
-        tmp_pop[ind_2].c = pop[parent_id].c;
+
         // get random position
         tmp_pop[ind_2].pos = static_cast<int>(gsl_rng_uniform_int(r, n_patches));
         // inherit giving up density parameter
@@ -197,6 +202,7 @@ void do_reprod(std::vector<agent>& pop)
             }
         }
         // mutate exploration parameter
+        if(evolve_m)
         {
             if (gsl_ran_bernoulli(r, static_cast<double>(m_prob)) == 1)
             {
@@ -232,20 +238,6 @@ void do_reprod(std::vector<agent>& pop)
                 }
             }
         }
-        // mutate c
-        {
-            if (gsl_ran_bernoulli(r, static_cast<double>(m_prob)) == 1)
-            {
-                tmp_pop[ind_2].c += static_cast<float> (gsl_ran_cauchy(r, static_cast<double>(m_shift)));
-                if (tmp_pop[ind_2].c < 0.f) {
-                    tmp_pop[ind_2].c = 0.f;
-                }
-                if (tmp_pop[ind_2].c > 1.f) {
-                    tmp_pop[ind_2].c = 1.f;
-                }
-            }
-        }
-
     }
 
     // swap tmp pop for pop
