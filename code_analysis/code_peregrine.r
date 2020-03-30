@@ -7,7 +7,7 @@ library(glue)
 
 # make dataframe of strategy, m_param, and t_max
 # these will be passed as cli args
-{phi = as.character(seq(5, 15, 5))
+{phi = as.character(seq(5, 15, 5)) # number of peaks
 rho = as.character(0.09)
 gens = factor("1000")
 timesteps = 100
