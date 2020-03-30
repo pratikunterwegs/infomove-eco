@@ -9,12 +9,12 @@ library(glue)
 # these will be passed as cli args
 {phi = as.character(seq(5, 15, 5)) # number of peaks
 rho = as.character(0.09)
-gens = factor("1000")
+gens = factor("10000")
 timesteps = 100
 init_d = c(0.1, 0.5, 1.0)
 rep = 1:10}
 
-sim_params = crossing(rho, phi, gens, timesteps, init_d, rep)
+sim_params = crossing(phi, rho, gens, timesteps, init_d, rep)
 rm(phi, rho, gens, timesteps, init_d)
 
 # read peregrine password
@@ -62,7 +62,7 @@ pwalk(sim_params, function(rho, phi, gens, timesteps, init_d, rep){
 # move into jobs, delete scripts and disconnect
 ssh_exec_wait(s, command = c("cd infomove/jobs",
                              "rm *.sh",
-                             "mv data/*csv ../data",
+                             "mv data/*.csv ../data",
                              "cd .."))
 ssh_disconnect(s)
 
