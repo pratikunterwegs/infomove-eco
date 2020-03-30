@@ -60,7 +60,7 @@ int main(int argc, char* argv[])
     r = gsl_rng_alloc (T);
 
     // gather cli args
-    const float PHI = std::stoi(cli_args[1]);
+    const int PHI = std::stoi(cli_args[1]);
     const float RHO = std::stof(cli_args[2]);
     const int genmax = std::stoi(cli_args[3]);
     const int timesteps = std::stoi(cli_args[4]);

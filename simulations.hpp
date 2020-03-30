@@ -15,7 +15,7 @@
 /// function to evolve population
 std::vector<agent> evolve_pop_no_M(std::vector<agent> &pop,
   const int genmax, const int timesteps,
-  const float PHI, const float RHO,
+  const int PHI, const float RHO,
   landscape& landscape)
   {
 
@@ -44,7 +44,7 @@ std::vector<agent> evolve_pop_no_M(std::vector<agent> &pop,
   /// function to evolve population
   std::vector<agent> evolve_pop_no_info(std::vector<agent> &pop,
     const int genmax, const int timesteps,
-    const float PHI, const float RHO,
+    const int PHI, const float RHO,
     landscape& landscape)
     {
 
