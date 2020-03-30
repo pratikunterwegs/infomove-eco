@@ -150,7 +150,7 @@ void doFollowDynamic(std::vector<agent>& vecSomeAgents)
 void do_move_noinfo(std::vector<agent>& vecSomeAgents)
 {
     assert(vecSomeAgents.size() > 0 && "doFollowDynamic: moveQ is empty at start");
-    for (size_t ind = 0; ind < count; ind++) {
+    for (size_t ind = 0; ind < vecSomeAgents.size(); ind++) {
       // choose from among leaders if memory of last position is less than D
       if(vecSomeAgents[static_cast<size_t>(ind)].mem_energy <
               vecSomeAgents[static_cast<size_t>(ind)].D)
