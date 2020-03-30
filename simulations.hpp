@@ -13,10 +13,9 @@
 #include "landscape_dynamics.hpp"
 
 /// function to evolve population
-std::vector<agent> evolve_pop(std::vector<agent> &pop,
+std::vector<agent> evolve_pop_no_M(std::vector<agent> &pop,
                             const int genmax, const int timesteps,
-                            const int foraging_turns,
-                            const float RHO, const float PHI,
+                            const float PHI, const float RHO,
                             landscape& landscape)
 {
 
@@ -32,12 +31,11 @@ std::vector<agent> evolve_pop(std::vector<agent> &pop,
             // reset leaders
             for (size_t ind = 0; static_cast<int>(ind) < popsize; ind++) {
                 doFollowDynamic(pop);
-                do_foraging_dynamic(landscape, pop, foraging_turns);
+                do_foraging_dynamic(landscape, pop);
             }
+            landscape.doMakeFood(PHI, RHO); // landscape replenish
         }
-
-        landscape.doMakeFood(RHO, PHI, DELTA);
-        do_reprod(pop);
+        do_reprod(pop, false); // do no evolve M
     }
     auto t2 = std::chrono::high_resolution_clock::now();
     auto duration = std::chrono::duration_cast<std::chrono::microseconds>( t2 - t1 ).count();
