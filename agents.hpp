@@ -85,7 +85,7 @@ void doFollowDynamic(std::vector<agent>& vecSomeAgents)
 
     int ind = ptl_followers - 1;
 
-    while(ptl_followers > 0) {
+    while(ind >= 0) {
 
         // choose from among leaders if memory of last position is less than D
         if(follow_q[static_cast<size_t>(ind)].mem_energy <
@@ -103,8 +103,11 @@ void doFollowDynamic(std::vector<agent>& vecSomeAgents)
 
                 lead_q.push_back(std::move(follow_q[static_cast<size_t>(ind)]));
                 follow_q.pop_back();
+                ind --;
+                ptl_leaders++;
             }
 
+            // if there are fewer leaders than assessment allowed
             else if(ptl_leaders < leader_choices){
                 while (ld >= 0 && follow_outcome == false) {
                     follow_outcome = follow_q[static_cast<size_t>(ind)].chooseFollow(lead_q[static_cast<size_t>(ld)]);
@@ -113,6 +116,8 @@ void doFollowDynamic(std::vector<agent>& vecSomeAgents)
 
                         lead_q.push_back(std::move(follow_q[static_cast<size_t>(ind)]));
                         follow_q.pop_back();
+                        ind --;
+                        ptl_leaders++;
                     }
                     ld --;
                 }
@@ -127,6 +132,8 @@ void doFollowDynamic(std::vector<agent>& vecSomeAgents)
 
                         lead_q.push_back(std::move(follow_q[static_cast<size_t>(ind)]));
                         follow_q.pop_back();
+                        ind --;
+                        ptl_leaders++;
                     }
                     ld --;
                 }
@@ -135,9 +142,9 @@ void doFollowDynamic(std::vector<agent>& vecSomeAgents)
         else {
             lead_q.push_back(std::move(follow_q[static_cast<size_t>(ind)]));
             follow_q.pop_back();
+            ind --;
+            ptl_leaders++;
         }
-        ptl_followers --;
-        ptl_leaders ++;
     }
     assert(lead_q.size() == vecSomeAgents.size() && "agents lost from q");
 
