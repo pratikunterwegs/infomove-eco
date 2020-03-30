@@ -18,7 +18,7 @@
 
 
 // population params
-const int popsize = 1000; // not too many
+const int popsize = 500; // not too many
 const int leader_choices = 10;
 
 // landscape params
@@ -27,14 +27,12 @@ const float maxFood = 1.f;
 const float maxDepletion = 0.1f;
 const float max_regrowth = 0.2f;
 
-const int DELTA = 100;
-
 // agent params
 const float move_cost = 0.01f;
 
 // mutation params
-const float m_prob = 0.001f;
 const float m_shift = 0.01f;
+const float m_prob = 0.01f;
 
 // make a gsl rng and a regular rng
 gsl_rng * r ;
