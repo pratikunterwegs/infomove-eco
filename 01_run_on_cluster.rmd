@@ -1,10 +1,22 @@
-# script to create infoomove jobs on peregrine
+---
+editor_options:
+  chunk_output_type: console
+---
 
+# Run infomove on cluster
+
+## Prepare libraries
+
+```{r load_libs, eval=FALSE}
 # load libs
 library(tidyverse)
 library(ssh)
 library(glue)
+```
 
+## Prepare parameters
+
+```{r prepare_parameters, eval=FALSE}
 # make dataframe of strategy, m_param, and t_max
 # these will be passed as cli args
 {phi = as.character(seq(5, 15, 5)) # number of peaks
@@ -16,7 +28,11 @@ rep = 1:10}
 
 sim_params = crossing(phi, rho, gens, timesteps, init_d, rep)
 rm(phi, rho, gens, timesteps, init_d)
+```
 
+## Prepare infomove on Peregrine
+
+```{r prepare_infomove, eval=FALSE}
 # read peregrine password
 password = read_lines("private/password.txt")
 
@@ -32,7 +48,11 @@ ssh_exec_wait(s, command = c("cd infomove/",
                              "qmake infomove.pro",
                              "make clean -j4",
                              "make -j4"))
+```
 
+## Run infomove
+
+```{r prepare_jobs_run, eval=FALSE}
 # read job shebang
 shebang <- readLines("code_analysis/template_job.sh")
 
@@ -65,5 +85,4 @@ ssh_exec_wait(s, command = c("cd infomove/jobs",
                              "mv data/*.csv ../data",
                              "cd .."))
 ssh_disconnect(s)
-
-# ends here
+```

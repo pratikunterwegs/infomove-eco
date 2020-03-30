@@ -58,6 +58,8 @@ int main(int argc, char* argv[])
     gsl_rng_env_setup();
     T = gsl_rng_default;
     r = gsl_rng_alloc (T);
+    unsigned seed = static_cast<unsigned> (std::chrono::system_clock::now().time_since_epoch().count());
+    gsl_rng_set(r, seed);
 
     // gather cli args
     const int PHI = std::stoi(cli_args[1]);
