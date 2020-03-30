@@ -71,6 +71,7 @@ int main(int argc, char* argv[])
     std::vector<agent> pop (popsize);
     force_d(pop, init_d);
     landscape landscape_;
+    landscape_.doMakeFood(PHI, RHO);
 
     // do simulation
     std::vector<agent> evolved_pop = evolve_pop_no_M(pop, genmax, timesteps, PHI, RHO, landscape_);
