@@ -73,14 +73,11 @@ int main(int argc, char* argv[])
     landscape landscape_;
     landscape_.doMakeFood(PHI, RHO);
 
-    // do simulation
-    std::vector<agent> evolved_pop = evolve_pop_no_M(pop, genmax, timesteps, PHI, RHO, landscape_);
+    std::string outfile = identify_outfile(PHI, RHO, timesteps, init_d, std::stoi(rep));
+
+    evolve_pop_no_M(pop, genmax, timesteps, PHI, RHO, landscape_, outfile);
 
     std::cout << "pop evolved!" << "\n";
-    // print evolved population params
-    print_agents(evolved_pop, PHI, RHO, timesteps, init_d, std::stoi(rep));
-
-    // print landscape as well -- later
 }
 
 // end here
