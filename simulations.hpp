@@ -10,13 +10,14 @@
 #include "params.hpp"
 #include "landscape.hpp"
 #include "agents.hpp"
+#include "utilities.hpp"
 #include "landscape_dynamics.hpp"
 
 /// function to evolve population
 std::vector<agent> evolve_pop_no_M(std::vector<agent> &pop,
   const int genmax, const int timesteps,
   const int PHI, const float RHO,
-  landscape& landscape)
+  landscape& landscape, std::string outfile)
   {
 
     std::cout << "evolving on PHI = " << PHI << " RHO = " << RHO << "\n";
@@ -31,6 +32,11 @@ std::vector<agent> evolve_pop_no_M(std::vector<agent> &pop,
         do_foraging_dynamic(landscape, pop);
       }
       landscape.doMakeFood(PHI, RHO); // landscape replenish
+
+      if((gen == 0) | (gen % epoch == 0) | (gen == genmax - 1)){
+        print_agents(pop, gen, outfile);
+      }
+
       do_reprod(pop, false); // do no evolve M
     }
     auto t2 = std::chrono::high_resolution_clock::now();
@@ -45,7 +51,7 @@ std::vector<agent> evolve_pop_no_M(std::vector<agent> &pop,
   std::vector<agent> evolve_pop_no_info(std::vector<agent> &pop,
     const int genmax, const int timesteps,
     const int PHI, const float RHO,
-    landscape& landscape)
+    landscape& landscape, std::string outfile)
     {
 
       std::cout << "evolving on PHI = " << PHI << " RHO = " << RHO << "\n";
@@ -60,7 +66,11 @@ std::vector<agent> evolve_pop_no_M(std::vector<agent> &pop,
           do_foraging_dynamic(landscape, pop);
         }
         landscape.doMakeFood(PHI, RHO); // landscape replenish
-        do_reprod(pop, false); // do no evolve M
+
+        if((gen == 0) | (gen % epoch == 0)){
+          print_agents(pop, gen, outfile);
+        }
+          do_reprod(pop, false); // do no evolve M
       }
       auto t2 = std::chrono::high_resolution_clock::now();
       auto duration = std::chrono::duration_cast<std::chrono::microseconds>( t2 - t1 ).count();
