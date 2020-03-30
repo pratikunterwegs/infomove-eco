@@ -24,8 +24,6 @@ const int leader_choices = 10;
 // landscape params
 const int n_patches = 5000;
 const float maxFood = 1.f;
-const float maxDepletion = 0.1f;
-const float max_regrowth = 0.2f;
 
 // agent params
 const float move_cost = 0.01f;
