@@ -38,7 +38,7 @@ ssh_exec_wait(s, command = c("cd infomove/",
 shebang <- readLines("code_analysis/template_job.sh")
 
 # send commands
-pwalk(sim_params, function(rho, phi, gens, timesteps, init_d, rep){
+pwalk(sim_params, function(phi, rho, gens, timesteps, init_d, rep){
 
   if(!dir.exists("jobs")){
     dir.create("jobs")
