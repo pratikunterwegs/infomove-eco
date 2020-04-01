@@ -5,8 +5,6 @@
 #include <cmath>
 #include <numeric>
 #include <chrono>
-
-
 #include "params.hpp"
 #include "landscape.hpp"
 #include "agents.hpp"
@@ -17,7 +15,8 @@
 std::vector<agent> evolve_pop_no_M(std::vector<agent> &pop,
                                    const int genmax, const int timesteps,
                                    const int PHI, const float RHO,
-                                   landscape& landscape, std::string outfile)
+                                   landscape& landscape,
+                                   std::vector<std::string> output_path)
 {
 
     std::cout << "evolving on PHI = " << PHI << " RHO = " << RHO << "\n";
@@ -33,7 +32,7 @@ std::vector<agent> evolve_pop_no_M(std::vector<agent> &pop,
             landscape.doMakeFood(PHI, RHO); // landscape replenish
         }
         if((gen == 0) | (gen % epoch == 0) | (gen == genmax - 1)){
-            print_agent_summary(pop, gen, outfile);
+            print_agent_summary(pop, gen, output_path);
         }
 
         do_reprod(pop, false); // do no evolve M
@@ -50,7 +49,8 @@ std::vector<agent> evolve_pop_no_M(std::vector<agent> &pop,
 std::vector<agent> evolve_pop_no_info(std::vector<agent> &pop,
                                       const int genmax, const int timesteps,
                                       const int PHI, const float RHO,
-                                      landscape& landscape, std::string outfile)
+                                      landscape& landscape,
+                                      std::vector<std::string> output_path)
 {
 
     std::cout << "evolving on PHI = " << PHI << " RHO = " << RHO << "\n";
@@ -66,7 +66,7 @@ std::vector<agent> evolve_pop_no_info(std::vector<agent> &pop,
             landscape.doMakeFood(PHI, RHO); // landscape replenish
         }
         if((gen == 0) | (gen % epoch == 0)){
-            print_agent_summary(pop, gen, outfile);
+            print_agent_summary(pop, gen, output_path);
         }
         do_reprod(pop, false); // do no evolve M
     }
@@ -95,16 +95,18 @@ void do_simulation(std::vector<std::string> cli_args){
     landscape landscape_;
     landscape_.doMakeFood(PHI, RHO);
 
-    std::string outfile = identify_outfile(type, PHI, RHO, timesteps, init_d, std::stoi(rep));
+    // prepare to write data
+    prepare_data_folders(type);
+    const std::vector<std::string> output_path = identify_outfile(type, PHI, RHO, timesteps, init_d, rep);
 
     assert(((type == "info") | (type == "noinfo")) && "sim type not available");
 
     if(type == "info"){
 
-        evolve_pop_no_M(pop, genmax, timesteps, PHI, RHO, landscape_, outfile);
+        evolve_pop_no_M(pop, genmax, timesteps, PHI, RHO, landscape_, output_path);
     }
     else{
-        evolve_pop_no_info(pop, genmax, timesteps, PHI, RHO, landscape_, outfile);
+        evolve_pop_no_info(pop, genmax, timesteps, PHI, RHO, landscape_, output_path);
     }
 
     std::cout << "pop evolved!" << "\n";
