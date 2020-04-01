@@ -1,15 +1,6 @@
 language: cpp
-dist: eoan
-compiler:
-  - gcc
-  # - clang 
-before_install:
-  # C++14
-
-
-install: 
-  # C++14
-
+dist: bionic
+compiler: gcc
 
 before_install:
   - eval "$(curl -sL https://raw.githubusercontent.com/ryuichis/oclint-cpp-travis-ci-examples/master/oclint-ci-install.sh)";
@@ -46,7 +37,7 @@ install:
 script: 
   # Build and run the tests
   - qmake infomove.pro
-  - make --silent debug
+  - make debug
   # - ./the_richel_setup_test
   # # helgrind
   # - valgrind --tool=helgrind --log-file=helgrind.log -v ./the_richel_setup_test
@@ -56,7 +47,7 @@ script:
   # - cat memcheck.log
   # Build and run and profile normal program
   - qmake infomove.pro
-  - make --silent release
+  - make release
   # - time ./the_richel_setup
   # - gprof the_richel_setup > gprof.log
   # - head gprof.log -n 1000
