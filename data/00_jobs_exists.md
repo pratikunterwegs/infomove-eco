@@ -1,1 +1,0 @@
-# test jobs folder exists

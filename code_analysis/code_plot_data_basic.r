@@ -87,4 +87,14 @@ walk2(data_summary, names(data_summary), function(df_list, name){
 library(patchwork)
 wrap_plots(fig_list, guides = "collect")
 
-# get
+#### plot agent positions ####
+
+data <- read_csv("data/noinfo/agent_pos/1585756321729.csv")
+data <- mutate(data, 
+               pos = plyr::round_any(pos, 15))
+ds <- count(data, gen, time, pos)
+
+ggplot(ds, aes(pos, factor(time), fill=n))+
+  geom_tile()+
+  scale_fill_distiller(palette = "YlOrBr", direction = 1)+
+  facet_wrap(~gen)
