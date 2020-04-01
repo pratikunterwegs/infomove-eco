@@ -14,22 +14,6 @@ library(ssh)
 library(glue)
 ```
 
-## Prepare parameters
-
-```{r prepare_parameters, eval=FALSE}
-# make dataframe of strategy, m_param, and t_max
-# these will be passed as cli args
-{phi = as.character(seq(5, 15, 5)) # number of peaks
-rho = as.character(0.09)
-gens = factor("10000")
-timesteps = 100
-init_d = c(0.1, 0.5, 1.0)
-rep = 1:10}
-
-sim_params = crossing(phi, rho, gens, timesteps, init_d, rep)
-rm(phi, rho, gens, timesteps, init_d)
-```
-
 ## Prepare infomove on Peregrine
 
 ```{r prepare_infomove, eval=FALSE}
@@ -52,32 +36,21 @@ ssh_exec_wait(s, command = c("cd infomove/",
 
 ## Run infomove
 
-```{r prepare_jobs_run, eval=FALSE}
-# read job shebang
-shebang <- readLines("code_analysis/template_job.sh")
+```{r use_infomover_run, eval=FALSE}
+# prepare parameters
+type = "noinfo"
+phi = seq(5, 105, 20)
+rho = 0.1
+gens = "100000"
+timesteps = 100
+init_d = c(0.1, 0.5, 1.0)
+replicates = 10
 
-# send commands
-pwalk(sim_params, function(rho, phi, gens, timesteps, init_d, rep){
-
-  if(!dir.exists("jobs")){
-    dir.create("jobs")
-  }
-
-  shebang[2] <- glue('#SBATCH --job-name=run_infomove_phi{phi}_rho{rho}_time{timesteps}_init_d{init_d}_rep{rep}')
-  {
-    command <- glue('./infomove {phi} {rho} {gens} {timesteps} {init_d} {rep}')
-    jobfile <- glue('job_infomove_phi{phi}_rho{rho}_time{timesteps}_init_d{init_d}_rep{rep}.sh')
-
-    writeLines(c(shebang, command), con = glue('jobs/{jobfile}'))
-    scp_upload(s, glue('jobs/{jobfile}'), to = "infomove/jobs/")
-    file.remove(glue('jobs/{jobfile}'))
-  }
-
-  # run jobs; we are in infomove
-  ssh_exec_wait(s, command = c("cd infomove/jobs",
-                               glue('dos2unix {jobfile}'),
-                               glue('sbatch {jobfile}')))
-})
+# load R package on peregrine
+ssh_exec_wait(s, command = c("cd infomove",
+  "ml load R/3.6.1-foss-2018a",
+  "R",
+  glue::glue('infomover::run_infomove({type}, {phi}, {rho}, {gens}, {timesteps}, {init_d}, {replicates})'))
 
 # move into jobs, delete scripts and disconnect
 ssh_exec_wait(s, command = c("cd infomove/jobs",
