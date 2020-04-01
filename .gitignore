@@ -36,6 +36,7 @@
 .Rproj.user
 *.vs
 Debug/
+*.autosave
 
 # ANN lib
 *ann*
