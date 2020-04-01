@@ -65,7 +65,7 @@ std::vector<std::string> identify_outfile(const std::string type,
     }
     // append if not
     summary_ofs.open(summary_out, std::ofstream::out | std::ofstream::app);
-    summary_ofs << std::to_string(output_id)+".csv" << ","
+    summary_ofs << output_id+".csv" << ","
                 << type << ","
                 << phi << ","
                 << rho << ","
