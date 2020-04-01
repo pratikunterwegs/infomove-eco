@@ -9,6 +9,7 @@ before_install:
 
 install:
   - sudo apt-get install -qq g++-6
+  - sudo apt install libboost-filesystem1.67.0 # needed for filesytem
   - sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-6 90 
   - sudo apt update -qq
   # Boost
