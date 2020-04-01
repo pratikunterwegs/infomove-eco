@@ -33,8 +33,8 @@ std::vector<agent> evolve_pop_no_M(std::vector<agent> &pop,
             // print agents at certain time steps{
             if((gen == 0) || (gen % epoch == 0) || (gen == genmax - 1))
             {
-                if((t >= 0 && t < 5) || (t >= 50 && t <= 55) ||
-                        (t >= 95 && t < 100)){
+                if((t < 5) || (t >= 50 && t <= 55) ||
+                        (t >= 95)){
                     print_agent_data(pop, gen, t, output_path);
                 }
             }
