@@ -31,17 +31,9 @@ void test_wrap_distance()
 void test_cli_args(std::vector<std::string> cli_args) noexcept
 {
     // check for size
-    if(cli_args.size() != 7) // count RHO PHI gens timesteps D rep
+    if(cli_args.size() != 8) // count type RHO PHI gens timesteps D rep
     {
         std::cerr << "wrong number of command args\n";
-    }
-
-    // check args content
-    for (size_t arg = 1; arg < 3; arg++) {
-        assert(std::stof(cli_args[arg]) > 0.f && "cli_args: negative!");
-    }
-    for (size_t arg = 3; arg < 5; arg++) {
-        assert(std::stoi(cli_args[arg]) > 0.f && "cli_args: negative!");
     }
 }
 
