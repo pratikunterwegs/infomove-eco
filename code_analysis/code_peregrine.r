@@ -9,7 +9,7 @@ library(glue)
 # these will be passed as cli args
 {phi = as.character(seq(5, 15, 5)) # number of peaks
 rho = as.character(0.09)
-gens = factor("10000")
+gens = factor("100000")
 timesteps = 100
 init_d = c(0.1, 0.5, 1.0)
 rep = 1:10}
@@ -23,6 +23,7 @@ password = read_lines("private/password.txt")
 # connect to cluster and pull from master
 s <- ssh_connect("p284074@peregrine.hpc.rug.nl", passwd = password)
 ssh_exec_wait(s, command = c("cd infomove/",
+                             "rm Makefile infomove",
                              "cd jobs",
                              "rm *.sh",
                              "cd ..",
@@ -37,7 +38,7 @@ ssh_exec_wait(s, command = c("cd infomove/",
 shebang <- readLines("code_analysis/template_job.sh")
 
 # send commands
-pwalk(sim_params, function(rho, phi, gens, timesteps, init_d, rep){
+pwalk(sim_params, function(phi, rho, gens, timesteps, init_d, rep){
 
   if(!dir.exists("jobs")){
     dir.create("jobs")
@@ -63,6 +64,9 @@ pwalk(sim_params, function(rho, phi, gens, timesteps, init_d, rep){
 ssh_exec_wait(s, command = c("cd infomove/jobs",
                              "rm *.sh",
                              "mv data/*.csv ../data",
+                             "cd .."))
+ssh_exec_wait(s, command = c("cd infomove/jobs",
+                             "rm *.out",
                              "cd .."))
 ssh_disconnect(s)
 

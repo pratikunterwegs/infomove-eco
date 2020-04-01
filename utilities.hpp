@@ -3,14 +3,25 @@
 
 #include "agents.hpp"
 #include <vector>
+#include <cstdint>
+#include <filesystem>
 
 /// construct agent output filename
-std::string identify_outfile(const int phi, const float rho,
-                        const int timesteps,
-                        const float init_d,
-                        const int rep){
+std::string identify_outfile(const std::string type,
+                             const int phi, const float rho,
+                             const int timesteps,
+                             const float init_d,
+                             const int rep){
+    // check if "data/type" exsts and create if not
+    std::string path = "data/" + type;
+    std::filesystem::file_status s = std::filesystem::file_status{};
+    if(!(std::filesystem::status_known(s) ?
+            std::filesystem::exists(s) : std::filesystem::exists(path))){
+        std::filesystem::create_directory(path);
+    };
+
     // output filename
-    const std::string outfile = "data/agent_" +
+    const std::string outfile = path + "/agent_" +
             std::to_string(phi) + "_" +
             std::to_string(rho).substr(0, 3) + "_" +
             std::to_string(timesteps) + "_" +
@@ -22,7 +33,7 @@ std::string identify_outfile(const int phi, const float rho,
     // write summary with filename to agent data
     // and parameter files
     // start with outfile name
-    const std::string summary_out = "data/parameter_summary.csv";
+    const std::string summary_out = path + "/lookup.csv";
     std::ofstream summary_ofs;
 
     // if not exists write col names
@@ -47,7 +58,7 @@ std::string identify_outfile(const int phi, const float rho,
 
 /// function to print data from an evolved population
 std::string print_agents(std::vector<agent> pop,
-                  const int gen, std::string outfile){
+                         const int gen, std::string outfile){
 
     std::ofstream agent_ofs;
     // append data to existing ofs
