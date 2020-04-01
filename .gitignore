@@ -44,10 +44,10 @@ Debug/
 # data
 *csv
 *zip
-*doc*
 
 # pdfs
 *.pdf
+*.docx
 
 # pycharm files - let them be
 
