@@ -30,11 +30,10 @@ std::vector<agent> evolve_pop_no_M(std::vector<agent> &pop,
         for (int t = 0; t < timesteps; t++) {
             doFollowDynamic(pop);
             do_foraging_dynamic(landscape, pop);
+            landscape.doMakeFood(PHI, RHO); // landscape replenish
         }
-        landscape.doMakeFood(PHI, RHO); // landscape replenish
-
         if((gen == 0) | (gen % epoch == 0) | (gen == genmax - 1)){
-            print_agents(pop, gen, outfile);
+            print_agent_summary(pop, gen, outfile);
         }
 
         do_reprod(pop, false); // do no evolve M
@@ -64,11 +63,10 @@ std::vector<agent> evolve_pop_no_info(std::vector<agent> &pop,
         for (int t = 0; t < timesteps; t++) {
             do_move_noinfo(pop);
             do_foraging_dynamic(landscape, pop);
+            landscape.doMakeFood(PHI, RHO); // landscape replenish
         }
-        landscape.doMakeFood(PHI, RHO); // landscape replenish
-
         if((gen == 0) | (gen % epoch == 0)){
-            print_agents(pop, gen, outfile);
+            print_agent_summary(pop, gen, outfile);
         }
         do_reprod(pop, false); // do no evolve M
     }
