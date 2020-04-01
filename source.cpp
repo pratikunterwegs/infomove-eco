@@ -61,25 +61,9 @@ int main(int argc, char* argv[])
     unsigned seed = static_cast<unsigned> (std::chrono::system_clock::now().time_since_epoch().count());
     gsl_rng_set(r, seed);
 
-    // gather cli args
-    const int PHI = std::stoi(cli_args[1]);
-    const float RHO = std::stof(cli_args[2]);
-    const int genmax = std::stoi(cli_args[3]);
-    const int timesteps = std::stoi(cli_args[4]);
-    const float init_d = std::stof(cli_args[5]);
-    std::string rep = cli_args[6];
+    do_simulation(cli_args);
 
-    // init pop & landscape, force population D to high (1) low (0.1) med (0.5)
-    std::vector<agent> pop (popsize);
-    force_d(pop, init_d);
-    landscape landscape_;
-    landscape_.doMakeFood(PHI, RHO);
-
-    std::string outfile = identify_outfile(PHI, RHO, timesteps, init_d, std::stoi(rep));
-
-    evolve_pop_no_M(pop, genmax, timesteps, PHI, RHO, landscape_, outfile);
-
-    std::cout << "pop evolved!" << "\n";
+    return 0;
 }
 
 // end here
