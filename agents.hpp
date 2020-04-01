@@ -22,7 +22,6 @@ public:
         a(0.f), // inflection point
         b(0.f), // slope for difference in quality
         pos(0), M(2), D(0.5), // vector position, exploration range, giving up density
-        mem_pos(0), // last foraged position
         energy(0.000001f),
         mem_energy(0.f),
         prop_follow(0.f)
@@ -32,7 +31,6 @@ public:
     // agents need a brain, an age, fitness, and movement decision
     float a, b;
     int pos, M; float D;
-    int mem_pos;
     float energy, mem_energy, prop_follow;
     int id_self, id_leader, follow_instances, total_distance;
 

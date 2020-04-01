@@ -10,9 +10,17 @@
 /// prepare folder structure
 void prepare_data_folders(std::string type){
     // check if "data/type" exists and create if not
-    std::vector<std::string> folders = {"data/"+type+"/agent_summary",
-                                       "data/"+type+"/agent_pos"};
     std::filesystem::file_status s = std::filesystem::file_status{};
+    if(!(std::filesystem::status_known(s) ?
+            std::filesystem::exists(s) : std::filesystem::exists("data/"+type)))
+    {
+        std::filesystem::create_directory("data/"+type);
+    }
+    // then check subfolders
+    std::vector<std::string> folders = {"data/"+type+"/agent_summary",
+                                       "data/"+type+"/agent_pos",
+                                       "data/"+type+"/landscape"};
+
 
     for (size_t fol = 0; fol < folders.size(); fol++) {
         if(!(std::filesystem::status_known(s) ?
@@ -70,12 +78,32 @@ std::vector<std::string> identify_outfile(const std::string type,
 }
 
 /// function to print agent and landscape values
-//void print_agent_data(std::vector<agent> &pop,
-//                      const int gen, std::string output_id)
-//{
+void print_agent_data(std::vector<agent> &pop,
+                      const int gen, const int time,
+                      std::vector<std::string> output_path)
+{
+    std::ofstream agent_pos_ofs;
+    // check if file is okay
+    std::ifstream f(output_path[0] + "/agent_pos/" + output_path[1] + ".csv");
+    if(!f.good()){
+        agent_pos_ofs.open(output_path[0] + "/agent_pos/" + output_path[1] + ".csv",
+                std::ofstream::out);
+        agent_pos_ofs << "gen,time,id,pos,F,energy\n";
+        agent_pos_ofs.close();
+    }
+    for (size_t i = 0; i < pop.size(); i++) {
+        agent_pos_ofs.open(output_path[0] + "/agent_pos/" + output_path[1] + ".csv",
+                std::ofstream::out | std::ofstream::app);
+        agent_pos_ofs << gen << ","
+                  << time << ","
+                  << i << ","
+                  << pop[i].pos << ","
+                  << pop[i].prop_follow << ","
+                  << pop[i].energy << "\n";
+        agent_pos_ofs.close();
+    }
 
-
-//}
+}
 
 /// function to print data from an evolved population
 void print_agent_summary(std::vector<agent> &pop,
@@ -83,8 +111,6 @@ void print_agent_summary(std::vector<agent> &pop,
                          std::vector<std::string> output_path){
 
     std::ofstream agent_summary_ofs;
-    // append data to existing ofs
-
     // check if file is okay
     std::ifstream f(output_path[0] + "/agent_summary/" + output_path[1] + ".csv");
     if(!f.good()){

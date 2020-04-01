@@ -29,9 +29,19 @@ std::vector<agent> evolve_pop_no_M(std::vector<agent> &pop,
         for (int t = 0; t < timesteps; t++) {
             doFollowDynamic(pop);
             do_foraging_dynamic(landscape, pop);
+
+            // print agents at certain time steps{
+            if((gen == 0) || (gen % epoch == 0) || (gen == genmax - 1))
+            {
+                if((t >= 0 && t < 5) || (t >= 50 && t <= 55) ||
+                        (t >= 95 && t < 100)){
+                    print_agent_data(pop, gen, t, output_path);
+                }
+            }
+
             landscape.doMakeFood(PHI, RHO); // landscape replenish
         }
-        if((gen == 0) | (gen % epoch == 0) | (gen == genmax - 1)){
+        if((gen == 0) || (gen % epoch == 0) || (gen == genmax - 1)){
             print_agent_summary(pop, gen, output_path);
         }
 
@@ -63,9 +73,17 @@ std::vector<agent> evolve_pop_no_info(std::vector<agent> &pop,
         for (int t = 0; t < timesteps; t++) {
             do_move_noinfo(pop);
             do_foraging_dynamic(landscape, pop);
+            // print agents at certain time steps{
+            if((gen == 0) || (gen % epoch == 0) || (gen == genmax - 1))
+            {
+                if((t < 5) || (t >= 50 && t <= 55) ||
+                        (t >= 95)){
+                    print_agent_data(pop, gen, t, output_path);
+                }
+            }
             landscape.doMakeFood(PHI, RHO); // landscape replenish
         }
-        if((gen == 0) | (gen % epoch == 0)){
+        if((gen == 0) || (gen % epoch == 0) || (gen == genmax -1)){
             print_agent_summary(pop, gen, output_path);
         }
         do_reprod(pop, false); // do no evolve M
@@ -99,7 +117,7 @@ void do_simulation(std::vector<std::string> cli_args){
     prepare_data_folders(type);
     const std::vector<std::string> output_path = identify_outfile(type, PHI, RHO, timesteps, init_d, rep);
 
-    assert(((type == "info") | (type == "noinfo")) && "sim type not available");
+    assert(((type == "info") || (type == "noinfo")) && "sim type not available");
 
     if(type == "info"){
 

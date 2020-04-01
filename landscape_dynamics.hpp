@@ -38,7 +38,7 @@ void agent::deplete_and_move(landscape& landscape)
 
     // movement section -- changed 30/03/20
     // agent moves to depleted position
-    pos = to_deplete;
+    pos = static_cast<int>(to_deplete);
 
 }
 
