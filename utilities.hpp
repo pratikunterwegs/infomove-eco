@@ -4,11 +4,11 @@
 #include "agents.hpp"
 #include <vector>
 #include <cstdint>
-#include <filesystem>
+//#include <filesystem>
 #include <chrono>
 
 /// prepare folder structure
-void prepare_data_folders(std::string type){
+/*void prepare_data_folders(std::string type){
     // check if "data/type" exists and create if not
     std::filesystem::file_status s = std::filesystem::file_status{};
     if(!(std::filesystem::status_known(s) ?
@@ -30,6 +30,7 @@ void prepare_data_folders(std::string type){
         }
     }
 }
+*/
 
 /// construct agent output filename
 std::vector<std::string> identify_outfile(const std::string type,

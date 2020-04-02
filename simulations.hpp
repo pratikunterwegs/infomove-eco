@@ -114,7 +114,7 @@ void do_simulation(std::vector<std::string> cli_args){
     landscape_.doMakeFood(PHI, RHO);
 
     // prepare to write data
-    prepare_data_folders(type);
+//    prepare_data_folders(type);
     const std::vector<std::string> output_path = identify_outfile(type, PHI, RHO, timesteps, init_d, rep);
 
     assert(((type == "info") || (type == "noinfo")) && "sim type not available");
