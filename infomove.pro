@@ -1,4 +1,4 @@
-CONFIG += c++17
+CONFIG += c++17 console
 CONFIG -= app_bundle
 
 # allow debug and release

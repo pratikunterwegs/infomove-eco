@@ -30,6 +30,7 @@ ssh_exec_wait(s, command = c("cd infomove/",
                              "git pull",
                              "ml load GCC/8.3.0",
                              "ml load GSL/2.6-GCC-8.3.0",
+                             "Boost/1.72.0-foss-2019",
                              "qmake infomove.pro",
                              "make clean -j4",
                              "make -j4"))
