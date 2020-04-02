@@ -1,4 +1,4 @@
-CONFIG += c++17
+CONFIG += c++17 console
 CONFIG -= app_bundle
 
 # allow debug and release
@@ -28,7 +28,8 @@ HEADERS += \
     	landscape.hpp \
     	simulations.hpp
 
-LIBS += -L/usr/local/lib -lgsl -lgslcblas -lm
+LIBS += -L/usr/local/lib -lgsl -lgslcblas -lm \
+		-libboost-filesystem-dev
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
