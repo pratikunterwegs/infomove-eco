@@ -39,7 +39,7 @@ ssh_exec_wait(s, command = c("cd infomove/",
 ```{r use_infomover_run, eval=FALSE}
 # prepare parameters
 {
-  type = c("noinfo", "info")
+  type = c('"noinfo"', '"info"')
   phi = seq(5, 105, 20)
   rho = 0.1
   gens = "100000"
@@ -47,20 +47,11 @@ ssh_exec_wait(s, command = c("cd infomove/",
   init_d = c(0.1, 0.5, 1.0)
   replicates = 1
 }
-sim_params = crossing()
 
 # load R package on peregrine
 ssh_exec_wait(s, command = c("cd infomove",
               "ml load R/3.6.1-foss-2018a",
-              "R",
-              glue::glue('infomover::run_infomove(
-                        type=c({sprintf(toString(type))}),
-                        phi=c({sprintf(toString(phi))}), 
-                        rho=c({sprintf(toString(rho))}), 
-                        gens=c({sprintf(toString(gens))}),
-                        timesteps=({sprintf(toString(timesteps))}),
-                        init_d=c({sprintf(toString(init_d))}),
-                        replicates=c({sprintf(toString(replicates))}))')))
+              'R CMD BATCH infomover::run_infomove(c("info", "noinfo"), replicates = 10)'))
 
 # move into jobs, delete scripts and disconnect
 ssh_exec_wait(s, command = c("mv slurm* jobs",
