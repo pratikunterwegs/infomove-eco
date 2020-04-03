@@ -3,7 +3,8 @@
 #SBATCH --time=00:30:00
 #SBATCH --cpus-per-task=1
 #SBATCH --mem=9000
-#SBATCH --partition=regular
+#SBATCH --output=jobs/job-%j.out
+#SBATCH --partition=short
 
 pwd
 module unload GCC/6.3.0
