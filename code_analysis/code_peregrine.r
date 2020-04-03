@@ -16,7 +16,7 @@ ssh_exec_wait(s, command = c("cd infomove/",
                              "rm *.sh",
                              "cd ..",
                              "git pull",
-                             "GCC/8.3.0-2.30",
+                             "ml load GCC/8.3.0-2.30",
                              "ml load GSL/2.6-GCC-8.3.0",
                              "qmake infomove.pro",
                              "make clean -j4",
@@ -32,7 +32,7 @@ shebang <- readLines("code_analysis/template_job.sh")
   gens = "100000"
   timesteps = 100
   init_d = c(0.1, 0.5, 1.0)
-  replicate = 1
+  replicate = 1:5
 }
 
 sim_params <- crossing(type, phi, rho, gens, timesteps, init_d, replicate)

@@ -1,9 +1,9 @@
 #! /bin/bash
 #SBATCH --job-name=run_infomove
-#SBATCH --time=01:00:00
+#SBATCH --time=03:00:00
 #SBATCH --cpus-per-task=1
 #SBATCH --mem=9000
-#SBATCH --partition=short
+#SBATCH --partition=regular
 
 pwd
 cd ..
