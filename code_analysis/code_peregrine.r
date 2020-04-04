@@ -14,14 +14,20 @@ ssh_exec_wait(s, command = c("cd infomove/",
                              "rm Makefile infomove",
                              "cd jobs",
                              "rm *.sh",
+                             "rm *.out",
                              "cd ..",
                              "git pull",
-                             "ml load GCC/8.3.0-2.30",
+                             "ml load GCC/8.3.0",
                              "ml load GSL/2.6-GCC-8.3.0",
                              "qmake infomove.pro",
                              "make clean -j4",
                              "make -j4"))
 
+# remove old data files
+{
+  ssh_exec_wait(s, c("cd infomove/data",
+  'find . -name "*.csv" -type f -delete'))
+}
 # read job shebang
 shebang <- readLines("code_analysis/template_job.sh")
 
@@ -44,7 +50,7 @@ pwalk(sim_params, function(type, phi, rho, gens, timesteps, init_d, replicate){
     dir.create("jobs")
   }
 
-  shebang[2] <- glue('#SBATCH --job-name=run_infomove_phi{phi}_rho{rho}_time{timesteps}_init_d{init_d}_rep{replicate}')
+  shebang[2] <- glue('#SBATCH --job-name=run_infomove_type-{type}_phi{phi}_rho{rho}_time{timesteps}_init_d{init_d}_rep{replicate}')
   {
     command <- glue('./infomove {type} {phi} {rho} {gens} {timesteps} {init_d} {replicate}')
     jobfile <- glue('job_infomove_type{type}_phi{phi}_rho{rho}_time{timesteps}_init_d{init_d}_rep{replicate}.sh')
