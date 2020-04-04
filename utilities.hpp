@@ -46,7 +46,9 @@ std::vector<std::string> identify_outfile(const std::string type,
         auto now = std::chrono::system_clock::now();
         auto now_ms = std::chrono::time_point_cast<std::chrono::milliseconds>(now);
         auto value = now_ms.time_since_epoch();
-        long duration = value.count();
+        // add a random number to be sure of discrete values
+        long duration = value.count() +
+                static_cast<long>(gsl_rng_uniform_int(r, 10000));
 
         output_id = std::to_string(duration);
     }
