@@ -37,6 +37,7 @@ std::vector<std::string> identify_outfile(const std::string type,
                              const int phi, const float rho,
                              const int timesteps,
                              const float init_d,
+                             const int leader_choices,
                              const std::string rep){
     // assumes path/type already prepared
     std::string path = "data/" + type;
@@ -63,7 +64,7 @@ std::vector<std::string> identify_outfile(const std::string type,
     std::ifstream f2(summary_out.c_str());
     if(!f2.good()){
         summary_ofs.open(summary_out, std::ofstream::out);
-        summary_ofs << "filename,type,phi,rho,timesteps,init_d,rep\n";
+        summary_ofs << "filename,type,phi,rho,timesteps,init_d,leader_choices,rep\n";
         summary_ofs.close();
     }
     // append if not
@@ -74,6 +75,7 @@ std::vector<std::string> identify_outfile(const std::string type,
                 << rho << ","
                 << timesteps << ","
                 << init_d << ","
+                << leader_choices << ","
                 << rep << "\n";
     summary_ofs.close();
 

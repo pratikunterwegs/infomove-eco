@@ -117,7 +117,8 @@ void do_simulation(std::vector<std::string> cli_args){
 
     // prepare to write data
 //    prepare_data_folders(type);
-    const std::vector<std::string> output_path = identify_outfile(type, PHI, RHO, timesteps, init_d, rep);
+    const std::vector<std::string> output_path = identify_outfile(type, PHI,
+                                   RHO, timesteps, init_d, leader_choices, rep);
 
     assert(((type == "info") || (type == "noinfo")) && "sim type not available");
 
