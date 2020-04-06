@@ -8,10 +8,15 @@ editor_options:
 library(readr)
 library(dplyr)
 library(purrr)
+library(glue)
 
 # plotting
 library(ggplot2)
 library(patchwork)
+
+# function for prob follow
+deltaq = seq(-10, 10, 1)
+prob_follow <- function(a,b,q = deltaq){1 / (1 + exp(-b*q -a))}
 ```
 
 ```{r load_res, eval=FALSE}
@@ -23,58 +28,140 @@ data <- map(data_files, read_csv)
 ```
 
 ```{r plot_res, eval=FALSE}
-a = data[[1]] %>% 
-  filter(variable !="M")
-a = split(a, a$phi) %>% 
-  map(function(df){split(df, df$init_d)})
-
-a_fig = map2(a, names(a), function(df_list, name){
-  title = glue::glue('Φ number of peaks: {name}')
-  
-  fig_subpanel <- map2(df_list, names(df_list), function(df, name2){
-    
-    subtitle = glue::glue('initial D: {name2}')
-    
-    fig_param <- ggplot(df, aes(x=gen, y=mean, ymin=mean-sd, ymax=mean+sd,
-                   col = variable, fill = variable, group = variable))+
-      #geom_pointrange(size = 0.1)+  
-      geom_ribbon(alpha = 0.3, col = NA, fill = "grey")+
-      geom_line(size = 0.2, alpha = 0.9)+
-      
-      scale_colour_brewer(palette = "Set1")+
-      # scale_fill_viridis_c(option = "E", limits = c(0, 250),
-      #                      na.value = "steelblue", direction = -1)+
-      scale_x_continuous(breaks = c(0,50000,100000),
-                         labels = as.character(c(0, 50, 100)))+
-      scale_y_continuous(breaks = c(0,0.5,1),
-                         labels = c(0, 0.5, 1))+
-      theme_minimal(base_size = 5)+
-      theme(plot.background = element_rect(colour = "black", fill=NA,
-                                           size = 0.2),
-            panel.border = element_rect(colour = "black", fill=NA,
-                                        size = 0.2),
-            panel.grid = element_blank(),
-            axis.title = element_text(),
-            # plot.title = element_text(face = "bold"),
-            legend.position = "none",
-            axis.text.y = element_text(angle = 90))+
-      coord_cartesian(expand = F, ylim =c(0,1))+
-      facet_grid(variable~rep,labeller = label_both)+
-      labs(x = NULL, y = NULL, title = subtitle)
-  })
-  fig_param <- wrap_plots(fig_subpanel, guides = "collect", ncol = 3)+
-    plot_annotation(title = title,
-                    theme = theme(plot.title = element_text(size = 6)))
-  
-  return(fig_param)
-  
+data <- map(data, function(df){
+  df <- filter(df, variable != "M")
+  df <- split(df, df$phi) %>% 
+    map(function(df2){split(df2, df2$init_d)})
 })
 
-cairo_pdf(file = "fig_param_trajectory.pdf", width = 10, height = 3,
-          onefile = TRUE)
-{
-  walk(a_fig, print)
-}
-dev.off()
+walk2(data, c("info", "noinfo"), function(x,y){
+  
+  a_fig = map2(x, names(x), function(df_list, name){
+    title = glue::glue('Φ (number of peaks): {name}, simulation type: {y}')
+    
+    fig_subpanel <- map2(df_list, names(df_list), function(df, name2){
+      
+      subtitle = glue::glue('initial D: {name2}')
+      
+      fig_param <- ggplot(df, aes(x=gen, y=mean, ymin=mean-sd, ymax=mean+sd,
+                                  col = variable, fill = variable, group = variable))+
+        #geom_pointrange(size = 0.1)+  
+        geom_ribbon(alpha = 0.3, col = NA, fill = "grey")+
+        geom_line(size = 0.2, alpha = 0.9)+
+        
+        scale_colour_brewer(palette = "Set1")+
+        # scale_fill_viridis_c(option = "E", limits = c(0, 250),
+        #                      na.value = "steelblue", direction = -1)+
+        scale_x_continuous(breaks = c(0,50000,100000),
+                           labels = as.character(c(0, 50, 100)))+
+        scale_y_continuous(breaks = c(0,0.5,1),
+                           labels = c(0, 0.5, 1))+
+        theme_minimal(base_size = 5)+
+        theme(plot.background = element_rect(colour = "black", fill=NA,
+                                             size = 0.2),
+              panel.border = element_rect(colour = "black", fill=NA,
+                                          size = 0.2),
+              panel.grid = element_blank(),
+              axis.title = element_text(),
+              # plot.title = element_text(face = "bold"),
+              legend.position = "none",
+              axis.text.y = element_text(angle = 90))+
+        coord_cartesian(expand = F, ylim =c(0,1))+
+        facet_grid(variable~rep,labeller = label_both)+
+        labs(x = NULL, y = NULL, title = subtitle)
+    })
+    fig_param <- wrap_plots(fig_subpanel, guides = "collect", ncol = 3)+
+      plot_annotation(title = title,
+                      theme = theme(plot.title = element_text(size = 6)))
+    
+    return(fig_param)
+  })
+  cairo_pdf(file = glue('figs/fig_{y}_param_trajectory.pdf'), width = 10, height = 3,
+            onefile = TRUE)
+  {
+    print(a_fig)
+  }
+  dev.off()
+})
+
+
+```
+
+## Plot mean response curve
+
+### Prepare data
+
+```{r get_curves}
+# read in data again
+data <- map(data_files, read_csv)
+
+# remove D, F, M
+data <- map(data, function(df){
+  df <- filter(df, variable %in% c("a", "b")) %>% 
+    pivot_wider(names_from = "variable", values_from = c("mean", "sd"))
+})
+
+# split by phi and then by initial D
+data <- map(data, function(df){
+  df <- split(df, df$phi) %>% 
+    map(function(df2){split(df2, df2$init_d) %>% 
+        map(function(df3){
+          df3 <- select(df3, type, phi, init_d, rep, gen, mean_a, mean_b) %>% 
+            filter(gen %% 2000 == 0) %>% 
+            mutate(resp = map2(mean_a, mean_b, function(a,b){
+              return(tibble(deltaq = deltaq, pf = prob_follow(a,b,deltaq)))
+            })) %>% 
+            unnest(cols = resp)
+        })})
+})
+
+# mor testting
+a = data[[1]][[1]][[1]]
+```
+
+### Plot figure
+```{r}
+walk2(data, c("info", "noinfo"), function(x,y){
+  
+  a_fig = map2(x, names(x), function(df_list, name){
+    title = glue::glue('Φ (number of peaks): {name}, simulation type: {y}')
+    
+    fig_subpanel <- map2(df_list, names(df_list), function(df, name2){
+      
+      subtitle = glue::glue('initial D: {name2}')
+      
+      fig_resp <- ggplot(df)+
+        geom_path(aes(deltaq, pf, group = rep, col = factor(rep)),size = 0.2)+
+        facet_wrap(~gen, ncol = 10)+
+        scale_colour_brewer(palette = "Set1")+
+        scale_x_continuous(breaks = c(-10, 0, 10))+
+        scale_y_continuous(breaks = 0, 0.5, 1)+
+        coord_cartesian(ylim = c(0,1), expand = F)+
+        theme_minimal(base_size = 5)+
+        theme(plot.background = element_rect(colour = "black", fill=NA,
+                                             size = 0.2),
+              panel.border = element_rect(colour = "black", fill=NA,
+                                          size = 0.2),
+              panel.grid = element_blank(),
+              axis.title = element_text(),
+              # plot.title = element_text(face = "bold"),
+              legend.position = "none",
+              axis.text.y = element_text(angle = 90))+
+        labs(x = NULL, y = NULL, title = subtitle)
+    })
+    fig_param <- wrap_plots(fig_subpanel, guides = "collect", ncol = 3)+
+      plot_annotation(title = title,
+                      theme = theme(plot.title = element_text(size = 6)))
+    
+    return(fig_param)
+  })
+  cairo_pdf(file = glue('figs/fig_{y}_follow_prob.pdf'), width = 10, height = 3,
+            onefile = TRUE)
+  {
+    print(a_fig)
+  }
+  dev.off()
+})
+
 ```
 
