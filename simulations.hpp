@@ -15,6 +15,7 @@
 std::vector<agent> evolve_pop_no_M(std::vector<agent> &pop,
                                    const int genmax, const int timesteps,
                                    const int PHI, const float RHO,
+                                   const int leader_choices,
                                    landscape& landscape,
                                    std::vector<std::string> output_path)
 {
@@ -27,7 +28,7 @@ std::vector<agent> evolve_pop_no_M(std::vector<agent> &pop,
         shufflePopSeq(pop);
         // loop through timesteps
         for (int t = 0; t < timesteps; t++) {
-            doFollowDynamic(pop);
+            doFollowDynamic(pop, leader_choices);
             do_foraging_dynamic(landscape, pop);
 
             // print agents at certain time steps{
@@ -105,7 +106,8 @@ void do_simulation(std::vector<std::string> cli_args){
     const int genmax = std::stoi(cli_args[4]);
     const int timesteps = std::stoi(cli_args[5]);
     const float init_d = std::stof(cli_args[6]);
-    std::string rep = cli_args[7];
+    const int leader_choices = std::stoi(cli_args[7]);
+    std::string rep = cli_args[8];
 
     // init pop & landscape, force population D to high (1) low (0.1) med (0.5)
     std::vector<agent> pop (popsize);
@@ -121,7 +123,8 @@ void do_simulation(std::vector<std::string> cli_args){
 
     if(type == "info"){
 
-        evolve_pop_no_M(pop, genmax, timesteps, PHI, RHO, landscape_, output_path);
+        evolve_pop_no_M(pop, genmax, timesteps, PHI, RHO, leader_choices,
+                        landscape_, output_path);
     }
     else{
         evolve_pop_no_info(pop, genmax, timesteps, PHI, RHO, landscape_, output_path);

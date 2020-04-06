@@ -86,7 +86,7 @@ bool agent::chooseFollow(const agent& someagent)
 }
 
 /// function to assess remaining agents and shrink move queue
-void doFollowDynamic(std::vector<agent>& vecSomeAgents)
+void doFollowDynamic(std::vector<agent>& vecSomeAgents, const int leader_choices)
 {
     assert(vecSomeAgents.size() > 0 && "doFollowDynamic: moveQ is empty at start");
 
@@ -225,19 +225,19 @@ void do_reprod(std::vector<agent>& pop, bool evolve_m)
         tmp_pop[ind_2].M = pop[parent_id].M;
 
         // mutate giving up density parameter
-        {
-            // probabilistic mutation of giving up density
-            if (gsl_ran_bernoulli(r, static_cast<double>(m_prob)) == 1)
-            {
-                tmp_pop[ind_2].D += static_cast<float> (gsl_ran_cauchy(r, static_cast<double>(m_shift)));
-                if (tmp_pop[ind_2].D > 1.f) {
-                    tmp_pop[ind_2].D = 1.f;
-                }
-                if (tmp_pop[ind_2].D < 0.f) {
-                    tmp_pop[ind_2].D = 0.f;
-                }
-            }
-        }
+//        {
+//            // probabilistic mutation of giving up density
+//            if (gsl_ran_bernoulli(r, static_cast<double>(m_prob)) == 1)
+//            {
+//                tmp_pop[ind_2].D += static_cast<float> (gsl_ran_cauchy(r, static_cast<double>(m_shift)));
+//                if (tmp_pop[ind_2].D > 1.f) {
+//                    tmp_pop[ind_2].D = 1.f;
+//                }
+//                if (tmp_pop[ind_2].D < 0.f) {
+//                    tmp_pop[ind_2].D = 0.f;
+//                }
+//            }
+//        }
         // mutate exploration parameter
         if(evolve_m)
         {
