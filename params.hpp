@@ -19,15 +19,11 @@
 
 // population params
 const int popsize = 500; // not too many
-const int leader_choices = 10;
 const int epoch = 1000;
 
 // landscape params
 const int n_patches = 5000;
 const float maxFood = 1.f;
-
-// agent params
-const float move_cost = 0.01f;
 
 // mutation params
 const float m_shift = 0.01f;

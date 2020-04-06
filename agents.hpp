@@ -48,7 +48,23 @@ void force_d(std::vector<agent>& pop, const float d){
 /// function to shuffle agents for movement order
 void shufflePopSeq(std::vector<agent>& vecSomeAgents)
 {
-    std::shuffle(vecSomeAgents.begin(), vecSomeAgents.end(), rng);
+    // make vector ints
+    std::vector<int> pop_index (vecSomeAgents.size());
+    for (size_t i = 0; i < vecSomeAgents.size(); i++) {
+        pop_index[i] = static_cast<int>(i);
+    }
+    // shuffle
+    std::shuffle(pop_index.begin(), pop_index.end(), rng);
+
+    // shuffle agents
+    std::vector<agent> tmp_pop (vecSomeAgents.size());
+    for (size_t i = 0; i < vecSomeAgents.size(); i++) {
+        tmp_pop[i] = vecSomeAgents[static_cast<size_t>(pop_index[i])];
+    }
+
+    // swap vectors
+    std::swap(vecSomeAgents, tmp_pop);
+    tmp_pop.clear();
 }
 
 /// function to entrain to other agent
@@ -238,12 +254,6 @@ void do_reprod(std::vector<agent>& pop, bool evolve_m)
             if (gsl_ran_bernoulli(r, static_cast<double>(m_prob)) == 1)
             {
                 tmp_pop[ind_2].a += static_cast<float> (gsl_ran_cauchy(r, static_cast<double>(m_shift)));
-                if (tmp_pop[ind_2].a < 0.f) {
-                    tmp_pop[ind_2].a = 0.f;
-                }
-                if (tmp_pop[ind_2].a > 1.f) {
-                    tmp_pop[ind_2].a = 1.f;
-                }
             }
         }
         // mutate b
@@ -251,12 +261,6 @@ void do_reprod(std::vector<agent>& pop, bool evolve_m)
             if (gsl_ran_bernoulli(r, static_cast<double>(m_prob)) == 1)
             {
                 tmp_pop[ind_2].b += static_cast<float> (gsl_ran_cauchy(r, static_cast<double>(m_shift)));
-                if (tmp_pop[ind_2].b < 0.f) {
-                    tmp_pop[ind_2].b = 0.f;
-                }
-                if (tmp_pop[ind_2].b > 1.f) {
-                    tmp_pop[ind_2].b = 1.f;
-                }
             }
         }
     }

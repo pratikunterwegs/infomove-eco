@@ -19,16 +19,13 @@ void agent::deplete_and_move(landscape& landscape)
 {
    size_t to_deplete = static_cast<size_t> (wrap_distance(-M, pos, n_patches));
 
-    // get vector of assessed positions and food at those positions
-    std::vector<int> vec_pos(static_cast<size_t>(2 * M + 1));
+   for (int m = -M; m <= M; m++) {
+       size_t tmp_p = static_cast<size_t>(wrap_distance(m, pos, n_patches));
 
-    for (int m = -M; m <= M; m++) {
-        size_t tmp_p = static_cast<size_t>(wrap_distance(m, pos, n_patches));
-
-        if(landscape.resources[tmp_p] > landscape.resources[to_deplete]){
-            to_deplete = tmp_p;
-        }
-    }
+       if(landscape.resources[tmp_p] > landscape.resources[to_deplete]){
+           to_deplete = tmp_p;
+       }
+   }
     // deplete food from the highest position
     // should depletion happen before assessing averages on either side?
     energy += landscape.resources[to_deplete];
@@ -45,9 +42,8 @@ void agent::deplete_and_move(landscape& landscape)
 /// function to implement the foraging dynamic
 void do_foraging_dynamic(landscape& landscape, std::vector<agent>& population)
 {
-    for (size_t indiv = 0; indiv < popsize; indiv++)
-    {
-      population[indiv].deplete_and_move(landscape);
+    for(auto& indiv : population) {
+        indiv.deplete_and_move(landscape);
     }
 }
 
