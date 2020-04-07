@@ -31,7 +31,7 @@ data <- map(data_files, read_csv)
 data <- map(data, function(df){
   df <- filter(df, variable != "M")
   df <- split(df, df$phi) %>% 
-    map(function(df2){split(df2, df2$init_d)})
+    map(function(df2){split(df2, df2$leader_choices)})
 })
 
 walk2(data, c("info", "noinfo"), function(x,y){
@@ -41,21 +41,22 @@ walk2(data, c("info", "noinfo"), function(x,y){
     
     fig_subpanel <- map2(df_list, names(df_list), function(df, name2){
       
-      subtitle = glue::glue('initial D: {name2}')
+      subtitle = glue::glue('leader choices: {name2}')
       
       fig_param <- ggplot(df, aes(x=gen, y=mean, ymin=mean-sd, ymax=mean+sd,
                                   col = variable, fill = variable, group = variable))+
         #geom_pointrange(size = 0.1)+  
+        geom_hline(yintercept = 0, size = 0.1)+
         geom_ribbon(alpha = 0.3, col = NA, fill = "grey")+
-        geom_line(size = 0.2, alpha = 0.9)+
+        geom_line(size = 0.3, alpha = 0.9)+
         
         scale_colour_brewer(palette = "Set1")+
         # scale_fill_viridis_c(option = "E", limits = c(0, 250),
         #                      na.value = "steelblue", direction = -1)+
         scale_x_continuous(breaks = c(0,50000,100000),
                            labels = as.character(c(0, 50, 100)))+
-        scale_y_continuous(breaks = c(0,0.5,1),
-                           labels = c(0, 0.5, 1))+
+        # scale_y_continuous(breaks = c(0,0.5,1),
+        #                    labels = c(0, 0.5, 1))+
         theme_minimal(base_size = 5)+
         theme(plot.background = element_rect(colour = "black", fill=NA,
                                              size = 0.2),
@@ -65,9 +66,10 @@ walk2(data, c("info", "noinfo"), function(x,y){
               axis.title = element_text(),
               # plot.title = element_text(face = "bold"),
               legend.position = "none",
-              axis.text.y = element_text(angle = 90))+
-        coord_cartesian(expand = F, ylim =c(0,1))+
-        facet_grid(variable~rep,labeller = label_both)+
+              axis.text.y = element_text(angle = 0))+
+        # coord_cartesian(expand = T, ylim =c(0,1))+
+        facet_grid(variable~rep,labeller = label_both,
+                   scales = "free_y")+
         labs(x = NULL, y = NULL, title = subtitle)
     })
     fig_param <- wrap_plots(fig_subpanel, guides = "collect", ncol = 3)+
@@ -76,7 +78,7 @@ walk2(data, c("info", "noinfo"), function(x,y){
     
     return(fig_param)
   })
-  cairo_pdf(file = glue('figs/fig_{y}_param_trajectory.pdf'), width = 10, height = 3,
+  cairo_pdf(file = glue('figs/fig_v2_{y}_param_trajectory.pdf'), width = 10, height = 3,
             onefile = TRUE)
   {
     print(a_fig)
@@ -104,9 +106,9 @@ data <- map(data, function(df){
 # split by phi and then by initial D
 data <- map(data, function(df){
   df <- split(df, df$phi) %>% 
-    map(function(df2){split(df2, df2$init_d) %>% 
+    map(function(df2){split(df2, df2$leader_choices) %>% 
         map(function(df3){
-          df3 <- select(df3, type, phi, init_d, rep, gen, mean_a, mean_b) %>% 
+          df3 <- select(df3, type, phi, leader_choices, rep, gen, mean_a, mean_b) %>% 
             filter(gen %% 2000 == 0) %>% 
             mutate(resp = map2(mean_a, mean_b, function(a,b){
               return(tibble(deltaq = deltaq, pf = prob_follow(a,b,deltaq)))
@@ -155,7 +157,7 @@ walk2(data, c("info", "noinfo"), function(x,y){
     
     return(fig_param)
   })
-  cairo_pdf(file = glue('figs/fig_{y}_follow_prob.pdf'), width = 10, height = 3,
+  cairo_pdf(file = glue('figs/fig_v2_{y}_follow_prob.pdf'), width = 10, height = 3,
             onefile = TRUE)
   {
     print(a_fig)
