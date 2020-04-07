@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<!-- Written by QtCreator 4.8.2, 2020-04-06T10:54:30. -->
+<!-- Written by QtCreator 4.8.2, 2020-04-07T09:25:24. -->
 <qtcreator>
  <data>
   <variable>EnvironmentId</variable>
@@ -249,7 +249,7 @@
     <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">infomove2</value>
     <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">Qt4ProjectManager.Qt4RunConfiguration:/home/pratik/projects/infomove/infomove.pro</value>
     <value type="QString" key="Qt4ProjectManager.Qt4RunConfiguration.ProFile">infomove.pro</value>
-    <value type="QString" key="RunConfiguration.Arguments">noinfo 10 0.1 2000 100 0.5 1</value>
+    <value type="QString" key="RunConfiguration.Arguments">info 10 0.1 2000 100 0.5 2 1</value>
     <value type="uint" key="RunConfiguration.QmlDebugServerPort">3768</value>
     <value type="bool" key="RunConfiguration.UseCppDebugger">false</value>
     <value type="bool" key="RunConfiguration.UseCppDebuggerAuto">true</value>
