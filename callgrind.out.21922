@@ -1,0 +1,17875 @@
+# callgrind format
+version: 1
+creator: callgrind-3.15.0
+pid: 21922
+cmd:  /home/pratik/projects/infomove/infomove info 10 0.1 2000 100 0.5 2 1
+part: 1
+
+
+desc: I1 cache: 
+desc: D1 cache: 
+desc: LL cache: 
+
+desc: Timerange: Basic block 0 - 3744128054
+desc: Trigger: Program termination
+
+positions: line
+events: Ir
+summary: 23474633201
+
+
+ob=(11) /home/pratik/projects/infomove/infomove
+fl=(161) ???
+fn=(1306) main
+0 28
+cob=(2) ???
+cfi=(18) ???
+cfn=(1308) 0x000000000010a540
+calls=1 0 
+0 199
+0 156
+cob=(2)
+cfi=(18)
+cfn=(1312) 0x000000000010a430
+calls=9 0 
+0 190
+0 49
+cob=(2)
+cfi=(18)
+cfn=(1314) 0x000000000010a6c0
+calls=1 0 
+0 873
+0 8
+cob=(2)
+cfi=(18)
+cfn=(1322) 0x000000000010a4b0
+calls=1 0 
+0 14
+0 24
+cob=(2)
+cfi=(18)
+cfn=(1322)
+calls=6 0 
+0 110
+0 45
+cfn=(1326) std::vector<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >::vector(std::vector<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > > const&)
+calls=1 0 
+0 1040
+0 6
+cfn=(1330) std::vector<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >::~vector()
+calls=1 0 
+0 1155
+0 1
+cob=(2)
+cfi=(18)
+cfn=(1344) 0x000000000010a630
+calls=1 0 
+0 1764
+0 2
+cob=(2)
+cfi=(18)
+cfn=(1356) 0x000000000010a6b0
+calls=1 0 
+0 12839
+0 2
+cob=(2)
+cfi=(18)
+cfn=(1380) 0x000000000010a3a0
+calls=1 0 
+0 925
+0 3
+cob=(2)
+cfi=(18)
+cfn=(1392) 0x000000000010a440
+calls=1 0 
+0 5621
+0 3
+cfn=(1326)
+calls=1 0 
+0 751
+0 2
+cfn=(1394) do_simulation(std::vector<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >)
+calls=1 0 
+0 23471940362
+
+fn=(1328) void std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::_M_construct<char*>(char*, char*, std::forward_iterator_tag)
+0 300442
+cob=(2)
+cfi=(18)
+cfn=(1314)
+calls=2 0 
+0 289
+0 14
+cob=(2)
+cfi=(18)
+cfn=(1322)
+calls=2 0 
+0 28
+0 25728
+cob=(2)
+cfi=(18)
+cfn=(1322)
+calls=8576 0 
+0 128684
+0 25734
+
+fn=(1428) landscape::landscape()
+0 10
+cob=(2)
+cfi=(18)
+cfn=(1308)
+calls=1 0 
+0 204
+0 20013
+
+fn=(780) 0x0000000000003390
+0 12
+
+fn=(1326)
+0 42
+cob=(2)
+cfi=(18)
+cfn=(1308)
+calls=2 0 
+0 256
+0 36
+cfn=(1328)
+calls=2 0 
+0 403
+0 112
+cfn=(1328)
+calls=16 0 
+0 856
+0 86
+
+fn=(1406) float __gnu_cxx::__stoa<float, float, char>(float (*)(char const*, char**), char const*, char const*, unsigned long*)
+0 32
+cob=(2)
+cfi=(18)
+cfn=(1398) 0x000000000010a390
+calls=2 0 
+0 12
+0 12
+cob=(3) /lib/x86_64-linux-gnu/libc-2.30.so
+cfi=(192) /build/glibc-t7JzpG/glibc-2.30/stdlib/strtod.c
+cfn=(1408) strtof
+calls=2 82 
+0 1171
+0 46
+
+fn=(1922) doFollowDynamic(std::vector<agent, std::allocator<agent> >&, int)
+0 435464
+cob=(2)
+cfi=(18)
+cfn=(1308)
+calls=15016 0 
+0 5760449
+0 98024448
+cfn=(1924) agent& std::vector<agent, std::allocator<agent> >::emplace_back<agent>(agent&&)
+calls=7508000 0 
+0 256521904
+0 53099276
+cob=(2)
+cfi=(18)
+cfn=(1474) 0x000000000010a450
+calls=181092 0 
+0 12531295
+0 3347528
+cfn=(1928) agent::chooseFollow(agent const&)
+calls=271033 0 
+0 77929750
+0 3639359
+cob=(2)
+cfi=(18)
+cfn=(1332) 0x000000000010a500
+calls=15016 0 
+0 2366430
+0 60064
+cob=(2)
+cfi=(18)
+cfn=(1332)
+calls=15016 0 
+0 2302549
+0 165176
+
+fn=(1956) print_agent_summary(std::vector<agent, std::allocator<agent> >&, int, std::vector<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >)
+0 20
+cob=(2)
+cfi=(18)
+cfn=(1516) 0x000000000010a3e0
+calls=1 0 
+0 104
+0 17
+cob=(2)
+cfi=(18)
+cfn=(1518) 0x000000000010a5a0
+calls=1 0 
+0 1003
+0 7
+cob=(2)
+cfi=(18)
+cfn=(1520) 0x000000000010a560
+calls=1 0 
+0 355
+0 3
+cob=(2)
+cfi=(18)
+cfn=(1518)
+calls=1 0 
+0 1003
+0 11
+cfn=(1328)
+calls=1 0 
+0 56
+0 8
+cob=(2)
+cfi=(18)
+cfn=(1466) 0x000000000010a3f0
+calls=1 0 
+0 213
+0 4
+cob=(2)
+cfi=(18)
+cfn=(1466)
+calls=1 0 
+0 298
+0 25
+cob=(2)
+cfi=(18)
+cfn=(1466)
+calls=1 0 
+0 47
+0 21
+cob=(2)
+cfi=(18)
+cfn=(1516)
+calls=1 0 
+0 104
+0 21
+cob=(2)
+cfi=(18)
+cfn=(1518)
+calls=1 0 
+0 1003
+0 9
+cob=(2)
+cfi=(18)
+cfn=(1520)
+calls=1 0 
+0 355
+0 3
+cob=(2)
+cfi=(18)
+cfn=(1518)
+calls=1 0 
+0 1003
+0 4
+cob=(2)
+cfi=(18)
+cfn=(1542) 0x000000000010a4f0
+calls=1 0 
+0 694
+0 9
+cob=(2)
+cfi=(18)
+cfn=(1332)
+calls=1 0 
+0 88
+0 8013
+cob=(2)
+cfi=(18)
+cfn=(1466)
+calls=500 0 
+0 23500
+0 9000
+cob=(2)
+cfi=(18)
+cfn=(1542)
+calls=500 0 
+0 422000
+0 3500
+cob=(2)
+cfi=(18)
+cfn=(1604) 0x000000000010a680
+calls=500 0 
+0 4500
+0 2000
+cob=(2)
+cfi=(18)
+cfn=(1332)
+calls=500 0 
+0 44000
+0 4500
+cob=(2)
+cfi=(18)
+cfn=(1642) 0x000000000010a690
+calls=500 0 
+0 190512
+0 2500
+cob=(2)
+cfi=(18)
+cfn=(1614) 0x000000000010a580
+calls=500 0 
+0 95000
+0 1500
+cob=(2)
+cfi=(18)
+cfn=(1940) 0x000000000010a490
+calls=500 0 
+0 173950
+0 2500
+cob=(2)
+cfi=(18)
+cfn=(1614)
+calls=500 0 
+0 95000
+0 3500
+cob=(2)
+cfi=(18)
+cfn=(1678) 0x000000000010a640
+calls=500 0 
+0 1262500
+0 2500
+cob=(2)
+cfi=(18)
+cfn=(1614)
+calls=500 0 
+0 95000
+0 2000
+cob=(2)
+cfi=(18)
+cfn=(1642)
+calls=500 0 
+0 171000
+0 2500
+cob=(2)
+cfi=(18)
+cfn=(1614)
+calls=500 0 
+0 95000
+0 2500
+cob=(2)
+cfi=(18)
+cfn=(1678)
+calls=500 0 
+0 1110000
+0 2500
+cob=(2)
+cfi=(18)
+cfn=(1614)
+calls=500 0 
+0 95000
+0 2500
+cob=(2)
+cfi=(18)
+cfn=(1678)
+calls=500 0 
+0 1110000
+0 2500
+cob=(2)
+cfi=(18)
+cfn=(1614)
+calls=500 0 
+0 95000
+0 2500
+cob=(2)
+cfi=(18)
+cfn=(1678)
+calls=500 0 
+0 1247434
+0 2000
+cob=(2)
+cfi=(18)
+cfn=(1614)
+calls=500 0 
+0 95000
+0 1000
+cob=(2)
+cfi=(18)
+cfn=(1746) 0x000000000010a3b0
+calls=500 0 
+0 436500
+0 9500
+cfn=(1328)
+calls=500 0 
+0 28000
+0 4000
+cob=(2)
+cfi=(18)
+cfn=(1466)
+calls=500 0 
+0 106500
+0 2000
+cob=(2)
+cfi=(18)
+cfn=(1466)
+calls=500 0 
+0 149000
+0 3008
+cob=(2)
+cfi=(18)
+cfn=(1746)
+calls=1 0 
+0 32
+0 3
+cob=(2)
+cfi=(18)
+cfn=(1848) 0x000000000010a6d0
+calls=1 0 
+0 21
+0 3
+cob=(2)
+cfi=(18)
+cfn=(1852) 0x000000000010a5b0
+calls=1 0 
+0 10
+0 10
+cob=(2)
+cfi=(18)
+cfn=(1854) 0x000000000010a400
+calls=1 0 
+0 57
+0 7
+cob=(2)
+cfi=(18)
+cfn=(1746)
+calls=1 0 
+0 32
+0 2
+cob=(2)
+cfi=(18)
+cfn=(1848)
+calls=1 0 
+0 21
+0 3
+cob=(2)
+cfi=(18)
+cfn=(1852)
+calls=1 0 
+0 10
+0 9
+cob=(2)
+cfi=(18)
+cfn=(1854)
+calls=1 0 
+0 57
+0 20
+cfn=(1328)
+calls=1 0 
+0 56
+0 8
+cob=(2)
+cfi=(18)
+cfn=(1466)
+calls=1 0 
+0 213
+0 4
+cob=(2)
+cfi=(18)
+cfn=(1466)
+calls=1 0 
+0 298
+0 22
+cob=(2)
+cfi=(18)
+cfn=(1466)
+calls=1 0 
+0 47
+0 18
+cob=(2)
+cfi=(18)
+cfn=(1542)
+calls=1 0 
+0 895
+0 7
+cob=(2)
+cfi=(18)
+cfn=(1604)
+calls=1 0 
+0 9
+0 4
+cob=(2)
+cfi=(18)
+cfn=(1332)
+calls=1 0 
+0 88
+0 10
+cob=(2)
+cfi=(18)
+cfn=(1614)
+calls=1 0 
+0 253
+0 2
+cob=(2)
+cfi=(18)
+cfn=(1746)
+calls=1 0 
+0 873
+0 5
+cob=(2)
+cfi=(18)
+cfn=(1604)
+calls=1 0 
+0 9
+0 1
+
+fn=(1396) int __gnu_cxx::__stoa<long, int, char, int>(long (*)(char const*, char**, int), char const*, char const*, unsigned long*, int)
+0 68
+cob=(2)
+cfi=(18)
+cfn=(1398)
+calls=4 0 
+0 24
+0 28
+cob=(3)
+cfi=(190) /build/glibc-t7JzpG/glibc-2.30/stdlib/../stdlib/strtol.c
+cfn=(1402) strtol
+calls=4 105 
+0 538
+0 112
+
+fn=(1924)
+0 119076880
+cfn=(1926) void std::vector<agent, std::allocator<agent> >::_M_realloc_insert<agent>(__gnu_cxx::__normal_iterator<agent*, std::vector<agent, std::allocator<agent> > >, agent&&)
+calls=150160 0 
+0 136844384
+0 600640
+
+fn=(1394)
+0 23
+cfn=(1328)
+calls=1 0 
+0 58
+0 8
+cfn=(1396)
+calls=1 0 
+0 183
+0 8
+cfn=(1406)
+calls=1 0 
+0 638
+0 8
+cfn=(1396)
+calls=1 0 
+0 221
+0 8
+cfn=(1396)
+calls=1 0 
+0 202
+0 7
+cfn=(1406)
+calls=1 0 
+0 635
+0 8
+cfn=(1396)
+calls=1 0 
+0 164
+0 10
+cfn=(1328)
+calls=1 0 
+0 36
+0 5
+cob=(2)
+cfi=(18)
+cfn=(1308)
+calls=1 0 
+0 204
+0 8016
+cfn=(1428)
+calls=1 0 
+0 20227
+0 4
+cfn=(1430) landscape::doMakeFood(int const&, float const&)
+calls=1 0 
+0 1461756
+0 8
+cfn=(1328)
+calls=1 0 
+0 36
+0 14
+cfn=(1328)
+calls=1 0 
+0 58
+0 11
+cfn=(1460) identify_outfile(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, int, float, int, float, int, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >)
+calls=1 0 
+0 54000
+0 10
+cob=(2)
+cfi=(18)
+cfn=(1870) 0x000000000010a3d0
+calls=1 0 
+0 968
+0 5
+cob=(2)
+cfi=(18)
+cfn=(1870)
+calls=1 0 
+0 82
+0 17
+cob=(2)
+cfi=(18)
+cfn=(1308)
+calls=1 0 
+0 492
+0 20
+cfn=(1328)
+calls=1 0 
+0 56
+0 8
+cfn=(1328)
+calls=1 0 
+0 56
+0 22
+cfn=(1878) evolve_pop_no_M(std::vector<agent, std::allocator<agent> >&, int, int, int, float, int, landscape&, std::vector<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >)
+calls=1 0 
+0 23470392070
+
+fn=(1430)
+0 330374
+cob=(2)
+cfi=(18)
+cfn=(1432) 0x000000000010a4c0
+calls=15017 0 
+0 285323
+0 750679900
+cob=(2)
+cfi=(18)
+cfn=(1432)
+calls=75067990 0 
+0 2839293575
+0 375415035
+cob=(2)
+cfi=(18)
+cfn=(1436) 0x000000000010a550
+calls=75083007 0 
+0 16544898543
+0 1351608210
+
+fn=(1928)
+0 3523429
+cob=(2)
+cfi=(18)
+cfn=(1930) 0x000000000010a670
+calls=271033 0 
+0 8944089
+0 1897231
+cob=(2)
+cfi=(18)
+cfn=(1436)
+calls=271033 0 
+0 59769720
+0 3795281
+
+fn=(1960) void std::vector<double, std::allocator<double> >::_M_realloc_insert<double>(__gnu_cxx::__normal_iterator<double*, std::vector<double, std::allocator<double> > >, double&&)
+0 45900
+cob=(2)
+cfi=(18)
+cfn=(1308)
+calls=1500 0 
+0 167194
+0 40350
+cob=(2)
+cfi=(18)
+cfn=(1962) 0x000000000010a650
+calls=1350 0 
+0 83100
+0 8100
+cob=(2)
+cfi=(18)
+cfn=(1332)
+calls=1350 0 
+0 128868
+0 11100
+
+fn=(770) _start
+0 12
+cob=(3)
+cfi=(162) /build/glibc-t7JzpG/glibc-2.30/csu/../csu/libc-start.c
+cfn=(772) (below main)
+calls=1 137 
+0 23472083667
+
+fn=(1330)
+0 47
+cob=(2)
+cfi=(18)
+cfn=(1332)
+calls=1 0 
+0 985
+0 35
+cob=(2)
+cfi=(18)
+cfn=(1332)
+calls=1 0 
+0 88
+
+fn=(1460)
+0 29
+cob=(2)
+cfi=(18)
+cfn=(1462) 0x000000000010a620
+calls=1 0 
+0 33
+0 8
+cob=(2)
+cfi=(18)
+cfn=(1466)
+calls=1 0 
+0 1015
+0 4
+cob=(2)
+cfi=(18)
+cfn=(1466)
+calls=1 0 
+0 48
+0 6
+cob=(2)
+cfi=(18)
+cfn=(1380)
+calls=1 0 
+0 42
+0 10
+cob=(2)
+cfi=(18)
+cfn=(1474)
+calls=1 0 
+0 55
+0 8
+cfn=(1480) std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > __gnu_cxx::__to_xstring<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, char>(int (*)(char*, unsigned long, char const*, __va_list_tag*), unsigned long, char const*, ...)
+calls=1 0 
+0 963
+0 21
+cfn=(1328)
+calls=1 0 
+0 56
+0 8
+cob=(2)
+cfi=(18)
+cfn=(1466)
+calls=1 0 
+0 2715
+0 6
+cob=(2)
+cfi=(18)
+cfn=(1516)
+calls=1 0 
+0 104
+0 17
+cob=(2)
+cfi=(18)
+cfn=(1518)
+calls=1 0 
+0 1003
+0 7
+cob=(2)
+cfi=(18)
+cfn=(1520)
+calls=1 0 
+0 3486
+0 3
+cob=(2)
+cfi=(18)
+cfn=(1518)
+calls=1 0 
+0 1003
+0 6
+cob=(2)
+cfi=(18)
+cfn=(1516)
+calls=1 0 
+0 104
+0 22
+cob=(2)
+cfi=(18)
+cfn=(1518)
+calls=1 0 
+0 1003
+0 7
+cob=(2)
+cfi=(18)
+cfn=(1520)
+calls=1 0 
+0 355
+0 3
+cob=(2)
+cfi=(18)
+cfn=(1518)
+calls=1 0 
+0 1003
+0 4
+cob=(2)
+cfi=(18)
+cfn=(1542)
+calls=1 0 
+0 4956
+0 7
+cob=(2)
+cfi=(18)
+cfn=(1604)
+calls=1 0 
+0 9
+0 7
+cob=(2)
+cfi=(18)
+cfn=(1542)
+calls=1 0 
+0 1139
+0 7
+cob=(2)
+cfi=(18)
+cfn=(1604)
+calls=1 0 
+0 9
+0 7
+cfn=(1328)
+calls=1 0 
+0 56
+0 8
+cob=(2)
+cfi=(18)
+cfn=(1466)
+calls=1 0 
+0 362
+0 4
+cob=(2)
+cfi=(18)
+cfn=(1614)
+calls=1 0 
+0 2847
+0 5
+cob=(2)
+cfi=(18)
+cfn=(1614)
+calls=1 0 
+0 190
+0 4
+cob=(2)
+cfi=(18)
+cfn=(1614)
+calls=1 0 
+0 189
+0 5
+cob=(2)
+cfi=(18)
+cfn=(1614)
+calls=1 0 
+0 190
+0 3
+cob=(2)
+cfi=(18)
+cfn=(1642)
+calls=1 0 
+0 5470
+0 5
+cob=(2)
+cfi=(18)
+cfn=(1614)
+calls=1 0 
+0 190
+0 4
+cob=(2)
+cfi=(18)
+cfn=(1678)
+calls=1 0 
+0 6828
+0 5
+cob=(2)
+cfi=(18)
+cfn=(1614)
+calls=1 0 
+0 190
+0 3
+cob=(2)
+cfi=(18)
+cfn=(1642)
+calls=1 0 
+0 371
+0 5
+cob=(2)
+cfi=(18)
+cfn=(1614)
+calls=1 0 
+0 190
+0 4
+cob=(2)
+cfi=(18)
+cfn=(1678)
+calls=1 0 
+0 2529
+0 5
+cob=(2)
+cfi=(18)
+cfn=(1614)
+calls=1 0 
+0 190
+0 3
+cob=(2)
+cfi=(18)
+cfn=(1642)
+calls=1 0 
+0 342
+0 5
+cob=(2)
+cfi=(18)
+cfn=(1614)
+calls=1 0 
+0 190
+0 5
+cob=(2)
+cfi=(18)
+cfn=(1614)
+calls=1 0 
+0 190
+0 4
+cob=(2)
+cfi=(18)
+cfn=(1614)
+calls=1 0 
+0 190
+0 4
+cob=(2)
+cfi=(18)
+cfn=(1332)
+calls=1 0 
+0 88
+0 2
+cob=(2)
+cfi=(18)
+cfn=(1746)
+calls=1 0 
+0 10097
+0 9
+cfn=(1328)
+calls=1 0 
+0 56
+0 7
+cfn=(1328)
+calls=1 0 
+0 56
+0 5
+cob=(2)
+cfi=(18)
+cfn=(1308)
+calls=1 0 
+0 419
+0 11
+cfn=(1328)
+calls=1 0 
+0 56
+0 8
+cfn=(1328)
+calls=1 0 
+0 56
+0 15
+cob=(2)
+cfi=(18)
+cfn=(1746)
+calls=1 0 
+0 696
+0 3
+cob=(2)
+cfi=(18)
+cfn=(1848)
+calls=1 0 
+0 21
+0 3
+cob=(2)
+cfi=(18)
+cfn=(1852)
+calls=1 0 
+0 10
+0 10
+cob=(2)
+cfi=(18)
+cfn=(1854)
+calls=1 0 
+0 2011
+0 7
+cob=(2)
+cfi=(18)
+cfn=(1746)
+calls=1 0 
+0 32
+0 2
+cob=(2)
+cfi=(18)
+cfn=(1848)
+calls=1 0 
+0 21
+0 3
+cob=(2)
+cfi=(18)
+cfn=(1852)
+calls=1 0 
+0 10
+0 9
+cob=(2)
+cfi=(18)
+cfn=(1854)
+calls=1 0 
+0 57
+0 4
+cob=(2)
+cfi=(18)
+cfn=(1332)
+calls=1 0 
+0 88
+0 24
+cob=(2)
+cfi=(18)
+cfn=(1322)
+calls=1 0 
+0 15
+0 6
+
+fn=(1916) void std::shuffle<__gnu_cxx::__normal_iterator<int*, std::vector<int, std::allocator<int> > >, std::mersenne_twister_engine<unsigned long, 32ul, 624ul, 397ul, 31ul, 2567483615ul, 11ul, 4294967295ul, 7ul, 2636928640ul, 15ul, 4022730752ul, 18ul, 1812433253ul>&>(__gnu_cxx::__normal_iterator<int*, std::vector<int, std::allocator<int> > >, __gnu_cxx::__normal_iterator<int*, std::vector<int, std::allocator<int> > >, std::mersenne_twister_engine<unsigned long, 32ul, 624ul, 397ul, 31ul, 2567483615ul, 11ul, 4294967295ul, 7ul, 2636928640ul, 15ul, 4022730752ul, 18ul, 1812433253ul>&)
+0 8456
+cfn=(1918) unsigned long std::uniform_int_distribution<unsigned long>::operator()<std::mersenne_twister_engine<unsigned long, 32ul, 624ul, 397ul, 31ul, 2567483615ul, 11ul, 4294967295ul, 7ul, 2636928640ul, 15ul, 4022730752ul, 18ul, 1812433253ul> >(std::mersenne_twister_engine<unsigned long, 32ul, 624ul, 397ul, 31ul, 2567483615ul, 11ul, 4294967295ul, 7ul, 2636928640ul, 15ul, 4022730752ul, 18ul, 1812433253ul>&, std::uniform_int_distribution<unsigned long>::param_type const&)
+calls=151 0 
+0 9966
+0 524272
+cfn=(1918)
+calls=37448 0 
+0 3014770
+0 527745
+cfn=(1918)
+calls=151 0 
+0 19028
+0 906
+
+fn=(1918)
+0 1019250
+cfn=(1920) std::mersenne_twister_engine<unsigned long, 32ul, 624ul, 397ul, 31ul, 2567483615ul, 11ul, 4294967295ul, 7ul, 2636928640ul, 15ul, 4022730752ul, 18ul, 1812433253ul>::operator()()
+calls=37750 0 
+0 1420514
+0 604000
+
+fn=(1934) agent::deplete_and_move(landscape&)
+0 923473282
+
+fn=(1936) print_agent_data(std::vector<agent, std::allocator<agent> >&, int, int, std::vector<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >)
+0 336
+cob=(2)
+cfi=(18)
+cfn=(1516)
+calls=16 0 
+0 1664
+0 272
+cob=(2)
+cfi=(18)
+cfn=(1518)
+calls=16 0 
+0 16048
+0 112
+cob=(2)
+cfi=(18)
+cfn=(1520)
+calls=16 0 
+0 5680
+0 48
+cob=(2)
+cfi=(18)
+cfn=(1518)
+calls=16 0 
+0 16048
+0 176
+cfn=(1328)
+calls=16 0 
+0 896
+0 128
+cob=(2)
+cfi=(18)
+cfn=(1466)
+calls=16 0 
+0 3408
+0 64
+cob=(2)
+cfi=(18)
+cfn=(1466)
+calls=16 0 
+0 4934
+0 400
+cob=(2)
+cfi=(18)
+cfn=(1466)
+calls=16 0 
+0 752
+0 336
+cob=(2)
+cfi=(18)
+cfn=(1516)
+calls=16 0 
+0 1664
+0 336
+cob=(2)
+cfi=(18)
+cfn=(1518)
+calls=16 0 
+0 16048
+0 144
+cob=(2)
+cfi=(18)
+cfn=(1520)
+calls=16 0 
+0 5680
+0 48
+cob=(2)
+cfi=(18)
+cfn=(1518)
+calls=16 0 
+0 16048
+0 64
+cob=(2)
+cfi=(18)
+cfn=(1542)
+calls=16 0 
+0 14592
+0 110
+cob=(2)
+cfi=(18)
+cfn=(1604)
+calls=15 0 
+0 135
+0 64
+cob=(2)
+cfi=(18)
+cfn=(1332)
+calls=16 0 
+0 1408
+0 128208
+cob=(2)
+cfi=(18)
+cfn=(1466)
+calls=8000 0 
+0 376000
+0 144000
+cob=(2)
+cfi=(18)
+cfn=(1542)
+calls=8000 0 
+0 8066715
+0 56000
+cob=(2)
+cfi=(18)
+cfn=(1604)
+calls=8000 0 
+0 72000
+0 32000
+cob=(2)
+cfi=(18)
+cfn=(1332)
+calls=8000 0 
+0 704000
+0 72000
+cob=(2)
+cfi=(18)
+cfn=(1642)
+calls=8000 0 
+0 3048192
+0 40000
+cob=(2)
+cfi=(18)
+cfn=(1614)
+calls=8000 0 
+0 1520000
+0 24000
+cob=(2)
+cfi=(18)
+cfn=(1642)
+calls=8000 0 
+0 2820000
+0 40000
+cob=(2)
+cfi=(18)
+cfn=(1614)
+calls=8000 0 
+0 1520000
+0 24000
+cob=(2)
+cfi=(18)
+cfn=(1940)
+calls=8000 0 
+0 2784638
+0 40000
+cob=(2)
+cfi=(18)
+cfn=(1614)
+calls=8000 0 
+0 1520000
+0 48000
+cob=(2)
+cfi=(18)
+cfn=(1642)
+calls=8000 0 
+0 3036895
+0 40000
+cob=(2)
+cfi=(18)
+cfn=(1614)
+calls=8000 0 
+0 1520000
+0 40000
+cob=(2)
+cfi=(18)
+cfn=(1678)
+calls=8000 0 
+0 19919467
+0 40000
+cob=(2)
+cfi=(18)
+cfn=(1614)
+calls=8000 0 
+0 1520000
+0 40000
+cob=(2)
+cfi=(18)
+cfn=(1678)
+calls=8000 0 
+0 23740456
+0 32000
+cob=(2)
+cfi=(18)
+cfn=(1614)
+calls=8000 0 
+0 1520000
+0 16000
+cob=(2)
+cfi=(18)
+cfn=(1746)
+calls=8000 0 
+0 7164000
+0 152000
+cfn=(1328)
+calls=8000 0 
+0 448000
+0 64000
+cob=(2)
+cfi=(18)
+cfn=(1466)
+calls=8000 0 
+0 1704000
+0 32000
+cob=(2)
+cfi=(18)
+cfn=(1466)
+calls=8000 0 
+0 2384000
+0 48128
+cob=(2)
+cfi=(18)
+cfn=(1746)
+calls=16 0 
+0 10472
+0 48
+cob=(2)
+cfi=(18)
+cfn=(1848)
+calls=16 0 
+0 336
+0 48
+cob=(2)
+cfi=(18)
+cfn=(1852)
+calls=16 0 
+0 160
+0 160
+cob=(2)
+cfi=(18)
+cfn=(1854)
+calls=16 0 
+0 912
+0 112
+cob=(2)
+cfi=(18)
+cfn=(1746)
+calls=16 0 
+0 512
+0 32
+cob=(2)
+cfi=(18)
+cfn=(1848)
+calls=16 0 
+0 336
+0 48
+cob=(2)
+cfi=(18)
+cfn=(1852)
+calls=16 0 
+0 160
+0 144
+cob=(2)
+cfi=(18)
+cfn=(1854)
+calls=16 0 
+0 912
+0 185
+cfn=(1328)
+calls=1 0 
+0 56
+0 8
+cob=(2)
+cfi=(18)
+cfn=(1466)
+calls=1 0 
+0 213
+0 4
+cob=(2)
+cfi=(18)
+cfn=(1466)
+calls=1 0 
+0 298
+0 22
+cob=(2)
+cfi=(18)
+cfn=(1466)
+calls=1 0 
+0 47
+0 18
+cob=(2)
+cfi=(18)
+cfn=(1542)
+calls=1 0 
+0 915
+0 7
+cob=(2)
+cfi=(18)
+cfn=(1604)
+calls=1 0 
+0 9
+0 4
+cob=(2)
+cfi=(18)
+cfn=(1332)
+calls=1 0 
+0 88
+0 10
+cob=(2)
+cfi=(18)
+cfn=(1614)
+calls=1 0 
+0 253
+0 2
+cob=(2)
+cfi=(18)
+cfn=(1746)
+calls=1 0 
+0 873
+0 5
+cob=(2)
+cfi=(18)
+cfn=(1604)
+calls=1 0 
+0 9
+0 1
+
+fn=(786) _GLOBAL__sub_I_r
+0 4
+cob=(2)
+cfi=(18)
+cfn=(788) 0x000000000010a600
+calls=1 0 
+0 110953
+0 4
+cob=(2)
+cfi=(18)
+cfn=(1298) 0x000000000010a4d0
+calls=1 0 
+0 74
+0 6238
+
+fn=(1480)
+0 41
+cob=(3)
+cfi=(208) /build/glibc-t7JzpG/glibc-2.30/libio/vsnprintf.c
+cfn=(1482) vsnprintf
+calls=1 123 
+0 848
+0 7
+cfn=(1328)
+calls=1 0 
+0 56
+0 11
+
+fn=(1920)
+0 1420514
+
+fn=(1926)
+0 4745056
+cob=(2)
+cfi=(18)
+cfn=(1308)
+calls=150160 0 
+0 32046928
+0 81446784
+cob=(2)
+cfi=(18)
+cfn=(1332)
+calls=135144 0 
+0 15977816
+0 2627800
+
+fn=(774) __libc_csu_init
+0 15
+cob=(2)
+cfi=(18)
+cfn=(776) 0x000000000010a000
+calls=1 0 
+0 7
+0 8
+cfn=(780)
+calls=1 0 
+0 12
+0 4
+cfn=(786)
+calls=1 0 
+0 117273
+0 14
+
+fn=(1878)
+0 26
+cob=(2)
+cfi=(18)
+cfn=(1614)
+calls=1 0 
+0 2631
+0 3
+cob=(2)
+cfi=(18)
+cfn=(1642)
+calls=1 0 
+0 427
+0 5
+cob=(2)
+cfi=(18)
+cfn=(1614)
+calls=1 0 
+0 272
+0 4
+cob=(2)
+cfi=(18)
+cfn=(1678)
+calls=1 0 
+0 2723
+0 4
+cob=(2)
+cfi=(18)
+cfn=(1614)
+calls=1 0 
+0 401
+0 1
+cob=(2)
+cfi=(18)
+cfn=(1380)
+calls=1 0 
+0 42
+0 7
+cfn=(1914) shufflePopSeq(std::vector<agent, std::allocator<agent> >&)
+calls=1 0 
+0 50161
+0 300
+cfn=(1914)
+calls=150 0 
+0 6704306
+0 2265
+cfn=(1922)
+calls=151 0 
+0 44874334
+0 44595
+cfn=(1922)
+calls=14865 0 
+0 471309358
+0 15076064
+cfn=(1934)
+calls=7508000 0 
+0 923473282
+0 22748540
+cfn=(1430)
+calls=15016 0 
+0 21861049204
+0 32271
+cfn=(1958) do_reprod(std::vector<agent, std::allocator<agent> >&, bool)
+calls=150 0 
+0 31115440
+0 1438
+cob=(2)
+cfi=(18)
+cfn=(1308)
+calls=16 0 
+0 1571
+0 320
+cfn=(1328)
+calls=16 0 
+0 896
+0 112
+cfn=(1328)
+calls=16 0 
+0 896
+0 240
+cfn=(1936)
+calls=16 0 
+0 86665761
+0 384
+cob=(2)
+cfi=(18)
+cfn=(1332)
+calls=16 0 
+0 1408
+0 32
+cob=(2)
+cfi=(18)
+cfn=(1308)
+calls=1 0 
+0 57
+0 19
+cfn=(1328)
+calls=1 0 
+0 56
+0 7
+cfn=(1328)
+calls=1 0 
+0 56
+0 14
+cfn=(1956)
+calls=1 0 
+0 7232024
+0 24
+cob=(2)
+cfi=(18)
+cfn=(1332)
+calls=1 0 
+0 88
+0 1
+
+fn=(1914)
+0 2718
+cob=(2)
+cfi=(18)
+cfn=(1308)
+calls=151 0 
+0 52105
+0 606265
+cfn=(1916)
+calls=151 0 
+0 4105143
+0 2114
+cob=(2)
+cfi=(18)
+cfn=(1308)
+calls=151 0 
+0 50133
+0 1891275
+cob=(2)
+cfi=(18)
+cfn=(1332)
+calls=151 0 
+0 20234
+0 1057
+cob=(2)
+cfi=(18)
+cfn=(1332)
+calls=151 0 
+0 23423
+
+fn=(1958)
+0 1498200
+cfn=(1960)
+calls=1500 0 
+0 484612
+0 5250
+cob=(2)
+cfi=(18)
+cfn=(1964) 0x000000000010a4e0
+calls=150 0 
+0 6573870
+0 450
+cob=(2)
+cfi=(18)
+cfn=(1308)
+calls=150 0 
+0 70292
+0 976050
+cob=(2)
+cfi=(18)
+cfn=(1978) 0x000000000010a5f0
+calls=75000 0 
+0 4059376
+0 597738
+cob=(2)
+cfi=(18)
+cfn=(1974) 0x000000000010a590
+calls=75000 0 
+0 5258560
+0 825000
+cob=(2)
+cfi=(18)
+cfn=(1474)
+calls=75000 0 
+0 5184635
+0 975000
+cob=(2)
+cfi=(18)
+cfn=(1978)
+calls=75000 0 
+0 4041269
+0 226464
+cob=(2)
+cfi=(18)
+cfn=(1982) 0x000000000010a530
+calls=732 0 
+0 131772
+0 5922
+cob=(2)
+cfi=(18)
+cfn=(1982)
+calls=754 0 
+0 145558
+0 5724
+cob=(2)
+cfi=(18)
+cfn=(1332)
+calls=150 0 
+0 27348
+0 600
+cob=(2)
+cfi=(18)
+cfn=(1332)
+calls=150 0 
+0 20100
+0 1650
+
+ob=(9) /usr/lib/x86_64-linux-gnu/libgsl.so.23.1.0
+fl=(184) ./rng/rng.c
+fn=(1358) gsl_rng_alloc
+29 2
++2 1
+-2 2
++2 1
+cob=(1) /lib/x86_64-linux-gnu/ld-2.30.so
+cfi=(123) /build/glibc-t7JzpG/glibc-2.30/elf/../sysdeps/x86_64/dl-trampoline.h
+cfn=(374) _dl_runtime_resolve_xsave
+calls=1 +36 
+* 1116
+* 5
+* 1
++2 2
++6 3
+cob=(1)
+cfi=(123)
+cfn=(374)
+calls=1 +28 
+* 6067
+* 5
+* 1
++2 2
++10 1
+-2 1
++2 3
+cfn=(1376) gsl_rng_set
+calls=1 +48 
+* 5619
++3 5
+
+fn=(1376)
+99 2
++1 6
+cfi=(186) ./rng/mt.c
+cfn=(1378) mt_set
+calls=2 +36 
+* 11230
+
+fl=(182) ./rng/default.c
+fn=(1346) gsl_rng_env_setup
+32 1
++2 1
+-2 6
++2 1
+cob=(1)
+cfi=(123)
+cfn=(374)
+calls=1 +33 
+* 1293
+* 5
++2 2
++46 1
+-49 1
++49 1
+cob=(3)
+cfi=(183) /build/glibc-t7JzpG/glibc-2.30/stdlib/getenv.c
+cfn=(1354) getenv
+calls=1 -48 
+* 431
+* 1
++2 2
++6 2
++2 1
++1 8
+-14 5
+
+fl=(200) ./randist/gauss.c
+fn=(1438) gsl_ran_gaussian
+49 376770200
+fi=(201) ./randist/../gsl/gsl_rng.h
+178 95950756
+-2 287852268
+cfi=(186)
+cfn=(1442) mt_get_double
+calls=95950756 -88 
+* 3824065831
++2 287852268
+fe=(200)
+55 287852268
+fi=(201)
+171 95950756
++7 95950755
+-2 287852268
+cfi=(186)
+cfn=(1442)
+calls=95950756 -88 
+* 3949684207
++2 287852265
+fe=(200)
+56 191901510
++3 479753775
++2 493317666
++3 376770195
+cob=(4) /lib/x86_64-linux-gnu/libm-2.30.so
+cfi=(202) /build/glibc-t7JzpG/glibc-2.30/math/w_log_compat.c
+cfn=(1448) log@GLIBC_2.2.5
+calls=75354038 -32 
+* 4054979763
+cob=(1)
+cfi=(123)
+cfn=(374)
+calls=1 +3 
+* 921
+* 75354043
+* 602832312
++1 150708078
+-1 75354039
++1 75354039
+
+fl=(186)
+fn=(1478) mt_get
+88 1279663
++26 255692
++5 255692
+-5 511384
++1 1022768
++1 1022768
++1 767076
++5 255692
+-8 401
++5 401
+-5 802
++1 1604
++1 1604
++1 1203
++5 1203
+-34 1203
++6 2005
++1 2005
+-1 453130
++1 589753
+-3 91082
++3 90972
+-3 92175
++7 2005
++1 2005
+-1 791975
++1 1030178
+-3 158802
++3 158790
+-3 158790
++7 2406
++1 3594
+
+fn=(1442)
+88 1151844267
++26 191820091
++5 191820091
+-5 383640182
++1 767280364
++1 767280364
++1 383640182
++10 383640182
+-13 307907
++5 307907
+-5 615814
++1 1231628
++1 1231628
++1 615814
++10 576999805
++1 192743811
+-40 923721
++6 1539535
++1 1539535
+-1 347934910
++1 452787916
+-3 69902004
++3 69887774
+-3 70811495
++7 1539535
++1 1539535
+-1 608116325
++1 790996262
+-3 121919958
++3 121942386
+-3 121942386
++7 1847442
++1 2770708
+
+fn=(1378)
+136 6
++3 6
++2 1246
++6 4976
++2 2488
+-8 2488
++6 8
++2 4
+-8 4
++11 2
++1 2
+
+fl=(245) ./randist/discrete.c
+fn=(1976) gsl_ran_discrete
+356 225000
+fi=(201)
+167 225000
+cfi=(186)
+cfn=(1442)
+calls=75000 -79 
+* 3145008
+fe=(245)
+361 750000
++6 225000
++2 150000
++2 150000
++6 136448
+-2 6776
++2 6776
+-2 6776
++2 6776
+-8 75000
+
+fn=(1966) gsl_ran_discrete_preproc
+215 1050
++9 300
++12 1050
+-14 150
++13 300
++1 299400
+-1 75000
++5 75000
+-5 150000
++9 600
+cob=(3)
+cfi=(148) /build/glibc-t7JzpG/glibc-2.30/malloc/malloc.c
+cfn=(574) malloc
+calls=150 3023 
+* 6300
+* 150
++1 150
++1 150
+-2 150
++2 300
+cob=(3)
+cfi=(148)
+cfn=(574)
+calls=150 3023 
+* 70711
+* 150
++1 150
+-1 150
++1 150
+cob=(3)
+cfi=(148)
+cfn=(574)
+calls=150 3023 
+* 66814
+* 150
++2 150
+-2 300
++2 150
+cob=(3)
+cfi=(148)
+cfn=(574)
+calls=150 3023 
+* 66908
+* 150
++2 300
+-2 150
++6 150
+-4 150150
++5 74850
+-1 74850
++1 74850
+-1 149700
++1 150
+-1 150
++1 150
+-1 300
++5 300
++1 150
++5 150
+-6 150
++1 150
+-1 300
++6 150
++2 63462
+-2 170043
++1 150000
++3 86538
+-4 130257
++8 150
+cfn=(1968) new_stack
+calls=150 168 
+* 75024
++1 150
+-1 150
++1 150
+cfn=(1968)
+calls=150 168 
+* 119213
++1 450
+-1 150
++1 75300
+-1 224550
+-95 224550
++95 450
+-95 450
++3 150000
++93 75000
+-92 75000
++92 150600
++9 63762
+-92 75000
++93 75000
+-93 150000
++94 75000
+-93 75000
++93 150000
++7 149700
+193 74850
+294 74850
+193 74850
++1 74850
+294 74850
+-1 74850
++1 74850
++4 74850
++2 74850
+-2 74850
++1 149700
++1 149700
++1 74850
+-1 74850
++1 74850
+180 129807
++3 43269
++1 129807
+285 86538
++28 450
++29 225000
++1 150000
+-2 225000
+204 150
+cob=(3)
+cfi=(148)
+cfn=(1340) free
+calls=149 3087 
+* 23636
+cob=(1)
+cfi=(123)
+cfn=(374)
+calls=1 67 
+* 1054
+* 154
++1 300
+cob=(3)
+cfi=(148)
+cfn=(1340)
+calls=150 3087 
+* 12300
+* 150
+-1 300
+cob=(3)
+cfi=(148)
+cfn=(1340)
+calls=150 3087 
+* 22344
+* 150
++1 300
+cob=(3)
+cfi=(148)
+cfn=(1340)
+calls=150 3087 
+* 12300
+* 150
+349 300
+cob=(3)
+cfi=(148)
+cfn=(1340)
+calls=150 3087 
+* 23150
+* 150
++3 1350
+-48 63162
+180 94743
++3 31581
++1 31581
++1 63162
+288 150
++1 150
++1 300
+
+fn=(1968)
+168 600
++2 300
+-2 600
++2 300
+cob=(3)
+cfi=(148)
+cfn=(574)
+calls=300 3023 
+* 71679
+* 300
++3 300
+-2 300
+-1 300
++2 300
++1 300
+cob=(3)
+cfi=(148)
+cfn=(574)
+calls=300 3023 
+* 116858
+* 300
+* 300
++2 1500
+
+fl=(246) ./randist/bernoulli.c
+fn=(1980) gsl_ran_bernoulli
+33 300000
+fi=(201)
+167 300000
+fe=(246)
+33 150000
+fi=(201)
+167 150000
+cfi=(186)
+cfn=(1442)
+calls=150000 -79 
+* 6000645
+fe=(246)
+36 600000
++8 300000
+
+fl=(247) ./randist/cauchy.c
+fn=(1984) gsl_ran_cauchy
+34 7430
++6 1486
+fi=(201)
+167 4458
+cfi=(186)
+cfn=(1442)
+calls=1486 -79 
+* 65773
+fe=(247)
+40 2972
++2 2972
+cob=(4)
+cfi=(249) /build/glibc-t7JzpG/glibc-2.30/math/../sysdeps/ieee754/dbl-64/s_tan.c
+cfn=(1994) __tan_fma
+calls=1485 +18 
+* 180964
+cob=(1)
+cfi=(123)
+cfn=(374)
+calls=1 +25 
+* 869
+* 1490
+* 1486
++1 4458
+
+fl=(207) ./rng/../gsl/gsl_rng.h
+fn=(1476) gsl_rng_uniform_int
+191 1280465
++1 512186
++1 512186
++4 1280465
++6 1280465
++4 512186
+cfi=(186)
+cfn=(1478)
+calls=256093 88 
+* 9008823
+* 768279
++2 512186
++3 1536558
+
+fl=(159) ???
+fn=(752) 0x0000000000051af0
+0 11
+
+ob=(2)
+fl=(18)
+fn=(108) 0x0000000004001090
+0 44
+cob=(1)
+cfi=(35) /build/glibc-t7JzpG/glibc-2.30/elf/dl-error-skeleton.c
+cfn=(110) _dl_catch_exception
+calls=22 175 
+0 55894
+
+fn=(402) 0x0000000004ae0a70
+0 12
+cob=(1)
+cfi=(8) /build/glibc-t7JzpG/glibc-2.30/elf/dl-tunables.c
+cfn=(26) __tunable_get_val
+calls=5 369 
+0 95
+cob=(1)
+cfi=(123)
+cfn=(374)
+calls=1 67 
+0 1087
+0 5
+
+fn=(510) 0x0000000004b92000
+0 7
+
+fn=(532) 0x0000000004b97140
+0 16
+cob=(3)
+cfi=(146) /build/glibc-t7JzpG/glibc-2.30/stdlib/cxa_atexit.c
+cfn=(536) __cxa_atexit
+calls=7 69 
+0 504
+cob=(1)
+cfi=(123)
+cfn=(374)
+calls=1 67 
+0 991
+0 5
+
+fn=(560) 0x0000000004b96e80
+0 2
+cob=(1)
+cfi=(123)
+cfn=(375) _dl_runtime_resolve_xsave'2
+calls=1 67 
+0 823
+0 5
+
+fn=(748) 0x0000000004887000
+0 6
+
+fn=(776)
+0 7
+
+fn=(792) 0x0000000004b97400
+0 332
+cob=(8) /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.28
+cfi=(145) ???
+cfn=(796) std::locale::locale()
+calls=165 0 
+0 6765
+cob=(1)
+cfi=(123)
+cfn=(374)
+calls=1 67 
+0 78364
+0 5
+
+fn=(874) 0x0000000004b99020
+0 2
+cob=(1)
+cfi=(123)
+cfn=(375)
+calls=1 67 
+0 1592
+0 5
+
+fn=(934) 0x0000000004b994b0
+0 512
+cob=(3)
+cfi=(169) /build/glibc-t7JzpG/glibc-2.30/wcsmbs/btowc.c
+cfn=(938) btowc
+calls=255 33 
+0 11365
+cob=(1)
+cfi=(123)
+cfn=(375)
+calls=1 67 
+0 833
+0 5
+
+fn=(1196) 0x0000000004b99c70
+0 152
+cob=(8)
+cfi=(145)
+cfn=(1200) bool std::has_facet<std::ctype<char> >(std::locale const&)
+calls=75 0 
+0 13050
+cob=(1)
+cfi=(123)
+cfn=(375)
+calls=1 67 
+0 2685
+0 5
+
+fn=(1250) 0x0000000004b98550
+0 8
+cob=(8)
+cfi=(145)
+cfn=(1254) std::basic_ios<wchar_t, std::char_traits<wchar_t> >::init(std::basic_streambuf<wchar_t, std::char_traits<wchar_t> >*)
+calls=3 0 
+0 2691
+cob=(1)
+cfi=(123)
+cfn=(374)
+calls=1 67 
+0 10356
+0 5
+
+fn=(1436)
+0 150708080
+cob=(9)
+cfi=(200)
+cfn=(1438)
+calls=75354040 49 
+0 16453960183
+
+fn=(1570) 0x0000000004e78330
+0 17044
+cob=(3)
+cfi=(148)
+cfn=(574)
+calls=8522 3023 
+0 358554
+
+fn=(1802) 0x0000000004b95eb0
+0 17038
+cob=(8)
+cfi=(145)
+cfn=(1804) operator delete[](void*)
+calls=8519 0 
+0 1339247
+
+fn=(1810) 0x0000000004b99380
+0 17110
+cob=(8)
+cfi=(145)
+cfn=(1814) std::__basic_file<char>::close()
+calls=8554 0 
+0 3782532
+cob=(1)
+cfi=(123)
+cfn=(374)
+calls=1 67 
+0 2161
+0 5
+
+fn=(1974)
+0 150000
+cob=(9)
+cfi=(245)
+cfn=(1976)
+calls=75000 356 
+0 5108560
+
+fn=(40) 0x00000000040010c0
+0 46
+cob=(1)
+cfi=(19) /build/glibc-t7JzpG/glibc-2.30/elf/dl-minimal.c
+cfn=(42) calloc
+calls=23 92 
+0 913
+
+fn=(554) 0x0000000004b985d0
+0 2
+cob=(1)
+cfi=(123)
+cfn=(375)
+calls=1 67 
+0 803
+0 5
+
+fn=(788)
+0 2
+cob=(8)
+cfi=(145)
+cfn=(790) std::ios_base::Init::Init()
+calls=1 0 
+0 110951
+
+fn=(840) 0x0000000004b97030
+0 2
+cob=(1)
+cfi=(123)
+cfn=(375)
+calls=1 67 
+0 2120
+0 5
+
+fn=(862) 0x0000000004b97330
+0 140248
+cob=(8)
+cfi=(145)
+cfn=(866) std::locale::id::_M_id() const
+calls=70123 0 
+0 421114
+cob=(1)
+cfi=(123)
+cfn=(375)
+calls=1 67 
+0 816
+0 5
+
+fn=(958) 0x0000000004e78490
+0 36150
+cob=(3)
+cfi=(174) /build/glibc-t7JzpG/glibc-2.30/string/../sysdeps/x86_64/multiarch/strlen-avx2.S
+cfn=(960) __strlen_avx2
+calls=18075 42 
+0 289272
+
+fn=(1106) 0x0000000004b98c00
+0 2
+cob=(1)
+cfi=(123)
+cfn=(375)
+calls=1 67 
+0 1303
+0 5
+
+fn=(1202) 0x0000000004b98c90
+0 37110
+cob=(8)
+cfi=(145)
+cfn=(1206) __dynamic_cast
+calls=18554 0 
+0 2613868
+cob=(1)
+cfi=(123)
+cfn=(375)
+calls=1 67 
+0 1711
+0 5
+
+fn=(1210) 0x0000000004b98ad0
+0 36310
+cob=(3)
+cfi=(177) /build/glibc-t7JzpG/glibc-2.30/string/../sysdeps/x86_64/multiarch/strcmp-avx2.S
+cfn=(1216) __strcmp_avx2
+calls=18154 79 
+0 381234
+cob=(1)
+cfi=(123)
+cfn=(375)
+calls=1 67 
+0 855
+0 5
+
+fn=(1392)
+0 2
+cob=(9)
+cfi=(184)
+cfn=(1376)
+calls=1 99 
+0 5619
+
+fn=(1506) 0x0000000004b99a20
+0 34080
+cob=(8)
+cfi=(145)
+cfn=(1510) std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::_M_mutate(unsigned long, unsigned long, char const*, unsigned long)
+calls=17039 0 
+0 3782930
+cob=(1)
+cfi=(123)
+cfn=(374)
+calls=1 67 
+0 2676
+0 5
+
+fn=(1512) 0x0000000004b98290
+0 34080
+cob=(8)
+cfi=(145)
+cfn=(1316) std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::_M_create(unsigned long&, unsigned long)
+calls=17039 0 
+0 1244160
+cob=(1)
+cfi=(123)
+cfn=(375)
+calls=1 67 
+0 1380
+0 5
+
+fn=(1516)
+0 72
+cob=(8)
+cfi=(145)
+cfn=(1164) std::ios_base::ios_base()
+calls=36 0 
+0 3672
+
+fn=(1518)
+0 144
+cob=(8)
+cfi=(145)
+cfn=(1170) std::basic_ios<char, std::char_traits<char> >::init(std::basic_streambuf<char, std::char_traits<char> >*)
+calls=72 0 
+0 72072
+
+fn=(1618) 0x0000000004b99c50
+0 206046
+cob=(8)
+cfi=(145)
+cfn=(1622) std::ostream::sentry::sentry(std::ostream&)
+calls=103022 0 
+0 2266484
+cob=(1)
+cfi=(123)
+cfn=(374)
+calls=1 67 
+0 807
+0 5
+
+fn=(1646) 0x0000000004b96ff0
+0 50008
+cob=(8)
+cfi=(145)
+cfn=(1650) std::ostream& std::ostream::_M_insert<long>(long)
+calls=25003 0 
+0 8892694
+cob=(1)
+cfi=(123)
+cfn=(374)
+calls=1 67 
+0 5450
+0 5
+
+fn=(1684) 0x0000000004b98040
+0 36006
+cob=(8)
+cfi=(145)
+cfn=(1688) std::ostreambuf_iterator<char, std::char_traits<char> > std::num_put<char, std::ostreambuf_iterator<char, std::char_traits<char> > >::_M_insert_float<double>(std::ostreambuf_iterator<char, std::char_traits<char> >, std::ios_base&, char, char, double) const
+calls=18002 0 
+0 46738925
+cob=(1)
+cfi=(123)
+cfn=(374)
+calls=1 67 
+0 6731
+0 5
+
+fn=(1848)
+0 72
+cob=(8)
+cfi=(145)
+cfn=(1850) std::__basic_file<char>::~__basic_file()
+calls=36 0 
+0 684
+
+fn=(1874) 0x0000000004b97800
+0 4
+cob=(3)
+cfi=(174)
+cfn=(960)
+calls=1 42 
+0 20
+cob=(1)
+cfi=(123)
+cfn=(374)
+calls=1 67 
+0 901
+0 5
+
+fn=(88) 0x0000000004001080
+0 22
+cob=(1)
+cfi=(19)
+cfn=(90) free
+calls=11 109 
+0 76
+
+fn=(424) 0x0000000004e78620
+0 2
+cob=(3)
+cfi=(137) /build/glibc-t7JzpG/glibc-2.30/string/../sysdeps/x86_64/multiarch/strrchr-avx2.S
+cfn=(426) __strrchr_avx2
+calls=1 42 
+0 45
+
+fn=(548) 0x0000000004b97080
+0 2
+cob=(1)
+cfi=(123)
+cfn=(374)
+calls=1 67 
+0 2534
+0 5
+
+fn=(814) 0x0000000004b96f50
+0 2
+cob=(1)
+cfi=(123)
+cfn=(375)
+calls=1 67 
+0 76775
+0 5
+
+fn=(826) 0x0000000004b96360
+0 2
+cob=(1)
+cfi=(123)
+cfn=(375)
+calls=1 67 
+0 4057
+0 5
+
+fn=(846) 0x0000000004b97f50
+0 2
+cob=(1)
+cfi=(123)
+cfn=(375)
+calls=1 67 
+0 965
+0 5
+
+fn=(898) 0x0000000004b98880
+0 2
+cob=(1)
+cfi=(123)
+cfn=(375)
+calls=1 67 
+0 1257
+0 5
+
+fn=(1010) 0x0000000004b97270
+0 2
+cob=(1)
+cfi=(123)
+cfn=(375)
+calls=1 67 
+0 1504
+0 5
+
+fn=(1218) 0x0000000004b96230
+0 36158
+cob=(8)
+cfi=(145)
+cfn=(1222) std::ctype<char> const& std::use_facet<std::ctype<char> >(std::locale const&)
+calls=18078 0 
+0 3109416
+cob=(1)
+cfi=(123)
+cfn=(375)
+calls=1 67 
+0 1117
+0 5
+
+fn=(1268) 0x0000000004b961b0
+0 8
+cob=(8)
+cfi=(145)
+cfn=(1272) std::ctype<wchar_t> const& std::use_facet<std::ctype<wchar_t> >(std::locale const&)
+calls=3 0 
+0 360
+cob=(1)
+cfi=(123)
+cfn=(375)
+calls=1 67 
+0 1065
+0 5
+
+fn=(1308)
+0 334304
+cob=(8)
+cfi=(145)
+cfn=(1310) operator new(unsigned long)
+calls=167152 0 
+0 37816199
+
+fn=(1322)
+0 17172
+cob=(3)
+cfi=(181) /build/glibc-t7JzpG/glibc-2.30/string/../sysdeps/x86_64/multiarch/memmove-vec-unaligned-erms.S
+cfn=(1324) __memcpy_avx_unaligned_erms
+calls=8586 225 
+0 111679
+
+fn=(1344)
+0 2
+cob=(9)
+cfi=(182)
+cfn=(1346)
+calls=1 32 
+0 1762
+
+fn=(1536) 0x0000000004b98a90
+0 72
+cob=(8)
+cfi=(145)
+cfn=(1540) std::codecvt<char, char, __mbstate_t> const& std::use_facet<std::codecvt<char, char, __mbstate_t> >(std::locale const&)
+calls=35 0 
+0 4200
+cob=(1)
+cfi=(123)
+cfn=(374)
+calls=1 67 
+0 1193
+0 5
+
+fn=(1600) 0x0000000004b95f10
+0 17038
+cob=(8)
+cfi=(145)
+cfn=(1602) operator new[](unsigned long)
+calls=8519 0 
+0 3088687
+
+fn=(1746)
+0 17078
+cob=(8)
+cfi=(145)
+cfn=(1748) std::basic_filebuf<char, std::char_traits<char> >::close()
+calls=8539 0 
+0 7607041
+
+fn=(1768) 0x0000000004b96c00
+0 17006
+cob=(8)
+cfi=(145)
+cfn=(1772) std::__basic_file<char>::fd()
+calls=8502 0 
+0 102024
+cob=(1)
+cfi=(123)
+cfn=(375)
+calls=1 67 
+0 1724
+0 5
+
+fn=(1774) 0x0000000004b961d0
+0 17006
+cob=(3)
+cfi=(233) /build/glibc-t7JzpG/glibc-2.30/libio/fileno.c
+cfn=(1778) fileno
+calls=8502 32 
+0 59514
+cob=(1)
+cfi=(123)
+cfn=(375)
+calls=1 67 
+0 872
+0 5
+
+fn=(1816) 0x0000000004b990e0
+0 17038
+cob=(3)
+cfi=(235) /build/glibc-t7JzpG/glibc-2.30/libio/iofclose.c
+cfn=(1820) fclose@@GLIBC_2.2.5
+calls=8518 34 
+0 3577560
+cob=(1)
+cfi=(123)
+cfn=(375)
+calls=1 67 
+0 1266
+0 5
+
+fn=(1852)
+0 72
+cob=(8)
+cfi=(145)
+cfn=(1188) std::locale::~locale()
+calls=36 0 
+0 288
+
+fn=(1870)
+0 4
+cob=(8)
+cfi=(145)
+cfn=(1872) std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::compare(char const*) const
+calls=2 0 
+0 1046
+
+fn=(1946) 0x0000000004b99750
+0 17000
+cob=(8)
+cfi=(145)
+cfn=(1950) std::ostreambuf_iterator<char, std::char_traits<char> > std::num_put<char, std::ostreambuf_iterator<char, std::char_traits<char> > >::_M_insert_int<unsigned long>(std::ostreambuf_iterator<char, std::char_traits<char> >, std::ios_base&, char, unsigned long) const
+calls=8499 0 
+0 2166421
+cob=(1)
+cfi=(123)
+cfn=(374)
+calls=1 67 
+0 1662
+0 5
+
+fn=(1982)
+0 2972
+cob=(9)
+cfi=(247)
+cfn=(1984)
+calls=1486 34 
+0 274358
+
+fn=(44) 0x00000000040010a0
+0 116
+cob=(1)
+cfi=(19)
+cfn=(46) malloc
+calls=58 49 
+0 1574
+
+fn=(382) 0x0000000004ae0600
+0 2
+cob=(1)
+cfi=(123)
+cfn=(374)
+calls=1 67 
+0 921
+0 5
+
+fn=(460) 0x0000000004e3c000
+0 7
+
+fn=(522) 0x0000000004b97ba0
+0 4
+cob=(8)
+cfi=(145)
+cfn=(528) std::error_category::error_category()
+calls=1 0 
+0 5
+cob=(1)
+cfi=(123)
+cfn=(374)
+calls=1 67 
+0 815
+0 5
+
+fn=(598) 0x0000000004e78480
+0 22
+cob=(1)
+cfi=(8)
+cfn=(26)
+calls=10 369 
+0 198
+cob=(1)
+cfi=(123)
+cfn=(375)
+calls=1 67 
+0 1046
+0 5
+
+fn=(868) 0x0000000004b97530
+0 2
+cob=(1)
+cfi=(123)
+cfn=(375)
+calls=1 67 
+0 929
+0 5
+
+fn=(904) 0x0000000004b96240
+0 2
+cob=(1)
+cfi=(123)
+cfn=(375)
+calls=1 67 
+0 887
+0 5
+
+fn=(922) 0x0000000004b98980
+0 72016
+cob=(3)
+cfi=(167) /build/glibc-t7JzpG/glibc-2.30/locale/uselocale.c
+cfn=(926) uselocale
+calls=36007 30 
+0 792154
+cob=(1)
+cfi=(123)
+cfn=(375)
+calls=1 67 
+0 947
+0 5
+
+fn=(952) 0x0000000004b970a0
+0 20
+cob=(3)
+cfi=(173) /build/glibc-t7JzpG/glibc-2.30/wctype/wctype_l.c
+cfn=(956) wctype_l
+calls=9 27 
+0 3441
+cob=(1)
+cfi=(123)
+cfn=(375)
+calls=1 67 
+0 974
+0 5
+
+fn=(978) 0x0000000004b98740
+0 2
+cob=(1)
+cfi=(123)
+cfn=(375)
+calls=1 67 
+0 1391
+0 5
+
+fn=(1028) 0x0000000004b965d0
+0 2
+cob=(1)
+cfi=(123)
+cfn=(375)
+calls=1 67 
+0 1299
+0 5
+
+fn=(1076) 0x0000000004b97b80
+0 2
+cob=(1)
+cfi=(123)
+cfn=(375)
+calls=1 67 
+0 1448
+0 5
+
+fn=(1094) 0x0000000004b981a0
+0 2
+cob=(1)
+cfi=(123)
+cfn=(375)
+calls=1 67 
+0 1327
+0 5
+
+fn=(1160) 0x0000000004b96e40
+0 16
+cob=(8)
+cfi=(145)
+cfn=(1164)
+calls=7 0 
+0 714
+cob=(1)
+cfi=(123)
+cfn=(374)
+calls=1 67 
+0 856
+0 5
+
+fn=(1412) 0x0000000004e78500
+0 26674
+cob=(3)
+cfi=(181)
+cfn=(1324)
+calls=13337 225 
+0 146711
+
+fn=(1432)
+0 150166014
+cob=(4)
+cfi=(199) /build/glibc-t7JzpG/glibc-2.30/math/../sysdeps/ieee754/flt-32/s_sinf.c
+cfn=(1434) __sinf_fma
+calls=75083007 39 
+0 2689412884
+
+fn=(1590) 0x0000000004e784a0
+0 17038
+cob=(3)
+cfi=(212) /build/glibc-t7JzpG/glibc-2.30/string/../sysdeps/x86_64/multiarch/strchr-avx2.S
+cfn=(1592) __strchr_avx2
+calls=8519 44 
+0 221486
+
+fn=(1658) 0x0000000004b98f80
+0 6
+cob=(3)
+cfi=(175) /build/glibc-t7JzpG/glibc-2.30/string/../sysdeps/x86_64/multiarch/memcmp-avx2-movbe.S
+cfn=(964) __memcmp_avx2_movbe
+calls=2 59 
+0 42
+cob=(1)
+cfi=(123)
+cfn=(375)
+calls=1 67 
+0 876
+0 5
+
+fn=(1678)
+0 36006
+cob=(8)
+cfi=(145)
+cfn=(1680) std::ostream& std::ostream::_M_insert<double>(double)
+calls=18003 0 
+0 48365931
+
+fn=(1690) 0x0000000004b97ca0
+0 36006
+cob=(8)
+cfi=(145)
+cfn=(1694) std::__num_base::_S_format_float(std::ios_base const&, char*, char)
+calls=18002 0 
+0 594066
+cob=(1)
+cfi=(123)
+cfn=(375)
+calls=1 67 
+0 1059
+0 5
+
+fn=(1784) 0x0000000004b99930
+0 17006
+cob=(5) /lib/x86_64-linux-gnu/libpthread-2.30.so
+cfi=(234) /build/glibc-t7JzpG/glibc-2.30/nptl/../sysdeps/unix/sysv/linux/write.c
+cfn=(1788) write
+calls=8502 25 
+0 76518
+cob=(1)
+cfi=(123)
+cfn=(375)
+calls=1 67 
+0 672
+0 5
+
+fn=(1882) 0x0000000004b99660
+0 10
+cob=(3)
+cfi=(238) /build/glibc-t7JzpG/glibc-2.30/libio/iofwrite.c
+cfn=(1886) fwrite
+calls=4 31 
+0 796
+cob=(1)
+cfi=(123)
+cfn=(374)
+calls=1 67 
+0 2531
+0 5
+
+fn=(1930)
+0 542066
+cob=(4)
+cfi=(242) /build/glibc-t7JzpG/glibc-2.30/math/../sysdeps/ieee754/flt-32/e_expf.c
+cfn=(1932) __expf_fma
+calls=271033 54 
+0 8402023
+
+fn=(1978)
+0 300000
+cob=(9)
+cfi=(246)
+cfn=(1980)
+calls=150000 33 
+0 7800645
+
+fn=(586) 0x0000000004e78540
+0 2
+cob=(1)
+cfi=(123)
+cfn=(375)
+calls=1 67 
+0 1173
+0 5
+
+fn=(880) 0x0000000004b97940
+0 2
+cob=(1)
+cfi=(123)
+cfn=(375)
+calls=1 67 
+0 1371
+0 5
+
+fn=(886) 0x0000000004b98ea0
+0 2
+cob=(1)
+cfi=(123)
+cfn=(375)
+calls=1 67 
+0 1379
+0 5
+
+fn=(984) 0x0000000004b96b80
+0 2
+cob=(1)
+cfi=(123)
+cfn=(375)
+calls=1 67 
+0 1359
+0 5
+
+fn=(1064) 0x0000000004b99df0
+0 2
+cob=(1)
+cfi=(123)
+cfn=(375)
+calls=1 67 
+0 839
+0 5
+
+fn=(1178) 0x0000000004b983d0
+0 160
+cob=(8)
+cfi=(145)
+cfn=(1182) std::locale::operator=(std::locale const&)
+calls=79 0 
+0 1580
+cob=(1)
+cfi=(123)
+cfn=(375)
+calls=1 67 
+0 790
+0 5
+
+fn=(1184) 0x0000000004b98860
+0 232
+cob=(8)
+cfi=(145)
+cfn=(1188)
+calls=115 0 
+0 920
+cob=(1)
+cfi=(123)
+cfn=(375)
+calls=1 67 
+0 786
+0 5
+
+fn=(1238) 0x0000000004b96150
+0 152
+cob=(8)
+cfi=(145)
+cfn=(1242) bool std::has_facet<std::num_get<char, std::istreambuf_iterator<char, std::char_traits<char> > > >(std::locale const&)
+calls=75 0 
+0 9150
+cob=(1)
+cfi=(123)
+cfn=(375)
+calls=1 67 
+0 1411
+0 5
+
+fn=(1380)
+0 6
+cob=(8)
+cfi=(145)
+cfn=(1382) std::chrono::_V2::system_clock::now()
+calls=3 0 
+0 1003
+
+fn=(1398)
+0 12
+cob=(5)
+cfi=(189) /build/glibc-t7JzpG/glibc-2.30/nptl/../csu/errno-loc.c
+cfn=(1400) __errno_location
+calls=6 25 
+0 24
+
+fn=(1520)
+0 72
+cob=(8)
+cfi=(145)
+cfn=(1522) std::basic_filebuf<char, std::char_traits<char> >::basic_filebuf()
+calls=36 0 
+0 15839
+
+fn=(1530) 0x0000000004b97850
+0 72
+cob=(8)
+cfi=(145)
+cfn=(1534) bool std::has_facet<std::codecvt<char, char, __mbstate_t> >(std::locale const&)
+calls=35 0 
+0 4270
+cob=(1)
+cfi=(123)
+cfn=(374)
+calls=1 67 
+0 1187
+0 5
+
+fn=(1552) 0x0000000004b96d80
+0 17042
+cob=(8)
+cfi=(145)
+cfn=(1556) std::__basic_file<char>::open(char const*, std::_Ios_Openmode, int)
+calls=8520 0 
+0 4677295
+cob=(1)
+cfi=(123)
+cfn=(374)
+calls=1 67 
+0 2548
+0 5
+
+fn=(1636) 0x0000000004b96dd0
+0 206046
+cob=(8)
+cfi=(145)
+cfn=(1640) std::ostream::sentry::~sentry()
+calls=103022 0 
+0 721154
+cob=(1)
+cfi=(123)
+cfn=(374)
+calls=1 67 
+0 744
+0 5
+
+fn=(1652) 0x0000000004b97ae0
+0 2
+cob=(1)
+cfi=(123)
+cfn=(375)
+calls=1 67 
+0 2852
+0 5
+
+fn=(1740) 0x0000000004b96750
+0 36006
+cob=(3)
+cfi=(232) /build/glibc-t7JzpG/glibc-2.30/string/../sysdeps/x86_64/multiarch/memchr-avx2.S
+cfn=(1744) __memchr_avx2
+calls=18002 40 
+0 339518
+cob=(1)
+cfi=(123)
+cfn=(375)
+calls=1 67 
+0 854
+0 5
+
+fn=(1750) 0x0000000004b97760
+0 17038
+cob=(8)
+cfi=(145)
+cfn=(1754) std::basic_filebuf<char, std::char_traits<char> >::_M_terminate_output()
+calls=8518 0 
+0 1760394
+cob=(1)
+cfi=(123)
+cfn=(374)
+calls=1 67 
+0 5835
+0 5
+
+fn=(1756) 0x0000000004b99980
+0 17006
+cob=(8)
+cfi=(145)
+cfn=(1760) std::basic_filebuf<char, std::char_traits<char> >::_M_convert_to_external(char*, long)
+calls=8502 0 
+0 918216
+cob=(1)
+cfi=(123)
+cfn=(375)
+calls=1 67 
+0 4565
+0 5
+
+fn=(1940)
+0 17000
+cob=(8)
+cfi=(145)
+cfn=(1942) std::ostream& std::ostream::_M_insert<unsigned long>(unsigned long)
+calls=8500 0 
+0 2941588
+
+fn=(570) 0x0000000004b96d50
+0 385430
+cob=(3)
+cfi=(148)
+cfn=(574)
+calls=192714 3023 
+0 39303647
+cob=(1)
+cfi=(123)
+cfn=(374)
+calls=1 67 
+0 71724
+0 5
+
+fn=(758) 0x0000000004830000
+0 7
+
+fn=(820) 0x0000000004b96f20
+0 14
+cob=(8)
+cfi=(145)
+cfn=(824) std::locale::facet::_S_get_c_name()
+calls=6 0 
+0 18
+cob=(1)
+cfi=(123)
+cfn=(375)
+calls=1 67 
+0 923
+0 5
+
+fn=(832) 0x0000000004b98d60
+0 36034
+cob=(8)
+cfi=(145)
+cfn=(836) std::locale::facet::_S_get_c_locale()
+calls=18016 0 
+0 342304
+cob=(1)
+cfi=(123)
+cfn=(375)
+calls=1 67 
+0 3148
+0 5
+
+fn=(856) 0x0000000004b97bb0
+0 64
+cob=(8)
+cfi=(145)
+cfn=(860) std::locale::_Impl::_M_install_facet(std::locale::id const*, std::locale::facet const*)
+calls=31 0 
+0 12214
+cob=(1)
+cfi=(123)
+cfn=(375)
+calls=1 67 
+0 2299
+0 5
+
+fn=(996) 0x0000000004b97dd0
+0 2
+cob=(1)
+cfi=(123)
+cfn=(375)
+calls=1 67 
+0 1316
+0 5
+
+fn=(1040) 0x0000000004b99940
+0 2
+cob=(1)
+cfi=(123)
+cfn=(375)
+calls=1 67 
+0 1315
+0 5
+
+fn=(1130) 0x0000000004b98650
+0 2
+cob=(1)
+cfi=(123)
+cfn=(375)
+calls=1 67 
+0 839
+0 5
+
+fn=(1224) 0x0000000004b98c50
+0 152
+cob=(8)
+cfi=(145)
+cfn=(1228) bool std::has_facet<std::num_put<char, std::ostreambuf_iterator<char, std::char_traits<char> > > >(std::locale const&)
+calls=75 0 
+0 9150
+cob=(1)
+cfi=(123)
+cfn=(375)
+calls=1 67 
+0 1411
+0 5
+
+fn=(1244) 0x0000000004b97540
+0 152
+cob=(8)
+cfi=(145)
+cfn=(1248) std::num_get<char, std::istreambuf_iterator<char, std::char_traits<char> > > const& std::use_facet<std::num_get<char, std::istreambuf_iterator<char, std::char_traits<char> > > >(std::locale const&)
+calls=75 0 
+0 9000
+cob=(1)
+cfi=(123)
+cfn=(375)
+calls=1 67 
+0 1440
+0 5
+
+fn=(1256) 0x0000000004b99b50
+0 8
+cob=(8)
+cfi=(145)
+cfn=(1260) std::basic_ios<wchar_t, std::char_traits<wchar_t> >::_M_cache_locale(std::locale const&)
+calls=3 0 
+0 2307
+cob=(1)
+cfi=(123)
+cfn=(375)
+calls=1 67 
+0 9062
+0 5
+
+fn=(1314)
+0 6
+cob=(8)
+cfi=(145)
+cfn=(1316)
+calls=3 0 
+0 1156
+
+fn=(1496) 0x0000000004e783c0
+0 72016
+cob=(3)
+cfi=(212)
+cfn=(1498) __strchrnul_avx2
+calls=36008 44 
+0 756184
+
+fn=(1542)
+0 17042
+cob=(8)
+cfi=(145)
+cfn=(1544) std::basic_filebuf<char, std::char_traits<char> >::open(char const*, std::_Ios_Openmode)
+calls=8521 0 
+0 8494864
+
+fn=(1564) 0x0000000004b995c0
+0 17042
+cob=(3)
+cfi=(215) /build/glibc-t7JzpG/glibc-2.30/libio/iofopen.c
+cfn=(1568) fopen@@GLIBC_2.2.5
+calls=8520 85 
+0 4302417
+cob=(1)
+cfi=(123)
+cfn=(375)
+calls=1 67 
+0 1489
+0 5
+
+fn=(1594) 0x0000000004b96940
+0 17038
+cob=(8)
+cfi=(145)
+cfn=(1598) std::basic_filebuf<char, std::char_traits<char> >::_M_allocate_internal_buffer()
+calls=8518 0 
+0 3216255
+cob=(1)
+cfi=(123)
+cfn=(374)
+calls=1 67 
+0 1439
+0 5
+
+fn=(1614)
+0 103032
+cob=(8)
+cfi=(145)
+cfn=(1616) std::basic_ostream<char, std::char_traits<char> >& std::__ostream_insert<char, std::char_traits<char> >(std::basic_ostream<char, std::char_traits<char> >&, char const*, long)
+calls=51516 0 
+0 9690524
+
+fn=(1642)
+0 50008
+cob=(8)
+cfi=(145)
+cfn=(1644) std::ostream::operator<<(int)
+calls=25004 0 
+0 9223201
+
+fn=(1664) 0x0000000004b98600
+0 50008
+cob=(8)
+cfi=(145)
+cfn=(1668) std::ostreambuf_iterator<char, std::char_traits<char> > std::num_put<char, std::ostreambuf_iterator<char, std::char_traits<char> > >::_M_insert_int<long>(std::ostreambuf_iterator<char, std::char_traits<char> >, std::ios_base&, char, long) const
+calls=25003 0 
+0 6617205
+cob=(1)
+cfi=(123)
+cfn=(375)
+calls=1 67 
+0 1676
+0 5
+
+fn=(104) 0x00000000040010f0
+0 2
+cob=(1)
+cfi=(35)
+cfn=(106) _dl_catch_error
+calls=1 213 
+0 2860
+
+fn=(440) 0x0000000004cf9000
+0 7
+
+fn=(892) 0x0000000004b98410
+0 2
+cob=(1)
+cfi=(123)
+cfn=(375)
+calls=1 67 
+0 2309
+0 5
+
+fn=(928) 0x0000000004b97b20
+0 256
+cob=(3)
+cfi=(168) /build/glibc-t7JzpG/glibc-2.30/wcsmbs/wctob.c
+cfn=(932) wctob
+calls=127 31 
+0 2794
+cob=(1)
+cfi=(123)
+cfn=(375)
+calls=1 67 
+0 912
+0 5
+
+fn=(990) 0x0000000004b98d50
+0 2
+cob=(1)
+cfi=(123)
+cfn=(375)
+calls=1 67 
+0 2376
+0 5
+
+fn=(1172) 0x0000000004b990b0
+0 160
+cob=(8)
+cfi=(145)
+cfn=(1176) std::ios_base::_M_init()
+calls=79 0 
+0 7979
+cob=(1)
+cfi=(123)
+cfn=(375)
+calls=1 67 
+0 2469
+0 5
+
+fn=(1190) 0x0000000004b99270
+0 152
+cob=(8)
+cfi=(145)
+cfn=(1194) std::basic_ios<char, std::char_traits<char> >::_M_cache_locale(std::locale const&)
+calls=75 0 
+0 65475
+cob=(1)
+cfi=(123)
+cfn=(375)
+calls=1 67 
+0 10723
+0 5
+
+fn=(1274) 0x0000000004b96a80
+0 8
+cob=(8)
+cfi=(145)
+cfn=(1278) bool std::has_facet<std::num_put<wchar_t, std::ostreambuf_iterator<wchar_t, std::char_traits<wchar_t> > > >(std::locale const&)
+calls=3 0 
+0 366
+cob=(1)
+cfi=(123)
+cfn=(375)
+calls=1 67 
+0 1411
+0 5
+
+fn=(1336) 0x0000000004b977a0
+0 385412
+cob=(3)
+cfi=(148)
+cfn=(1340)
+calls=192705 3087 
+0 22533188
+cob=(1)
+cfi=(123)
+cfn=(374)
+calls=1 67 
+0 974
+0 5
+
+fn=(1356)
+0 2
+cob=(9)
+cfi=(184)
+cfn=(1358)
+calls=1 29 
+0 12837
+
+fn=(1546) 0x0000000004b98e50
+0 85314
+cob=(8)
+cfi=(145)
+cfn=(1550) std::__basic_file<char>::is_open() const
+calls=42656 0 
+0 170624
+cob=(1)
+cfi=(123)
+cfn=(374)
+calls=1 67 
+0 886
+0 5
+
+fn=(1628) 0x0000000004b98420
+0 206036
+cob=(8)
+cfi=(145)
+cfn=(1632) std::basic_streambuf<char, std::char_traits<char> >::xsputn(char const*, long)
+calls=103017 0 
+0 5731882
+cob=(1)
+cfi=(123)
+cfn=(374)
+calls=1 67 
+0 1169
+0 5
+
+fn=(1702) 0x0000000004b98670
+0 36006
+cob=(3)
+cfi=(208)
+cfn=(1482)
+calls=18002 123 
+0 35321656
+cob=(1)
+cfi=(123)
+cfn=(375)
+calls=1 67 
+0 2768
+0 5
+
+fn=(1762) 0x0000000004b976f0
+0 17006
+cob=(8)
+cfi=(145)
+cfn=(1766) std::__basic_file<char>::xsputn(char const*, long)
+calls=8502 0 
+0 544128
+cob=(1)
+cfi=(123)
+cfn=(375)
+calls=1 67 
+0 3347
+0 5
+
+fn=(1858) 0x0000000004b97f90
+0 72
+cob=(8)
+cfi=(145)
+cfn=(1862) std::ios_base::_M_call_callbacks(std::ios_base::event)
+calls=35 0 
+0 385
+cob=(1)
+cfi=(123)
+cfn=(374)
+calls=1 67 
+0 1019
+0 5
+
+fn=(1864) 0x0000000004b96420
+0 72
+cob=(8)
+cfi=(145)
+cfn=(1868) std::ios_base::_M_dispose_callbacks()
+calls=35 0 
+0 455
+cob=(1)
+cfi=(123)
+cfn=(374)
+calls=1 67 
+0 949
+0 5
+
+fn=(450) 0x0000000005048000
+0 6
+
+fn=(966) 0x0000000004b970c0
+0 2
+cob=(1)
+cfi=(123)
+cfn=(375)
+calls=1 67 
+0 929
+0 5
+
+fn=(1002) 0x0000000004b96820
+0 2
+cob=(1)
+cfi=(123)
+cfn=(375)
+calls=1 67 
+0 887
+0 5
+
+fn=(1166) 0x0000000004b99000
+0 8
+cob=(8)
+cfi=(145)
+cfn=(1170)
+calls=3 0 
+0 3003
+cob=(1)
+cfi=(123)
+cfn=(374)
+calls=1 67 
+0 14430
+0 5
+
+fn=(1280) 0x0000000004b989a0
+0 8
+cob=(8)
+cfi=(145)
+cfn=(1284) std::num_put<wchar_t, std::ostreambuf_iterator<wchar_t, std::char_traits<wchar_t> > > const& std::use_facet<std::num_put<wchar_t, std::ostreambuf_iterator<wchar_t, std::char_traits<wchar_t> > > >(std::locale const&)
+calls=3 0 
+0 360
+cob=(1)
+cfi=(123)
+cfn=(375)
+calls=1 67 
+0 1449
+0 5
+
+fn=(1286) 0x0000000004b98390
+0 8
+cob=(8)
+cfi=(145)
+cfn=(1290) bool std::has_facet<std::num_get<wchar_t, std::istreambuf_iterator<wchar_t, std::char_traits<wchar_t> > > >(std::locale const&)
+calls=3 0 
+0 366
+cob=(1)
+cfi=(123)
+cfn=(375)
+calls=1 67 
+0 1419
+0 5
+
+fn=(1298)
+0 2
+cob=(3)
+cfi=(146)
+cfn=(536)
+calls=1 69 
+0 72
+
+fn=(1332)
+0 351336
+cob=(8)
+cfi=(145)
+cfn=(1334) operator delete(void*)
+calls=175668 0 
+0 21267849
+
+fn=(1384) 0x0000000004b967c0
+0 6
+cob=(3)
+cfi=(187) /build/glibc-t7JzpG/glibc-2.30/rt/../sysdeps/unix/sysv/linux/clock_gettime.c
+cfn=(1388) clock_gettime
+calls=2 32 
+0 46
+cob=(1)
+cfi=(123)
+cfn=(374)
+calls=1 67 
+0 901
+0 5
+
+fn=(1450) 0x0000000004cf92f0
+0 150708078
+cob=(4)
+cfi=(203) /build/glibc-t7JzpG/glibc-2.30/math/../sysdeps/ieee754/dbl-64/e_log.c
+cfn=(1452) __ieee754_log_fma
+calls=75354039 49 
+0 3527501544
+
+fn=(1466)
+0 51122
+cob=(8)
+cfi=(145)
+cfn=(1468) std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::_M_append(char const*, unsigned long)
+calls=25561 0 
+0 4706786
+
+fn=(1474)
+0 512186
+cob=(9)
+cfi=(207)
+cfn=(1476)
+calls=256093 191 
+0 17203799
+
+fn=(1524) 0x0000000004b99880
+0 72
+cob=(8)
+cfi=(145)
+cfn=(1528) std::__basic_file<char>::__basic_file(pthread_mutex_t*)
+calls=35 0 
+0 140
+cob=(1)
+cfi=(123)
+cfn=(374)
+calls=1 67 
+0 982
+0 5
+
+fn=(1730) 0x0000000004e785d0
+0 30974
+cob=(3)
+cfi=(181)
+cfn=(1732) __mempcpy_avx_unaligned_erms
+calls=15487 212 
+0 278767
+
+fn=(1796) 0x0000000004b979a0
+0 17038
+cob=(8)
+cfi=(145)
+cfn=(1800) std::basic_filebuf<char, std::char_traits<char> >::_M_destroy_internal_buffer()
+calls=8518 0 
+0 1525844
+cob=(1)
+cfi=(123)
+cfn=(374)
+calls=1 67 
+0 2022
+0 5
+
+fn=(1854)
+0 72
+cob=(8)
+cfi=(145)
+cfn=(1856) std::ios_base::~ios_base()
+calls=36 0 
+0 3934
+
+fn=(1962)
+0 2700
+cob=(3)
+cfi=(181)
+cfn=(1324)
+calls=1350 225 
+0 80400
+
+fn=(360) 0x0000000004ae0000
+0 3
+cob=(5)
+cfi=(120) /build/glibc-t7JzpG/glibc-2.30/nptl/nptl-init.c
+cfn=(362) __pthread_initialize_minimal
+calls=1 262 
+0 4865
+0 2
+
+fn=(368) 0x0000000004ae0a90
+0 2
+cob=(1)
+cfi=(123)
+cfn=(374)
+calls=1 67 
+0 1117
+0 5
+
+fn=(388) 0x0000000004ae0990
+0 2
+cob=(1)
+cfi=(123)
+cfn=(374)
+calls=1 67 
+0 1432
+0 5
+
+fn=(802) 0x0000000004b97440
+0 36338
+cob=(5)
+cfi=(163) /build/glibc-t7JzpG/glibc-2.30/nptl/pthread_once.c
+cfn=(806) pthread_once
+calls=18168 136 
+0 109008
+cob=(1)
+cfi=(123)
+cfn=(375)
+calls=1 67 
+0 77578
+0 5
+
+fn=(803) 0x0000000004b97440'2
+0 28
+cob=(5)
+cfi=(163)
+cfn=(807) pthread_once'2
+calls=14 136 
+0 2275
+
+fn=(910) 0x0000000004b96710
+0 2
+cob=(1)
+cfi=(123)
+cfn=(375)
+calls=1 67 
+0 27700
+0 5
+
+fn=(916) 0x0000000004b97600
+0 2
+cob=(1)
+cfi=(123)
+cfn=(375)
+calls=1 67 
+0 26890
+0 5
+
+fn=(946) 0x0000000004b97a20
+0 24
+cob=(8)
+cfi=(145)
+cfn=(950) std::ctype<wchar_t>::_M_convert_to_wmask(unsigned short) const
+calls=11 0 
+0 3637
+cob=(1)
+cfi=(123)
+cfn=(375)
+calls=1 67 
+0 1924
+0 5
+
+fn=(962) 0x0000000004e785c0
+0 98
+cob=(3)
+cfi=(175)
+cfn=(964)
+calls=49 59 
+0 1107
+
+fn=(972) 0x0000000004b967f0
+0 2
+cob=(1)
+cfi=(123)
+cfn=(375)
+calls=1 67 
+0 1511
+0 5
+
+fn=(1232) 0x0000000004b96650
+0 152
+cob=(8)
+cfi=(145)
+cfn=(1236) std::num_put<char, std::ostreambuf_iterator<char, std::char_traits<char> > > const& std::use_facet<std::num_put<char, std::ostreambuf_iterator<char, std::char_traits<char> > > >(std::locale const&)
+calls=75 0 
+0 9000
+cob=(1)
+cfi=(123)
+cfn=(375)
+calls=1 67 
+0 1433
+0 5
+
+fn=(1262) 0x0000000004b96ec0
+0 8
+cob=(8)
+cfi=(145)
+cfn=(1266) bool std::has_facet<std::ctype<wchar_t> >(std::locale const&)
+calls=3 0 
+0 366
+cob=(1)
+cfi=(123)
+cfn=(375)
+calls=1 67 
+0 1043
+0 5
+
+fn=(1292) 0x0000000004b99640
+0 8
+cob=(8)
+cfi=(145)
+cfn=(1296) std::num_get<wchar_t, std::istreambuf_iterator<wchar_t, std::char_traits<wchar_t> > > const& std::use_facet<std::num_get<wchar_t, std::istreambuf_iterator<wchar_t, std::char_traits<wchar_t> > > >(std::locale const&)
+calls=3 0 
+0 360
+cob=(1)
+cfi=(123)
+cfn=(375)
+calls=1 67 
+0 1457
+0 5
+
+fn=(1312)
+0 18
+cob=(3)
+cfi=(174)
+cfn=(960)
+calls=9 42 
+0 172
+
+fn=(1318) 0x0000000004b96840
+0 51124
+cob=(8)
+cfi=(145)
+cfn=(1310)
+calls=25561 0 
+0 3992528
+cob=(1)
+cfi=(123)
+cfn=(374)
+calls=1 67 
+0 852
+0 5
+
+fn=(1370) 0x0000000004e78590
+0 2
+cob=(3)
+cfi=(185) /build/glibc-t7JzpG/glibc-2.30/string/../sysdeps/x86_64/multiarch/memset-vec-unaligned-erms.S
+cfn=(1372) __memset_avx2_unaligned_erms
+calls=1 167 
+0 5017
+
+fn=(1462)
+0 2
+cob=(8)
+cfi=(145)
+cfn=(1464) std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::reserve(unsigned long)
+calls=1 0 
+0 31
+
+fn=(1470) 0x0000000004b99b30
+0 310244
+cob=(3)
+cfi=(181)
+cfn=(1324)
+calls=155121 225 
+0 2344256
+cob=(1)
+cfi=(123)
+cfn=(374)
+calls=1 67 
+0 977
+0 5
+
+fn=(1604)
+0 17042
+cob=(8)
+cfi=(145)
+cfn=(1606) std::basic_ios<char, std::char_traits<char> >::clear(std::_Ios_Iostate)
+calls=8521 0 
+0 59647
+
+fn=(1806) 0x0000000004b96f70
+0 34076
+cob=(8)
+cfi=(145)
+cfn=(1334)
+calls=17037 0 
+0 2037010
+cob=(1)
+cfi=(123)
+cfn=(375)
+calls=1 67 
+0 790
+0 5
+
+fn=(1844) 0x0000000004e78350
+0 17042
+cob=(3)
+cfi=(148)
+cfn=(1340)
+calls=8521 3087 
+0 698722
+
+fn=(1964)
+0 300
+cob=(9)
+cfi=(245)
+cfn=(1966)
+calls=150 215 
+0 6573570
+
+ob=(4)
+fl=(112) /build/glibc-t7JzpG/glibc-2.30/math/../sysdeps/x86_64/fpu/multiarch/e_pow.c
+fn=(326) __pow_finite
+26 1
+fi=(251) /build/glibc-t7JzpG/glibc-2.30/math/../sysdeps/x86_64/fpu/multiarch/ifunc-fma4.h
++6 5
+-1 2
+fe=(112)
+-5 1
+
+fl=(242)
+fn=(1932)
+54 542066
+fi=(205) /build/glibc-t7JzpG/glibc-2.30/math/../sysdeps/ieee754/flt-32/math_config.h
++13 271033
+fe=(242)
+-7 271033
+-11 542066
++12 271033
++1 542066
++18 271033
++10 271033
++8 271033
++4 271033
+-12 542066
+fi=(205)
+-1 271033
+fe=(242)
++3 271033
++5 271033
++1 271033
+-1 271033
+-3 271033
++6 271033
+-2 271033
++2 271033
++1 271033
++1 271033
++1 271033
+-5 271033
++6 271033
++1 542066
+
+fl=(107) /build/glibc-t7JzpG/glibc-2.30/math/../sysdeps/x86_64/fpu/multiarch/e_expf.c
+fn=(316) expf@@GLIBC_2.27
+26 2
+fi=(252) /build/glibc-t7JzpG/glibc-2.30/math/../sysdeps/x86_64/fpu/multiarch/ifunc-fma.h
++4 2
+-1 2
++1 4
+-1 6
+fe=(107)
+-3 2
+
+fl=(114) /build/glibc-t7JzpG/glibc-2.30/math/../sysdeps/x86_64/fpu/multiarch/e_log.c
+fn=(330) __log_finite
+26 1
+fi=(253) /build/glibc-t7JzpG/glibc-2.30/math/../sysdeps/x86_64/fpu/multiarch/ifunc-avx-fma4.h
++7 5
+-1 2
+fe=(114)
+-6 1
+
+fl=(117) /build/glibc-t7JzpG/glibc-2.30/math/../sysdeps/x86_64/fpu/multiarch/e_exp2f.c
+fn=(338) exp2f@@GLIBC_2.27
+26 1
+fi=(252)
++4 1
+-1 1
++1 2
+-1 3
+fe=(117)
+-3 1
+
+fl=(116) /build/glibc-t7JzpG/glibc-2.30/math/../sysdeps/x86_64/fpu/multiarch/s_sinf.c
+fn=(334) sinf
+26 2
+fi=(252)
++4 2
+-1 2
++1 4
+-1 6
+fe=(116)
+-3 2
+
+fl=(106) /build/glibc-t7JzpG/glibc-2.30/math/../sysdeps/x86_64/fpu/multiarch/e_exp.c
+fn=(314) __exp_finite
+26 1
+fi=(253)
++7 5
+-1 2
+fe=(106)
+-6 1
+
+fl=(203)
+fn=(1452)
+49 75354039
+fi=(254) /build/glibc-t7JzpG/glibc-2.30/math/../sysdeps/ieee754/dbl-64/math_config.h
++18 75354039
+fe=(203)
+-28 75354039
++22 226062117
+-22 75354039
++22 150708078
++24 211923828
++17 70641276
++17 70641276
+-14 70641276
++9 70641276
+-12 70641276
++20 70641276
++8 70641276
+-27 70641276
++2 70641276
+-1 70641276
++26 70641276
+-27 70641276
++16 70641276
+-14 70641276
++1 141282552
++8 70641276
+-8 211923828
++8 70641276
++8 70641276
++8 70641276
+-7 70641276
++1 211923828
++3 70641276
++3 423847656
++1 70641276
+-66 14138289
++2 4712763
++3 4712763
++1 4712763
+-1 4712763
++1 4712763
++1 4712763
+-4 4712763
++4 4712763
+-2 4712763
++1 4712763
+-2 4712763
++3 14138289
++3 4712763
+-4 4712763
++4 14138289
++2 9425526
+-1 4712763
++2 9425526
++1 4712763
++1 4712763
+-1 4712763
++1 9425526
++1 4712763
++1 4712763
++1 4712763
+
+fl=(110) /build/glibc-t7JzpG/glibc-2.30/math/../sysdeps/x86_64/fpu/multiarch/s_sincosf.c
+fn=(322) sincosf
+26 1
+fi=(252)
++4 1
+-1 1
++1 2
+-1 3
+fe=(110)
+-3 1
+
+fl=(109) /build/glibc-t7JzpG/glibc-2.30/math/../sysdeps/x86_64/fpu/multiarch/e_logf.c
+fn=(320) logf@@GLIBC_2.27
+26 1
+fi=(252)
++4 1
+-1 1
++1 2
+-1 3
+fe=(109)
+-3 1
+
+fl=(249)
+fn=(1994)
+60 19318
+fi=(250) /build/glibc-t7JzpG/glibc-2.30/math/../sysdeps/x86/fpu/fenv_private.h
+415 1486
++1 5944
++3 2972
+fe=(249)
+84 2972
++1 5944
++8 7430
++3 4458
++8 4458
++3 32
++2 32
++6 32
+-6 32
++1 32
++5 32
+-4 32
++1 64
++1 64
++2 192
++7 1
++9 1
+-1 1
+-8 1
++9 1
+-1 1
+-7 1
++8 1
+-7 1
++7 1
+-6 1
++1 1
++1 1
++1 1
++3 10
++1 1
+-1 2
++1 4
++1 3
+-1 2
++1 1
+-1 1
++1 2
+-1 1
++1 7
++1 1
+-1 2
++1 4
++1 3
+-1 2
++1 1
+-1 1
++1 2
+-1 1
++1 7
++1 1
+-1 2
++1 4
++1 3
+-1 2
++1 1
+-1 1
++1 2
+-1 1
++1 7
++1 1
+-1 2
++1 4
++1 3
+-1 2
++1 1
+-1 1
++1 2
+-1 1
++1 7
++2 2
+-1 1
+-1 1
++2 1
+-2 1
++1 8
++1 10
++1 1
+-1 1
++1 1
+-1 1
++1 5
++1 1
+-1 2
++1 4
++1 2
+-1 2
++1 1
+-1 1
++1 1
+-1 1
++1 9
++1 8
+733 1
+155 4362
++3 328
++1 328
+-1 328
++4 328
+-1 1312
+-3 328
++1 1640
++4 328
+-3 328
++2 984
++2 328
++1 1312
++1 2624
++5 368
++1 184
++1 552
++8 12
++2 12
+-3 12
++2 12
+-1 12
++2 12
+-1 12
+-1 12
++2 12
+-3 12
++3 12
+-2 12
++2 72
++2 24
+-1 12
+-1 12
++2 12
+-2 12
++1 84
++1 12
+-1 12
++1 120
++1 24
+-1 12
++1 48
++2 24
+-2 12
++1 12
+-1 24
++1 84
++1 12
+-1 12
++1 108
++2 24
+-2 12
++2 12
+-2 12
++2 108
++1 24
+-1 24
++1 24
++1 12
+-1 36
++1 12
+-1 12
++1 12
+-1 12
++1 36
++1 12
+-1 24
++1 48
++3 24
+-3 84
++3 84
++2 328
++1 328
+fi=(250)
+431 2972
+fe=(249)
+830 16346
+206 3378
++3 3378
++5 1126
++1 1126
+-5 1126
++3 2252
+-1 3378
++3 1126
++1 1126
++1 1126
+-2 1126
++1 2252
++1 1126
++10 794
+-1 397
+-1 397
++2 397
++4 3378
++7 3378
++2 98
++1 196
++1 98
++1 98
++1 98
++1 196
++2 196
++3 670
++1 804
++2 536
++22 1
++3 1
+-2 2
++1 2
++2 2
++1 3
++3 9
++3 2
++10 1
+-12 1
++2 1
+-1 1
++11 2
+-10 5
++2 2
++1 1
++1 1
++1 1
++1 1
++1 1
++1 1
++2 10
++1 1
+-1 2
++1 4
++1 3
+-1 2
++1 1
+-1 1
++1 2
+-1 1
++1 7
++1 1
+-1 2
++1 4
++1 3
+-1 2
++1 1
+-1 1
++1 2
+-1 1
++1 7
++1 1
+-1 2
++1 4
++1 3
+-1 2
++1 1
+-1 1
++1 2
+-1 1
++1 7
++1 1
+-1 2
++1 4
++1 3
+-1 2
++1 1
+-1 1
++1 2
+-1 1
++1 7
++2 2
+-1 1
+-1 1
++2 1
+-2 1
++1 7
++1 1
+-1 1
++1 9
++1 1
+-1 1
++1 1
+-1 1
++1 5
++1 1
+-1 2
++1 7
++1 1
+-1 1
++1 12
++2 2
++3 12
++2 2
+115 33
+724 8
++2 134
++1 67
+183 60
++36 2187
++2 729
+-2 729
++1 1458
++1 729
+-55 420
++7 104
+338 1028
++1 1028
+-1 2056
++3 1028
+-2 5140
++3 1028
++1 1028
+-4 1028
++1 1028
++1 3084
++4 4112
++3 1452
++1 5808
++5 976
++1 488
++1 1464
++25 37
++1 74
+-1 74
++1 259
++1 74
++2 37
+-2 74
++2 74
+-2 111
++1 148
++1 370
++2 74
+-2 37
++1 37
+-1 37
++1 222
++1 37
+-1 37
++1 74
+-1 37
++1 333
++1 74
+-1 37
++1 74
++1 37
+-1 148
++1 37
+-1 37
++1 148
++1 74
+-1 37
++1 37
+-1 37
++1 74
+-1 37
++1 296
++2 111
+-2 37
++2 333
++1 37
+-1 74
++1 222
++1 37
+-1 37
++1 37
+-1 37
++1 185
++2 74
++3 360
++2 30
+607 210
+819 37
++2 37
++1 37
+192 60
+365 604
++1 2416
++5 408
++1 204
++1 714
++2 295
++1 295
+262 310
+410 63
++2 7
+-2 21
+819 49
+394 185
+253 68
+366 404
+-17 726
++9 696
++1 696
+-3 274
+
+fl=(115) /build/glibc-t7JzpG/glibc-2.30/math/../sysdeps/x86_64/fpu/multiarch/e_asin.c
+fn=(336) __asin_finite
+25 1
+fi=(251)
++7 5
+-1 2
+fe=(115)
+-6 1
+
+fn=(332) __acos_finite
+33 1
+fi=(251)
+-1 5
+-1 2
+fe=(115)
++2 1
+
+fl=(248) /build/glibc-t7JzpG/glibc-2.30/math/../sysdeps/x86_64/fpu/multiarch/s_tan.c
+fn=(1992) tan
+26 1
+fi=(253)
++7 5
+-1 2
+fe=(248)
+-6 1
+
+fl=(108) /build/glibc-t7JzpG/glibc-2.30/math/../sysdeps/x86_64/fpu/multiarch/s_sin.c
+fn=(342) sin
+27 1
+fi=(253)
++6 5
+-1 2
+fe=(108)
+-5 1
+
+fn=(318) cos
+34 1
+fi=(253)
+-1 5
+-1 2
+fe=(108)
++2 1
+
+fl=(118) /build/glibc-t7JzpG/glibc-2.30/math/../sysdeps/x86_64/fpu/multiarch/e_atan2.c
+fn=(340) __atan2_finite
+24 1
+fi=(253)
++9 5
+-1 2
+fe=(118)
+-8 1
+
+fl=(142) ???
+fn=(444) 0x000000000000f480
+0 12
+
+fl=(202)
+fn=(1448)
+32 75354039
++1 226062117
++14 75354039
+cob=(2)
+cfi=(18)
+cfn=(1450)
+calls=75354039 -47 
+* 3678209622
+
+fl=(105) /build/glibc-t7JzpG/glibc-2.30/math/../sysdeps/x86_64/fpu/multiarch/s_cosf.c
+fn=(312) cosf
+26 1
+fi=(252)
++4 1
+-1 1
++1 2
+-1 3
+fe=(105)
+-3 1
+
+fl=(111) /build/glibc-t7JzpG/glibc-2.30/math/../sysdeps/x86_64/fpu/multiarch/e_powf.c
+fn=(324) powf@@GLIBC_2.27
+29 1
+fi=(252)
++1 1
+-1 1
++1 2
+-1 4
+fe=(111)
+
+fl=(199)
+fn=(1434)
+39 150166014
+fi=(205)
++28 75083007
+fe=(199)
+-27 75083007
+fi=(206) /build/glibc-t7JzpG/glibc-2.30/math/../sysdeps/ieee754/flt-32/s_sincosf.h
+-1 300332028
+fe=(199)
++6 150166014
++2 901020
++2 1802040
+fi=(204) /build/glibc-t7JzpG/glibc-2.30/math/../sysdeps/x86/fpu/sincosf_poly.h
++43 886003
++1 1772006
++3 886003
+-1 886003
++3 1772006
+fe=(199)
+-41 886003
+fi=(205)
++11 74181987
+fe=(199)
+-9 148363974
+fi=(206)
++1 74181987
+fe=(199)
++1 74181987
++6 74181987
+fi=(206)
+-6 222545961
++2 74181987
+fe=(199)
++4 74181987
+fi=(206)
+-4 74181987
+fe=(199)
++4 74181987
++2 74181987
+fi=(204)
++21 148363974
+fe=(199)
+-26 36640487
++5 36640487
+fi=(204)
++24 73280974
+-1 36640487
++4 36640487
+-1 36640487
++3 109921461
++4 37541500
++2 75083000
+-1 75083000
++3 37541500
++1 37541500
++2 112624500
+fe=(199)
+-57 30034
++1 30034
+
+fl=(113) /build/glibc-t7JzpG/glibc-2.30/math/../sysdeps/x86_64/fpu/multiarch/e_log2f.c
+fn=(328) log2f@@GLIBC_2.27
+26 1
+fi=(252)
++4 1
+-1 1
++1 2
+-1 3
+fe=(113)
+-3 1
+
+ob=(7) /lib/x86_64-linux-gnu/libgcc_s.so.1
+fl=(144) ???
+fn=(466) 0x00000000000036c0
+0 104
+
+fn=(464) __cpu_indicator_init
+0 45
+cfn=(466)
+calls=1 0 
+0 104
+0 17
+
+fn=(504) 0x0000000000003d00
+0 12
+
+ob=(1)
+fl=(31) /build/glibc-t7JzpG/glibc-2.30/string/../sysdeps/x86_64/memcmp.S
+fn=(92) bcmp
+23 2
++5 2
++1 2
++1 2
++1 2
++1 2
++1 2
++1 2
++1 2
++3 2
++1 2
++1 1
++1 1
++1 1
++1 1
++1 1
++1 1
++1 1
++2 2
++1 2
++1 2
++1 2
++1 2
++1 2
++1 2
++1 2
++1 2
++2 2
++1 2
++1 1
++1 1
++1 1
++1 1
++1 1
++1 1
++1 1
++2 1
++1 1
++1 1
++1 1
++1 1
++1 1
++1 1
++1 1
++1 1
++2 1
++1 1
++1 1
++1 1
++1 1
++1 1
++1 1
++18 1
++1 1
++1 1
++1 1
++1 1
++1 1
++1 1
++1 1
++1 1
++1 1
++1 1
++1 1
++1 1
++4 1
++1 1
+
+fl=(58) /build/glibc-t7JzpG/glibc-2.30/elf/dl-reloc.c
+fn=(196) _dl_relocate_object
+148 110
++15 10
+-15 20
++15 10
++1 50
++6 20
++6 50
+-18 18
++22 18
++7 40
++40 10
+fi=(5) /build/glibc-t7JzpG/glibc-2.30/elf/../sysdeps/x86_64/dl-machine.h
+76 10
+fe=(58)
+227 20
+fi=(5)
+76 30
++6 16
++4 24
++14 8
+-8 8
++8 16
++20 16
++11 32
+fe=(58)
+254 372
+-95 8
+fi=(5)
+481 24
+fe=(58)
+159 16
++95 8
+fi=(4) /build/glibc-t7JzpG/glibc-2.30/elf/do-rel.h
+48 8
+fe=(58)
+254 8
+fi=(4)
+47 8
++11 8
+-11 16
++11 16
+fe=(58)
+254 2
+-95 2
+fi=(5)
+481 6
+fe=(58)
+159 4
++95 2
+fi=(4)
+48 2
+fe=(58)
+254 2
+fi=(4)
+47 2
++11 2
+-11 4
++11 4
+fe=(58)
+254 10
+fi=(4)
+48 10
+fe=(58)
+254 10
+fi=(4)
+47 10
++11 10
+-11 20
++11 20
+-7 8
+-1 16
++11 16
+fi=(5)
+551 2632
++4 2632
++3 3948
++1 1316
+fi=(4)
+61 4116
++2 5496
++2 176
+-4 6
++13 16
++1 14
++1 116
+fi=(5)
+551 58
++25 116
++2 58
+cob=(4)
+cfi=(108)
+cfn=(342)
+calls=1 27 
+* 9
+cob=(4)
+cfi=(118)
+cfn=(340)
+calls=1 24 
+* 9
+cob=(4)
+cfi=(117)
+cfn=(338)
+calls=1 26 
+* 9
+cob=(4)
+cfi=(115)
+cfn=(336)
+calls=1 25 
+* 9
+cob=(4)
+cfi=(116)
+cfn=(334)
+calls=1 26 
+* 9
+cob=(4)
+cfi=(115)
+cfn=(332)
+calls=1 33 
+* 9
+cob=(4)
+cfi=(114)
+cfn=(330)
+calls=1 26 
+* 9
+cob=(4)
+cfi=(113)
+cfn=(328)
+calls=1 26 
+* 9
+cob=(4)
+cfi=(112)
+cfn=(326)
+calls=1 26 
+* 9
+cob=(4)
+cfi=(111)
+cfn=(324)
+calls=1 29 
+* 9
+cob=(4)
+cfi=(110)
+cfn=(322)
+calls=1 26 
+* 9
+cob=(4)
+cfi=(109)
+cfn=(320)
+calls=1 26 
+* 9
+cob=(4)
+cfi=(108)
+cfn=(318)
+calls=1 34 
+* 9
+cob=(4)
+cfi=(107)
+cfn=(316)
+calls=1 26 
+* 9
+cob=(4)
+cfi=(106)
+cfn=(314)
+calls=1 26 
+* 9
+cob=(4)
+cfi=(105)
+cfn=(312)
+calls=1 26 
+* 9
+cob=(3)
+cfi=(104) /build/glibc-t7JzpG/glibc-2.30/time/../sysdeps/unix/sysv/linux/x86/gettimeofday.c
+cfn=(304) gettimeofday
+calls=1 42 
+* 75
+cob=(3)
+cfi=(103) /build/glibc-t7JzpG/glibc-2.30/string/../sysdeps/x86_64/multiarch/strncase_l.c
+cfn=(302) strncasecmp_l
+calls=1 31 
+* 6
+cob=(3)
+cfi=(102) /build/glibc-t7JzpG/glibc-2.30/string/../sysdeps/x86_64/multiarch/strchrnul.c
+cfn=(300) strchrnul
+calls=1 31 
+* 10
+cob=(3)
+cfi=(100) /build/glibc-t7JzpG/glibc-2.30/wcsmbs/../sysdeps/x86_64/multiarch/wmemcmp.c
+cfn=(296) wmemcmp
+calls=1 29 
+* 13
+cob=(3)
+cfi=(99) /build/glibc-t7JzpG/glibc-2.30/string/../sysdeps/x86_64/multiarch/stpcpy.c
+cfn=(294) stpcpy
+calls=1 33 
+* 9
+cob=(3)
+cfi=(98) /build/glibc-t7JzpG/glibc-2.30/string/../sysdeps/x86_64/multiarch/stpncpy.c
+cfn=(292) stpncpy
+calls=1 31 
+* 9
+cob=(3)
+cfi=(97) /build/glibc-t7JzpG/glibc-2.30/string/../sysdeps/x86_64/multiarch/strspn.c
+cfn=(290) strspn
+calls=1 29 
+* 7
+cob=(3)
+cfi=(96) /build/glibc-t7JzpG/glibc-2.30/wcsmbs/../sysdeps/x86_64/multiarch/wcslen.c
+cfn=(288) wcslen
+calls=1 29 
+* 10
+cob=(3)
+cfi=(95) /build/glibc-t7JzpG/glibc-2.30/string/../sysdeps/x86_64/multiarch/memchr.c
+cfn=(286) memchr
+calls=1 29 
+* 10
+cob=(3)
+cfi=(94) /build/glibc-t7JzpG/glibc-2.30/string/../sysdeps/x86_64/multiarch/strcasecmp_l.c
+cfn=(284) strcasecmp_l
+calls=1 31 
+* 6
+cob=(3)
+cfi=(93) /build/glibc-t7JzpG/glibc-2.30/string/../sysdeps/x86_64/multiarch/memrchr.c
+cfn=(282) memrchr
+calls=1 29 
+* 10
+cob=(3)
+cfi=(92) /build/glibc-t7JzpG/glibc-2.30/string/../sysdeps/x86_64/multiarch/strlen.c
+cfn=(280) strlen
+calls=1 29 
+* 10
+cob=(3)
+cfi=(91) /build/glibc-t7JzpG/glibc-2.30/string/../sysdeps/x86_64/multiarch/strchr.c
+cfn=(278) index
+calls=1 49 
+* 9
+cob=(3)
+cfi=(90) /build/glibc-t7JzpG/glibc-2.30/string/../sysdeps/x86_64/multiarch/strpbrk.c
+cfn=(276) strpbrk
+calls=1 29 
+* 7
+cob=(3)
+cfi=(89) /build/glibc-t7JzpG/glibc-2.30/wcsmbs/../sysdeps/x86_64/multiarch/wcscpy.c
+cfn=(274) wcscpy
+calls=1 43 
+* 7
+cob=(3)
+cfi=(87) /build/glibc-t7JzpG/glibc-2.30/wcsmbs/../sysdeps/x86_64/multiarch/wmemset.c
+cfn=(270) wmemset
+calls=2 31 
+* 34
+cob=(3)
+cfi=(86) /build/glibc-t7JzpG/glibc-2.30/wcsmbs/../sysdeps/x86_64/multiarch/wcsnlen.c
+cfn=(268) wcsnlen
+calls=1 49 
+* 9
+cob=(3)
+cfi=(85) /build/glibc-t7JzpG/glibc-2.30/string/../sysdeps/x86_64/multiarch/memcpy.c
+cfn=(264) memcpy@@GLIBC_2.14
+calls=1 29 
+* 17
+cob=(3)
+cfi=(84) /build/glibc-t7JzpG/glibc-2.30/string/../sysdeps/x86_64/multiarch/strcpy.c
+cfn=(262) strcpy
+calls=1 29 
+* 9
+cob=(3)
+cfi=(83) /build/glibc-t7JzpG/glibc-2.30/string/../sysdeps/x86_64/multiarch/strncase.c
+cfn=(260) strncasecmp
+calls=1 31 
+* 6
+cob=(3)
+cfi=(82) /build/glibc-t7JzpG/glibc-2.30/string/../sysdeps/x86_64/multiarch/strcspn.c
+cfn=(258) strcspn
+calls=1 29 
+* 7
+cob=(3)
+cfi=(81) /build/glibc-t7JzpG/glibc-2.30/string/../sysdeps/x86_64/multiarch/strnlen.c
+cfn=(256) strnlen
+calls=2 31 
+* 20
+cob=(3)
+cfi=(80) /build/glibc-t7JzpG/glibc-2.30/wcsmbs/../sysdeps/x86_64/multiarch/wcschr.c
+cfn=(254) wcschr
+calls=2 31 
+* 20
+cob=(3)
+cfi=(78) /build/glibc-t7JzpG/glibc-2.30/string/../sysdeps/x86_64/multiarch/memset.c
+cfn=(250) memset
+calls=1 29 
+* 19
+cob=(3)
+cfi=(77) /build/glibc-t7JzpG/glibc-2.30/string/../sysdeps/x86_64/multiarch/strcmp.c
+cfn=(248) strcmp
+calls=1 53 
+* 9
+cob=(3)
+cfi=(76) /build/glibc-t7JzpG/glibc-2.30/string/../sysdeps/x86_64/multiarch/strncmp.c
+cfn=(246) strncmp
+calls=1 54 
+* 9
+cob=(3)
+cfi=(74) /build/glibc-t7JzpG/glibc-2.30/string/../sysdeps/x86_64/multiarch/memcmp.c
+cfn=(242) bcmp
+calls=1 29 
+* 13
+cob=(3)
+cfi=(73) /build/glibc-t7JzpG/glibc-2.30/string/../sysdeps/x86_64/multiarch/mempcpy.c
+cfn=(238) mempcpy
+calls=1 33 
+* 17
+cob=(3)
+cfi=(72) /build/glibc-t7JzpG/glibc-2.30/wcsmbs/../sysdeps/x86_64/multiarch/wcscmp.c
+cfn=(236) wcscmp
+calls=1 30 
+* 10
+cob=(3)
+cfi=(71) /build/glibc-t7JzpG/glibc-2.30/wcsmbs/../sysdeps/x86_64/multiarch/wmemchr.c
+cfn=(234) wmemchr
+calls=2 31 
+* 20
+cob=(3)
+cfi=(70) /build/glibc-t7JzpG/glibc-2.30/string/../sysdeps/x86_64/multiarch/rawmemchr.c
+cfn=(232) rawmemchr
+calls=1 31 
+* 10
+cob=(3)
+cfi=(66) /build/glibc-t7JzpG/glibc-2.30/time/../sysdeps/unix/sysv/linux/x86/time.c
+cfn=(224) time
+calls=1 43 
+* 75
+cob=(3)
+cfi=(65) /build/glibc-t7JzpG/glibc-2.30/string/../sysdeps/x86_64/multiarch/strrchr.c
+cfn=(222) rindex
+calls=1 28 
+* 10
+cob=(3)
+cfi=(64) /build/glibc-t7JzpG/glibc-2.30/string/../sysdeps/x86_64/multiarch/strcat.c
+cfn=(220) strcat
+calls=1 29 
+* 9
+cob=(3)
+cfi=(63) /build/glibc-t7JzpG/glibc-2.30/string/../sysdeps/x86_64/multiarch/strcasecmp.c
+cfn=(218) strcasecmp
+calls=1 31 
+* 6
+cob=(3)
+cfi=(62) /build/glibc-t7JzpG/glibc-2.30/string/../sysdeps/x86_64/multiarch/strncpy.c
+cfn=(216) strncpy
+calls=1 29 
+* 9
+cob=(3)
+cfi=(60) /build/glibc-t7JzpG/glibc-2.30/string/../sysdeps/x86_64/multiarch/memmove.c
+cfn=(212) memmove
+calls=2 29 
+* 34
+-27 58
++28 58
+fi=(4)
+75 176
+fe=(58)
+254 80
++3 40
++24 10
++3 20
++17 30
++2 80
+177 20
++3 3
+fi=(4)
+-96 24
+-1 12
++3 12
+-3 12
++3 12
++12 12
+-12 12
++12 24
++10 20
++10 9
++3 22
++3 22
+-73 9
+-1 9
+fi=(5)
+491 27
+fi=(4)
+127 14196
++9 7098
++1 3549
+-1 7098
++1 3549
++2 3549
+-2 3549
++2 7098
+-1 7098
+fi=(5)
+276 7098
++21 7098
++4 7098
++7 14196
+fi=(59) /build/glibc-t7JzpG/glibc-2.30/elf/../sysdeps/generic/ldsodefs.h
+109 10593
+fi=(5)
+308 50557
+fi=(4)
+138 2249
+fi=(5)
+308 2249
+fi=(4)
+138 2249
+fi=(5)
+308 2249
+fi=(4)
+138 2249
+fi=(5)
+308 4498
+fi=(4)
+138 10
+fi=(5)
+308 10
+fi=(4)
+138 10
+fi=(5)
+308 10
+fi=(4)
+138 10
+fi=(5)
+308 27128
+cfi=(6) /build/glibc-t7JzpG/glibc-2.30/elf/dl-lookup.c
+cfn=(204) _dl_lookup_symbol_x
+calls=2259 787 
+* 1916729
+* 13554
++1 10593
++24 21284
+457 10539
++1 3513
+fi=(4)
+124 10647
++19 45
+fi=(5)
+367 6
++1 12
++61 63
++4 84
++5 21
++9 21
+-9 42
++9 42
+-72 6
++11 2
+-9 4
++9 4
+497 30
++4 60
+cfi=(20) /build/glibc-t7JzpG/glibc-2.30/string/../sysdeps/x86_64/multiarch/memmove-vec-unaligned-erms.S
+cfn=(48) memcpy
+calls=10 127 
+* 290
++2 30
++1 10
+fi=(4)
+111 29
++1 9
+fi=(5)
+535 9
+fi=(4)
+112 9
+fi=(5)
+535 18
+fi=(4)
+112 3505
+fi=(5)
+535 3505
+fi=(4)
+112 3505
+fi=(5)
+535 7010
++5 7028
++1 3514
+fi=(4)
+111 3514
+fi=(5)
+541 7028
+fi=(4)
+111 7028
++7 27
+-67 1
+160 5
++2 20
++9 15
+-1 30
+fi=(5)
+276 10
++21 10
++4 10
++7 20
+fi=(59)
+109 15
+fi=(5)
+308 165
+cfi=(6)
+cfn=(204)
+calls=5 787 
+* 3776
+* 35
++1 15
++24 66
+-24 3581
++3 3527
+-3 3527
++3 7054
++2 25
++3 10
++1 15
++1 10
++4 5
++7 5
+cob=(4)
+cfi=(107)
+cfn=(316)
+calls=1 26 
+* 9
+cob=(3)
+cfi=(60)
+cfn=(212)
+calls=1 29 
+* 17
+cob=(4)
+cfi=(116)
+cfn=(334)
+calls=1 26 
+* 9
+cob=(3)
+cfi=(85)
+cfn=(264)
+calls=1 29 
+* 17
+cob=(3)
+cfi=(92)
+cfn=(280)
+calls=1 29 
+* 10
+* 10
++3 10
+-25 206
++1 14036
+fe=(58)
+* 50
++3 10
+-3 10
++3 10
++4 20
++1 40
+cfi=(53) /build/glibc-t7JzpG/glibc-2.30/misc/../sysdeps/unix/syscall-template.S
+cfn=(172) mprotect
+calls=10 78 
+* 60
+* 20
+fi=(5)
+124 32
+-2 16
+fe=(58)
+254 6
+fi=(5)
++54 12094
+457 15
++1 5
+fi=(4)
+160 16
++14 3
+fi=(5)
+309 2
++3 2
+-3 2
++3 4
+-3 8
+-1 32426
+fe=(58)
+
+fl=(12) /build/glibc-t7JzpG/glibc-2.30/elf/../sysdeps/x86/cpu-features.c
+fn=(24) get_common_indices.constprop.0
+71 2
++4 4
++3 3
++4 2
+-4 1
++4 1
+-4 1
++3 1
++1 1
++1 4
++1 4
++1 3
++1 2
++7 2
++1 3
++6 1
+-6 4
++6 1
++1 7
++7 3
++4 2
++2 4
+225 2
++4 3
++1 2
++3 1
+-1 1
++4 1
++2 1
+-2 1
++5 2
++50 3
+118 2
++3 4
++3 2
++8 1
+-5 3
++8 2
++2 2
++2 3
++4 2
++4 2
++7 3
+
+fl=(34) /build/glibc-t7JzpG/glibc-2.30/string/../sysdeps/x86_64/strcspn.S
+fn=(102) strcspn
+28 1
++2 1
++7 1
++1 1
++2 1
++1 1
++1 1
++1 1
++1 33
++3 3
++7 1
++1 1
++1 1
++1 1
++2 1
++1 1
++1 1
++1 1
++2 1
++1 1
++1 1
++9 3
++12 1
++2 1
++1 1
++1 1
+-4 16
++2 16
++1 16
++1 16
++2 16
++1 16
++1 16
++2 16
++1 16
++1 16
++2 16
++1 16
++1 16
++6 1
++7 1
++4 1
+
+fl=(46) /build/glibc-t7JzpG/glibc-2.30/io/../sysdeps/unix/sysv/linux/access.c
+fn=(144) access
+25 1
++2 7
++4 1
+
+fl=(28) /build/glibc-t7JzpG/glibc-2.30/string/../sysdeps/x86_64/multiarch/memset-vec-unaligned-erms.S
+fn=(76) memset
+108 24
++1 120
++6 24
++1 24
++1 14
++1 14
++2 8
++1 8
++2 8
++65 6
++1 6
++10 6
++1 6
++1 6
++1 6
++1 6
++1 6
++1 6
++1 6
++1 6
++1 6
++1 6
++1 6
++1 6
++1 6
++2 174
++1 174
++1 174
++1 174
++1 174
++1 174
++1 174
++1 6
++15 10
++1 10
++1 10
++1 3
++1 3
++1 1
++1 1
++24 7
++1 7
++2 7
++3 2
++1 2
++2 2
++3 1
++1 1
++2 1
+
+fl=(48) /build/glibc-t7JzpG/glibc-2.30/io/../sysdeps/unix/sysv/linux/wordsize-64/xstat.c
+fn=(156) _xstat
+33 92
++1 46
++1 92
++4 2
+-4 84
+
+fl=(8)
+fn=(14) __GI___tunables_init
+288 9
+-9 4
+68 194
++6 63
+-3 63
++3 5831
+-6 126
+363 8
+78 126
++5 126
+fi=(9) /build/glibc-t7JzpG/glibc-2.30/elf/dl-tunables.h
++36 63
+fe=(8)
+-36 252
+fi=(9)
++37 42
+-1 147
++1 42
+-1 63
++1 126
+fe=(8)
+329 252
+-12 7875
+fi=(9)
+119 3402
++1 98
+-1 861
++1 1799
+fe=(8)
+311 6300
+71 126
+
+fn=(26)
+369 28
++3 168
++9 28
+-9 106
++9 9
++17 140
++2 28
+-9 19
++1 19
+
+fl=(51) /build/glibc-t7JzpG/glibc-2.30/io/../sysdeps/unix/sysv/linux/lseek64.c
+fn=(166) lseek
+28 8
++8 32
++2 8
+
+fl=(1) ???
+fn=(0) 0x0000000000001100
+0 2
+cfi=(2) /build/glibc-t7JzpG/glibc-2.30/elf/rtld.c
+cfn=(2) _dl_start
+calls=1 461 
+0 2464654
+0 14
+cfi=(119) /build/glibc-t7JzpG/glibc-2.30/elf/dl-init.c
+cfn=(356) _dl_init
+calls=1 79 
+0 84849
+0 3
+cob=(11)
+cfi=(161)
+cfn=(770)
+calls=1 0 
+0 23472083679
+
+fl=(7) /build/glibc-t7JzpG/glibc-2.30/elf/../elf/dl-sysdep.c
+fn=(12) _dl_sysdep_start
+88 9
++25 1
+-1 1
++1 199
++6 1
+-3 1
++1 1
+-4 1
++3 1
++3 8
+-29 1
+-1 2
++30 20
++1 108
++61 1
++1 1
+-1 1
++1 1
+-63 75
++34 1
+-34 2
++35 1
+-35 2
++46 1
+-46 1
++47 1
+-1 1
+-46 3
++40 1
+-40 1
++41 1
+-1 1
+-40 3
++37 1
+-37 2
++38 1
+-38 3
++13 1
+-13 2
++14 1
+-14 2
++10 1
+-10 2
++11 1
+-11 2
++7 1
+-7 4
++4 1
+-4 4
+224 1
+cfi=(8)
+cfn=(14)
+calls=1 +64 
+* 27998
+fi=(10) /build/glibc-t7JzpG/glibc-2.30/elf/../sysdeps/unix/sysv/linux/dl-sysdep.c
+36 2
+cfi=(11) /build/glibc-t7JzpG/glibc-2.30/elf/../sysdeps/unix/sysv/linux/x86_64/brk.c
+cfn=(20) brk
+calls=1 -8 
+* 10
+fi=(12)
+322 1
+-13 1
++13 1
+-12 1
++1 1
++11 1
++3 6
+476 3
++1 1
++3 2
++1 1
++6 1
++6 1
+-5 1
++5 1
+-3 1
++3 1
+-4 1
++4 1
+cfi=(8)
+cfn=(26)
+calls=1 369 
+* 18
++2 4
+cfi=(8)
+cfn=(26)
+calls=1 369 
+* 20
+* 1
++2 3
+-2 1
++2 1
+cfi=(8)
+cfn=(26)
+calls=1 369 
+* 20
+* 1
++2 3
+-2 1
++2 1
+cfi=(8)
+cfn=(26)
+calls=1 369 
+* 20
+* 1
++12 1
+-1 1
+-11 1
++12 1
++47 4
+cfi=(8)
+cfn=(26)
+calls=1 369 
+* 18
++2 4
+cfi=(8)
+cfn=(26)
+calls=1 369 
+* 18
+fi=(13) /build/glibc-t7JzpG/glibc-2.30/elf/../sysdeps/unix/sysv/linux/x86/cpu-features.c
+28 6
+fe=(7)
+235 3
++1 1
+cfi=(14) /build/glibc-t7JzpG/glibc-2.30/string/../sysdeps/x86_64/multiarch/../strlen.S
+cfn=(30) strlen
+calls=1 41 
+* 17
+* 1
++2 2
+cfi=(15) /build/glibc-t7JzpG/glibc-2.30/elf/../misc/sbrk.c
+cfn=(32) sbrk
+calls=1 32 
+* 18
+* 3
++12 3
++3 5
+cfi=(2)
+cfn=(34) dl_main
+calls=1 1088 
+* 2434660
++1 1
++1 8
+fi=(12)
+515 3
++28 2
+-9 3
++2 4
++1 2
++2 4
++1 2
+331 6
+cfn=(24)
+calls=1 71 
+* 99
+49 4
++1 2
++1 6
++5 2
++1 6
++5 2
++1 6
+336 7
++89 4
+-96 1
++96 2
+-99 1
++12 10
++38 2
++14 1
++10 5
++14 2
++1 1
+fe=(7)
+
+fn=(348) _dl_sysdep_start_cleanup
+259 1
++1 1
+
+fl=(25) /build/glibc-t7JzpG/glibc-2.30/elf/dl-load.c
+fn=(126) _dl_map_object_from_fd
+866 88
++10 8
+-10 8
++10 8
+-10 24
++10 8
+cfi=(32) /build/glibc-t7JzpG/glibc-2.30/elf/dl-debug.c
+cfn=(94) _dl_debug_initialize
+calls=8 46 
+* 72
+fi=(40) /build/glibc-t7JzpG/glibc-2.30/elf/../sysdeps/posix/dl-fileid.h
+37 24
+fe=(25)
+876 8
+fi=(40)
+37 8
+cfi=(41) /build/glibc-t7JzpG/glibc-2.30/io/../sysdeps/unix/sysv/linux/wordsize-64/fxstat.c
+cfn=(130) _fxstat
+calls=8 -4 
+* 88
+* 16
++3 8
+fe=(25)
+892 8
+fi=(40)
+40 8
++1 16
+fe=(25)
+892 204
++1 88
+fi=(40)
+49 144
+fe=(25)
+1401 72
+910 16
++24 32
++10 16
++7 32
++32 16
+877 8
+986 56
+cfi=(17) /build/glibc-t7JzpG/glibc-2.30/elf/dl-object.c
+cfn=(38) _dl_new_object
+calls=8 59 
+* 2990
+* 8
++1 16
++11 16
++5 8
+-5 8
++1 8
++5 8
+-5 8
++1 8
++2 8
+-2 8
++2 16
++1 24
++20 16
+-2 8
++2 136
++8 8
+-8 8
++8 8
+-8 8
++8 24
++97 8
+1025 8
+1128 8
+1024 8
+-5 16
+1128 24
+-96 690
++23 160
++5 224
++8 32
++1 32
++1 32
+-2 32
++1 64
++1 96
+-1 32
++1 32
+-1 64
++1 128
++3 32
+-3 32
++1 64
++2 32
++4 64
++1 144
++5 48
+-1 24
++1 24
+-1 24
+-14 24
++15 120
+-52 144
++52 16
+-1 8
++1 8
+-1 8
+-14 8
++15 40
+-52 396
+1152 16
+999 16
+1165 16
++10 32
+fi=(43) /build/glibc-t7JzpG/glibc-2.30/elf/./dl-map-segments.h
+56 8
+fe=(25)
+1175 16
+fi=(43)
+56 16
+fe=(25)
+1175 24
+fi=(43)
+56 16
+-6 8
++6 8
+-6 8
++6 8
+cfi=(42) /build/glibc-t7JzpG/glibc-2.30/misc/../sysdeps/unix/sysv/linux/mmap64.c
+cfn=(134) mmap
+calls=8 -8 
+* 160
+* 8
++4 16
++3 16
++1 8
++2 8
+-3 8
++1 8
++2 8
++7 10
+cfi=(53)
+cfn=(172)
+calls=1 +5 
+* 6
+* 2
++7 8
++2 8
+fi=(44) /build/glibc-t7JzpG/glibc-2.30/elf/./dl-load.h
++8 64
++1 24
++2 64
+fi=(43)
++11 128
++6 8
++2 8
+-2 8
++1 8
++2 16
+-1 16
++3 16
++5 16
++17 16
++12 32
+-59 160
++2 120
++2 192
+cfi=(42)
+cfn=(134)
+calls=24 -46 
+* 432
+* 48
+fe=(25)
+1096 6
++4 2
++1 4
++1 2
++3 10
++1 2
++3 2
+-3 2
++7 8
++6 2
+cfi=(33) /build/glibc-t7JzpG/glibc-2.30/elf/../elf/dl-tls.c
+cfn=(168) _dl_next_tls_modid
+calls=2 48 
+* 14
+* 2
++1 4
+-71 4
++1 2
+-12 16
++5 16
++1 32
+1144 70
+cfi=(21) /build/glibc-t7JzpG/glibc-2.30/elf/../sysdeps/x86/dl-prop.h
+cfn=(132) _dl_process_pt_note
+calls=14 153 
+* 913
+* 56
+1032 104
+1139 32
++2 8
+-6 16
++1 8
+1007 14
++1 1
+-1 1
++1 1
+-1 1
++1 2
+cfi=(51)
+cfn=(166)
+calls=1 28 
+* 6
++1 4
+cfi=(39) /build/glibc-t7JzpG/glibc-2.30/io/../sysdeps/unix/sysv/linux/read_nocancel.c
+cfn=(124) __read_nocancel
+calls=1 25 
+* 6
+* 2
+1187 32
++9 24
+fi=(3) /build/glibc-t7JzpG/glibc-2.30/elf/get-dynamic-info.h
+42 8
++6 8
+-2 8
++2 16
++15 8
++5 8
++3 8
+-2 8
+-2 8
+-3 16
+-1 196
++1 123
+-16 41
++26 41
+-26 251
++26 169
+-26 338
++2 420
++23 338
+-8 40
++3 32
++3 32
++1 32
++9 16
++20 27
++1 32
++1 32
++1 32
++2 32
++5 32
++1 31
++1 32
++5 24
++5 16
++7 16
++1 24
++18 24
++5 6
++2 6
++2 6
++2 6
++3 24
++2 6
++8 4
++5 4
++3 16
+fe=(25)
+1203 16
++1 16
++20 24
++19 16
++2 40
++48 24
++1 4
++3 4
+cfi=(45) /build/glibc-t7JzpG/glibc-2.30/io/../sysdeps/unix/sysv/linux/close_nocancel.c
+cfn=(142) __GI___close_nocancel
+calls=2 25 
+* 12
+* 12
+cfi=(45)
+cfn=(142)
+calls=6 25 
+* 36
+* 16
++9 16
++2 32
++2 16
++16 16
+cfi=(6)
+cfn=(10) _dl_setup_hash
+calls=8 909 
+* 192
++4 16
++1 16
++17 16
++1 2
++3 2
++5 2
+-5 4
++5 2
+-5 6
++5 6
+-5 12
++5 6
++10 16
++10 24
+cfi=(17)
+cfn=(50) _dl_add_to_namespace_list
+calls=8 31 
+* 464
++4 24
+fi=(43)
+123 16
++8 56
+cfi=(28)
+cfn=(76)
+calls=8 -23 
+* 1388
++1 24
+fi=(40)
+-83 12
+fi=(44)
++45 30
++2 6
+-1 12
++1 6
+-1 6
++1 6
+-1 6
++1 6
+-1 12
++3 24
+fi=(43)
++43 24
+cfi=(42)
+cfn=(134)
+calls=3 -93 
+* 54
++3 6
+fe=(25)
+
+fn=(152) open_path
+2004 56
++1 7
+-1 49
++1 7
++6 14
++5 112
+1427 7
+2009 7
+-1 7
++8 42
++3 14
++9 42
+-9 22
++9 66
++7 54
++1 18
+-1 18
+cfi=(20)
+cfn=(74) mempcpy
+calls=18 114 
+* 234
+-12 18
++12 18
++55 36
+-22 126
+-32 162
++3 144
+-3 144
++3 144
++4 273
+cfi=(20)
+cfn=(74)
+calls=39 114 
+* 537
+* 156
+cfi=(20)
+cfn=(74)
+calls=39 114 
+* 507
++3 78
++3 117
++3 273
+cfn=(154) open_verify.constprop.0
+calls=39 1653 
+* 2726
+* 39
++2 117
++2 48
++1 1
++23 1
++2 9
++25 9
+cob=(2)
+cfi=(18)
+cfn=(44)
+calls=3 0 
+* 81
+* 3
++1 6
+-1 3
++1 3
++2 15
+cfi=(20)
+cfn=(48)
+calls=3 127 
+* 57
++1 6
++7 4
++27 63
+2036 315
++85 120
++7 30
+-2 30
++2 30
++3 12
+-51 60
++2 30
+-46 72
++25 46
++1 161
++6 46
++2 69
+-2 46
++2 23
+cfi=(48)
+cfn=(156)
+calls=23 33 
+* 316
+* 23
++3 23
+-3 46
++1 2
++2 2
+-2 2
++2 60
+-57 14
+
+fn=(68) _dl_init_paths
+681 2
++13 2
+-13 8
++13 3
+cfi=(26) /build/glibc-t7JzpG/glibc-2.30/elf/dl-hwcaps.c
+cfn=(70) _dl_important_hwcaps
+calls=1 42 
+* 747
++5 1
+-5 1
++5 1
+cob=(2)
+cfi=(18)
+cfn=(44)
+calls=1 0 
+* 27
+-1 1
++2 2
++7 2
++1 4
+-1 3
++4 4
+cob=(2)
+cfi=(18)
+cfn=(44)
+calls=1 0 
+* 27
+* 2
++2 2
++7 1
++10 1
+-2 2
++2 1
++3 2
++9 1
+-7 1
++7 2
+-3 1
+-20 1
++12 1
++3 1
++8 1
+-3 17
+cfi=(28)
+cfn=(76)
+calls=4 108 
+* 52
++3 18
+-14 9
++14 3
+-12 6
++4 3
++4 3
+-7 3
++3 3
++1 3
+-2 3
++5 3
++1 3
+-4 3
++4 3
++14 1
+-11 1
++6 1
++1 1
++5 2
++2 4
++2 3
++38 5
+-19 1
+-2 1
++2 2
++21 2
+cfi=(14)
+cfn=(30)
+calls=1 41 
+* 35
+* 10
+-7 2
++7 9
+cfi=(20)
+cfn=(48)
+calls=1 127 
+* 19
+* 1
++5 4
+-1 2
++2 220
++1 2
+-1 4
+-1 221
++5 1
+cob=(2)
+cfi=(18)
+cfn=(44)
+calls=1 0 
+* 27
+-1 1
++1 1
++1 2
++6 6
+cfn=(78) fillin_rpath
+calls=1 447 
+* 1978
++3 3
++6 1
++4 8
+-30 2
+
+fn=(116) _dl_map_object
+2152 220
++8 44
++1 88
++3 539
++5 945
++2 405
+cfi=(37) /build/glibc-t7JzpG/glibc-2.30/elf/dl-misc.c
+cfn=(118) _dl_name_match_p
+calls=135 282 
+* 13845
+* 270
++4 242
++1 363
++3 82
++1 82
++1 82
+-1 82
++1 82
+cfi=(22) /build/glibc-t7JzpG/glibc-2.30/string/../sysdeps/x86_64/strcmp.S
+cfn=(58) strcmp
+calls=82 111 
+* 2829
+* 164
+2463 198
+2197 48
+-43 8
++53 24
++36 16
+-2 8
++2 8
+cfi=(29) /build/glibc-t7JzpG/glibc-2.30/string/../sysdeps/x86_64/multiarch/../strchr.S
+cfn=(84) index
+calls=8 23 
+* 216
+* 16
+2394 2
+-1 3
+cfn=(82) expand_dynamic_string_token
+calls=1 378 
+* 246
++2 1
+-3 1
++1 1
++2 2
++4 5
+cfn=(120) open_verify.constprop.1
+calls=1 1653 
+* 294
+* 1
++3 2
++12 4
++46 1
++1 3
+-1 1
++1 9
+cfn=(126)
+calls=1 866 
+* 1850
+-1 7
++1 21
+-1 7
++1 63
+cfn=(126)
+calls=7 866 
+* 14208
+* 24
+2247 14
+cfi=(14)
+cfn=(30)
+calls=7 41 
+* 137
+* 14
++2 14
++7 28
++36 84
+cfn=(152)
+calls=7 2004 
+* 8278
++6 7
+-6 7
++6 22
+659 4
+2299 4
+659 8
+2386 14
++28 28
++2 28
+2260 35
++8 28
+-3 24
+659 8
+2266 8
+659 16
++3 2
++3 3
++3 1
++1 1
+2307 4
++14 8
++2 12
++4 8
+cfi=(49) /build/glibc-t7JzpG/glibc-2.30/elf/dl-cache.c
+cfn=(158) _dl_load_cache_lookup
+calls=4 187 
+* 6154
+* 4
++2 8
++4 8
++8 12
++23 28
+cfn=(154)
+calls=4 1653 
+* 1358
++4 8
+-4 4
++4 4
++1 8
+-89 28
++1 56
+659 7
+2282 7
+659 14
+2291 14
++1 14
+
+fn=(154)
+1653 430
++39 43
+-39 86
++39 86
++31 172
+cfi=(38) /build/glibc-t7JzpG/glibc-2.30/io/../sysdeps/unix/sysv/linux/open64_nocancel.c
+cfn=(122) __open_nocancel
+calls=43 34 
+* 925
+* 43
++2 86
++11 7
++1 14
++5 7
+-5 7
++5 35
+cfi=(39)
+cfn=(124)
+calls=7 25 
+* 42
++2 14
++2 21
++2 14
++6 14
++16 63
+-65 36
+1990 387
+1770 49
++74 14
++5 14
++2 28
++6 14
++11 14
++6 7
++1 7
+-1 7
++2 7
+-2 14
++1 7
+-1 7
++1 14
++22 21
+1730 7
+1897 392
++2 204
++13 36
++3 24
++1 12
+-1 24
++6 6
++1 48
++10 24
+cfi=(51)
+cfn=(166)
+calls=3 28 
+* 18
++1 18
+cfi=(39)
+cfn=(124)
+calls=3 25 
+* 18
+* 18
++10 72
+-3 90
++15 6
++6 9
+-3 3
++1 3
++1 3
++2 3
+-3 9
+-1 3
++4 6
+1770 9
+1986 14
+cob=(2)
+cfi=(18)
+cfn=(88)
+calls=7 0 
+* 49
+* 7
+-43 72
++3 12
+-4 12
++4 24
++5 3
++1 24
+-73 15
++1 3
+-1 2
++1 1
+cfi=(51)
+cfn=(166)
+calls=1 28 
+* 6
++1 5
+cfi=(39)
+cfn=(124)
+calls=1 25 
+* 6
+* 8
+
+fn=(148) _dl_dst_count
+231 42
++3 21
+-3 42
++7 21
+-7 42
++3 21
+cfi=(29)
+cfn=(84)
+calls=21 23 
+* 624
++3 42
++20 147
+
+fn=(82)
+378 28
+234 4
+378 4
+234 4
+378 4
+234 4
+cfi=(29)
+cfn=(84)
+calls=4 23 
+* 215
++3 8
+403 4
+-11 4
++11 24
+-11 4
+cfi=(30) /build/glibc-t7JzpG/glibc-2.30/string/strdup.c
+cfn=(86) strdup
+calls=4 40 
+* 370
+
+fn=(120)
+1653 1
++70 1
+-70 6
++70 1
+-70 5
++70 1
+cfi=(38)
+cfn=(122)
+calls=1 34 
+* 19
+* 1
++2 2
++11 2
++6 1
+-6 1
++1 2
++5 5
+cfi=(39)
+cfn=(124)
+calls=1 25 
+* 6
++2 2
++2 3
++2 2
++6 2
++16 9
+1986 2
+cob=(2)
+cfi=(18)
+cfn=(88)
+calls=1 0 
+* 7
++4 9
+1770 7
++74 2
++5 2
++2 4
++6 2
++11 2
++6 1
++1 1
+-1 3
++1 1
+-1 1
++1 2
++1 2
++21 3
+1730 1
+1897 68
++2 34
++13 6
++3 8
++28 12
+-3 12
++3 12
++3 2
+-4 2
++4 4
++6 4
+-36 6
+
+fn=(78)
+447 7
++2 1
+-2 9
++4 3
+cfi=(19)
+cfn=(80) strsep
+calls=1 262 
+* 244
+* 9
+cfi=(19)
+cfn=(80)
+calls=3 262 
+* 668
+* 12
++7 6
++2 9
+cfn=(82)
+calls=3 -82 
+* 431
+* 3
++4 6
++5 6
+cfi=(14)
+cfn=(30)
+calls=3 41 
+* 69
+* 3
++1 6
++7 15
++9 48
++1 32
+cfi=(31)
+cfn=(92)
+calls=2 23 
+* 89
+* 4
++7 4
++1 2
+-1 3
++5 2
++45 2
+cob=(2)
+cfi=(18)
+cfn=(88)
+calls=1 0 
+* 28
+* 4
+cob=(2)
+cfi=(18)
+cfn=(88)
+calls=2 0 
+* 14
+* 3
+-39 4
++4 16
+cob=(2)
+cfi=(18)
+cfn=(44)
+calls=2 0 
+* 54
++2 6
++5 2
++1 4
+-2 4
++2 2
+cfi=(20)
+cfn=(74)
+calls=2 114 
+* 26
++1 2
++2 2
+-3 2
++1 2
++2 2
++6 8
++1 20
++1 8
+-1 4
++1 8
+-1 12
++3 2
++1 2
+-1 2
++1 2
++8 2
+-1 2
++4 6
+-60 12
++23 4
++43 1
++3 9
+-15 4
+
+fl=(20)
+fn=(48)
+127 57
++1 57
++6 57
++1 57
++1 44
++1 44
++5 24
++1 24
++1 24
++1 24
++5 24
+280 13
++1 13
++1 3
++1 3
++1 1
++1 1
++1 1
++1 1
++1 1
++2 1
++22 10
++1 10
++1 10
++1 10
++1 10
++3 2
++1 2
++1 2
++1 2
++1 2
++17 20
++1 20
++1 18
++1 18
++2 8
++1 8
++1 8
++1 8
++1 8
++1 8
++1 8
++1 8
++1 8
++1 8
++1 8
++1 8
++1 8
++1 8
++1 8
++1 8
++2 8
++3 10
++1 10
++1 10
++1 10
++1 10
++1 10
++1 10
++1 10
++2 10
++3 2
++1 2
++2 2
++3 2
++1 2
++1 2
++1 2
++1 2
++2 2
++1 2
++3 2
++1 2
++2 2
++2 2
++2 2
++2 2
++8 2
++1 2
++1 2
++1 2
++1 2
++1 2
++1 2
++1 2
++1 2
++1 2
++1 2
++1 2
++1 2
+-12 4
++1 4
++1 4
++1 4
++1 4
++1 4
++1 4
++1 4
++1 4
++1 4
++1 4
++1 4
++1 4
++2 2
++1 2
++1 2
++1 2
++2 2
++2 2
+
+fn=(74)
+114 113
++1 113
++1 113
++1 113
++17 113
++1 113
++1 31
++1 31
++5 25
++1 25
++1 25
++1 25
++5 25
+280 82
++1 82
++1 30
++1 30
++1 21
++1 21
++1 19
++4 19
++22 52
++1 52
++1 52
++1 52
++1 52
++3 9
++1 9
++1 9
++1 9
++1 9
++3 2
++1 2
++1 2
++1 2
++1 2
++10 6
++1 6
++1 6
++1 6
++2 1
++1 1
++1 1
++1 1
++1 1
++1 1
++1 1
++1 1
++1 1
++1 1
++1 1
++1 1
++1 1
++1 1
++1 1
++1 1
++2 1
++3 5
++1 5
++1 5
++1 5
++1 5
++1 5
++1 5
++1 5
++2 5
+
+fl=(14)
+fn=(30)
+41 42
++38 42
++1 42
++1 42
++1 42
++1 42
++1 42
++1 42
++2 42
++2 42
++31 42
++1 42
++1 42
++1 42
++1 42
++1 19
++2 19
++4 23
++1 23
++1 23
++1 23
++1 23
++1 23
++1 23
++1 23
++1 23
++1 23
++1 23
++1 23
++5 178
++74 3
++1 3
++1 3
++1 3
++1 3
++1 3
++1 3
++1 3
++16 3
++2 3
++1 42
++2 3
++1 3
++1 3
++2 3
+
+fl=(53)
+fn=(172)
+78 55
++1 11
+
+fn=(352) munmap
+78 5
++1 1
+
+fl=(123)
+fn=(374)
+67 42
++5 42
++3 42
++2 42
++10 42
++6 42
++1 42
++1 42
++1 42
++1 42
++1 42
++1 42
++4 42
++1 42
++3 42
++1 42
++2 42
++1 42
++1 42
++1 42
++1 42
++1 42
++2 42
++7 42
++1 42
++1 42
+cfi=(124) /build/glibc-t7JzpG/glibc-2.30/elf/../elf/dl-runtime.c
+cfn=(376) _dl_fixup
+calls=42 -60 
+* 38769
++1 42
++5 42
++1 42
++1 42
++2 42
++1 42
++1 42
++1 42
++1 42
++1 42
++1 42
++2 42
++2 42
++4 42
++3 42
+
+fn=(375)
+67 76
++5 76
++3 76
++2 76
++10 76
++6 76
++1 76
++1 76
++1 76
++1 76
++1 76
++1 76
++4 76
++1 76
++3 76
++1 76
++2 76
++1 76
++1 76
++1 76
++1 76
++1 76
++2 76
++7 76
++1 76
++1 76
+cfi=(124)
+cfn=(376)
+calls=76 -60 
+* 72823
++1 76
++5 76
++1 76
++1 76
++2 76
++1 76
++1 76
++1 76
++1 76
++1 76
++1 76
++2 76
++2 76
++4 76
++3 76
+
+fl=(15)
+fn=(32)
+32 5
++8 6
++4 2
++16 5
+
+fl=(153) /build/glibc-t7JzpG/glibc-2.30/elf/dl-open.c
+fn=(592) _dl_find_dso_for_object
+174 9
++4 3
++1 4
++1 32
++1 2
+-2 21
++5 2
++4 7
+
+fl=(30)
+fn=(86)
+40 40
++1 8
+cfi=(14)
+cfn=(30)
+calls=8 * 
+* 270
+* 8
++1 16
+cob=(2)
+cfi=(18)
+cfn=(44)
+calls=8 -42 
+* 216
++2 16
++4 8
+-1 24
++1 16
+-1 8
+cfi=(20)
+cfn=(48)
+calls=8 +80 
+* 120
+
+fl=(39)
+fn=(124)
+25 16
++1 64
++1 16
+
+fl=(2)
+fn=(186) init_tls
+697 1
++2 1
++4 1
+-4 1
++4 1
++11 1
+-1 3
+cob=(2)
+cfi=(18)
+cfn=(40)
+calls=1 0 
+* 38
+-4 1
++15 1
+-12 1
++6 1
+-9 1
++11 1
++4 1
++2 3
+-1 2
++3 30
++4 2
++2 2
+-2 2
+-5 6
+-1 4
++10 2
++3 1
+cfi=(33)
+cfn=(188) _dl_determine_tlsoffset
+calls=1 135 
+* 103
++7 1
+cfi=(33)
+cfn=(190) _dl_allocate_tls_storage
+calls=1 332 
+* 433
+* 1
++1 2
++6 1
++3 1
+-3 1
++3 6
++6 1
+-3 1
++3 2
+-35 8
+-1 17
+
+fn=(2)
+461 10
+64 3
+fi=(5)
+-5 1
+fe=(2)
++5 1
+fi=(3)
+-16 1
+fi=(5)
++11 2
+fe=(2)
+505 1
+-3 1
+fi=(3)
+48 2
++15 1
++5 1
++3 1
++1 1
++1 1
+-4 1
+-2 1
+-3 2
+-1 20
++1 12
+-16 4
++26 4
+-26 8
++2 36
++23 13
+-25 13
++26 13
+-26 27
++26 1
+-26 2
++33 2
++20 4
++1 4
++1 4
++1 4
++2 4
++5 4
++1 4
++1 4
++5 3
++5 2
++7 3
++1 3
++8 3
++3 3
++4 2
++1 2
+fe=(2)
+516 2
++7 1
+64 1
+428 1
+64 3
+428 1
+cfi=(6)
+cfn=(10)
+calls=1 909 
+* 24
++1 1
++18 2
+-18 1
++1 2
++1 2
++1 2
++9 1
++6 1
+cfi=(7)
+cfn=(12)
+calls=1 88 
+* 2463580
+* 1
++2 2
++99 9
+fi=(3)
+65 5
++3 4
+fe=(2)
+521 25
+fi=(4)
+84 1
+-1 1
++28 3
++1 2
+fi=(5)
+540 2
+fi=(4)
+112 80
+fi=(5)
+540 80
++1 41
+fi=(4)
+111 41
+fi=(5)
+541 82
+fi=(4)
+111 82
++5 2
+fi=(5)
+421 1
+fi=(4)
+124 2
+fi=(5)
+333 18
+fi=(4)
+124 27
++12 9
++3 9
+-3 9
+fi=(5)
+301 9
+fi=(4)
+139 9
+-3 9
++1 18
+fi=(5)
+301 18
++8 90
++3 18
++21 45
+fi=(3)
+71 4
++1 3
++1 2
+fi=(5)
+353 18
++1 9
+fe=(2)
+
+fn=(180) version_check_doit
+637 3
++2 4
+cfi=(56) /build/glibc-t7JzpG/glibc-2.30/elf/dl-version.c
+cfn=(182) _dl_check_all_versions
+calls=1 362 
+* 30153
+* 2
++4 2
+
+fn=(34)
+1088 2
++12 1
+-12 7
++16 1
+-16 1
++16 2
+-16 1
++12 1
++4 1
+2533 1
+1104 1
+-16 1
++22 2
+2533 1
+-7 1
+1104 1
+-16 1
+2526 1
++7 2
+1104 1
+2528 1
++5 1
+-4 1
++4 1
++2 4
+cfi=(16) /build/glibc-t7JzpG/glibc-2.30/elf/dl-environ.c
+cfn=(36) _dl_next_ld_env_entry
+calls=1 28 
+* 47
+* 4
+cfi=(16)
+cfn=(36)
+calls=2 28 
+* 378
+* 9
++4 6
+-2 2
++2 42
++1 19
+-1 57
++9 12
+2697 3
++32 3
+1120 4
+2624 3
++1 3
+-56 2
++7 2
+1328 7
+cfi=(17)
+cfn=(38)
+calls=1 59 
+* 245
+* 1
++2 2
++1 1
++1 1
++5 2
+-5 1
++1 3
++4 1
+cfi=(17)
+cfn=(50)
+calls=1 31 
+* 35
++1 2
+1097 1
+1367 1
+-5 1
+-2 1
++4 1
++3 1
+-5 1
++5 5
++56 2
+-15 1
+1094 1
+1386 1
++37 3
+-55 104
+fi=(21)
+142 3
++1 1
++1 2
++1 1
+fe=(2)
+1367 24
+1476 5
++3 2
++2 2
++2 3
++13 3
++3 2
+-2 1
++2 1
+-2 2
+cfi=(22)
+cfn=(58)
+calls=1 111 
+* 25
+* 2
++7 1
++3 1
+-5 1
++3 1
++2 1
++1 2
++4 2
++2 2
+fi=(3)
+33 1
++9 2
++6 1
+-2 1
++2 2
++15 1
++5 1
++4 1
+-1 1
+-2 1
+-2 1
+-3 2
+-1 24
++1 15
+-16 5
++26 5
+-26 10
++2 62
++23 26
+-25 26
++26 26
+-26 52
++33 3
++20 3
++1 4
++1 4
++1 4
++2 4
++5 4
++1 4
++1 4
++5 3
++5 2
++7 2
++1 3
++18 3
++5 2
++2 2
++2 2
++2 2
++3 3
++2 3
++8 2
++5 2
++3 2
+fe=(2)
+1519 2
+cfi=(6)
+cfn=(10)
+calls=1 909 
+* 24
++3 2
+fi=(23) /build/glibc-t7JzpG/glibc-2.30/elf/setup-vdso.h
+24 2
+fi=(21)
++35 6
+191 2
+67 2
+190 1
+67 1
+190 1
+64 1
++3 1
+-2 1
++2 3
++70 5
+-1 1
+-69 4
++3 4
++1 2
++1 2
++4 3
++4 3
++3 3
++1 2
++4 1
++1 3
++11 1
++1 4
++5 2
+-12 2
+-1 1
++1 2
++3 2
+fe=(2)
+1396 1
+-9 1
++27 1
+-27 1
++2 1
+-3 1
++10 2
+-19 2
+-10 1
++10 1
+-10 2
++56 8
+-1 4
++1 4
+-1 4
++2 8
++1 1
++3 2
++1 2
+-1 6
++1 6
++1 4
++1 10
++1 1
+-65 3
++5 2
+-5 1
++5 1
+-5 2
++1 14
++95 2
+-96 1
++96 2
+-96 3
+1538 4
++6 1
+cfi=(10)
+cfn=(64) _dl_discover_osversion
+calls=1 46 
+* 80
+* 9
+fi=(3)
+65 5
+fe=(2)
+1459 1
+-92 1
++92 1
+-92 2
+fi=(3)
+68 4
++3 4
++1 4
+fe=(2)
+1549 2
+cfi=(25)
+cfn=(68)
+calls=1 681 
+* 3573
++3 3
+cfi=(32)
+cfn=(94)
+calls=1 46 
+* 18
++7 1
+-7 1
++2 1
++5 1
++4 1
++3 1
+-3 3
++1 2
++3 1
++5 1
+-7 1
++7 1
++18 2
++1 2
++5 1
+-3 2
++2 1
++1 2
++5 3
++1 5
+-1 2
++15 3
++1 1
+-2 1
++2 3
++18 1
+cfi=(33)
+cfn=(96) _dl_count_modids
+calls=1 108 
+* 6
+* 1
++8 3
++3 2
++4 3
++5 2
++1 1
+cfi=(32)
+cfn=(98) _dl_debug_state
+calls=1 73 
+* 2
++1 1
++4 3
++15 3
++2 1
++2 2
++8 2
++15 3
+cfi=(46)
+cfn=(144)
+calls=1 25 
+* 9
+* 2
++76 4
+64 1
+1799 1
+64 2
+1799 1
+64 1
+1799 6
+cfi=(47) /build/glibc-t7JzpG/glibc-2.30/elf/dl-deps.c
+cfn=(146) _dl_map_object_deps
+calls=1 159 
+* 59902
+71 1
+1804 1
+71 2
++9 2
+1804 2
++1 5
+-1 4
++1 18
+-1 36
++4 3
++1 3
++1 1
++2 3
++1 4
+-1 24
++1 36
++12 1
++1 1
+-1 2
++1 2
++2 1
++2 3
++2 1
+-4 1
++5 1
+-1 2
++14 2
++1 2
++1 3
+fi=(3)
+161 2
+fe=(2)
+2576 4
++2 2
++1 1
++46 2
++2 2
++1 1
+1573 6
+-11 4
+fi=(3)
+179 3
+fe=(2)
+1604 2
++6 1
+-6 2
++6 1
+1859 1
++1 1
+-1 1
++2 4
+-2 3
++2 1
+cfi=(35)
+cfn=(178) _dl_receive_error
+calls=1 226 
+* 30181
++10 1
++1 1
+-1 1
++1 1
++3 2
+815 1
+fi=(255) /build/glibc-t7JzpG/glibc-2.30/elf/../sysdeps/unix/sysv/linux/dl-osinfo.h
+64 2
+fe=(2)
+817 1
+fi=(255)
+77 1
+fe=(2)
+826 1
++7 1
+-5 1
+1880 3
+2110 3
+2277 4
++2 1
++7 3
+cfi=(33)
+cfn=(346) _dl_allocate_tls_init
+calls=1 437 
+* 205
++3 2
++4 2
+2170 1
++6 1
+-10 1
++10 1
+-6 1
++9 2
++8 1
+fi=(21)
+33 3
+cfi=(57) /build/glibc-t7JzpG/glibc-2.30/elf/../sysdeps/x86/dl-cet.c
+cfn=(192) _dl_cet_check
+calls=1 343 
+* 31
+fe=(2)
+2233 3
++3 1
+64 2
+2240 1
+64 2
+2241 34
++2 20
++5 20
++2 20
++6 10
++2 20
++1 72
+cfi=(58)
+cfn=(196)
+calls=9 148 
+* 2325921
++4 24
++1 4
+cfi=(33)
+cfn=(310) _dl_add_to_slotinfo
+calls=2 887 
+* 42
+* 2
+-12 1
++1 1
+-3 2
+71 3
++1 1
+2272 1
+72 1
+2272 1
+1823 2
+2298 3
++2 2
++24 1
+cfi=(7)
+cfn=(348)
+calls=1 259 
+* 2
++4 3
++20 3
+cfi=(32)
+cfn=(94)
+calls=1 46 
+* 9
++1 1
+-1 1
++2 1
+cfi=(32)
+cfn=(98)
+calls=1 73 
+* 2
++1 1
++4 1
+cfi=(49)
+cfn=(350) _dl_unload_cache
+calls=1 330 
+* 17
++5 8
+64 1
+2313 1
++1 3
+64 3
+2314 2
+cfi=(58)
+cfn=(196)
+calls=1 148 
+* 8337
+71 3
++9 3
+1873 1
+cfn=(186)
+calls=1 697 
+* 686
+* 2
+fi=(21)
+113 2
++3 1
++4 1
+fe=(2)
+-56 1
+1684 1
+64 2
+1684 1
+64 1
+1684 2
+cfn=(100) handle_preload_list
+calls=1 856 
+* 3230
+* 1
+71 3
++9 3
+1783 17
++1 1
+-1 1
++4 3
++1 1
++1 2
++1 2
+-7 2
+
+fn=(52) rtld_lock_default_lock_recursive
+799 131
++1 131
++1 131
+
+fn=(114) map_doit
+604 2
++2 1
+-2 1
++2 1
++1 2
+-1 2
++1 3
+cfi=(25)
+cfn=(116)
+calls=1 2152 
+* 2763
+* 1
++2 2
+
+fn=(54) rtld_lock_default_unlock_recursive
+805 131
++1 131
++1 131
+
+fn=(100)
+856 10
++5 5
+-4 1
++10 2
+-3 3
+cfi=(34)
+cfn=(102)
+calls=1 28 
+* 273
+* 1
++1 3
++9 1
+166 1
+876 2
+166 2
+878 2
+778 2
+-10 1
++8 1
++2 2
+-6 1
++6 1
+-5 1
++1 1
++4 1
+cob=(2)
+cfi=(18)
+cfn=(104)
+calls=1 0 
+* 2862
++1 3
++8 4
++74 2
++21 9
+-15 4
+cfi=(20)
+cfn=(48)
+calls=1 127 
+* 27
++1 2
+
+fl=(26)
+fn=(70)
+42 6
++1 1
+-1 5
++1 1
+-1 1
++1 1
+-1 1
++1 2
+-1 1
++1 1
+cfi=(8)
+cfn=(26)
+calls=1 369 
+* 20
+* 1
++2 1
++1 2
+-1 1
++1 1
++9 1
+-12 1
++12 4
++1 6
++1 1
+-1 2
+-1 12
++10 3
+193 3
++2 1
++1 2
++1 4
++3 1
++1 1
+-1 1
++4 2
++3 5
++4 7
++1 2
++2 2
++1 2
++1 2
+-1 1
++1 1
+-1 2
++9 2
++6 10
++1 2
+-1 1
++1 2
+cob=(2)
+cfi=(18)
+cfn=(44)
+calls=1 0 
+* 27
++1 4
+-1 1
++1 1
++31 10
++3 4
++7 3
++10 9
+-4 2
+-3 1
++3 1
+cfi=(20)
+cfn=(74)
+calls=1 114 
+* 17
+* 2
+-3 1
++3 1
+cfi=(20)
+cfn=(74)
+calls=1 114 
+* 17
++3 2
+-3 6
++3 4
++1 12
++1 5
+cfi=(20)
+cfn=(74)
+calls=1 114 
+* 15
+* 2
+-2 2
++5 6
+cfi=(20)
+cfn=(74)
+calls=2 114 
+* 30
+* 4
++2 6
+-7 3
++13 1
+-1 1
++1 2
+-1 2
++1 7
+-1 7
++1 14
+-1 18
++5 9
++4 4
+-4 12
++4 44
++1 24
+-1 24
++1 24
+-1 24
+-1 24
++4 9
++3 1
++2 2
+-1 1
+-1 1
++2 1
+-2 1
++2 3
+-1 1
++1 2
++2 6
++1 2
++3 2
+-6 5
++13 7
++1 1
+-1 2
++3 2
+-3 3
++1 3
+-1 6
++3 6
++3 3
++3 9
+148 7
++1 1
+-1 2
++37 3
++5 2
+-5 1
++5 5
+-4 10
+fi=(27) /build/glibc-t7JzpG/glibc-2.30/elf/../sysdeps/x86/dl-hwcap.h
+57 6
+fe=(26)
+188 1
++1 1
+cfi=(14)
+cfn=(30)
+calls=1 41 
+* 17
++1 5
+-5 1
++4 1
++1 1
+-5 5
+-37 10
++37 2
+316 1
++1 2
+-6 6
+-94 4
+-2 3
+
+fl=(29)
+fn=(84)
+23 33
++1 33
++1 33
++1 33
++1 33
++1 33
++1 33
++1 33
++1 33
++1 32
++1 32
++1 32
++1 32
++1 32
++1 32
++1 32
++1 32
++1 32
++1 24
++4 24
++1 24
++1 24
++1 24
++2 24
++4 8
++1 8
++1 8
++1 8
++1 8
++1 8
++1 8
++1 8
++1 8
++1 8
++1 8
++1 8
++1 8
++1 8
++1 8
++1 8
++1 8
++1 8
++1 8
++1 8
++1 8
++1 8
++1 8
++1 10
++5 1
++1 1
++3 1
++1 1
++1 1
++1 1
++1 1
++1 1
++1 1
++1 1
++1 1
++1 1
++1 1
++1 1
++1 1
++1 1
++1 1
++1 1
++1 1
++1 1
++2 1
++1 1
++2 1
++1 1
++1 1
++1 1
++1 1
++1 1
++1 1
++1 1
++2 1
++1 1
++1 1
++1 1
++1 1
++1 1
++1 1
++1 1
++1 1
++1 1
++3 1
++4 1
++1 1
++1 1
++1 1
++2 1
+-9 8
++4 8
++1 8
++1 8
++1 8
++2 8
++4 1
++1 1
++1 1
++1 1
++1 1
++1 1
++1 1
++1 1
++1 1
++1 1
++1 1
++1 1
++1 1
++1 1
++1 1
++1 1
++1 1
++1 1
++1 1
++1 1
++1 1
++1 1
++1 1
++1 1
++1 1
++1 1
++1 1
++1 1
++1 1
++1 1
++1 1
++1 1
++1 1
++1 1
++1 1
++1 1
++1 1
++1 1
+
+fl=(22)
+fn=(58)
+111 3153
++33 3153
++1 3153
++2 3153
++1 3153
++21 3153
++1 3153
++1 2910
++1 2910
++1 2740
++1 2740
++1 2740
++1 2740
++21 2740
++1 2740
++1 2740
++1 2740
++1 2740
++1 2740
++1 2740
++5 73
++1 219
++9 73
++1 73
++1 73
++1 73
++1 73
++1 73
++1 73
++1 73
+-7 413
++1 413
++1 413
++1 413
++1 413
++1 413
++1 413
++1 413
++1 369
++1 235
++1 235
++1 235
++2 235
++1 235
++1 235
++1 235
++1 235
++1 235
+-5 134
++1 134
++1 134
++1 134
++1 134
++1 134
++10 117
++1 117
++1 117
++2 117
++6 117
++1 117
++1 117
++1 117
++1 117
++5 117
++2 104
++1 104
++1 208
++8 104
++1 104
++3 104
++1 104
++1 104
++1 104
++1 104
++1 104
+-9 19
++1 19
++3 19
++1 19
++1 19
++1 19
++1 19
++1 19
++6 31
++1 31
++1 31
++3 31
++1 31
++1 31
++1 31
++1 31
++1 31
++5 19
++1 19
++9 5
++1 5
++1 5
++1 5
++1 5
++2 5
++1 5
++1 5
++1 5
++1 5
++1 5
++1 5
+447 4
++1 4
++1 4
++1 4
++1 4
++2 4
++1 4
++1 4
++1 4
++1 4
++1 4
++1 4
++1 4
++3 4
++1 4
++1 4
++6 4
++1 4
++1 8
++4 4
++1 4
++3 4
++1 4
++1 4
++3 4
++1 4
++1 4
++6 4
++1 4
++1 4
++1 4
++1 4
++1 4
++7 2
++1 2
++2 2
++1 2
++2 2
++1 2
++1 2
++3 2
++1 2
++1 2
++6 2
++1 2
++1 2
++1 2
++1 2
++1 2
++41 21
++1 21
++1 21
++1 21
++1 21
++2 21
++1 21
++1 21
++1 21
++1 21
++1 21
++1 21
++1 3
++4 3
++1 3
++1 3
++6 3
++1 3
++1 6
++4 3
++1 3
++3 3
++1 3
++1 3
++3 3
++1 3
++1 3
++6 3
++1 3
++1 3
++1 3
++1 3
++1 3
++7 1
++1 1
++2 1
++1 1
++2 1
++1 1
++1 1
++3 1
++1 1
++1 1
++6 1
++1 1
++1 1
++1 1
++1 1
++1 1
++41 12
++1 12
++1 12
++1 12
++1 12
++2 12
++1 12
++1 12
++1 12
++1 12
++1 12
++1 12
++1 9
++4 9
++1 9
++1 9
++6 9
++1 9
++1 18
++4 9
++1 9
+-1 1
++1 1
++3 10
++1 10
++1 10
++3 10
++1 10
++1 10
++6 10
++1 10
++1 10
++1 10
++1 10
++1 10
++7 4
++1 4
++2 4
++1 4
++2 4
++1 4
++1 4
++3 4
++1 4
++1 4
++6 4
++1 4
++1 4
++1 4
++1 4
++1 4
++7 1
++1 1
++1 1
++32 4
++1 4
++1 4
++1 4
++1 4
++2 4
++1 4
++1 4
++1 4
++1 4
++1 4
++1 4
++1 3
++4 3
++1 3
++1 3
++6 3
++1 3
++1 6
++4 3
++1 3
++3 3
++1 3
++1 3
++3 3
++1 3
++1 3
++6 3
++1 3
++1 3
++1 3
++1 3
++1 3
++7 1
++1 1
++2 1
++1 1
++2 1
++1 1
++1 1
++3 1
++1 1
++1 1
++6 1
++1 1
++1 1
++1 1
++1 1
++1 1
++41 17
++1 17
++1 17
++1 17
++1 17
++2 17
++1 17
++1 17
++1 17
++1 17
++1 17
++1 17
++1 8
++4 8
++1 8
++1 8
++6 8
++1 8
++1 16
++4 8
++1 8
+-1 2
++1 2
++3 10
++1 10
++1 10
++3 10
++1 10
++1 10
++6 10
++1 10
++1 10
++1 10
++1 10
++1 10
++7 4
++1 4
++2 4
++1 4
++2 4
++1 4
++1 4
++3 4
++1 4
++1 4
++6 4
++1 4
++1 4
++1 4
++1 4
++1 4
++7 2
++1 2
++1 2
++32 12
++1 12
++1 12
++1 12
++1 12
++2 12
++1 12
++1 12
++1 12
++1 12
++1 12
++1 12
++1 11
++4 11
++1 11
++1 11
++6 11
++1 11
++1 22
++4 11
++1 11
++3 11
++1 11
++1 11
++3 11
++1 11
++1 11
++6 11
++1 11
++1 11
++1 11
++1 11
++1 11
++72 29
++1 29
++1 29
++1 29
++1 29
++2 29
++1 29
++1 29
++1 29
++1 29
++1 29
++1 29
++1 18
++4 18
++1 18
++1 18
++6 18
++1 18
++1 36
++4 18
++1 18
+-1 5
++1 5
++3 23
++1 23
++1 23
++3 23
++1 23
++1 23
++6 23
++1 23
++1 23
++1 23
++1 23
++1 23
++7 8
++1 8
++2 8
++1 8
++2 8
++1 8
++1 8
++3 8
++1 8
++1 8
++6 8
++1 8
++1 8
++1 8
++1 8
++1 8
++7 5
++1 5
++1 5
++32 56
++1 56
++1 56
++1 56
++1 56
++2 56
++1 56
++1 56
++1 56
++1 56
++1 56
++1 56
++1 36
++4 36
++1 36
++1 36
++6 36
++1 36
++1 72
++4 36
++1 36
+-1 2
++1 2
++3 38
++1 38
++1 38
++3 38
++1 38
++1 38
++6 38
++1 38
++1 38
++1 38
++1 38
++1 38
++7 4
++1 4
++2 4
++1 4
++2 4
++1 4
++1 4
++3 4
++1 4
++1 4
++6 4
++1 4
++1 4
++1 4
++1 4
++1 4
++7 2
++1 2
++1 2
++32 21
++1 21
++1 21
++1 21
++1 21
++2 21
++1 21
++1 21
++1 21
++1 21
++1 21
++1 21
++1 16
++4 16
++1 16
++1 16
++6 16
++1 16
++1 32
++4 16
++1 16
+-1 1
++1 1
++3 17
++1 17
++1 17
++3 17
++1 17
++1 17
++6 17
++1 17
++1 17
++1 17
++1 17
++1 17
++7 2
++1 2
++2 2
++1 2
++2 2
++1 2
++1 2
++3 2
++1 2
++1 2
++6 2
++1 2
++1 2
++1 2
++1 2
++1 2
++7 1
++1 1
++1 1
++32 70
++1 70
++1 70
++1 70
++1 70
++2 70
++1 70
++1 70
++1 70
++1 70
++1 70
++1 70
++1 17
++4 17
++1 17
++1 17
++6 17
++1 17
++1 34
++4 17
++1 17
+-1 1
++1 1
++3 18
++1 18
++1 18
++3 18
++1 18
++1 18
++6 18
++1 18
++1 18
++1 18
++1 18
++1 18
++7 2
++1 2
++2 2
++1 2
++2 2
++1 2
++1 2
++3 2
++1 2
++1 2
++6 2
++1 2
++1 2
++1 2
++1 2
++1 2
++7 1
++1 1
++1 1
++32 19
++1 19
++1 19
++1 19
++1 19
++2 19
++1 19
++1 19
++1 19
++1 19
++1 19
++1 19
++1 14
++4 14
++1 14
++1 14
++6 14
++1 14
++1 28
++4 14
++1 14
++3 14
++1 14
++1 14
++3 14
++1 14
++1 14
++6 14
++1 14
++1 14
++1 14
++1 14
++1 14
++7 1
++1 1
++2 1
++1 1
++2 1
++1 1
++1 1
++3 1
++1 1
++1 1
++6 1
++1 1
++1 1
++1 1
++1 1
++1 1
++13 1
++1 1
++1 1
++1 1
++7 1
++1 1
++1 1
++16 38
++1 38
++1 38
++1 38
++1 38
++2 38
++1 38
++1 38
++1 38
++1 38
++1 38
++1 38
++1 12
++4 12
++1 12
++1 12
++6 12
++1 12
++1 24
++4 12
++1 12
+-1 3
++1 3
++3 15
++1 15
++1 15
++3 15
++1 15
++1 15
++6 15
++1 15
++1 15
++1 15
++1 15
++1 15
++7 5
++1 5
++2 5
++1 5
++2 5
++1 5
++1 5
++3 5
++1 5
++1 5
++6 5
++1 5
++1 5
++1 5
++1 5
++1 5
++7 3
++1 3
++1 3
++32 41
++1 41
++1 41
++1 41
++1 41
++2 41
++1 41
++1 41
++1 41
++1 41
++1 41
++1 41
++1 7
++4 7
++1 7
++1 7
++6 7
++1 7
++1 14
++4 7
++1 7
++3 7
++1 7
++1 7
++3 7
++1 7
++1 7
++6 7
++1 7
++1 7
++1 7
++1 7
++1 7
++72 20
++1 20
++1 20
++1 20
++1 20
++2 20
++1 20
++1 20
++1 20
++1 20
++1 20
++1 20
++2 8
++4 8
++1 8
++1 8
++6 8
++1 8
++2 16
++4 8
++1 8
+-1 7
++1 7
++3 15
++1 15
++1 15
++3 15
++1 15
++1 15
++6 15
++1 15
++1 15
++1 15
++1 15
++1 15
++7 8
++1 8
++2 8
++1 8
++2 8
++1 8
++1 8
++3 8
++1 8
++1 8
++6 8
++1 8
++1 8
++1 8
++1 8
++1 8
++7 7
++1 7
++1 7
++34 270
++2 270
++1 270
++1 270
++1 270
+-3 216
++1 216
++1 216
++1 216
++1 470
++5 235
++6 235
++1 235
++8 235
++1 235
+-16 2918
++6 2918
++1 2918
++8 2918
++1 2918
+
+fl=(119)
+fn=(358) call_init.part.0
+28 80
++8 10
+-8 10
++11 10
+-3 20
++3 30
++5 27
++5 16
++9 48
+cob=(2)
+cfi=(18)
+cfn=(758)
+calls=1 -58 
+* 7
+cob=(2)
+cfi=(18)
+cfn=(748)
+calls=1 -58 
+* 6
+cob=(2)
+cfi=(18)
+cfn=(510)
+calls=1 -58 
+* 7
+cob=(2)
+cfi=(18)
+cfn=(460)
+calls=1 -58 
+* 7
+cob=(2)
+cfi=(18)
+cfn=(450)
+calls=1 -58 
+* 6
+cob=(2)
+cfi=(18)
+cfn=(440)
+calls=1 -58 
+* 7
+cob=(3)
+cfi=(133) /build/glibc-t7JzpG/glibc-2.30/csu/../csu/init-first.c
+cfn=(416) _init
+calls=1 -6 
+* 217
+cob=(2)
+cfi=(18)
+cfn=(360)
+calls=1 -58 
+* 4870
+* 8
++4 16
++6 8
++2 16
+-2 16
++3 40
++1 32
+cob=(10) /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_core-amd64-linux.so
+cfi=(160) ???
+cfn=(762) 0x0000000000001120
+calls=1 -72 
+* 12
+cob=(9)
+cfi=(159)
+cfn=(752)
+calls=1 -72 
+* 11
+cob=(8)
+cfi=(145)
+cfn=(514) 0x00000000000a79b0
+calls=1 -72 
+* 12
+cob=(7)
+cfi=(144)
+cfn=(464)
+calls=1 -72 
+* 166
+cob=(6) /usr/lib/x86_64-linux-gnu/libgslcblas.so.0.0.0
+cfi=(143) ???
+cfn=(454) 0x0000000000002130
+calls=1 -72 
+* 11
+cob=(4)
+cfi=(142)
+cfn=(444)
+calls=1 -72 
+* 12
+cob=(3)
+cfi=(139) /build/glibc-t7JzpG/glibc-2.30/libio/vtables.c
+cfn=(430) check_stdfiles_vtables
+calls=1 +11 
+* 12
+cob=(5)
+cfi=(131) ???
+cfn=(408) 0x0000000000007c20
+calls=1 -72 
+* 12
+* 56
+cob=(8)
+cfi=(145)
+cfn=(742) 0x00000000000a78a0
+calls=1 -72 
+* 237
+cob=(8)
+cfi=(145)
+cfn=(716) 0x00000000000a77e0
+calls=1 -72 
+* 50
+cob=(8)
+cfi=(145)
+cfn=(690) 0x00000000000a7720
+calls=1 -72 
+* 50
+cob=(8)
+cfi=(145)
+cfn=(672) 0x00000000000a76a0
+calls=1 -72 
+* 34
+cob=(8)
+cfi=(145)
+cfn=(654) 0x00000000000a7620
+calls=1 -72 
+* 34
+cob=(8)
+cfi=(145)
+cfn=(650) 0x00000000000a75e0
+calls=1 -72 
+* 159
+cob=(8)
+cfi=(145)
+cfn=(648) 0x00000000000a73d0
+calls=1 -72 
+* 52
+cob=(8)
+cfi=(145)
+cfn=(622) 0x00000000000a72c0
+calls=1 -72 
+* 74
+cob=(8)
+cfi=(145)
+cfn=(568) 0x00000000000a7240
+calls=1 -72 
+* 71748
+cob=(8)
+cfi=(145)
+cfn=(546) 0x00000000000a7220
+calls=1 -72 
+* 2548
+cob=(8)
+cfi=(145)
+cfn=(520) 0x00000000000a7190
+calls=1 -72 
+* 1924
+cob=(7)
+cfi=(144)
+cfn=(504)
+calls=1 -72 
+* 12
+cob=(3)
+cfi=(140) /build/glibc-t7JzpG/glibc-2.30/string/../sysdeps/x86/cacheinfo.c
+cfn=(432) init_cacheinfo
+calls=1 488 
+* 1691
+cob=(5)
+cfi=(132) /build/glibc-t7JzpG/glibc-2.30/nptl/../sysdeps/unix/sysv/linux/x86/elision-conf.c
+cfn=(414) elision_init
+calls=1 +33 
+* 142
+-1 66
++3 60
+-29 3
+-5 3
+
+fn=(356)
+79 12
++1 1
++1 1
++3 3
++8 2
++25 1
++1 5
++1 2
+-89 2
++89 18
+-89 54
+cfn=(358)
+calls=9 -2 
+* 79621
++88 30
++7 8
+-95 3
+cfn=(358)
+calls=1 -2 
+* 5084
++57 2
+
+fl=(10)
+fn=(64)
+46 5
++2 3
++85 5
+-45 2
+cfi=(24) /build/glibc-t7JzpG/glibc-2.30/posix/../sysdeps/unix/syscall-template.S
+cfn=(66) uname
+calls=1 -10 
+* 6
++15 1
+-15 2
++20 1
+-1 1
++3 12
++4 3
+-2 6
++2 9
++7 3
+-1 3
++4 3
+-2 3
++2 10
++5 2
+
+fl=(56)
+fn=(184) _dl_check_map_versions
+156 80
++15 10
+-15 20
++15 20
++2 10
++3 20
+-3 10
++2 10
++1 10
+-1 10
++3 20
++3 16
+-16 8
+-8 8
++28 8
+-4 8
++4 48
++16 8
+37 16
+201 8
+37 40
+201 11
+37 22
+201 11
+37 55
++1 124
+-1 248
++2 429
+cfi=(37)
+cfn=(118)
+calls=143 282 
+* 14770
+* 286
+209 57
++5 19
+-71 38
++71 38
+-71 57
++79 19
+-2 19
+-2 38
++4 19
+-4 114
++4 34
+-2 34
+-2 68
++4 34
+-4 264
+57 36
++8 36
+-8 123
++8 123
++6 159
++16 53
++1 106
++2 53
++5 371
++14 980
++12 1311
++4 437
+-30 874
+225 212
++3 159
++5 34
+-11 34
+111 53
++3 212
+cfi=(22)
+cfn=(58)
+calls=53 -3 
+* 1985
+* 231
+237 76
++5 22
+-44 11
++1 11
++11 8
++41 32
++3 24
++10 114
+-7 456
++3 342
+-3 24
++3 18
++8 18
++89 90
+165 2
++86 2
+-94 2
++94 3
++23 36
+cob=(2)
+cfi=(18)
+cfn=(40)
+calls=9 0 
+* 342
+-1 9
++1 9
++1 18
++13 9
+-3 9
++3 18
++2 27
++3 32
++4 57
++7 53
++1 53
+-1 106
++1 53
+-1 53
++1 53
++1 53
+-2 53
++2 106
++1 159
++3 159
++5 34
+-15 34
++2 34
+-2 34
++2 34
+-2 34
++2 68
+-2 19
++2 19
+-2 19
++2 19
+-2 19
++2 38
++16 57
++5 11
+-28 11
++33 27
++3 24
++4 114
++6 114
++1 114
++1 114
+-1 342
++1 114
+-1 114
++1 114
++1 114
++3 342
++4 114
+-14 240
++10 18
+
+fn=(182)
+362 6
++4 5
+-2 2
++4 60
+cfn=(184)
+calls=10 156 
+* 30003
+-2 10
++2 40
+-2 20
++5 7
+
+fl=(6)
+fn=(10)
+909 10
++3 30
++2 10
++2 20
++2 10
+-1 10
++3 30
++1 10
++4 10
+-3 10
++7 10
+-7 10
++3 10
+-1 10
++3 10
++2 10
+-7 10
++7 10
++1 10
+
+fn=(204)
+787 23820
+552 2382
+787 9528
+552 7146
+-1 4764
++2 2382
+-1 2382
++1 7146
+-1 7146
++1 95887
+-1 95887
++1 287661
+-1 290043
+793 2382
+-4 2382
++1 2382
++7 2382
+-8 2382
++1 2382
++7 6854
++5 11910
++6 4764
+-7 14292
++7 150
++1 30966
+cfn=(206) do_lookup_x
+calls=2382 339 
+* 1020103
+* 9503
++5 4764
++24 18856
++40 9428
++14 7071
++3 9428
++5 2357
++2 21438
+-86 150
++17 25
++1 50
++59 2
+
+fn=(208) check_match
+75 30758
++3 4732
++13 9432
+-13 9432
++13 4716
++3 5336
+cfi=(22)
+cfn=(58)
+calls=155 +17 
+* 9786
+* 310
++4 2358
++1 4716
++2 4474
++19 4474
++1 17896
++2 2
++37 2355
++7 14130
+-18 242
++2 242
++1 121
+-1 242
++1 363
+-1 242
++4 4
++1 14
++2 6
++2 2
++7 12
+-7 1
++7 54
+-45 6708
+cfi=(22)
+cfn=(58)
+calls=2236 -11 
+* 57707
+* 4472
+-44 32
++82 16
+
+fn=(206)
+339 19056
++1 2382
+-1 14292
++48 2382
++35 7146
+-65 2382
+-11 2382
++41 2382
+-30 4764
++65 4764
+-51 36576
++4 12192
++4 12192
+-3 12192
++3 24384
++1 36576
++3 12192
++1 24384
++7 24384
+-3 24384
+-2 12192
++5 36576
++3 85344
+541 29535
+350 24404
++3 24404
++4 24500
++4 24384
++4 24384
++88 4714
+fi=(59)
+109 7071
+fe=(6)
+504 4714
++3 12584
++16 11175
++2 4714
+398 8250
+-1 5500
++2 5500
++2 2594
++6 7782
+-6 2594
++6 23346
++7 10887
+-10 29920
++3 2366
+-1 4732
++1 4732
+-1 2366
++2 4732
+-1 28392
+cfn=(208)
+calls=2366 75 
+* 195387
++4 7120
+544 25
++1 19056
+-34 4521
+204 244
+-1 122
++3 244
+-2 122
++2 244
++2 122
+-2 366
+cfi=(2)
+cfn=(52)
+calls=122 799 
+* 366
++2 122
++1 122
++1 244
+-2 122
++2 122
++2 242
++1 121
+-1 363
++1 121
+-1 121
++1 242
+-1 363
++1 242
+-1 1232
++24 426
++3 132
++1 396
+-24 1012
++1 80
+cfi=(22)
+cfn=(58)
+calls=40 111 
+* 2814
+* 80
++2 200
++10 40
++1 160
++2 160
+cfi=(2)
+cfn=(54)
+calls=40 805 
+* 120
++1 40
+445 480
++2 4
+244 1215
++61 656
++13 656
++5 328
+cfi=(2)
+cfn=(54)
+calls=82 805 
+* 246
++2 328
+181 518
+-2 84
++1 252
+-3 332
++8 164
+-1 82
++1 82
++2 82
+-2 82
+313 328
+-72 132
++46 2
++9 4
+cob=(2)
+cfi=(18)
+cfn=(40)
+calls=1 0 
+* 38
+* 1
++1 2
++3 1
++1 2
+-6 1
++7 1
+-1 1
++1 1
+-7 1
++7 1461
+-51 8
+cfi=(37)
+cfn=(344) _dl_higher_prime_number
+calls=2 +49 
+* 159
++2 4
+-2 2
++2 2
+cob=(2)
+cfi=(18)
+cfn=(40)
+calls=2 0 
+* 76
+* 2
++1 4
++7 296
++1 276
++1 140
+-88 70
++88 140
+-88 70
++88 70
+-88 70
++1 70
+-1 70
++1 210
++1 440
++2 14
++1 42
+-3 168
++8 70
+-1 70
++1 70
++2 70
+-2 70
++3 70
+-7 10
++86 18
+cfi=(19)
+cfn=(90)
+calls=2 109 
+* 10
++4 4
+-20 2
++19 4
+-2 2
++3 6
+-1 2
++1 16501
+
+fl=(17)
+fn=(50)
+31 18
++2 9
+-2 18
++2 9
+-2 18
++2 9
+cfi=(2)
+cfn=(52)
+calls=9 799 
+* 27
++2 62
++3 176
++2 8
++2 8
++4 8
++4 8
++1 8
+-5 16
++1 16
++1 8
++3 8
+-3 8
++3 8
+-1 8
+cfi=(2)
+cfn=(54)
+calls=8 805 
+* 24
+-4 1
++4 1
++1 1
+-5 2
++1 2
++1 1
++3 1
+-3 1
++3 1
+-1 1
+cfi=(2)
+cfn=(54)
+calls=1 805 
+* 3
+-5 2
+
+fn=(38)
+59 117
++1 9
+-1 9
++1 18
+cfi=(14)
+cfn=(30)
+calls=9 -19 
+* 215
++6 9
++7 9
+-13 18
++6 18
+-6 9
++6 27
++2 18
++5 27
+cob=(2)
+cfi=(18)
+cfn=(40)
+calls=9 -73 
+* 427
+* 9
++3 18
++4 9
++5 9
+-6 9
++6 9
+-5 9
++5 9
+-5 9
++4 9
++1 18
+-1 9
++1 18
+cfi=(20)
+cfn=(48)
+calls=9 +42 
+* 118
+* 9
++10 9
+-10 9
++10 9
+-8 9
++8 27
++1 9
+-1 9
++1 36
++3 18
++2 9
++4 9
++3 23
++2 1
+-2 3
++2 15
+-2 45
++18 18
+-5 9
++5 9
+-6 9
++6 9
+-6 9
++6 18
++2 16
++3 16
+-3 16
++7 36
++4 16
++2 1
++6 1
++3 1
++3 2
+-3 1
++3 1
+-3 8
++3 16
+-3 8
++3 8
++2 8
++21 8
+-21 8
+cfi=(14)
+cfn=(30)
+calls=8 41 
+* 306
++4 8
+-4 24
++17 8
+-13 24
++50 24
+cfi=(20)
+cfn=(74)
+calls=8 -95 
+* 160
+* 8
++5 16
++1 16
+-1 250
++1 250
++2 16
++3 8
++3 8
++4 81
+100 18
++39 24
+-15 1
++7 20
++32 16
+cob=(2)
+cfi=(18)
+cfn=(44)
+calls=8 0 
+* 216
+* 8
++1 32
+
+fl=(21)
+fn=(132)
+153 140
++4 14
++2 56
+53 22
++6 14
+160 5
+-98 5
++5 10
++89 6
+-89 6
++89 12
+-89 12
++70 24
+-1 6
+-69 18
++3 18
++1 12
++1 12
++4 18
++4 18
++3 18
++1 12
++4 6
++1 12
++11 6
++1 24
++5 12
+-13 12
++1 6
++3 15
++66 6
++17 12
++3 14
++1 112
+-20 42
++6 9
+-6 3
++6 3
+cfi=(51)
+cfn=(166)
+calls=3 28 
+* 18
++1 3
+-7 3
++7 12
+cfi=(39)
+cfn=(124)
+calls=3 25 
+* 18
+* 6
+53 6
++6 2
++3 1
++5 2
++75 30
++1 6
++1 12
++1 12
+-32 12
++3 12
++4 6
+
+fl=(37)
+fn=(344)
+300 2
++38 2
+-1 2
++3 2
++2 80
++1 37
+-3 24
++18 2
++1 2
+-15 6
+
+fn=(160) _dl_sysdep_read_whole_file
+44 2
++3 1
+-3 6
++3 1
+-3 1
++3 1
+cfi=(38)
+cfn=(122)
+calls=1 -13 
+* 19
++1 2
++23 7
+-21 5
+cfi=(41)
+cfn=(130)
+calls=1 -17 
+* 11
+* 2
++2 2
++3 2
++13 2
+cfi=(45)
+cfn=(142)
+calls=1 -43 
+* 6
+* 1
+-11 6
+cfi=(42)
+cfn=(134)
+calls=1 -9 
+* 20
+* 2
+
+fn=(118)
+282 1668
++1 556
+cfi=(22)
+cfn=(58)
+calls=278 111 
+* 8460
+* 278
++1 278
+-1 556
++3 278
++2 556
++4 271
+-4 542
++1 912
+cfi=(22)
+cfn=(58)
+calls=304 111 
+* 12262
+* 608
+-5 33
++11 377
+-1 245
++1 735
+
+fl=(47)
+fn=(150) openaux
+61 63
++7 21
+-4 42
++1 21
+-1 168
+cfi=(25)
+cfn=(116)
+calls=21 2152 
+* 51484
+* 21
++5 42
+
+fn=(146)
+159 2
++1 3
+-1 2
++1 1
+-1 1
++1 1
+-1 5
++1 3
+-1 1
++1 1
+-1 1
++1 7
+-15 1
++15 2
+-8 1
+-6 1
+-1 1
++15 1
+-16 1
++8 3
+-6 1
++6 1
++24 3
+-28 3
+-2 1
++31 1
+-33 2
++2 5
+-1 4
++7 4
++24 7
++4 1
+fi=(54) /build/glibc-t7JzpG/glibc-2.30/elf/../include/scratch_buffer.h
+77 3
+fe=(47)
+198 1
+fi=(54)
+78 1
+fe=(47)
+200 2
++87 1
+-89 1
++4 1
++7 1
++4 4
+-4 9
++4 36
++11 24
+-18 2
++18 4
+433 30
++2 8
++3 8
+-3 16
++3 16
+cob=(2)
+cfi=(18)
+cfn=(44)
+calls=8 0 
+* 216
+* 8
++1 16
++6 8
++1 40
+cfi=(20)
+cfn=(48)
+calls=8 127 
+* 96
++1 40
+cfi=(20)
+cfn=(48)
+calls=8 127 
+* 96
++4 8
+-1 8
++5 40
+202 27
+458 27
+-1 10
++1 20
+199 3
++27 8
++11 8
+-5 8
+-6 16
++5 8
++2 16
++1 16
++3 32
++66 8
+-97 8
++97 8
+-66 8
++66 16
+-65 24
++6 32
+cfi=(25)
+cfn=(148)
+calls=8 -13 
+* 384
+* 52
+cfi=(25)
+cfn=(148)
+calls=13 -13 
+* 618
+* 63
++4 63
+-2 21
++2 21
+cob=(2)
+cfi=(18)
+cfn=(108)
+calls=21 0 
+* 53101
++1 42
++9 21
++2 42
++5 40
++6 8
++2 8
+-8 16
++3 8
++1 8
++1 8
++1 8
++4 40
++4 63
++1 45
+-43 884
++1 426
++44 600
+-38 42
+fi=(54)
+85 3
+fe=(47)
+464 6
++1 1
++3 5
++11 4
+cob=(2)
+cfi=(18)
+cfn=(44)
+calls=1 0 
+* 27
+* 1
++2 2
++5 6
++1 1
++2 4
++2 1
++4 3
++4 2
+-10 3
++2 9
++4 27
++4 18
+-10 27
++13 2
++51 3
++2 1
+-1 1
++1 2
++35 5
+cfi=(20)
+cfn=(48)
+calls=1 127 
+* 27
++4 5
+cfi=(55) /build/glibc-t7JzpG/glibc-2.30/elf/dl-sort-maps.c
+cfn=(176) _dl_sort_maps
+calls=1 28 
+* 1632
++3 1
++2 1
++1 1
+-1 1
++2 2
++7 3
++3 3
++3 8
+214 67
++3 8
+fi=(54)
+-86 24
+cfi=(52) /build/glibc-t7JzpG/glibc-2.30/malloc/scratch_buffer_set_array_size.c
+cfn=(170) __libc_scratch_buffer_set_array_size
+calls=8 30 
+* 144
+fe=(47)
++86 16
++4 24
+-61 2
+380 18
+
+fl=(19)
+fn=(90)
+109 13
++2 51
+-2 1
++6 5
+cfi=(28)
+cfn=(76)
+calls=1 -7 
+* 13
++1 1
++2 2
+
+fn=(42)
+92 46
++4 23
++4 23
+-1 46
++1 46
++3 23
+cob=(2)
+cfi=(18)
+cfn=(44)
+calls=23 0 
+* 706
+
+fn=(46)
+49 290
++1 232
++11 116
++3 58
+-3 58
++3 336
++18 58
++1 58
++2 232
+-16 12
++1 6
++2 3
++1 21
+cfi=(42)
+cfn=(134)
+calls=3 -25 
+* 60
+* 3
++2 6
++2 6
++2 12
+-23 1
+-1 1
++1 1
++1 2
+-2 2
+
+fn=(80)
+262 4
++3 8
++2 4
++1 8
++4 125
++7 318
+-2 216
++6 4
++7 2
++4 4
+-4 1
++4 4
+-22 53
++15 53
+-15 108
+
+fl=(57)
+fn=(192)
+343 1
++1 1
+cfn=(194) dl_cet_check
+calls=1 97 
+* 29
+
+fn=(194)
+97 7
++3 1
+-1 1
++4 1
+-4 1
++3 1
++4 2
++1 2
+-1 2
++6 1
++5 2
+326 8
+
+fl=(11)
+fn=(20)
+28 1
++3 5
++2 2
++6 1
++1 1
+
+fl=(42)
+fn=(134)
+48 39
++3 78
+-3 156
++6 78
++5 234
++2 117
+-7 24
+
+fl=(16)
+fn=(36)
+28 3
++1 3
++3 71
++13 61
+-13 122
++2 126
++1 30
++5 2
+-3 2
++3 2
++2 2
++7 1
+
+fl=(24)
+fn=(66)
+78 5
++1 1
+
+fl=(33)
+fn=(310)
+887 10
++9 2
+-3 2
++4 2
++4 10
++41 6
++1 2
++1 8
+
+fn=(96)
+108 1
++5 2
++1 1
++15 2
+
+fn=(190)
+332 2
++13 1
+-13 2
++2 1
++12 2
+cob=(2)
+cfi=(18)
+cfn=(44)
+calls=1 0 
+* 66
++1 3
++8 2
+-69 1
++69 2
++1 1
++4 297
++19 1
+-94 2
++1 2
+cob=(2)
+cfi=(18)
+cfn=(40)
+calls=1 0 
+* 38
++1 2
++3 1
++6 2
++89 5
+
+fn=(380) _dl_get_tls_static_info
+308 1
++1 2
++1 2
++1 1
+
+fn=(346)
+437 9
++1 2
++4 1
++6 1
+-6 1
++6 2
++12 1
+-15 1
+-1 2
++21 5
++9 6
++1 4
++6 6
++3 2
+-2 2
++6 2
+-6 2
++2 4
++4 2
+-4 6
++3 4
++4 4
++1 8
++2 4
++1 4
++12 2
+-3 2
++3 4
+cfi=(20)
+cfn=(74)
+calls=2 114 
+* 27
+* 10
+cfi=(28)
+cfn=(76)
+calls=2 108 
+* 47
+* 2
+-42 6
++6 9
++50 2
++3 9
+
+fn=(168)
+48 2
++3 8
++48 2
++4 2
+
+fn=(188)
+135 4
++6 1
+-6 2
++6 2
++3 2
++36 3
++2 1
+-2 1
+-2 1
+-40 1
+-1 1
+-1 2
++69 4
++3 2
+-3 2
++3 2
+-3 8
++2 4
++10 2
+-12 2
+-25 12
++2 4
++3 2
+-1 2
++5 4
+-5 2
++1 2
+-1 2
++3 4
++2 6
++12 6
++20 1
++52 2
+-1 1
+-51 1
++52 2
+-52 1
++52 2
+
+fl=(52)
+fn=(170)
+30 8
++4 8
+-4 8
++1 8
++3 8
+-3 8
+-1 8
++5 8
+-5 16
++5 8
++11 8
+-1 16
++18 32
+
+fl=(49)
+fn=(158)
+187 40
++8 8
++3 12
++48 9
++6 20
++11 4
+-2 4
+fi=(50) /build/glibc-t7JzpG/glibc-2.30/elf/../sysdeps/x86/dl-procinfo.h
+39 8
++3 12
+cfi=(22)
+cfn=(58)
+calls=4 +69 
+* 100
+* 16
+fe=(49)
+267 16
+cfi=(8)
+cfn=(26)
+calls=4 369 
+* 80
+* 8
++8 8
++15 492
+cfn=(164) _dl_cache_libcmp
+calls=38 141 
+* 3116
+* 284
+cfn=(164)
+calls=7 141 
+* 884
+* 45
+-14 4
+-1 8
++1 8
+-1 8
++15 88
++16 8
++4 8
++8 12
+cfi=(14)
+cfn=(30)
+calls=4 41 
+* 140
+* 52
++1 8
+-1 4
++1 4
+cfi=(20)
+cfn=(48)
+calls=4 127 
+* 60
+* 4
++1 4
+cfi=(30)
+cfn=(86)
+calls=4 40 
+* 380
++1 32
+-3 8
+201 4
+cfi=(37)
+cfn=(160)
+calls=1 44 
+* 99
+* 1
++8 5
++1 8
++3 1
++1 2
++88 28
+
+fn=(350)
+330 1
++1 4
+-1 1
++3 2
+cfi=(53)
+cfn=(352)
+calls=1 78 
+* 6
++1 1
++2 2
+
+fn=(164)
+141 45
++1 194
++2 1096
++20 534
++2 534
++5 458
+-1 229
++1 229
+-29 458
++32 21
+-28 14
++6 7
++2 7
+-2 7
++1 14
+-1 7
++2 21
++2 21
+-3 7
++3 7
++2 14
++9 76
+
+fl=(38)
+fn=(122)
+34 45
++3 45
+-3 135
++3 270
++8 315
++2 9
+-2 108
++2 36
+
+fl=(124)
+fn=(376)
+66 354
++6 236
+-6 118
++3 236
++3 354
+-4 118
++5 118
++2 118
+-2 590
++2 118
+-2 118
++2 118
++5 236
++4 236
++4 354
++4 236
++1 472
+-7 472
++16 118
+-1 118
++1 236
++10 1180
+cfi=(6)
+cfn=(204)
+calls=118 787 
+* 102072
+* 118
++4 590
++10 1062
++7 118
++8 472
++4 354
+fi=(5)
++97 118
+fe=(124)
+-93 354
+fi=(176) /build/glibc-t7JzpG/glibc-2.30/elf/../sysdeps/x86_64/dl-irel.h
+32 6
+cob=(4)
+cfi=(248)
+cfn=(1992)
+calls=1 -6 
+* 9
+cob=(3)
+cfi=(92)
+cfn=(280)
+calls=1 -3 
+* 10
+cob=(3)
+cfi=(95)
+cfn=(286)
+calls=1 -3 
+* 10
+cob=(3)
+cfi=(74)
+cfn=(242)
+calls=1 -3 
+* 13
+cob=(3)
+cfi=(85)
+cfn=(264)
+calls=1 -3 
+* 17
+cob=(3)
+cfi=(77)
+cfn=(248)
+calls=1 +21 
+* 9
+* 6
+fe=(124)
+
+fl=(55)
+fn=(176)
+28 13
++2 2
++4 19
++1 3
+-1 1
++1 2
+cfi=(28)
+cfn=(76)
+calls=1 +73 
+* 13
+* 8
+-2 4
++6 4
++3 1
+-3 2
++1 3
++2 1
+-3 40
++3 10
+-3 20
++1 30
++2 10
++12 52
++2 30
++1 20
+-1 90
++1 60
++33 76
+-36 152
++61 51
++7 8
+-63 336
++1 252
++6 2
+-1 6
++1 4
+-1 4
++1 2
+-1 6
+cfi=(20)
+cfn=(48)
+calls=2 +62 
+* 22
++4 4
+-2 2
++2 12
++8 14
++41 48
+cfi=(28)
+cfn=(76)
+calls=8 -10 
+* 119
+* 24
+-34 12
+cfi=(20)
+cfn=(48)
+calls=2 +43 
+* 26
++1 6
++2 2
+-2 2
++2 2
+
+fl=(41)
+fn=(130)
+33 36
++1 18
++1 36
++4 9
+
+fl=(45)
+fn=(142)
+25 9
++1 36
++1 9
+
+fl=(36) /build/glibc-t7JzpG/glibc-2.30/setjmp/../sysdeps/x86_64/setjmp.S
+fn=(112) __sigsetjmp
+30 22
++2 22
++9 22
++1 44
++1 22
++4 22
++1 22
++1 22
++1 22
++1 22
++2 44
++2 22
++1 22
++1 22
++2 44
++2 22
++8 22
++3 22
++1 22
++7 22
++1 22
+
+fl=(32)
+fn=(98)
+73 2
++1 2
+
+fn=(94)
+46 10
++3 20
++5 18
++5 2
+-1 1
++1 2
++1 2
+-1 1
++5 1
+-14 10
++4 20
++3 1
++1 11
+
+fl=(35)
+fn=(106)
+213 10
++2 2
+cob=(2)
+cfi=(18)
+cfn=(108)
+calls=1 0 
+* 2837
++1 2
++1 1
++1 1
+-1 1
++1 1
++2 5
+
+fn=(178)
+226 6
++1 1
++1 1
++3 1
++1 1
++2 1
+cfi=(2)
+cfn=(180)
+calls=1 637 
+* 30164
++2 1
++1 1
++1 4
+
+fn=(110)
+175 66
++15 22
+-2 22
+-13 22
++19 22
+-7 44
++7 22
+-6 22
++3 22
+-16 22
++15 22
++1 22
++3 22
+cfi=(36)
+cfn=(112)
+calls=22 30 
+* 528
+* 88
++2 66
+cfi=(47)
+cfn=(150)
+calls=21 61 
+* 51862
+cfi=(2)
+cfn=(114)
+calls=1 604 
+* 2778
++2 22
+-1 22
++1 22
+-1 22
++1 44
++9 88
+
+ob=(5)
+fl=(122) /build/glibc-t7JzpG/glibc-2.30/nptl/../sysdeps/unix/sysv/linux/sigaction.c
+fn=(366) __libc_sigaction
+43 12
++5 4
++2 2
++1 2
++7 2
+-7 8
+-1 2
++3 2
+-2 10
++7 2
+-5 2
++5 2
+-7 2
++2 2
+-2 2
++2 6
++5 4
+-7 8
++7 12
++4 4
++8 12
+
+fl=(132)
+fn=(414)
+105 2
++5 1
+-5 1
++5 1
+-5 3
++5 3
+cob=(2)
+cfi=(18)
+cfn=(402)
+calls=1 0 
+* 21
++2 4
+cob=(2)
+cfi=(18)
+cfn=(402)
+calls=1 0 
+* 21
++2 4
+cob=(2)
+cfi=(18)
+cfn=(402)
+calls=1 0 
+* 21
++2 4
+cob=(2)
+cfi=(18)
+cfn=(402)
+calls=1 0 
+* 21
++2 4
+cob=(2)
+cfi=(18)
+cfn=(402)
+calls=1 0 
+* 21
++4 3
++1 1
++1 6
+
+fl=(131)
+fn=(408)
+0 12
+
+fl=(189)
+fn=(1400)
+25 6
++1 12
++1 6
+
+fl=(217) /build/glibc-t7JzpG/glibc-2.30/nptl/cleanup_defer_compat.c
+fn=(1576) _pthread_cleanup_push_defer
+25 17042
++3 17042
++1 17042
+-3 17042
++4 34084
++2 51126
++3 51126
++17 51126
++2 17042
++1 17042
+
+fn=(1580) _pthread_cleanup_pop_restore
+62 17042
++3 17042
+-2 17042
++2 17042
++3 51126
++23 34084
++1 17042
+
+fl=(164) /build/glibc-t7JzpG/glibc-2.30/nptl/cleanup_compat.c
+fn=(852) _pthread_cleanup_pop
+40 2
++3 4
++4 4
++2 2
+
+fn=(810) _pthread_cleanup_push
+26 2
++3 2
++1 2
++1 4
++2 2
++1 2
+
+fl=(163)
+fn=(808) __pthread_once_slow
+68 1
+fi=(166) /build/glibc-t7JzpG/glibc-2.30/nptl/../sysdeps/unix/sysv/linux/futex-internal.h
+-15 2
+fe=(163)
++15 8
++8 1
++4 2
++52 9
+-44 2
++4 2
++9 2
++13 5
+cfi=(164)
+cfn=(810)
+calls=1 -88 
+* 7
++2 1
+cob=(8)
+cfi=(145)
+cfn=(812) 0x00000000000bef60
+calls=1 0 
+* 76794
++2 3
+cfi=(164)
+cfn=(852)
+calls=1 -78 
+* 6
+fi=(166)
+235 5
+fe=(163)
+124 1
+fi=(166)
+235 3
+fe=(163)
+
+fn=(809) __pthread_once_slow'2
+68 1
+fi=(166)
+-15 2
+fe=(163)
++15 8
++8 1
++4 2
++52 9
+-44 2
++4 2
++9 2
++13 5
+cfi=(164)
+cfn=(810)
+calls=1 -88 
+* 7
++2 1
+cob=(8)
+cfi=(145)
+cfn=(838) 0x00000000000bcd70
+calls=1 0 
+* 2132
++2 3
+cfi=(164)
+cfn=(852)
+calls=1 -78 
+* 6
+fi=(166)
+235 5
+fe=(163)
+124 1
+fi=(166)
+235 3
+fe=(163)
+
+fn=(806)
+136 18169
++3 18169
++1 36338
++4 36336
+-1 1
+cfn=(808)
+calls=1 -75 
+* 76854
+
+fn=(807)
+136 14
++3 14
++1 28
++4 26
+-1 1
+cfn=(809)
+calls=1 -75 
+* 2192
+
+fl=(154) /build/glibc-t7JzpG/glibc-2.30/nptl/pthread_mutex_unlock.c
+fn=(594) pthread_mutex_unlock
+356 1
+40 3
++1 3
++5 2
++8 1
++3 1
+-6 1
++6 4
++2 1
+358 2
+63 2
++6 4
++4 3
++3 3
+
+fl=(152) /build/glibc-t7JzpG/glibc-2.30/nptl/../nptl/pthread_mutex_lock.c
+fn=(584) pthread_mutex_lock
+64 1
++3 3
++2 1
++2 2
+-7 2
++11 2
++81 1
++3 1
++2 1
++3 1
++2 1
++1 3
+-83 2
++11 4
++4 1
++3 2
++13 2
++2 3
++1 2
+
+fl=(130) /build/glibc-t7JzpG/glibc-2.30/nptl/pthread_mutex_conf.c
+fn=(400) __pthread_tunables_init
+42 2
++1 2
+-1 3
++1 2
+cob=(2)
+cfi=(18)
+cfn=(402)
+calls=1 -43 
+* 1094
++2 5
+
+fl=(234)
+fn=(1788)
+25 8503
++1 59521
++1 8503
+
+fl=(120)
+fn=(362)
+262 7
++2 1
+fi=(121) /build/glibc-t7JzpG/glibc-2.30/nptl/../sysdeps/unix/sysv/linux/pthread-pids.h
+29 1
+fe=(120)
+262 4
+fi=(121)
+29 3
+fe=(120)
+266 2
++1 1
++5 1
++8 1
+-4 1
++4 1
+-8 3
++8 1
++10 3
++4 1
+-1 1
+fi=(256) /build/glibc-t7JzpG/glibc-2.30/nptl/../include/list.h
+46 1
+-2 1
++4 1
+fe=(120)
+298 2
++4 3
++8 3
+-1 18
++1 1
+-2 1
++2 1
+-2 1
++2 1
+cfi=(122)
+cfn=(366)
+calls=1 43 
+* 51
++7 3
+-2 1
++1 1
+-1 1
++2 1
+cfi=(122)
+cfn=(366)
+calls=1 43 
+* 51
++14 3
+-4 1
++4 1
+-4 1
++4 2
++8 3
+cob=(2)
+cfi=(18)
+cfn=(368)
+calls=1 0 
+* 1124
++3 4
++2 1
++2 2
++5 2
+-5 4
++5 1
+cob=(2)
+cfi=(18)
+cfn=(382)
+calls=1 0 
+* 928
+* 3
++1 3
++4 4
++7 2
++1 3
++5 6
++1 1
+-1 1
++1 3
++1 1
++1 1
+-1 1
++2 4
++5 2
++2 1
+-2 1
++3 1
++2 1
+-5 1
++4 3
++3 1
++3 1
+-3 1
++3 2
++8 1
+-8 1
++8 2
+-8 2
++8 1
+cob=(2)
+cfi=(18)
+cfn=(388)
+calls=1 0 
+* 1439
++4 1
+-6 1
++9 1
+cfi=(130)
+cfn=(400)
+calls=1 42 
+* 1108
++2 8
+
+ob=(3)
+fl=(172) /build/glibc-t7JzpG/glibc-2.30/iconv/gconv_simple.c
+fn=(944) __gconv_btwoc_ascii
+50 128
++2 512
++3 128
+
+fl=(137)
+fn=(426)
+42 1
++1 1
++1 1
++2 1
++1 1
++3 1
++1 1
++1 1
++2 1
++1 1
++1 1
++1 1
++1 1
++1 1
++2 1
++1 1
++12 1
++1 1
++3 1
++1 1
++1 1
++1 1
++35 1
++1 1
++1 1
++1 1
++1 1
++1 1
++1 1
++1 1
++32 1
++1 1
++19 1
++1 1
++1 1
++15 1
++1 1
++1 1
++1 1
++1 1
++2 1
++1 1
++1 1
++1 1
++1 1
+
+fl=(81)
+fn=(256)
+31 2
+fi=(257) /build/glibc-t7JzpG/glibc-2.30/string/../sysdeps/x86_64/multiarch/ifunc-avx2.h
++1 6
+-2 10
+fe=(81)
++1 2
+
+fl=(127) /build/glibc-t7JzpG/glibc-2.30/nptl/register-atfork.c
+fn=(394) __register_atfork
+39 6
++1 3
+fi=(128) /build/glibc-t7JzpG/glibc-2.30/nptl/../sysdeps/unix/sysv/linux/x86/lowlevellock.h
++7 2
+fe=(127)
+-5 2
+fi=(129) /build/glibc-t7JzpG/glibc-2.30/nptl/../malloc/dynarray-skeleton.c
+195 1
+fe=(127)
+45 1
+fi=(129)
+197 2
+fe=(127)
+45 1
+fi=(129)
+195 1
+319 1
++1 1
+-1 1
+-1 1
++2 1
+fe=(127)
+49 2
++2 1
++2 1
++1 1
+-3 2
++7 4
++2 2
++1 1
+-1 1
++1 2
+
+fl=(180) /build/glibc-t7JzpG/glibc-2.30/setjmp/sigjmp.c
+fn=(1304) __sigjmp_save
+28 3
++2 2
+-1 1
++5 3
+
+fl=(212)
+fn=(1498)
+44 36008
++1 36008
++2 36008
++1 36008
++1 36008
++2 36008
++1 36008
++1 36008
++4 18000
++1 18000
++1 18000
++1 18000
++1 18000
++1 18000
++1 18000
++11 18008
++1 18008
++1 18008
++1 18008
++1 18008
++1 18008
++1 18008
++2 18008
++1 18008
++1 18008
++2 18008
++1 18008
++2 18008
++7 18008
++1 18008
++87 18000
++2 18000
++7 18000
++1 18000
+
+fn=(1592)
+44 8519
++1 8519
++2 8519
++1 8519
++1 8519
++2 8519
++1 8519
++1 8519
++4 2
++1 2
++1 2
++1 2
++1 2
++1 2
++1 2
++11 8517
++1 8517
++1 8517
++1 8517
++1 8517
++1 8517
++1 8517
++2 8517
++1 8517
++1 8517
++2 8517
++1 8517
++4 8517
++1 8517
++1 8517
++1 8517
++2 8517
++1 8517
++87 2
++4 2
++1 2
++1 2
++1 2
++2 2
++1 2
+
+fl=(94)
+fn=(284)
+31 1
+fi=(258) /build/glibc-t7JzpG/glibc-2.30/string/../sysdeps/x86_64/multiarch/ifunc-strcasecmp.h
++1 4
+fe=(94)
+-1 1
+
+fl=(70)
+fn=(232)
+31 1
+fi=(257)
++1 3
+-2 5
+fe=(70)
++1 1
+
+fl=(126) /build/glibc-t7JzpG/glibc-2.30/nptl/libc_pthread_init.c
+fn=(392) __libc_pthread_init
+43 2
++5 1
+-5 1
++5 1
+-3 1
++3 3
+cfi=(127)
+cfn=(394)
+calls=1 -9 
+* 41
++19 3
++3 3
++1 1
+-4 3
++3 153
++1 51
+-4 153
++12 2
+-6 1
++6 1
+
+fl=(77)
+fn=(248)
+53 2
+-12 6
+-2 2
++2 2
+-2 4
++14 2
+
+fl=(162)
+fn=(772)
+137 10
++4 1
+-4 3
++4 3
++96 2
++1 3
+cfi=(146)
+cfn=(536)
+calls=1 69 
+* 72
++22 4
++3 2
++1 5
+cob=(11)
+cfi=(161)
+cfn=(774)
+calls=1 0 
+* 117333
++4 4
++15 2
++12 2
+cfi=(178) /build/glibc-t7JzpG/glibc-2.30/setjmp/../sysdeps/x86_64/bsd-_setjmp.S
+cfn=(1300) _setjmp
+calls=1 28 
+* 34
+* 1
++1 2
++5 2
++1 2
++3 2
++3 6
+cob=(11)
+cfi=(161)
+cfn=(1306)
+calls=1 0 
+* 23471966172
+
+fl=(233)
+fn=(1778)
+32 8503
++3 42515
++7 8503
+
+fl=(149) /build/glibc-t7JzpG/glibc-2.30/malloc/hooks.c
+fn=(576) malloc_hook_ini
+29 2
+fi=(150) /build/glibc-t7JzpG/glibc-2.30/malloc/arena.c
+290 1
+fe=(149)
+29 3
++1 2
+fi=(150)
+290 3
+cfn=(580) ptmalloc_init.part.0
+calls=1 -2 
+* 70106
+* 1
+fi=(148)
+3032 2
+1208 2
++2 4
+3044 4
++12 3
++2 3
+cfn=(608) _int_malloc
+calls=1 1208 
+* 148
+* 1
++1 7
+fe=(149)
+33 5
+fi=(148)
+1210 4
+2978 4
+cfn=(604) tcache_init.part.0
+calls=1 +3 
+* 476
++69 2
+fe=(149)
+
+fl=(227) /build/glibc-t7JzpG/glibc-2.30/stdlib/../sysdeps/x86_64/rshift.S
+fn=(1718) __mpn_rshift
+28 20083
++1 20083
++1 20083
++1 20083
++13 20083
++1 20083
++16 20083
++1 20083
++1 20083
++1 20083
++1 20083
++1 20083
++1 20083
++5 20083
++1 20083
++1 20083
++1 20083
++1 20083
+
+fl=(140)
+fn=(432)
+488 8
++14 6
+758 2
++2 1
++1 1
++2 1
+-3 1
++5 1
+-5 1
++4 3
++4 2
++3 2
++2 1
++1 1
++2 1
+-3 1
++5 1
+-5 1
++4 3
++9 1
++2 8
+-2 1
++3 8
+500 1
++4 1
+-4 1
++4 1
+cfn=(434) handle_intel.constprop.0
+calls=1 259 
+* 446
++2 1
+-2 1
++2 1
+cfn=(434)
+calls=1 259 
+* 487
++5 1
+-5 1
++5 1
+cfn=(434)
+calls=1 259 
+* 512
+* 1
++8 2
+-9 1
++20 1
++5 3
++4 2
++8 6
++3 4
++6 2
+-6 9
++6 6
++3 26
++14 2
++4 1
++3 1
++1 1
+-4 1
++3 1
+-3 1
++3 1
++6 4
+-39 6
+691 4
++1 5
++4 2
++59 2
+564 2
++4 1
++1 1
+-1 2
++1 1
++23 2
++8 2
++2 1
+-2 6
++2 4
+-2 1
++4 1
++23 2
+-25 2
++2 6
++2 6
++3 2
++1 8
++2 4
++3 2
++5 1
++2 2
++1 1
++1 1
+-2 2
++1 1
++1 1
++27 2
++1 2
++2 1
+-1 1
++1 1
+-24 2
++3 1
++1 2
++3 1
++2 4
++1 1
++5 2
+
+fn=(436) intel_check_word.isra.0
+132 12
+-4 36
++10 24
+-10 6
++10 18
++2 60
++2 15
++2 30
++8 30
++51 24
++22 12
+fi=(141) /build/glibc-t7JzpG/glibc-2.30/string/../bits/stdlib-bsearch.h
+28 12
+-1 12
++4 24
++1 12
+fe=(140)
++87 24
+fi=(141)
+-88 18
++1 9
+fe=(140)
++87 18
++3 81
+fi=(141)
+-93 192
++2 120
++1 60
+fe=(140)
++87 120
++15 3
+255 36
+fi=(141)
+37 15
+-8 36
+fe=(140)
+164 9
++3 9
+-6 13
++3 4
++9 4
++23 5
+-32 15
++3 15
++4 14
++2 28
++2 14
++2 10
++4 3
++2 6
++2 3
++2 3
+-1 3
+-1 3
++2 6
+-2 3
++3 9
+-2 9
++2 6
+-10 6
++1 2
+-15 1
++7 2
++2 4
+
+fn=(434)
+259 21
++2 3
+-2 9
++5 6
++8 6
++3 6
+-2 3
++2 3
+-5 6
++11 15
++5 6
++2 3
++1 3
+-1 3
++5 18
+cfn=(436)
+calls=3 132 
+* 960
++2 6
++3 21
+cfn=(436)
+calls=3 132 
+* 308
++2 6
++19 33
+
+fl=(183)
+fn=(1354)
+34 16
++5 16
++3 6
++49 18
+-56 2
+cob=(2)
+cfi=(18)
+cfn=(958)
+calls=2 -35 
+* 36
++38 2
+-6 2
+-32 2
++37 2
++3 508
++9 252
+
+fl=(211) /build/glibc-t7JzpG/glibc-2.30/stdio-common/vfprintf-internal.c
+fn=(1494) __vfprintf_internal
+1289 288064
++31 54012
++8 54012
++4 90020
++11 54012
++11 36008
+fi=(259) /build/glibc-t7JzpG/glibc-2.30/stdio-common/printf-parse.h
+111 36008
+fe=(211)
+1354 36008
+fi=(259)
+111 18004
+cob=(2)
+cfi=(18)
+cfn=(1496)
+calls=18004 0 
+* 378100
+fe=(211)
+1369 36008
+fi=(259)
+111 18004
+fe=(211)
+1369 18004
+fi=(213) /build/glibc-t7JzpG/glibc-2.30/stdio-common/../libio/libioP.h
+941 18004
+fe=(211)
+1373 18004
+fi=(213)
+941 36008
++2 18004
+-2 36008
++2 36008
++1 36008
+fe=(211)
+1373 108024
+cfi=(209) /build/glibc-t7JzpG/glibc-2.30/libio/genops.c
+cfn=(1502) _IO_default_xsputn
+calls=18004 371 
+* 90020
+* 72016
++4 18004
+-4 18004
++4 36008
++4 144032
+-57 18004
+1687 18004
+1358 18004
+-8 18004
+1687 162036
+1423 126028
+-3 18004
+-5 18004
++8 18004
+-11 36008
+-1 18004
++12 18004
+-13 18004
++13 18004
+-14 18004
+-1 54012
+-1 18004
+-1 36008
+-1 18004
+-1 18004
+-1 18004
+-1 18004
++17 18004
+-3 18004
++4 36008
+-92 36008
+1741 36008
++1 54012
++3 216048
+-40 18004
++2 36008
++8 18004
+fi=(259)
+111 90020
+cob=(2)
+cfi=(18)
+cfn=(1496)
+calls=18004 0 
+* 450100
+fe=(211)
+1719 36008
+fi=(259)
+111 18004
+fe=(211)
+1719 54012
+fi=(213)
+943 36008
++1 36008
+fe=(211)
+1719 126028
+cfi=(209)
+cfn=(1502)
+calls=18004 371 
+* 90020
+* 162036
++2 54012
+-34 1260210
+cfi=(222) /build/glibc-t7JzpG/glibc-2.30/stdio-common/printf_fp.c
+cfn=(1706) __printf_fp
+calls=18003 1266 
+* 26052029
+* 36017
+cfi=(214) /build/glibc-t7JzpG/glibc-2.30/stdio-common/_itoa.c
+cfn=(1504) _itoa_word
+calls=1 165 
+* 194
+* 34
+fi=(213)
+943 2
++1 2
+fe=(211)
+1687 7
+cfi=(209)
+cfn=(1502)
+calls=1 371 
+* 119
+* 12
+-38 18003
+-74 18003
+-1 18003
++1 36006
++69 216036
++43 18
+1450 1
+1660 13
+-1 1
++1 2
++27 19
++1 2
+-1 4
+1580 18003
+-1 18003
++1 54009
++15 72012
++3 18003
+-19 72012
++37 108018
+-21 90015
++92 2
+
+fl=(89)
+fn=(274)
+43 1
+-6 5
++6 1
+
+fl=(146)
+fn=(540) __new_exitfn
+82 10
++6 20
+-6 40
++11 40
+-10 20
++12 20
++1 45
+-1 20
+-2 1
++10 1
+-10 3
++13 18
++25 9
++1 18
+-1 18
++7 9
++5 9
+-4 9
++4 36
+-5 1
++5 1
+-4 1
++4 4
+-18 1
+-1 1
++1 1
+
+fn=(536)
+69 60
+-28 30
++2 10
+fi=(147) /build/glibc-t7JzpG/glibc-2.30/stdlib/../sysdeps/unix/sysv/linux/x86/lowlevellock.h
++4 10
+fe=(146)
+-4 20
+fi=(147)
++4 20
+fe=(146)
+-3 20
+cfn=(540)
+calls=10 +38 
+* 356
++2 20
++10 10
+-3 10
++5 10
+-5 20
++3 10
+-1 10
++1 10
++3 40
++12 50
+
+fl=(177)
+fn=(1216)
+79 18155
++13 18155
++1 18155
++2 18155
++1 18155
++1 18155
++1 18155
++1 18155
++2 18155
++1 18155
++1 18155
++1 18155
++1 18155
++1 18155
++1 18155
++1 18155
++18 18155
++1 18155
++1 18155
++2 18155
++1 18155
+
+fl=(215)
+fn=(1568)
+85 51126
+-20 8521
++20 17042
+-20 8521
+cob=(2)
+cfi=(18)
+cfn=(1570)
+calls=8521 -65 
+* 375202
++2 25563
++3 8521
++2 17042
+-2 8521
++2 42605
+cfi=(209)
+cfn=(1486) _IO_no_init
+calls=8521 563 
+* 451613
++1 8521
++1 8521
+-1 8521
++1 8521
+cfi=(216) /build/glibc-t7JzpG/glibc-2.30/libio/fileops.c
+cfn=(1572) _IO_new_file_init_internal
+calls=8521 +33 
+* 1124772
++1 42605
+cfi=(216)
+cfn=(1582) _IO_file_fopen@@GLIBC_2.2.5
+calls=8521 214 
+* 1993130
+* 17042
+-38 17038
++50 59633
+-9 2
++2 2
+-2 2
+cfi=(209)
+cfn=(1822) _IO_un_link
+calls=2 -25 
+* 258
++1 4
+cob=(2)
+cfi=(18)
+cfn=(1844)
+calls=2 -79 
+* 168
++8 14
+
+fl=(86)
+fn=(268)
+49 1
+-9 3
+-2 1
++2 1
+-2 2
++11 1
+
+fl=(209)
+fn=(1486)
+563 265250
++1 26525
+cfn=(1488) _IO_old_init
+calls=26525 -33 
+* 574067
++1 26525
++1 53050
++2 8521
++4 8521
++7 8521
++2 8521
+-9 42605
++15 8521
++1 51126
+-1 18004
++1 108024
+-2 36008
+
+fn=(1492) _IO_setb
+329 159144
++1 53048
+-1 53048
++1 53048
++5 26524
+-3 26524
++3 106096
+-3 53048
++2 26524
++4 106096
+
+fn=(1842) _IO_default_finish
+601 25557
++2 25557
++6 25557
++3 25557
+54 17038
+624 17038
+
+fn=(1894) _IO_doallocbuf
+343 1
++1 2
+-1 3
++3 4
++1 1
+fi=(237) /build/glibc-t7JzpG/glibc-2.30/libio/libioP.h
+941 3
++2 2
++1 2
+fe=(209)
+347 2
+cfi=(239) /build/glibc-t7JzpG/glibc-2.30/libio/filedoalloc.c
+cfn=(1896) _IO_file_doallocate
+calls=1 78 
+* 500
+* 2
++3 4
+
+fn=(1824) __GI__IO_un_link.part.0
+52 42605
++6 8521
+-6 25563
++6 76689
+cob=(5)
+cfi=(217)
+cfn=(1576)
+calls=8521 -33 
+* 144857
++1 51126
+fi=(218) /build/glibc-t7JzpG/glibc-2.30/libio/../sysdeps/unix/sysv/linux/x86/lowlevellock.h
+-12 17042
+fe=(209)
++12 17042
++2 8521
+-1 8521
+-1 8521
++2 8521
+-2 8521
++2 59647
+fi=(218)
+-14 8521
+fe=(209)
++14 17042
+fi=(218)
+-14 8521
+fe=(209)
++14 17042
++2 17042
+-2 25563
++2 17042
++2 25563
++1 8521
++8 17042
++2 119294
++1 8521
++1 68168
++1 68168
+cob=(5)
+cfi=(217)
+cfn=(1580)
+calls=8521 -17 
+* 85210
++3 68168
+
+fn=(1822)
+53 17040
++1 42601
+cfn=(1824)
+calls=8521 -2 
+* 1065125
++28 8519
+
+fn=(1488)
+531 26525
++3 26525
+-2 26525
++1 26525
+-1 26525
++2 53050
++16 26525
+-11 26525
++5 26525
++6 26525
++5 26525
+-16 159150
++16 53050
++1 17042
++2 26525
+
+fn=(1502)
+371 36010
++3 72020
+-3 14
+fi=(237)
+941 2
+fe=(209)
+371 2
+fi=(237)
+941 2
+fe=(209)
+371 2
+fi=(237)
+941 2
+fe=(209)
+371 4
++18 2
++8 1
++2 58
+fi=(237)
+943 36
++1 36
+fe=(209)
+399 72
+cfi=(216)
+cfn=(1892) _IO_file_overflow@@GLIBC_2.2.5
+calls=18 736 
+* 612
+* 36
++2 18
+-22 98
++2 1
++1 2
++2 2
++20 2
+-11 2
++11 14
+-11 7
++2 36012
++9 36008
+-11 2
++1 2
+-1 3
++1 24
+-1 37
+
+fn=(1574) _IO_link_in
+87 136320
++1 51120
++4 8521
+-2 25563
++2 17042
++1 51126
+fi=(218)
+-46 17042
+fe=(209)
++46 17042
++2 8521
+-1 8521
+-1 17042
++2 59647
+fi=(218)
+-48 8521
+fe=(209)
++48 17042
+fi=(218)
+-48 8521
+fe=(209)
++48 17042
++2 8521
+-2 17042
++3 8521
+-1 8521
++3 119294
++1 8521
++1 68168
++1 68168
+cob=(5)
+cfi=(217)
+cfn=(1580)
+calls=8521 -41 
+* 85210
++3 136320
+-14 59647
+cob=(5)
+cfi=(217)
+cfn=(1576)
+calls=8521 -67 
+* 144857
+* 8521
+
+fn=(1832) _IO_unsave_markers
+960 17038
++2 8519
+-2 8519
++2 8519
++5 25557
++2 17038
+
+fl=(91)
+fn=(278)
+49 1
+-9 3
+-2 1
++2 1
+-2 2
++11 1
+
+fl=(157) /build/glibc-t7JzpG/glibc-2.30/misc/sbrk.c
+fn=(614) sbrk
+32 471
++8 157
+-8 314
++8 939
++4 314
++4 188
++12 445
+-19 2
+cfi=(158) /build/glibc-t7JzpG/glibc-2.30/misc/../sysdeps/unix/sysv/linux/x86_64/brk.c
+cfn=(616) brk
+calls=1 -13 
+* 11
+* 4
++9 88
+-2 176
++8 136
+cfi=(158)
+cfn=(616)
+calls=68 -28 
+* 748
+* 136
++4 340
+
+fl=(167)
+fn=(926)
+30 36008
++1 108024
++2 72016
++3 72016
++1 36008
++28 108024
++1 108024
++2 108024
++4 108024
++1 36008
+
+fl=(74)
+fn=(242)
+29 2
+fi=(75) /build/glibc-t7JzpG/glibc-2.30/string/../sysdeps/x86_64/multiarch/ifunc-memcmp.h
++3 2
++1 6
+-1 4
++2 6
++1 4
+fe=(74)
+-6 2
+
+fl=(156) /build/glibc-t7JzpG/glibc-2.30/malloc/morecore.c
+fn=(612) __default_morecore
+46 314
++1 157
+cfi=(157)
+cfn=(614)
+calls=157 -15 
+* 4469
++2 471
++3 314
+
+fl=(158)
+fn=(616)
+28 69
++3 414
++2 138
++6 69
++1 69
+
+fl=(238)
+fn=(1886)
+31 25
++1 5
+-1 5
++1 5
+-1 10
++4 15
++2 65
+fi=(218)
++10 10
+fe=(238)
+-10 15
++1 16
++1 1
+fi=(237)
+941 3
++2 2
++1 2
+fe=(238)
+39 4
+fi=(237)
+941 12
++2 8
++1 8
+fe=(238)
+39 20
+cfi=(216)
+cfn=(1890) _IO_file_xsputn@@GLIBC_2.2.5
+calls=5 1202 
+* 2141
+* 10
+fi=(237)
+884 15
++1 40
+fe=(238)
+45 10
++1 5
++3 45
+-11 8
+
+fl=(240) /build/glibc-t7JzpG/glibc-2.30/io/../sysdeps/unix/sysv/linux/wordsize-64/fxstat.c
+fn=(1900) _fxstat
+33 4
++1 2
++1 4
++4 1
+
+fl=(181)
+fn=(1732)
+212 15487
++1 15487
++1 15487
++1 15487
++17 15487
++1 15487
++44 15487
++1 15487
++2 15487
++1 15487
++1 15487
++1 15487
++1 15486
++1 15486
++1 15484
++1 15484
++1 15484
++2 15484
++29 1
++1 1
++1 1
++1 1
++1 1
++3 2
++1 2
++1 2
++1 2
++1 2
+
+fn=(1324)
+225 178395
++1 178395
++6 178395
++1 178395
++1 1053
++1 1053
++3 303
++1 303
++1 303
++1 303
++2 303
++1 303
++33 177342
++1 177342
++2 155335
++1 155335
++1 119664
++1 119664
++1 82378
++1 82378
++1 59291
++1 59291
++1 59291
++2 59291
++14 22007
++1 22007
++1 22007
++1 22007
++1 22007
++4 35671
++1 35671
++1 35671
++1 35671
++1 35671
++3 37286
++1 37286
++1 37286
++1 37286
++1 37286
++3 23087
++1 23087
++1 23087
++1 23087
++1 23087
++4 750
++1 750
++5 750
++1 750
++1 300
++1 300
++2 300
++1 300
++1 300
++1 300
++1 300
++1 300
++1 300
++1 300
++1 300
++1 300
++1 300
++1 300
++1 300
++1 300
++1 300
++1 300
++1 300
++1 300
++15 450
++1 450
++2 150
++3 150
++1 150
++1 150
++1 150
++1 150
++2 150
++1 150
++3 150
++1 150
++2 150
++2 150
++2 150
++2 150
++3 150
++1 150
++4 1762
++1 1762
++1 1762
++1 1762
++1 1762
++1 1762
++1 1762
++1 1762
++1 1762
++1 1762
++1 1762
++1 1762
++1 1762
++2 150
++1 150
++1 150
++1 150
++2 150
++1 150
++1 150
++5 300
++1 300
++1 300
++1 300
++1 300
++2 300
++3 300
++1 300
++1 300
++1 300
++2 300
++2 300
++2 300
++3 300
++1 300
++4 1988
++1 1988
++1 1988
++1 1988
++1 1988
++1 1988
++1 1988
++1 1988
++1 1988
++1 1988
++1 1988
++1 1988
++1 1988
++2 300
++1 300
++1 300
++1 300
++2 300
++1 300
++1 300
+
+fl=(136) /build/glibc-t7JzpG/glibc-2.30/misc/init-misc.c
+fn=(422) __init_misc
+30 1
++1 2
+-1 4
++1 3
++2 3
+cob=(2)
+cfi=(18)
+cfn=(424)
+calls=1 -33 
+* 47
++4 5
++1 3
++2 4
+
+fl=(72)
+fn=(236)
+30 1
+fi=(260) /build/glibc-t7JzpG/glibc-2.30/wcsmbs/../sysdeps/x86_64/multiarch/ifunc-avx2.h
++2 3
+-2 6
+fe=(72)
+
+fl=(232)
+fn=(1744)
+40 18003
++3 18003
++1 18003
++2 18003
++2 18003
++9 18003
++3 18003
++1 18003
++1 18003
++3 18003
++1 18003
++1 18003
++3 18003
++2 2520
++1 2520
+251 15483
++2 15483
++1 15483
++1 15483
++1 15483
++1 15483
++37 2520
++2 2520
++1 2520
+
+fl=(187)
+fn=(1388)
+32 18
++1 18
+cfi=(188) /build/glibc-t7JzpG/glibc-2.30/misc/../sysdeps/unix/syscall-template.S
+cfn=(1390) __syscall_clock_gettime
+calls=3 +26 
+* 12
+* 9
++1 12
+
+fl=(194) /build/glibc-t7JzpG/glibc-2.30/stdlib/../sysdeps/x86_64/lshift.S
+fn=(1416) __mpn_lshift
+28 18007
++1 18007
++1 18007
++2 18007
++1 18007
++1 18007
++12 18007
++1 18007
++1 18007
++1 18007
++1 18007
++1 18007
++1 18007
++6 18007
++1 18007
++1 18007
+
+fl=(100)
+fn=(296)
+29 1
+fi=(101) /build/glibc-t7JzpG/glibc-2.30/wcsmbs/../sysdeps/x86_64/multiarch/ifunc-memcmp.h
++3 1
++1 3
+-1 2
++2 3
++1 2
+fe=(100)
+-6 1
+
+fl=(148)
+fn=(574)
+3023 202438
++8 202438
+-8 809752
++8 202438
++1 404876
+1208 404874
++2 809748
+3044 809748
++3 404874
++9 300897
++2 300897
+cfn=(608)
+calls=100299 1208 
+* 31358588
+* 100299
++1 702093
++23 1012185
+1210 809148
+3048 102318
++1 306954
+2936 102138
++2 102138
+-2 102138
++1 204276
++1 102138
++1 102138
+3051 102138
+-18 1
++49 3
+-49 1
+cfi=(149)
+cfn=(576)
+calls=1 29 
+* 70783
+
+fn=(1846) unlink_chunk.isra.0
+1451 152605
++2 763025
++3 152605
++1 152605
++2 610420
++3 152605
++1 152605
++1 708608
++2 193802
++1 290703
++3 193802
++14 96901
++1 193802
++3 305210
+
+fn=(608)
+1208 200604
+3513 100302
+1210 100302
+3513 802416
+1210 200604
+3553 2
++24 2
++61 179
++2 179
+-2 179
++2 358
++2 2
++1 4
++6 2
+-4 2
++1 2
++1 2
++2 4
++7 8
+-1 4
++1 6
++5 12
++1 4
+1210 200602
+3553 200602
+1637 200602
+3577 200602
++58 200268
++62 3593807
++1 300369
+3577 2
+1210 2
+3582 2
++2 2
+-2 334
++2 334
++5 537
+1868 2
+3678 2
+1868 4
+4147 903573
+3637 531
++3 1947
++77 177
++1 177
+-1 354
+-1 354
++2 354
+-1 100123
++1 100123
+-1 200246
+-1 200246
++2 200246
+-2 300897
++6 200598
++73 300897
+-67 300897
+-6 2
++73 3
+-67 3
+3892 99961
+-91 99961
++91 199922
+-91 99961
+-74 99961
++74 199922
+-42 599766
+-28 199922
++1 99961
++2 199922
+-3 61454
++1 30727
++2 61454
++1 392064
++2 130688
++1 522752
++2 522752
+-10 130688
++12 261376
++1 261376
++2 261376
++11 261704
++31 130679
++1 130679
++4 261358
++29 230018
++2 36012
++1 54018
++1 18006
+-1 18006
++57 18006
++2 36012
+-2 36012
++2 18006
++7 18006
+-9 54018
++9 18006
+-7 18006
++1 18006
++1 18006
++6 36012
+-10 97003
++2 194006
+-2 194006
++2 97003
++7 97003
+-9 291009
++9 97003
+-7 97003
++1 97003
++1 97003
++6 194006
+3728 6
+1868 47001
+3794 15670
++1 15670
+-1 15670
++1 31340
++5 47010
++1 31349
++28 1104815
++1 291009
++1 97003
+-1 97003
++4 194006
++5 400
+-2 800
++2 1200
++1 800
++7 300
+-1 300
++1 300
++1 900
++52 345027
+3728 345027
+3917 169242
++2 253368
++3 84456
+-3 84456
++3 168912
++1 1972
++67 167658
++1 83829
++1 83829
+-1 83829
++1 83829
++1 167658
++1 251487
++5 443362
++16 495746
++2 991492
+-4 1205654
++8 107081
++3 214162
++2 31376
++1 31376
++1 31376
+-2 125504
+-27 31376
+2926 3
++2 3
+-4 3
++2 6
+3805 3
+2927 3
++1 3
+3805 3
+3697 4
+3878 483015
+3757 324
++1 18
++5 27
+-1 9
++1 18
++1 18
+-1 9
++2 9
++1 27
++1 18
++2 18
++4 9
++6 9
+-6 63
++2 27
++1 9
+1868 27
+4003 26187
++3 2460
+-3 102
++3 136
+-3 26
++3 30
++97 8124
++1 16248
++2 16248
++3 24396
++17 72
+3852 500
++1 200
++6 100
++13 100
++1 200
+-11 200
+4033 227115
++3 151410
++2 75705
++3 151410
+-3 75705
++3 151410
+cfn=(1846)
+calls=75705 1451 
+* 2345659
++3 302820
++15 75700
+-5 75700
++6 151400
++3 302800
++1 75700
++1 75700
++3 151400
++1 150
++1 151400
++2 115452
++3 461808
++2 173178
++1 57726
+1868 57726
+4081 57726
+1868 115452
+4075 143792
++2 53922
++1 17974
+1868 17974
+4081 17974
+1868 35953
+4081 5
+1868 10
+4006 602
++2 2408
++1 1204
+-1 12
++1 6
++38 5
+-1 5
++1 10
+-41 6
+4114 8100
+-3 8100
++1 16200
++2 8100
+-1 8100
++1 8100
++2 8100
++3 8100
+-5 40500
++2 8100
+1868 24303
+2936 9
++1 6
++1 3
++1 3
+3908 3
+4141 96
+cfn=(610) sysmalloc
+calls=24 2255 
+* 4054
+* 24
++1 48
+1868 864
+3926 792
++1 4752
++6 1584
++5 792
++1 2376
+cfn=(1846)
+calls=792 1451 
+* 24552
+-1 792
++4 2376
++13 271
+-4 271
++5 542
++3 1084
++1 271
++1 271
++1 542
++2 200
++3 800
++2 300
++1 100
+1868 100
+3973 100
+1868 200
+3967 1368
++2 513
++1 171
+1868 171
+3973 171
+1868 863
+3973 521
+1868 1042
+3945 521
+-1 521
++1 1042
+
+fn=(1340)
+3087 403954
++5 403954
++1 403954
++6 403954
++5 201977
+-2 201977
++2 403954
++18 605931
++2 605931
++1 201977
++1 201977
+-1 201977
+cfn=(1342) _int_free
+calls=201977 4155 
+* 19084367
+
+fn=(1342)
+4155 2221747
++10 605931
++6 1009885
++1 403954
++4 807908
++8 1009885
+-1 403954
++1 403954
++3 102160
++6 204320
++13 510800
++14 199634
+4428 2221747
+4295 199634
++3 99817
++3 299451
++7 99817
+-4 99817
++4 199634
++3 199634
++5 299451
++3 199634
++1 199634
++1 199634
+1875 299451
+4327 199634
++1 22875
++2 22875
+-1 22875
++2 91500
++2 45750
+cfn=(1846)
+calls=22875 1451 
+* 558915
++3 199634
++5 184620
++4 39077
++9 39077
+-1 39077
++2 78154
+-1 53233
+-1 53233
++2 106466
++2 369240
++2 184620
++5 92310
++1 92310
++2 276930
++1 92310
++30 199634
++20 299451
+2924 204320
++4 102160
+-2 204320
++1 102160
++1 102160
+4209 102160
+4361 276930
++38 38139
++3 38139
+-23 7507
++1 22521
++1 15014
+-39 53233
++1 53233
+-1 53233
+cfn=(1846)
+calls=53233 1451 
+* 1190172
++1 53233
+-30 299451
+-2 199634
++93 63565
++2 2288
+cfn=(1998) systrim.isra.0.constprop.0
+calls=1144 2741 
+* 34364
+* 1144
+
+fn=(1998)
+2741 5720
++11 3432
++2 1144
++1 2288
+-4 1144
++8 3432
++2 3432
++7 132
+cfi=(156)
+cfn=(612)
+calls=44 46 
+* 1188
+* 44
++1 176
+-13 1100
++49 6864
+-24 132
+cfi=(156)
+cfn=(612)
+calls=44 46 
+* 2156
++2 88
++1 88
++2 88
+cfi=(156)
+cfn=(612)
+calls=44 46 
+* 1188
++2 44
++2 88
++4 88
++4 88
+-1 44
++1 88
++2 88
+
+fn=(604)
+2981 1
+-9 1
++9 6
+fi=(155) /build/glibc-t7JzpG/glibc-2.30/malloc/../sysdeps/unix/sysv/linux/x86/lowlevellock.h
+47 2
+fe=(148)
+2982 3
+cfn=(608)
+calls=1 1208 
+* 362
+* 1
++1 2
++8 4
++7 2
++2 1
++1 2
+-1 1
++1 86
++3 2
+
+fn=(610)
+2255 192
++20 48
++11 48
++1 120
+fi=(150)
+534 72
+fe=(148)
+2302 96
++66 24
++1 72
++1 24
++9 211
++6 72
++3 72
+2705 48
++1 24
++5 48
++3 48
++2 48
++1 24
+-1 24
++2 72
++1 24
++1 24
++2 24
+-3 48
++1 24
++8 216
+2449 216
++11 24
++8 72
++2 120
+cfi=(156)
+cfn=(612)
+calls=24 46 
+* 1166
+* 24
++1 24
++3 96
++3 48
++1 48
++46 167
++2 23
++6 46
+-6 1
++6 48
++1 115
+-8 2
+2661 1
+-1 1
++1 3
++1 1
++11 2
+2535 4
++40 3
++22 1
++1 1
+-1 1
++1 5
++2 2
++1 2
+cfi=(156)
+cfn=(612)
+calls=1 46 
+* 27
++12 2
++8 2
++1 9
+
+fn=(1368) calloc
+3366 2
++10 1
+-10 4
++10 8
++8 2
++1 2
++9 3
++2 3
++10 1
++1 3
++21 3
+cfn=(608)
+calls=1 1208 
+* 141
+* 1
++2 5
++3 3
++14 2
++6 4
++52 7
+-44 1
++3 2
++11 1
++2 2
++2 2
+-49 5
++20 1
++14 5
++16 3
+cob=(2)
+cfi=(18)
+cfn=(1370)
+calls=1 0 
+* 5019
+* 2
+
+fl=(92)
+fn=(280)
+29 3
+fi=(257)
++3 9
+-2 15
+fe=(92)
+-1 3
+
+fl=(104)
+fn=(304)
+42 2
+fi=(67) /build/glibc-t7JzpG/glibc-2.30/time/../sysdeps/generic/dl-hash.h
++3 1
+-2 1
++1 1
++4 3
++14 4
+-17 3
++3 9
++14 12
+-17 9
++22 1
+fi=(68) /build/glibc-t7JzpG/glibc-2.30/time/../sysdeps/unix/sysv/linux/dl-vdso.h
+-37 2
++1 1
+fe=(104)
++11 2
+fi=(68)
+-11 4
+fe=(104)
++11 1
+cfi=(69) /build/glibc-t7JzpG/glibc-2.30/elf/../sysdeps/unix/sysv/linux/dl-vdso.c
+cfn=(230) _dl_vdso_vsym
+calls=1 -17 
+* 14
+* 5
+
+fl=(188)
+fn=(1390)
+59 9
++1 3
+
+fl=(198) /build/glibc-t7JzpG/glibc-2.30/stdlib/../sysdeps/ieee754/flt-32/mpn2flt.c
+fn=(1426) __mpn_construct_float
+29 2
++6 2
+-2 2
++2 10
++5 4
++1 2
+
+fl=(78)
+fn=(250)
+29 1
+fi=(79) /build/glibc-t7JzpG/glibc-2.30/string/../sysdeps/x86_64/multiarch/ifunc-memset.h
++13 5
++4 2
+-1 2
++12 4
++2 5
+fe=(78)
+
+fl=(151) /build/glibc-t7JzpG/glibc-2.30/elf/dl-addr.c
+fn=(582) _dl_addr
+127 7
++2 1
+-2 4
++5 1
+-5 1
++5 2
+cob=(5)
+cfi=(152)
+cfn=(584)
+calls=1 -68 
+* 35
++2 2
+cob=(2)
+cfi=(18)
+cfn=(586)
+calls=1 0 
+* 1180
++2 2
+30 4
++4 2
++5 1
++6 1
+-7 1
++2 2
++2 1
+-2 1
++2 2
++3 2
++4 5
+-5 4
++5 4043
++2 1010
++1 2020
+-1 1
++1 2
++2 3680
++9 9296
++1 14950
++7 2355
+-2 2355
++2 6145
+-11 11775
++2 7034
++39 2
++1 1
++1 3
++3 2
++36 2
+cob=(5)
+cfi=(154)
+cfn=(594)
+calls=1 356 
+* 31
++3 9
+-81 2007
++54 1
++21 1
+-21 2
+
+fl=(243) /build/glibc-t7JzpG/glibc-2.30/stdlib/cmp.c
+fn=(1952) __mpn_cmp
+31 7835
++4 15670
++2 7835
++1 7835
++1 15670
++8 39175
+
+fl=(175)
+fn=(964)
+59 52
++7 52
++1 52
++3 1
++1 1
++1 1
++1 1
++1 1
++2 1
++1 1
++2 1
++2 1
++1 1
++1 1
++1 1
++3 1
++1 1
++2 1
++1 1
++2 1
++1 1
++2 1
++1 1
++2 1
++1 1
++1 1
++2 1
++1 1
++2 1
++1 1
++1 1
++1 1
++2 1
++1 1
++1 1
++2 1
++1 1
++1 1
++2 1
++1 1
++1 1
++2 1
++1 1
++1 1
++1 1
++1 1
++55 51
++1 51
++1 51
++1 51
++1 51
++1 51
++1 51
++1 51
++1 51
++1 51
++1 39
++1 39
++1 39
++4 12
++38 51
++1 51
++1 51
++1 51
++1 51
++1 51
++1 51
+
+fl=(139)
+fn=(430)
+83 1
++1 4
++1 3
++1 3
++2 1
+
+fl=(179) /build/glibc-t7JzpG/glibc-2.30/setjmp/../sysdeps/x86_64/setjmp.S
+fn=(1302) __sigsetjmp
+30 1
++2 1
++9 1
++1 2
++1 1
++4 1
++1 1
++1 1
++1 1
++1 1
++2 2
++2 1
++1 1
++1 1
++2 2
++2 1
++5 1
++1 1
++17 1
+cfi=(180)
+cfn=(1304)
+calls=1 -56 
+* 9
+
+fl=(82)
+fn=(258)
+29 1
+fi=(261) /build/glibc-t7JzpG/glibc-2.30/string/../sysdeps/x86_64/multiarch/ifunc-sse4_2.h
++1 5
+fe=(82)
+-1 1
+
+fl=(225) /build/glibc-t7JzpG/glibc-2.30/stdlib/mul.c
+fn=(1714) __mpn_mul
+48 8058
++6 948
++12 948
++76 5214
+-71 474
++1 948
++9 474
+cfi=(226) /build/glibc-t7JzpG/glibc-2.30/stdlib/../sysdeps/x86_64/mul_1.S
+cfn=(1716) __mpn_mul_1
+calls=474 -50 
+* 15642
++2 1422
++1 474
++4 948
+
+fl=(80)
+fn=(254)
+31 2
+fi=(260)
++1 6
+-2 10
+fe=(80)
++1 2
+
+fl=(168)
+fn=(932)
+31 1024
++9 384
++5 384
++37 1024
+
+fl=(173)
+fn=(956)
+27 70
++7 10
+-7 30
++3 10
+cob=(2)
+cfi=(18)
+cfn=(958)
+calls=10 -30 
+* 196
++3 10
+-3 10
++3 10
++1 10
++7 48
++1 96
+-8 48
++2 96
+cob=(2)
+cfi=(18)
+cfn=(958)
+calls=48 -36 
+* 920
+* 20
+cob=(2)
+cfi=(18)
+cfn=(958)
+calls=10 -36 
+* 180
+* 58
++2 312
+cob=(2)
+cfi=(18)
+cfn=(962)
+calls=49 -38 
+* 1205
+* 98
++8 10
++1 10
++1 80
+
+fl=(221) /build/glibc-t7JzpG/glibc-2.30/io/../sysdeps/unix/sysv/linux/lseek64.c
+fn=(1612) lseek
+28 8501
++8 34004
++2 8501
+
+fl=(241) /build/glibc-t7JzpG/glibc-2.30/io/../sysdeps/unix/sysv/linux/write.c
+fn=(1912) write
+25 1
++1 7
++1 1
+
+fl=(133)
+fn=(416)
+52 9
++3 3
++14 1
+-2 1
+fi=(134) /build/glibc-t7JzpG/glibc-2.30/csu/../sysdeps/generic/dl-hash.h
+-22 1
+-1 1
+fe=(133)
++24 1
++1 1
+fi=(134)
+-26 1
++5 3
++14 4
+-17 3
++3 9
++14 12
+-17 9
++22 1
+fi=(262) /build/glibc-t7JzpG/glibc-2.30/csu/../sysdeps/unix/sysv/linux/dl-vdso.h
+-37 2
+fi=(135) /build/glibc-t7JzpG/glibc-2.30/csu/../sysdeps/unix/sysv/linux/x86_64/init-first.c
++7 1
+fi=(262)
+-6 1
+fi=(135)
++6 1
+fi=(262)
+-6 2
+fi=(135)
++6 1
+fi=(262)
+-6 2
+fi=(135)
++6 1
+cfi=(69)
+cfn=(230)
+calls=1 -12 
+* 14
++2 1
++4 2
+-4 2
++1 2
++1 1
++2 1
+cfi=(69)
+cfn=(230)
+calls=1 -18 
+* 14
+fe=(133)
++38 3
+fi=(135)
+-37 2
++1 1
+fe=(133)
++36 1
+cfi=(136)
+cfn=(422)
+calls=1 -51 
+* 72
++3 1
+cfi=(138) /build/glibc-t7JzpG/glibc-2.30/ctype/ctype-info.c
+cfn=(428) __ctype_init
+calls=1 -55 
+* 17
++5 6
+-27 1
+-7 1
++7 4
+
+fl=(83)
+fn=(260)
+31 1
+fi=(258)
++1 4
+fe=(83)
+-1 1
+
+fl=(96)
+fn=(288)
+29 1
+fi=(260)
++3 3
+-2 5
+fe=(96)
+-1 1
+
+fl=(63)
+fn=(218)
+31 1
+fi=(258)
++1 4
+fe=(63)
+-1 1
+
+fl=(192)
+fn=(1408)
+82 2
++1 8
+cfi=(193) /build/glibc-t7JzpG/glibc-2.30/stdlib/strtod_l.c
+cfn=(1410) ____strtof_l_internal
+calls=2 509 
+* 1161
+
+fl=(90)
+fn=(276)
+29 1
+fi=(261)
++1 5
+fe=(90)
+-1 1
+
+fl=(216)
+fn=(1582)
+214 93731
++9 17042
++2 85134
+361 102252
+225 6
++23 51126
+-9 8501
+-2 8501
++1 17002
++43 34084
+cfn=(1584) _IO_file_open
+calls=8521 -98 
+* 953786
+* 8521
++3 17042
++3 25557
+cfi=(220) /build/glibc-t7JzpG/glibc-2.30/string/../string/strstr.c
+cfn=(1588) __GI_strstr
+calls=8519 77 
+* 528170
+* 8519
++1 17038
+-40 17042
++54 4
+-73 18
+-1 18
+-13 36
+
+fn=(1830) _IO_file_close_it@@GLIBC_2.2.5
+129 34076
++2 25557
++4 17038
++3 8519
+-3 8519
+-1 17038
++6 8519
++3 8519
+-3 8519
+cfi=(209)
+cfn=(1832)
+calls=8519 960 
+* 85190
++3 25557
+fi=(237)
+941 25557
++2 17038
++1 17038
+fe=(216)
+143 17038
+cfn=(1834) _IO_file_close
+calls=8519 1169 
+* 76671
+* 8519
++3 25557
++8 42595
+cfi=(209)
+cfn=(1492)
+calls=8519 329 
+* 212975
++1 8519
++3 8519
+-3 25557
++3 8519
+cfi=(209)
+cfn=(1822)
+calls=8519 53 
+* 34076
++5 8519
+-4 8519
++1 8519
++3 8519
+-2 8519
++3 42595
+
+fn=(1834)
+1169 8519
++3 17038
+cfi=(236) /build/glibc-t7JzpG/glibc-2.30/io/../sysdeps/unix/sysv/linux/close_nocancel.c
+cfn=(1836) __close_nocancel
+calls=8519 25 
+* 51114
+
+fn=(1840) _IO_file_finish@@GLIBC_2.2.5
+169 42595
++1 17038
++7 8519
+-1 17038
++1 17038
+-1 8519
+cfi=(209)
+cfn=(1842)
+calls=8519 601 
+* 136304
+
+fn=(1902) _IO_do_write@@GLIBC_2.2.5
+428 2
++2 6
++1 1
+-3 16
++10 2
++7 4
+fi=(237)
+944 2
+fe=(216)
+453 4
+cfn=(1910) _IO_file_write@@GLIBC_2.2.5
+calls=1 1178 
+* 46
+* 1
++1 5
++2 1
++4 1
+-4 3
++1 2
++3 2
+-2 1
+-28 4
++1 8
++28 2
+
+fn=(1892)
+736 100
++1 80
++7 117
++35 38
++3 36
++3 54
++1 54
++1 72
++4 18
++1 72
+-45 2
++12 2
++9 4
++5 2
++2 1
+-2 1
++2 1
+-2 2
++2 1
++1 1
+-3 4
++3 4
++1 1
++2 2
++13 2
+-12 2
++1 2
++11 4
+-12 2
+cfn=(1902)
+calls=2 428 
+* 113
+-31 2
+cfi=(209)
+cfn=(1894)
+calls=1 343 
+* 526
++1 6
+
+fn=(1898) _IO_file_stat
+1151 2
++1 3
+cfi=(240)
+cfn=(1900)
+calls=1 33 
+* 11
+
+fn=(1572)
+107 8521
++5 8521
+-5 17042
++4 8521
++3 8521
+cfi=(209)
+cfn=(1574)
+calls=8521 -27 
+* 1048083
++1 8521
++1 17042
+
+fn=(1890)
+1202 20
++7 5
+-7 20
++6 30
++7 20
++17 3
++6 4
++2 4
++2 12
+-2 4
+cob=(2)
+cfi=(18)
+cfn=(1730)
+calls=4 0 
+* 81
++1 4
++1 4
+-2 4
++4 14
++28 45
+-55 4
++4 4
+-4 4
++1 8
++18 1
++12 1
+fi=(237)
+941 3
++2 2
++1 2
+fe=(216)
+1248 1
+fi=(237)
+941 3
++2 2
++1 2
+fe=(216)
+1248 6
+cfn=(1892)
+calls=2 736 
+* 716
+* 4
++6 4
++1 14
++2 4
++11 6
++1 4
+cfi=(209)
+cfn=(1502)
+calls=1 371 
+* 986
+* 3
+-46 39
+-2 38
++4 1
++11 3
+fi=(237)
+947 2
+fe=(216)
+
+fn=(1910)
+1178 7
++2 6
++5 1
+cfi=(241)
+cfn=(1912)
+calls=1 25 
+* 9
++1 2
++5 1
++1 1
+-12 2
++2 1
++2 2
++1 2
++10 3
++3 9
+
+fn=(1610) _IO_file_seek
+1144 8501
++1 17002
+cfi=(221)
+cfn=(1612)
+calls=8501 28 
+* 51006
+
+fn=(1584)
+183 17042
++3 8521
+-3 59647
++2 17042
++4 8521
+cfi=(219) /build/glibc-t7JzpG/glibc-2.30/io/../sysdeps/unix/sysv/linux/open64.c
+cfn=(1586) open
+calls=8521 37 
+* 315233
+* 8521
++1 17042
++3 17038
++3 8519
+-4 8519
++1 34076
++3 17038
++3 8501
+fi=(237)
+941 25503
++2 17002
++1 17002
+fe=(216)
+199 34004
+cfn=(1610)
+calls=8501 1144 
+* 76509
++1 17002
++6 17038
+cfi=(209)
+cfn=(1574)
+calls=8519 87 
+* 161861
++1 8519
++1 34078
+-17 2
++17 6
+
+fl=(224) /build/glibc-t7JzpG/glibc-2.30/stdlib/../sysdeps/ieee754/dbl-64/dbl2mpn.c
+fn=(1712) __mpn_extract_double
+33 18003
++4 18003
+-2 18003
++2 36006
++1 18003
++9 18003
+-9 18003
++9 18003
++9 18003
+-18 54009
++9 18003
++9 36006
++4 4606
++2 2303
++45 4606
+-4 15700
++4 15700
+-4 15700
++4 15700
+
+fl=(208)
+fn=(1482)
+123 18004
++1 36008
+cfn=(1484) __vsnprintf_internal
+calls=18004 -29 
+* 35270422
+
+fn=(1484)
+95 252056
++4 18004
++5 90020
++6 144032
+cfi=(209)
+cfn=(1486)
+calls=18004 563 
+* 792176
++3 54012
+-2 18004
++2 18004
+-2 18004
++1 18004
++1 18004
+cfi=(210) /build/glibc-t7JzpG/glibc-2.30/libio/strops.c
+cfn=(1490) _IO_str_init_static_internal
+calls=18004 -77 
+* 1188264
++1 90020
+cfi=(211)
+cfn=(1494)
+calls=18004 1289 
+* 32263754
++2 54012
++1 36008
++2 198044
+
+fl=(98)
+fn=(292)
+31 1
+fi=(263) /build/glibc-t7JzpG/glibc-2.30/string/../sysdeps/x86_64/multiarch/ifunc-strcpy.h
++5 3
+-2 1
++2 1
+-2 2
+fe=(98)
+-3 1
+
+fl=(236)
+fn=(1836)
+25 8519
++1 34076
++1 8519
+
+fl=(239)
+fn=(1896)
+78 9
++6 4
+fi=(237)
+941 3
++2 2
++1 2
+fe=(239)
+84 3
+cfi=(216)
+cfn=(1898)
+calls=1 1151 
+* 16
+* 2
++2 4
++11 4
++4 2
+cob=(2)
+cfi=(18)
+cfn=(1570)
+calls=1 0 
+* 396
+* 1
++1 2
++2 4
+cfi=(209)
+cfn=(1492)
+calls=1 329 
+* 25
++1 1
++1 8
+-15 1
+fi=(264) /build/glibc-t7JzpG/glibc-2.30/libio/../include/sys/sysmacros.h
+-44 6
+fe=(239)
++44 1
+-2 2
++5 2
+
+fl=(244) /build/glibc-t7JzpG/glibc-2.30/stdlib/divrem.c
+fn=(1954) __mpn_divrem
+46 500461
++3 76994
+234 346473
+62 38497
++1 38497
+-16 38497
++18 76994
++6 76994
++1 38497
+-1 38497
++1 143570
++1 99864
+-1 99864
++4 76994
++3 38497
++2 38497
+-13 1944
+-1 1944
++1 1944
+
+fl=(220)
+fn=(1588)
+77 68152
++5 8519
+-5 25557
++5 17038
++2 34076
+cob=(2)
+cfi=(18)
+cfn=(1590)
+calls=8519 -84 
+* 238524
+* 8519
++1 17038
++44 8519
++32 102228
+
+fl=(226)
+fn=(1716)
+31 135124
++1 135124
++3 135124
++1 135124
++1 135124
++1 135124
++1 135124
++2 135124
++1 135124
++2 135124
++1 135124
++1 135124
++1 135124
++1 126014
++2 126014
++1 126014
++1 126014
++1 126014
++26 9110
++1 9110
++1 9110
++1 9110
++1 9110
++1 9110
++1 9110
++1 9110
++1 9110
++26 9110
++1 9110
++1 9110
++2 9110
++1 9110
++1 9110
++1 9110
++1 9110
++1 9110
++2 9110
++3 9110
+-5 126014
++2 126014
++3 126014
+
+fl=(174)
+fn=(960)
+42 18086
++13 18086
++1 18086
++1 18086
++3 18086
++1 18086
++1 18086
++3 18063
++1 18063
++1 18063
++8 18063
++4 1
++1 1
++1 1
++9 1
++4 23
++1 23
++1 23
++1 23
++2 23
++1 23
++1 23
++1 21
++6 21
++1 21
++1 21
++4 21
++1 21
++16 2
++10 2
++1 2
++1 2
++1 2
+-3 1
++1 1
++1 1
++1 1
+335 18065
++1 18065
++1 18065
++4 18065
++1 18065
+
+fl=(69)
+fn=(230)
+25 8
++1 4
+-1 12
++1 4
++4 8
++18 20
+
+fl=(235)
+fn=(1820)
+34 42595
++14 25557
+fi=(237)
+884 17038
++1 25557
+fe=(235)
+57 8519
+fi=(237)
+941 25557
++2 17038
++1 17038
+fe=(235)
+57 25557
+cfi=(216)
+cfn=(1840)
+calls=8519 169 
+* 247051
++1 25557
+fi=(237)
+856 34076
++1 34076
++6 17038
+cob=(2)
+cfi=(18)
+cfn=(1844)
+calls=8519 0 
+* 715596
+fe=(235)
+76 42595
+-27 8519
+cfi=(209)
+cfn=(1822)
+calls=8519 +4 
+* 1098951
++2 85190
+fi=(218)
+-4 17038
+fe=(235)
++4 34076
++1 34076
++1 17038
+cfi=(216)
+cfn=(1830)
+calls=8519 +76 
+* 860419
+* 34076
+fi=(237)
+885 51114
+fe=(235)
+71 17038
+
+fl=(71)
+fn=(234)
+31 2
+fi=(260)
++1 6
+-2 10
+fe=(71)
++1 2
+
+fl=(125) /build/glibc-t7JzpG/glibc-2.30/resource/../sysdeps/unix/sysv/linux/getrlimit64.c
+fn=(386) getrlimit
+37 2
++1 7
++1 1
+
+fl=(87)
+fn=(270)
+31 2
+fi=(88) /build/glibc-t7JzpG/glibc-2.30/wcsmbs/../sysdeps/x86_64/multiarch/ifunc-wmemset.h
++1 4
+-2 2
++2 6
+-2 4
++5 2
+-1 2
++1 2
+-1 6
+fe=(87)
+-3 4
+
+fl=(66)
+fn=(224)
+43 2
+fi=(67)
++2 1
+-2 1
++1 1
++4 3
++14 4
+-17 3
++3 9
++14 12
+-17 9
++22 1
+fi=(68)
+-37 2
++1 1
+fe=(66)
++12 2
+fi=(68)
+-12 4
+fe=(66)
++12 1
+cfi=(69)
+cfn=(230)
+calls=1 -18 
+* 14
+* 5
+
+fl=(191) /build/glibc-t7JzpG/glibc-2.30/stdlib/../stdlib/strtol_l.c
+fn=(1404) ____strtol_l_internal
+226 12
++54 4
+-54 12
++19 4
+-19 16
++26 8
++31 16
++9 24
++2 8
++5 8
+-1 4
++6 8
++4 8
++10 8
++10 16
+-82 8
+434 20
++16 4
++10 12
+-10 4
++10 4
++12 8
+-5 10
++5 10
++1 30
+-41 20
++2 40
++2 30
++28 30
++3 20
++11 8
++5 12
++1 4
++5 8
+325 8
+492 12
+-2 8
++17 20
++18 32
+
+fl=(84)
+fn=(262)
+29 1
+fi=(263)
++7 3
+-2 1
++2 1
+-2 2
+fe=(84)
+-5 1
+
+fl=(64)
+fn=(220)
+29 1
+fi=(263)
++7 3
+-2 1
++2 1
+-2 2
+fe=(64)
+-5 1
+
+fl=(169)
+fn=(938)
+33 512
++5 256
+-5 1792
++5 1536
++5 512
++4 384
+fi=(170) /build/glibc-t7JzpG/glibc-2.30/wcsmbs/./wcsmbsload.h
++23 384
+fe=(169)
+-22 128
++2 128
+-2 128
++2 128
++5 512
++3 256
+cfi=(171) /build/glibc-t7JzpG/glibc-2.30/elf/dl-profstub.c
+cfn=(942) _dl_mcount_wrapper_check
+calls=128 -21 
+* 768
+* 384
+cfi=(172)
+cfn=(944)
+calls=128 -8 
+* 768
++41 2304
+fi=(170)
+-27 128
++1 128
+-1 256
+fe=(169)
+
+fl=(210)
+fn=(1490)
+36 162036
++4 36008
++1 18004
++5 126028
+cfi=(209)
+cfn=(1492)
+calls=18004 329 
+* 450100
++3 18004
++1 18004
+-1 18004
++2 36008
++2 36008
++2 18004
+-2 36008
++11 18004
++1 108024
+-23 18004
++1 72016
+
+fl=(60)
+fn=(212)
+29 3
+fi=(61) /build/glibc-t7JzpG/glibc-2.30/string/../sysdeps/x86_64/multiarch/ifunc-memmove.h
++16 9
+-1 6
++5 6
+-1 6
++12 6
++2 15
+fe=(60)
+
+fl=(99)
+fn=(294)
+33 1
+fi=(263)
++3 3
+-2 1
++2 1
+-2 2
+fe=(99)
+-1 1
+
+fl=(178)
+fn=(1300)
+28 1
++2 1
++2 1
+cfi=(179)
+cfn=(1302)
+calls=1 -2 
+* 31
+
+fl=(219)
+fn=(1586)
+37 17042
++3 8521
+-3 68168
++3 17114
++8 85210
++2 59647
+-7 17006
++1 8503
+-1 25509
++2 8503
++3 10
+
+fl=(165) /build/glibc-t7JzpG/glibc-2.30/locale/newlocale.c
+fn=(850) newlocale
+44 14
++12 2
++8 2
++3 3
++6 2
++3 1
+-2 4
+279 12
+57 2
++17 2
+
+fl=(228) /build/glibc-t7JzpG/glibc-2.30/nptl/alloca_cutoff.c
+fn=(1720) __libc_alloca_cutoff
+27 18003
++1 162027
++7 18003
+
+fl=(76)
+fn=(246)
+54 1
+-13 3
+-2 1
++2 1
+-2 2
++15 1
+
+fl=(190)
+fn=(1402)
+105 4
++1 16
+cfi=(191)
+cfn=(1404)
+calls=4 226 
+* 518
+
+fl=(62)
+fn=(216)
+29 1
+fi=(263)
++7 3
+-2 1
++2 1
+-2 2
+fe=(62)
+-5 1
+
+fl=(97)
+fn=(290)
+29 1
+fi=(261)
++1 5
+fe=(97)
+-1 1
+
+fl=(222)
+fn=(1706)
+1266 18003
++1 18003
+-1 36006
++1 54009
+cfn=(1708) __printf_fp_l
+calls=18003 208 
+* 25926008
+
+fn=(1708)
+208 306051
++50 18003
+-9 18003
++16 18003
+-7 18003
++10 18003
+-10 72012
++10 54009
+fi=(223) /build/glibc-t7JzpG/glibc-2.30/stdio-common/../include/../locale/localeinfo.h
++41 54009
+fe=(222)
+-38 36006
++18 36006
++8 18003
+-71 18003
+-1 18003
+378 54009
++5 36006
++4 126021
+1260 216036
+387 108018
+cfi=(224)
+cfn=(1712)
+calls=18003 33 
+* 362363
+* 90015
++36 18003
++5 18003
+-5 108018
++1 18003
++1 36006
++3 234039
++1 36006
+-1 18003
++1 36006
+-1 18003
++1 36006
+-1 18003
++1 162027
++1 18003
+-1 36006
++1 234039
++6 18003
+-6 36006
++7 36006
++17 38500
++16 11000
+-20 5500
+-10 5500
++10 11000
++1 38500
++33 23505
++41 7835
++1 15670
+-1 7835
++1 23505
+cob=(2)
+cfi=(18)
+cfn=(1412)
+calls=7835 0 
+* 101855
+* 7835
++16 25840
++9 2335
++2 4670
+-2 63665
++2 193330
+-74 66000
+-4 66000
++4 269500
+-4 5500
++4 22000
++2 23505
++64 27500
+cob=(2)
+cfi=(18)
+cfn=(1412)
+calls=5500 0 
+* 71500
++1 16500
++1 16500
++1 5500
++3 5500
+-5 5500
++1 5500
++1 11000
+-1 5500
++1 5500
++5 11000
++1 11000
++6 11000
++4 82500
++6 11000
+822 36006
++10 36006
+-10 18003
++10 108018
++2 36006
++10 36006
++20 108018
++1 72012
++1 17298
++12 16864
++1 8432
+-1 8432
++8 33728
++3 50592
++3 16864
+-6 37416
++3 56124
++3 18708
+-3 1302
++3 434
++15 18003
+-1 72012
++7 18003
+fi=(229) /build/glibc-t7JzpG/glibc-2.30/stdio-common/../sysdeps/pthread/allocalim.h
+27 36006
+cfi=(228)
+cfn=(1720)
+calls=18003 * 
+* 198033
++2 54009
+fe=(222)
+923 306051
++4 18003
+-3 18003
++3 53304
++3 47855
+-6 47855
++9 28713
+cfn=(1724) hack_digit
+calls=9571 162 
+* 843615
+* 16500
+cfn=(1724)
+calls=5500 162 
+* 649821
+* 15071
+-3 68426
++7 57426
++2 19142
+-4 9571
++4 9571
++14 9571
+-2 28713
++1 38284
++1 46716
+-2 25296
++1 33728
++1 33780
++1 407836
++3 92957
+-1 92957
++2 92957
+-1 92957
+cfn=(1724)
+calls=92957 162 
+* 6268748
+* 92957
++3 202804
+-7 464720
+428 36006
+954 64557
++15 54009
++1 72012
+cfn=(1724)
+calls=18003 162 
+* 1292535
++2 144024
++2 34704
++3 22752
++5 112389
+-9 1565
+fi=(230) /build/glibc-t7JzpG/glibc-2.30/stdio-common/../sysdeps/generic/get-rounding-mode.h
+94 1565
++1 6260
+-1 16438
++1 119761
+fi=(231) /build/glibc-t7JzpG/glibc-2.30/stdio-common/../include/rounding-mode.h
+-43 44264
++6 4018
+fe=(222)
+1088 28182
++3 45366
+-1 45366
+-2 212430
++7 51126
++1 5040
++2 54009
++13 54009
++2 868
++20 434
++4 434
++14 651
++6 434
++2 651
+-2 36006
++2 53358
+-2 71578
++2 90015
++2 162027
++10 90015
++9 18003
++7 18003
+-7 36006
++7 36006
++5 54009
+cob=(2)
+cfi=(18)
+cfn=(958)
+calls=18003 0 
+* 324054
++2 36006
+-2 18003
++2 36006
++5 54009
++2 18003
+-2 18003
++2 18003
++11 306051
++7 216036
++3 143924
++3 143924
+-6 215886
++1 262335
++1 30966
+-2 15483
++2 15483
+cob=(2)
+cfi=(18)
+cfn=(1730)
+calls=15483 0 
+* 309660
+* 15483
+-2 30966
++10 108018
++17 90015
++3 36006
++7 54009
+963 13
+-1 13
++1 26
++31 16516
++5 4129
+-1 4129
++1 8258
++2 1501
+-2 3002
++3 1501
+-3 13828
++5 18414
++4 7824
++11 8258
++69 7824
+640 25006
+816 15416
+cfi=(194)
+cfn=(1416)
+calls=3854 28 
+* 61664
+* 3854
++1 19270
++1 7708
+542 23505
+cfi=(243)
+cfn=(1952)
+calls=7835 31 
+* 94020
+* 25840
+838 434
+1022 651
++3 434
++1 217
+-1 1302
+1142 651
+831 36006
+1166 54009
+865 18708
++13 9354
++1 9354
+-1 9354
++1 37416
+656 25947
++5 8649
+-5 8649
+cfi=(194)
+cfn=(1416)
+calls=8649 28 
+* 138384
++5 8649
+-18 8649
++10 8649
++3 8649
++1 8649
++24 8649
+-20 8649
+-4 34596
++3 8649
++1 17298
++23 1422
++1 948
++3 948
++1 948
+-1 474
++2 474
+-2 474
++2 474
+-2 474
++2 474
+-2 474
++2 948
++7 1896
++22 1323
++61 103788
+-2 103788
++2 397854
+666 103788
++2 207576
++7 948
++1 474
+-1 1422
++2 474
+-2 948
++6 1896
+cfi=(225)
+cfn=(1714)
+calls=474 48 
+* 35550
+* 474
++5 1422
++42 894
+-1 447
++1 894
++5 1341
+-6 447
++6 447
++3 1341
+-37 66
++4 66
+-2 33
++2 132
++16 99
++2 66
++1 27
++1 6
+1246 1296242
+-78 36006
+872 217
+-3 217
++4 217
+-4 217
++3 434
++2 36874
+465 5500
+-2 5500
++2 5500
+-3 11000
++3 22000
+-3 11000
+cfi=(194)
+cfn=(1416)
+calls=5500 28 
+* 88000
++4 49500
++1 11000
++1 27500
+252 36006
+1034 434
++2 217
++1 217
+-1 217
++1 868
++5 217
++36 1085
+974 576
++3 190
++4 190
+-4 380
+-39 50570
++9 16864
+-1 16864
+-1 8432
++2 8432
+826 16864
+634 19649
+782 17298
++4 43180
+cfi=(226)
+cfn=(1716)
+calls=8636 31 
+* 284988
++4 17272
++1 8636
+-4 17272
++3 8636
++1 34544
++9 8636
++1 8636
+-1 8636
++4 43950
+1195 36006
+1004 434
++5 1519
+596 11000
++3 38500
++16 11000
++2 5500
+-2 5500
+cfi=(227)
+cfn=(1718)
+calls=5500 28 
+* 99000
++3 11000
+-1 5500
++1 5500
+-1 5500
++1 16500
+cfi=(227)
+cfn=(1718)
+calls=5500 28 
+* 99000
++2 33000
+1113 868
++19 217
++1 434
+799 17272
+cfi=(227)
+cfn=(1718)
+calls=8636 28 
+* 155448
+* 8636
+-62 894
++10 447
+-3 447
++3 2235
++13 1788
+cfi=(227)
+cfn=(1718)
+calls=447 28 
+* 8046
++2 2235
+
+fn=(1724)
+162 504124
++3 499205
++2 630090
++8 76994
++21 115479
+cfi=(226)
+cfn=(1716)
+calls=38493 31 
+* 808353
++1 76986
++1 162040
++4 192465
+-23 269479
+cfi=(244)
+cfn=(1954)
+calls=38497 46 
+* 1773519
++2 38497
+-2 38497
++2 115491
++1 38497
++2 76994
++1 153988
++1 8
+-1 153984
+-16 87521
++1 262563
+-1 87521
++1 87521
+cfi=(226)
+cfn=(1716)
+calls=87521 31 
+* 1837941
+* 175042
++32 437605
+-37 354222
++37 65
+-11 4
++1 4
++10 20
+
+fl=(95)
+fn=(286)
+29 2
+fi=(257)
++3 6
+-2 10
+fe=(95)
+-1 2
+
+fl=(138)
+fn=(428)
+29 1
++2 7
++2 4
++2 4
++1 1
+
+fl=(171)
+fn=(942)
+37 128
++1 128
+-1 128
++1 256
++2 128
+
+fl=(193)
+fn=(1410)
+509 6
++45 2
+-45 22
++53 2
++26 2
+-24 4
++32 6
++1 4
+cob=(2)
+cfi=(18)
+cfn=(958)
+calls=2 0 
+* 36
++1 6
+-1 2
++1 2
++4 2
++10 2
+-4 4
++3 8
++1 4
++3 4
+-12 2
++17 4
++13 12
++1 4
++8 6
+1771 22
+690 6
++44 6
+-1 2
++2 2
+-2 2
++2 10
+515 4
+776 6
++1 4
++12 4
++16 4
++42 8
++9 16
++1 4
+740 18
++1 4
+863 4
++1 2
++1 24
++4 14
++3 6
+-7 8
++10 4
++6 4
++2 8
++13 2
+1014 4
++2 4
++28 4
++2 4
++3 4
++33 4
++92 2
++2 12
++1 2
++1 2
++3 4
+-3 2
++3 4
++12 4
++3 4
+1358 10
++18 4
++3 14
++13 2
+-13 2
++3 2
++10 8
++5 6
+604 12
+1400 18
++3 6
++8 2
++4 2
++16 2
+-75 2
++55 2
++3 2
++17 2
+-20 4
+-57 2
++77 2
+-20 2
+-57 2
++77 12
+-6 2
++1 12
+cob=(2)
+cfi=(18)
+cfn=(1412)
+calls=2 0 
+* 30
++15 2
++1 2
++2 4
+-26 4
++7 2
+-4 2
++2 4
++21 2
++2 12
++4 18
+cfn=(1414) str_to_mpn.isra.0
+calls=2 366 
+* 110
++17 6
++2 4
+-2 2
++2 6
++17 4
++2 4
+1043 4
+690 6
++19 2
+515 2
+709 4
+-14 4
++16 4
+-1 6
++38 4
+1495 2
++1 2
++1 22
++4 2
++38 6
+-38 8
++38 4
++6 2
+-1 2
+-1 4
++2 2
+-1 2
+-1 12
+cfn=(1418) round_and_return
+calls=2 216 
+* 171
+* 2
+-4 34
++2 2
+-68 10
+cfi=(194)
+cfn=(1416)
+calls=2 28 
+* 32
++1 10
+cfi=(194)
+cfn=(1416)
+calls=2 28 
+* 32
++1 4
+
+fn=(1418)
+216 32
+fi=(195) /build/glibc-t7JzpG/glibc-2.30/stdlib/../sysdeps/generic/get-rounding-mode.h
+94 2
++1 16
+fe=(193)
+219 4
+fi=(196) /build/glibc-t7JzpG/glibc-2.30/stdlib/../include/rounding-mode.h
+46 6
++6 6
+fe=(193)
+321 2
+fi=(197) /build/glibc-t7JzpG/glibc-2.30/stdlib/../stdlib/gmp.h
+447 1
++1 1
+fe=(193)
+329 2
++10 2
+-25 14
++4 6
++2 11
+fi=(196)
+46 5
++3 2
+fe=(193)
+351 6
++5 6
+cfi=(198)
+cfn=(1426)
+calls=2 29 
+* 22
++1 22
+-4 2
++1 1
+
+fn=(1414)
+366 14
++13 2
+-13 4
++14 14
+-4 2
+-1 4
++39 8
++3 4
++7 4
++3 4
++1 2
+-1 2
++3 4
++2 8
++7 6
++2 6
++2 2
++1 2
++15 18
+
+fl=(65)
+fn=(222)
+28 1
+fi=(257)
++4 3
+-2 5
+fe=(65)
+-2 1
+
+fl=(102)
+fn=(300)
+31 1
+fi=(257)
++1 3
+-2 5
+fe=(102)
++1 1
+
+fl=(185)
+fn=(1372)
+147 1
++1 1
++1 1
++1 1
++1 5001
++1 1
++1 1
++14 1
++1 3
++5 1
++1 1
++1 1
++1 1
++8 1
++1 1
+
+fl=(214)
+fn=(1504)
+165 2
++3 4
++2 2
++9 184
++9 2
+
+fl=(93)
+fn=(282)
+29 1
+fi=(257)
++3 3
+-2 5
+fe=(93)
+-1 1
+
+fl=(103)
+fn=(302)
+31 1
+fi=(258)
++1 4
+fe=(103)
+-1 1
+
+fl=(85)
+fn=(264)
+29 3
+fi=(61)
++16 9
+-1 6
++5 6
+-1 6
++12 6
++2 15
+fe=(85)
+
+fl=(150)
+fn=(580)
+288 5
++13 1
+-8 1
++8 1
++6 4
+fi=(148)
+1795 3
++3 4
+-3 2
++3 504
+-3 252
++11 1
+fe=(150)
+312 2
+fi=(148)
+1807 1
++2 1
+fe=(150)
+312 3
+cob=(2)
+cfi=(18)
+cfn=(598)
+calls=1 0 
+* 1053
++1 4
+cob=(2)
+cfi=(18)
+cfn=(598)
+calls=1 0 
+* 22
++1 4
+cob=(2)
+cfi=(18)
+cfn=(598)
+calls=1 0 
+* 21
++1 4
+cob=(2)
+cfi=(18)
+cfn=(598)
+calls=1 0 
+* 22
++1 4
+cob=(2)
+cfi=(18)
+cfn=(598)
+calls=1 0 
+* 22
++1 4
+cob=(2)
+cfi=(18)
+cfn=(598)
+calls=1 0 
+* 21
++1 4
+cob=(2)
+cfi=(18)
+cfn=(598)
+calls=1 0 
+* 22
++1 4
+cob=(2)
+cfi=(18)
+cfn=(598)
+calls=1 0 
+* 22
++2 4
+cob=(2)
+cfi=(18)
+cfn=(598)
+calls=1 0 
+* 22
++1 4
+cob=(2)
+cfi=(18)
+cfn=(598)
+calls=1 0 
+* 22
++1 4
+cob=(2)
+cfi=(18)
+cfn=(598)
+calls=1 0 
+* 22
++71 2
++1 2
++3 1
++1 3
+
+ob=(10)
+fl=(160)
+fn=(762)
+0 12
+
+ob=(3)
+fl=(150)
+fn=(580)
+399 3
+-97 5
+cfi=(151)
+cfn=(582)
+calls=1 127 
+* 67988
+* 2
++1 4
+
+fl=(73)
+fn=(238)
+33 1
+fi=(61)
++12 3
+-1 2
++5 2
+-1 2
++12 2
++2 5
+fe=(73)
+
+ob=(8)
+fl=(145)
+fn=(552) std::future_category()
+0 7
+cob=(2)
+cfi=(18)
+cfn=(554)
+calls=1 0 
+0 810
+0 4
+cob=(2)
+cfi=(18)
+cfn=(560)
+calls=1 0 
+0 830
+0 4
+cob=(2)
+cfi=(18)
+cfn=(532)
+calls=1 0 
+0 74
+0 3
+
+fn=(558) __cxa_guard_acquire
+0 33
+
+fn=(564) __cxa_guard_release
+0 16
+
+fn=(838)
+0 5
+cob=(2)
+cfi=(18)
+cfn=(840)
+calls=1 0 
+0 2127
+
+fn=(1014) std::numpunct<char>::_M_initialize_numpunct(__locale_struct*)
+0 414
+
+fn=(1068) std::messages<char>::messages(unsigned long)
+0 13
+cob=(2)
+cfi=(18)
+cfn=(832)
+calls=1 0 
+0 21
+0 2
+cob=(2)
+cfi=(18)
+cfn=(820)
+calls=1 0 
+0 5
+0 5
+
+fn=(1208) __cxxabiv1::__vmi_class_type_info::__do_dyncast(long, __cxxabiv1::__class_type_info::__sub_kind, __cxxabiv1::__class_type_info const*, void const*, __cxxabiv1::__class_type_info const*, void const*, __cxxabiv1::__class_type_info::__dyncast_result&) const
+0 635425
+cob=(2)
+cfi=(18)
+cfn=(1210)
+calls=18155 0 
+0 418404
+0 562805
+
+fn=(1260)
+0 32
+cob=(2)
+cfi=(18)
+cfn=(1262)
+calls=4 0 
+0 1422
+0 16
+cob=(2)
+cfi=(18)
+cfn=(1268)
+calls=4 0 
+0 1438
+0 12
+cob=(2)
+cfi=(18)
+cfn=(1274)
+calls=4 0 
+0 1790
+0 16
+cob=(2)
+cfi=(18)
+cfn=(1280)
+calls=4 0 
+0 1822
+0 12
+cob=(2)
+cfi=(18)
+cfn=(1286)
+calls=4 0 
+0 1798
+0 16
+cob=(2)
+cfi=(18)
+cfn=(1292)
+calls=4 0 
+0 1830
+0 20
+
+fn=(1284)
+0 20
+cob=(2)
+cfi=(18)
+cfn=(862)
+calls=4 0 
+0 32
+0 44
+cob=(2)
+cfi=(18)
+cfn=(1202)
+calls=4 0 
+0 368
+0 16
+
+fn=(1290)
+0 20
+cob=(2)
+cfi=(18)
+cfn=(862)
+calls=4 0 
+0 32
+0 48
+cob=(2)
+cfi=(18)
+cfn=(1202)
+calls=4 0 
+0 368
+0 20
+
+fn=(1556)
+0 59647
+cfn=(1558) 0x00000000000cccc0
+calls=8521 0 
+0 76689
+0 51126
+cob=(2)
+cfi=(18)
+cfn=(1546)
+calls=8521 0 
+0 51126
+0 42605
+cob=(2)
+cfi=(18)
+cfn=(1564)
+calls=8521 0 
+0 4320953
+0 76687
+
+fn=(1602)
+0 17038
+cob=(2)
+cfi=(18)
+cfn=(1318)
+calls=8519 0 
+0 3071649
+
+fn=(1616)
+0 927288
+cob=(2)
+cfi=(18)
+cfn=(1618)
+calls=51516 0 
+0 1237174
+0 618192
+cob=(2)
+cfi=(18)
+cfn=(1636)
+calls=51516 0 
+0 464386
+0 875772
+cfn=(1880) __gnu_cxx::stdio_sync_filebuf<char, std::char_traits<char> >::xsputn(char const*, long)
+calls=3 0 
+0 3043
+cfn=(1624) std::basic_filebuf<char, std::char_traits<char> >::xsputn(char const*, long)
+calls=51513 0 
+0 5307089
+0 257580
+
+fn=(1624)
+0 2060360
+cfn=(1626) std::codecvt<char, char, __mbstate_t>::do_always_noconv() const
+calls=103018 0 
+0 309054
+0 2609462
+cob=(2)
+cfi=(18)
+cfn=(1628)
+calls=103018 0 
+0 5939092
+
+fn=(1668)
+0 500080
+cob=(2)
+cfi=(18)
+cfn=(862)
+calls=25004 0 
+0 200032
+0 799112
+cfn=(1670) 0x0000000000128060
+calls=9000 0 
+0 216000
+0 128032
+cfn=(1670)
+calls=16004 0 
+0 766282
+0 700112
+cfn=(1880)
+calls=1 0 
+0 162
+cfn=(1624)
+calls=25003 0 
+0 2882576
+0 425068
+
+fn=(1942)
+0 144500
+cob=(2)
+cfi=(18)
+cfn=(1618)
+calls=8500 0 
+0 204000
+0 170000
+cfn=(1944) std::num_put<char, std::ostreambuf_iterator<char, std::char_traits<char> > >::do_put(std::ostreambuf_iterator<char, std::char_traits<char> >, std::ios_base&, char, unsigned long) const
+calls=8500 0 
+0 2210588
+0 34000
+cob=(2)
+cfi=(18)
+cfn=(1636)
+calls=8500 0 
+0 76500
+0 102000
+
+fn=(514)
+0 12
+
+fn=(546)
+0 3
+cob=(2)
+cfi=(18)
+cfn=(548)
+calls=1 0 
+0 2541
+0 4
+
+fn=(790)
+0 30
+cob=(2)
+cfi=(18)
+cfn=(792)
+calls=1 0 
+0 78371
+0 16
+cob=(2)
+cfi=(18)
+cfn=(792)
+calls=1 0 
+0 43
+0 14
+cob=(2)
+cfi=(18)
+cfn=(792)
+calls=1 0 
+0 43
+0 6
+cob=(2)
+cfi=(18)
+cfn=(1160)
+calls=1 0 
+0 863
+0 15
+cob=(2)
+cfi=(18)
+cfn=(1166)
+calls=1 0 
+0 14437
+0 3
+cob=(2)
+cfi=(18)
+cfn=(1160)
+calls=1 0 
+0 104
+0 16
+cob=(2)
+cfi=(18)
+cfn=(1166)
+calls=1 0 
+0 1003
+0 3
+cob=(2)
+cfi=(18)
+cfn=(1160)
+calls=1 0 
+0 104
+0 14
+cob=(2)
+cfi=(18)
+cfn=(1166)
+calls=1 0 
+0 1003
+0 3
+cob=(2)
+cfi=(18)
+cfn=(1160)
+calls=1 0 
+0 104
+0 14
+cob=(2)
+cfi=(18)
+cfn=(1166)
+calls=1 0 
+0 1003
+0 16
+cob=(2)
+cfi=(18)
+cfn=(792)
+calls=1 0 
+0 43
+0 16
+cob=(2)
+cfi=(18)
+cfn=(792)
+calls=1 0 
+0 43
+0 14
+cob=(2)
+cfi=(18)
+cfn=(792)
+calls=1 0 
+0 43
+0 6
+cob=(2)
+cfi=(18)
+cfn=(1160)
+calls=1 0 
+0 104
+0 15
+cob=(2)
+cfi=(18)
+cfn=(1250)
+calls=1 0 
+0 10363
+0 3
+cob=(2)
+cfi=(18)
+cfn=(1160)
+calls=1 0 
+0 104
+0 16
+cob=(2)
+cfi=(18)
+cfn=(1250)
+calls=1 0 
+0 899
+0 3
+cob=(2)
+cfi=(18)
+cfn=(1160)
+calls=1 0 
+0 104
+0 14
+cob=(2)
+cfi=(18)
+cfn=(1250)
+calls=1 0 
+0 899
+0 3
+cob=(2)
+cfi=(18)
+cfn=(1160)
+calls=1 0 
+0 104
+0 14
+cob=(2)
+cfi=(18)
+cfn=(1250)
+calls=1 0 
+0 899
+0 14
+
+fn=(812)
+0 5
+cob=(2)
+cfi=(18)
+cfn=(814)
+calls=1 0 
+0 76782
+0 7
+
+fn=(830) std::ctype<char>::ctype(unsigned short const*, bool, unsigned long)
+0 15
+cob=(2)
+cfi=(18)
+cfn=(832)
+calls=1 0 
+0 3155
+0 101
+
+fn=(1008) 0x00000000000d75c0
+0 21
+cob=(2)
+cfi=(18)
+cfn=(1010)
+calls=1 0 
+0 1511
+0 8
+cob=(2)
+cfi=(18)
+cfn=(862)
+calls=1 0 
+0 16
+0 8
+cob=(2)
+cfi=(18)
+cfn=(832)
+calls=1 0 
+0 21
+0 8
+cob=(2)
+cfi=(18)
+cfn=(862)
+calls=1 0 
+0 16
+0 12
+cob=(2)
+cfi=(18)
+cfn=(1028)
+calls=1 0 
+0 1306
+0 7
+cob=(2)
+cfi=(18)
+cfn=(862)
+calls=1 0 
+0 16
+0 12
+cob=(2)
+cfi=(18)
+cfn=(1040)
+calls=1 0 
+0 1322
+0 7
+cob=(2)
+cfi=(18)
+cfn=(862)
+calls=1 0 
+0 16
+0 14
+cob=(2)
+cfi=(18)
+cfn=(862)
+calls=1 0 
+0 16
+0 14
+cob=(2)
+cfi=(18)
+cfn=(862)
+calls=1 0 
+0 16
+0 14
+cob=(2)
+cfi=(18)
+cfn=(862)
+calls=1 0 
+0 16
+0 6
+cob=(2)
+cfi=(18)
+cfn=(1064)
+calls=1 0 
+0 846
+0 7
+cob=(2)
+cfi=(18)
+cfn=(862)
+calls=1 0 
+0 16
+0 16
+cob=(2)
+cfi=(18)
+cfn=(1076)
+calls=1 0 
+0 1455
+0 7
+cob=(2)
+cfi=(18)
+cfn=(862)
+calls=1 0 
+0 16
+0 8
+cob=(2)
+cfi=(18)
+cfn=(832)
+calls=1 0 
+0 21
+0 8
+cob=(2)
+cfi=(18)
+cfn=(862)
+calls=1 0 
+0 16
+0 13
+cob=(2)
+cfi=(18)
+cfn=(1094)
+calls=1 0 
+0 1334
+0 7
+cob=(2)
+cfi=(18)
+cfn=(862)
+calls=1 0 
+0 16
+0 12
+cob=(2)
+cfi=(18)
+cfn=(1106)
+calls=1 0 
+0 1310
+0 7
+cob=(2)
+cfi=(18)
+cfn=(862)
+calls=1 0 
+0 16
+0 14
+cob=(2)
+cfi=(18)
+cfn=(862)
+calls=1 0 
+0 16
+0 14
+cob=(2)
+cfi=(18)
+cfn=(862)
+calls=1 0 
+0 16
+0 14
+cob=(2)
+cfi=(18)
+cfn=(862)
+calls=1 0 
+0 16
+0 6
+cob=(2)
+cfi=(18)
+cfn=(1130)
+calls=1 0 
+0 846
+0 6
+cob=(2)
+cfi=(18)
+cfn=(862)
+calls=1 0 
+0 16
+0 5
+cob=(2)
+cfi=(18)
+cfn=(862)
+calls=1 0 
+0 8
+0 4
+cob=(2)
+cfi=(18)
+cfn=(862)
+calls=1 0 
+0 8
+0 4
+cob=(2)
+cfi=(18)
+cfn=(862)
+calls=1 0 
+0 8
+0 4
+cob=(2)
+cfi=(18)
+cfn=(862)
+calls=1 0 
+0 8
+0 5
+cob=(2)
+cfi=(18)
+cfn=(862)
+calls=1 0 
+0 8
+0 5
+cob=(2)
+cfi=(18)
+cfn=(862)
+calls=1 0 
+0 8
+0 9
+
+fn=(1080) std::numpunct<wchar_t>::_M_initialize_numpunct(__locale_struct*)
+0 350
+
+fn=(1134) std::messages<wchar_t>::messages(unsigned long)
+0 13
+cob=(2)
+cfi=(18)
+cfn=(832)
+calls=1 0 
+0 21
+0 2
+cob=(2)
+cfi=(18)
+cfn=(820)
+calls=1 0 
+0 5
+0 5
+
+fn=(1176)
+0 1120
+cob=(2)
+cfi=(18)
+cfn=(792)
+calls=80 0 
+0 3440
+0 240
+cob=(2)
+cfi=(18)
+cfn=(1178)
+calls=80 0 
+0 2535
+0 160
+cob=(2)
+cfi=(18)
+cfn=(1184)
+calls=80 0 
+0 1583
+0 560
+
+fn=(1182)
+0 1600
+
+fn=(1194)
+0 608
+cob=(2)
+cfi=(18)
+cfn=(1196)
+calls=76 0 
+0 15892
+0 304
+cob=(2)
+cfi=(18)
+cfn=(1218)
+calls=76 0 
+0 14174
+0 228
+cob=(2)
+cfi=(18)
+cfn=(1224)
+calls=76 0 
+0 10718
+0 304
+cob=(2)
+cfi=(18)
+cfn=(1232)
+calls=76 0 
+0 10590
+0 228
+cob=(2)
+cfi=(18)
+cfn=(1238)
+calls=76 0 
+0 10718
+0 304
+cob=(2)
+cfi=(18)
+cfn=(1244)
+calls=76 0 
+0 10597
+0 380
+
+fn=(1230) __cxxabiv1::__si_class_type_info::__do_dyncast(long, __cxxabiv1::__class_type_info::__sub_kind, __cxxabiv1::__class_type_info const*, void const*, __cxxabiv1::__class_type_info const*, void const*, __cxxabiv1::__class_type_info::__dyncast_result&) const
+0 14800
+
+fn=(1236)
+0 380
+cob=(2)
+cfi=(18)
+cfn=(862)
+calls=76 0 
+0 608
+0 836
+cob=(2)
+cfi=(18)
+cfn=(1202)
+calls=76 0 
+0 6992
+0 304
+
+fn=(1266)
+0 20
+cob=(2)
+cfi=(18)
+cfn=(862)
+calls=4 0 
+0 32
+0 48
+cob=(2)
+cfi=(18)
+cfn=(1202)
+calls=4 0 
+0 368
+0 20
+
+fn=(1296)
+0 20
+cob=(2)
+cfi=(18)
+cfn=(862)
+calls=4 0 
+0 32
+0 44
+cob=(2)
+cfi=(18)
+cfn=(1202)
+calls=4 0 
+0 368
+0 16
+
+fn=(1310)
+0 1348998
+cob=(2)
+cfi=(18)
+cfn=(570)
+calls=192714 0 
+0 39689075
+0 770856
+
+fn=(1632)
+0 2507462
+cob=(2)
+cfi=(18)
+cfn=(1470)
+calls=94518 0 
+0 1701172
+0 1064201
+cfn=(1634) std::basic_filebuf<char, std::char_traits<char> >::overflow(int)
+calls=8503 0 
+0 399641
+0 59518
+
+fn=(1634)
+0 331617
+cob=(2)
+cfi=(18)
+cfn=(1756)
+calls=8503 0 
+0 939792
+0 501677
+
+fn=(1772)
+0 25509
+cob=(2)
+cfi=(18)
+cfn=(1774)
+calls=8503 0 
+0 77397
+
+fn=(1868)
+0 468
+
+fn=(520)
+0 6
+cob=(2)
+cfi=(18)
+cfn=(522)
+calls=1 0 
+0 822
+0 7
+cob=(2)
+cfi=(18)
+cfn=(532)
+calls=1 0 
+0 998
+0 3
+cob=(2)
+cfi=(18)
+cfn=(522)
+calls=1 0 
+0 7
+0 7
+cob=(2)
+cfi=(18)
+cfn=(532)
+calls=1 0 
+0 74
+
+fn=(798) 0x00000000000befa0
+0 1162
+cob=(2)
+cfi=(18)
+cfn=(802)
+calls=166 0 
+0 78905
+0 830
+
+fn=(1200)
+0 380
+cob=(2)
+cfi=(18)
+cfn=(862)
+calls=76 0 
+0 608
+0 912
+cob=(2)
+cfi=(18)
+cfn=(1202)
+calls=76 0 
+0 12518
+0 380
+
+fn=(1382)
+0 24
+cob=(2)
+cfi=(18)
+cfn=(1384)
+calls=3 0 
+0 958
+0 21
+
+fn=(1522)
+0 720
+cob=(2)
+cfi=(18)
+cfn=(792)
+calls=36 0 
+0 1548
+0 360
+cob=(2)
+cfi=(18)
+cfn=(1524)
+calls=36 0 
+0 1199
+0 612
+cob=(2)
+cfi=(18)
+cfn=(1530)
+calls=36 0 
+0 5534
+0 144
+cob=(2)
+cfi=(18)
+cfn=(1536)
+calls=36 0 
+0 5470
+0 252
+
+fn=(1626)
+0 360072
+
+fn=(1754)
+0 161813
+cfn=(1634)
+calls=8503 0 
+0 1373445
+0 76559
+cfn=(1626)
+calls=8503 0 
+0 25509
+0 127737
+
+fn=(1760)
+0 170060
+cfn=(1626)
+calls=8503 0 
+0 25509
+0 51018
+cob=(2)
+cfi=(18)
+cfn=(1762)
+calls=8503 0 
+0 564486
+0 110539
+
+fn=(1766)
+0 136048
+cob=(2)
+cfi=(18)
+cfn=(1784)
+calls=8503 0 
+0 94201
+0 136048
+cob=(2)
+cfi=(18)
+cfn=(1768)
+calls=8503 0 
+0 120759
+0 59521
+
+fn=(690)
+0 50
+
+fn=(836)
+0 126119
+cob=(2)
+cfi=(18)
+cfn=(802)
+calls=18003 0 
+0 144024
+cob=(2)
+cfi=(18)
+cfn=(803)
+calls=14 0 
+0 2303
+0 72068
+
+fn=(844) std::locale::facet::_S_create_c_locale(__locale_struct*&, char const*, __locale_struct*)
+0 5
+cob=(2)
+cfi=(18)
+cfn=(846)
+calls=1 0 
+0 972
+0 5
+
+fn=(970) std::codecvt<wchar_t, char, __mbstate_t>::codecvt(unsigned long)
+0 13
+cob=(2)
+cfi=(18)
+cfn=(832)
+calls=1 0 
+0 21
+0 5
+
+fn=(1006) std::__cxx11::messages<wchar_t>::messages(unsigned long)
+0 13
+cob=(2)
+cfi=(18)
+cfn=(832)
+calls=1 0 
+0 21
+0 2
+cob=(2)
+cfi=(18)
+cfn=(820)
+calls=1 0 
+0 5
+0 5
+
+fn=(1170)
+0 532
+cob=(2)
+cfi=(18)
+cfn=(1172)
+calls=76 0 
+0 10201
+0 228
+cob=(2)
+cfi=(18)
+cfn=(1190)
+calls=76 0 
+0 76355
+0 988
+
+fn=(1650)
+0 425068
+cob=(2)
+cfi=(18)
+cfn=(1618)
+calls=25004 0 
+0 600096
+0 499890
+cfn=(1662) std::num_put<char, std::ostreambuf_iterator<char, std::char_traits<char> > >::do_put(std::ostreambuf_iterator<char, std::char_traits<char> >, std::ios_base&, char, long) const
+calls=24985 0 
+0 6737146
+0 171
+cfn=(1662)
+calls=19 0 
+0 6760
+0 100016
+cob=(2)
+cfi=(18)
+cfn=(1636)
+calls=25004 0 
+0 225036
+0 300295
+cob=(2)
+cfi=(18)
+cfn=(1652)
+calls=1 0 
+0 2859
+0 6
+
+fn=(1688)
+0 414069
+cob=(2)
+cfi=(18)
+cfn=(862)
+calls=18003 0 
+0 144024
+0 306051
+cob=(2)
+cfi=(18)
+cfn=(1690)
+calls=18003 0 
+0 631136
+0 306051
+cob=(2)
+cfi=(18)
+cfn=(832)
+calls=18003 0 
+0 378063
+0 162027
+cfn=(1696) 0x00000000000f5570
+calls=18003 0 
+0 37142732
+0 108018
+cob=(2)
+cfi=(18)
+cfn=(1218)
+calls=18003 0 
+0 3132522
+0 558093
+cob=(2)
+cfi=(18)
+cfn=(1740)
+calls=18003 0 
+0 376383
+0 416952
+cfn=(1880)
+calls=1 0 
+0 167
+cfn=(1624)
+calls=18002 0 
+0 1844473
+0 437112
+cob=(2)
+cfi=(18)
+cfn=(1470)
+calls=18003 0 
+0 314322
+0 72012
+
+fn=(568)
+0 9
+cob=(2)
+cfi=(18)
+cfn=(570)
+calls=1 0 
+0 71731
+0 8
+
+fn=(622)
+0 74
+
+fn=(672)
+0 34
+
+fn=(716)
+0 50
+
+fn=(824)
+0 21
+
+fn=(914) std::ctype<wchar_t>::ctype(unsigned long)
+0 13
+cob=(2)
+cfi=(18)
+cfn=(832)
+calls=1 0 
+0 21
+0 7
+cob=(2)
+cfi=(18)
+cfn=(916)
+calls=1 0 
+0 26897
+
+fn=(1032) std::moneypunct<char, false>::_M_initialize_moneypunct(__locale_struct*, char const*)
+0 113
+
+fn=(1110) std::moneypunct<wchar_t, true>::_M_initialize_moneypunct(__locale_struct*, char const*)
+0 109
+
+fn=(1206)
+0 612315
+cfn=(1230)
+calls=400 0 
+0 14800
+cfn=(1208)
+calls=18155 0 
+0 1616634
+0 371100
+
+fn=(1222)
+0 90395
+cob=(2)
+cfi=(18)
+cfn=(862)
+calls=18079 0 
+0 144632
+0 198869
+cob=(2)
+cfi=(18)
+cfn=(1202)
+calls=18079 0 
+0 2603376
+0 72316
+
+fn=(1272)
+0 20
+cob=(2)
+cfi=(18)
+cfn=(862)
+calls=4 0 
+0 32
+0 44
+cob=(2)
+cfi=(18)
+cfn=(1202)
+calls=4 0 
+0 368
+0 16
+
+fn=(1510)
+0 502675
+cob=(2)
+cfi=(18)
+cfn=(1512)
+calls=8519 0 
+0 639091
+0 34084
+cob=(2)
+cfi=(18)
+cfn=(1512)
+calls=8521 0 
+0 640534
+0 187440
+cob=(2)
+cfi=(18)
+cfn=(1470)
+calls=17040 0 
+0 238562
+0 187440
+cob=(2)
+cfi=(18)
+cfn=(1470)
+calls=17040 0 
+0 255602
+0 93719
+cob=(2)
+cfi=(18)
+cfn=(1806)
+calls=8519 0 
+0 749672
+0 255602
+
+fn=(1540)
+0 180
+cob=(2)
+cfi=(18)
+cfn=(862)
+calls=36 0 
+0 288
+0 396
+cob=(2)
+cfi=(18)
+cfn=(1202)
+calls=36 0 
+0 3312
+0 144
+
+fn=(1550)
+0 170628
+
+fn=(1622)
+0 2266506
+
+fn=(1662)
+0 75012
+cob=(2)
+cfi=(18)
+cfn=(1664)
+calls=25004 0 
+0 6668894
+
+fn=(1680)
+0 288048
+cob=(2)
+cfi=(18)
+cfn=(1618)
+calls=18003 0 
+0 432072
+0 360060
+cfn=(1682) std::num_put<char, std::ostreambuf_iterator<char, std::char_traits<char> > >::do_put(std::ostreambuf_iterator<char, std::char_traits<char> >, std::ios_base&, char, double) const
+calls=18003 0 
+0 46853679
+0 72012
+cob=(2)
+cfi=(18)
+cfn=(1636)
+calls=18003 0 
+0 162027
+0 198033
+
+fn=(1694)
+0 594099
+
+fn=(1800)
+0 76671
+cob=(2)
+cfi=(18)
+cfn=(1802)
+calls=8519 0 
+0 1356285
+0 93709
+
+fn=(1880)
+0 30
+cob=(2)
+cfi=(18)
+cfn=(1882)
+calls=5 0 
+0 3342
+
+fn=(528)
+0 10
+
+fn=(654)
+0 34
+
+fn=(818) std::locale::_Impl::_Impl(unsigned long)
+0 463
+cob=(2)
+cfi=(18)
+cfn=(820)
+calls=1 0 
+0 930
+0 7
+cob=(2)
+cfi=(18)
+cfn=(826)
+calls=1 0 
+0 4064
+0 4
+cob=(2)
+cfi=(18)
+cfn=(856)
+calls=1 0 
+0 2306
+0 3
+cob=(2)
+cfi=(18)
+cfn=(868)
+calls=1 0 
+0 936
+0 4
+cob=(2)
+cfi=(18)
+cfn=(856)
+calls=1 0 
+0 396
+0 23
+cob=(2)
+cfi=(18)
+cfn=(874)
+calls=1 0 
+0 1599
+0 4
+cob=(2)
+cfi=(18)
+cfn=(856)
+calls=1 0 
+0 396
+0 8
+cob=(2)
+cfi=(18)
+cfn=(856)
+calls=1 0 
+0 396
+0 8
+cob=(2)
+cfi=(18)
+cfn=(856)
+calls=1 0 
+0 396
+0 5
+cob=(2)
+cfi=(18)
+cfn=(832)
+calls=1 0 
+0 21
+0 5
+cob=(2)
+cfi=(18)
+cfn=(856)
+calls=1 0 
+0 396
+0 28
+cob=(2)
+cfi=(18)
+cfn=(880)
+calls=1 0 
+0 1378
+0 4
+cob=(2)
+cfi=(18)
+cfn=(856)
+calls=1 0 
+0 396
+0 28
+cob=(2)
+cfi=(18)
+cfn=(886)
+calls=1 0 
+0 1386
+0 4
+cob=(2)
+cfi=(18)
+cfn=(856)
+calls=1 0 
+0 396
+0 8
+cob=(2)
+cfi=(18)
+cfn=(856)
+calls=1 0 
+0 396
+0 8
+cob=(2)
+cfi=(18)
+cfn=(856)
+calls=1 0 
+0 396
+0 56
+cob=(2)
+cfi=(18)
+cfn=(892)
+calls=1 0 
+0 2316
+0 4
+cob=(2)
+cfi=(18)
+cfn=(856)
+calls=1 0 
+0 396
+0 8
+cob=(2)
+cfi=(18)
+cfn=(856)
+calls=1 0 
+0 396
+0 8
+cob=(2)
+cfi=(18)
+cfn=(856)
+calls=1 0 
+0 396
+0 3
+cob=(2)
+cfi=(18)
+cfn=(904)
+calls=1 0 
+0 894
+0 4
+cob=(2)
+cfi=(18)
+cfn=(856)
+calls=1 0 
+0 396
+0 3
+cob=(2)
+cfi=(18)
+cfn=(910)
+calls=1 0 
+0 27707
+0 4
+cob=(2)
+cfi=(18)
+cfn=(856)
+calls=1 0 
+0 396
+0 3
+cob=(2)
+cfi=(18)
+cfn=(966)
+calls=1 0 
+0 936
+0 4
+cob=(2)
+cfi=(18)
+cfn=(856)
+calls=1 0 
+0 396
+0 22
+cob=(2)
+cfi=(18)
+cfn=(972)
+calls=1 0 
+0 1518
+0 4
+cob=(2)
+cfi=(18)
+cfn=(856)
+calls=1 0 
+0 396
+0 8
+cob=(2)
+cfi=(18)
+cfn=(856)
+calls=1 0 
+0 396
+0 8
+cob=(2)
+cfi=(18)
+cfn=(856)
+calls=1 0 
+0 396
+0 5
+cob=(2)
+cfi=(18)
+cfn=(832)
+calls=1 0 
+0 21
+0 5
+cob=(2)
+cfi=(18)
+cfn=(856)
+calls=1 0 
+0 396
+0 27
+cob=(2)
+cfi=(18)
+cfn=(978)
+calls=1 0 
+0 1398
+0 4
+cob=(2)
+cfi=(18)
+cfn=(856)
+calls=1 0 
+0 396
+0 27
+cob=(2)
+cfi=(18)
+cfn=(984)
+calls=1 0 
+0 1366
+0 4
+cob=(2)
+cfi=(18)
+cfn=(856)
+calls=1 0 
+0 396
+0 8
+cob=(2)
+cfi=(18)
+cfn=(856)
+calls=1 0 
+0 396
+0 8
+cob=(2)
+cfi=(18)
+cfn=(856)
+calls=1 0 
+0 396
+0 56
+cob=(2)
+cfi=(18)
+cfn=(990)
+calls=1 0 
+0 2383
+0 4
+cob=(2)
+cfi=(18)
+cfn=(856)
+calls=1 0 
+0 396
+0 8
+cob=(2)
+cfi=(18)
+cfn=(856)
+calls=1 0 
+0 396
+0 8
+cob=(2)
+cfi=(18)
+cfn=(856)
+calls=1 0 
+0 396
+0 3
+cob=(2)
+cfi=(18)
+cfn=(1002)
+calls=1 0 
+0 894
+0 4
+cob=(2)
+cfi=(18)
+cfn=(856)
+calls=1 0 
+0 396
+0 8
+cob=(2)
+cfi=(18)
+cfn=(856)
+calls=1 0 
+0 396
+0 8
+cob=(2)
+cfi=(18)
+cfn=(856)
+calls=1 0 
+0 396
+0 8
+cob=(2)
+cfi=(18)
+cfn=(856)
+calls=1 0 
+0 396
+0 8
+cob=(2)
+cfi=(18)
+cfn=(856)
+calls=1 0 
+0 396
+0 10
+cfn=(1008)
+calls=1 0 
+0 10582
+0 4
+cob=(2)
+cfi=(18)
+cfn=(862)
+calls=1 0 
+0 8
+0 5
+cob=(2)
+cfi=(18)
+cfn=(862)
+calls=1 0 
+0 8
+0 4
+cob=(2)
+cfi=(18)
+cfn=(862)
+calls=1 0 
+0 8
+0 4
+cob=(2)
+cfi=(18)
+cfn=(862)
+calls=1 0 
+0 8
+0 5
+cob=(2)
+cfi=(18)
+cfn=(862)
+calls=1 0 
+0 8
+0 4
+cob=(2)
+cfi=(18)
+cfn=(862)
+calls=1 0 
+0 8
+0 4
+cob=(2)
+cfi=(18)
+cfn=(862)
+calls=1 0 
+0 8
+0 5
+cob=(2)
+cfi=(18)
+cfn=(862)
+calls=1 0 
+0 8
+0 13
+
+fn=(884) std::__cxx11::moneypunct<char, false>::_M_initialize_moneypunct(__locale_struct*, char const*)
+0 113
+
+fn=(890) std::__cxx11::moneypunct<char, true>::_M_initialize_moneypunct(__locale_struct*, char const*)
+0 113
+
+fn=(896) std::__timepunct<char>::__timepunct(std::__timepunct_cache<char>*, unsigned long)
+0 15
+cob=(2)
+cfi=(18)
+cfn=(820)
+calls=1 0 
+0 5
+0 4
+cob=(2)
+cfi=(18)
+cfn=(898)
+calls=1 0 
+0 1264
+0 4
+
+fn=(994) std::__timepunct<wchar_t>::__timepunct(std::__timepunct_cache<wchar_t>*, unsigned long)
+0 15
+cob=(2)
+cfi=(18)
+cfn=(820)
+calls=1 0 
+0 5
+0 4
+cob=(2)
+cfi=(18)
+cfn=(996)
+calls=1 0 
+0 1323
+0 4
+
+fn=(1000) std::__timepunct<wchar_t>::_M_initialize_timepunct(__locale_struct*)
+0 10
+cob=(2)
+cfi=(18)
+cfn=(832)
+calls=1 0 
+0 21
+0 94
+
+fn=(1188)
+0 1216
+
+fn=(1254)
+0 28
+cob=(2)
+cfi=(18)
+cfn=(1172)
+calls=4 0 
+0 412
+0 12
+cob=(2)
+cfi=(18)
+cfn=(1256)
+calls=4 0 
+0 11382
+0 52
+
+fn=(1316)
+0 272670
+cob=(2)
+cfi=(18)
+cfn=(1318)
+calls=17040 0 
+0 971740
+0 6
+cob=(2)
+cfi=(18)
+cfn=(1318)
+calls=3 0 
+0 1120
+
+fn=(1334)
+0 385412
+cob=(2)
+cfi=(18)
+cfn=(1336)
+calls=192706 0 
+0 22919579
+
+fn=(1528)
+0 144
+
+fn=(1606)
+0 59647
+
+fn=(1640)
+0 721161
+
+fn=(1670)
+0 1398102
+
+fn=(1682)
+0 72012
+cob=(2)
+cfi=(18)
+cfn=(1684)
+calls=18003 0 
+0 46781667
+
+fn=(1856)
+0 288
+cob=(2)
+cfi=(18)
+cfn=(1858)
+calls=36 0 
+0 1481
+0 72
+cob=(2)
+cfi=(18)
+cfn=(1864)
+calls=36 0 
+0 1481
+0 252
+cob=(2)
+cfi=(18)
+cfn=(1184)
+calls=36 0 
+0 360
+
+fn=(902) std::__timepunct<char>::_M_initialize_timepunct(__locale_struct*)
+0 11
+cob=(2)
+cfi=(18)
+cfn=(832)
+calls=1 0 
+0 21
+0 95
+
+fn=(950)
+0 96
+cob=(2)
+cfi=(18)
+cfn=(952)
+calls=1 0 
+0 671
+0 48
+cob=(2)
+cfi=(18)
+cfn=(952)
+calls=1 0 
+0 423
+0 8
+cob=(2)
+cfi=(18)
+cfn=(952)
+calls=1 0 
+0 547
+0 10
+cob=(2)
+cfi=(18)
+cfn=(952)
+calls=1 0 
+0 214
+0 4
+cob=(2)
+cfi=(18)
+cfn=(952)
+calls=1 0 
+0 272
+0 4
+cob=(2)
+cfi=(18)
+cfn=(952)
+calls=1 0 
+0 981
+0 4
+cob=(2)
+cfi=(18)
+cfn=(952)
+calls=1 0 
+0 613
+0 4
+cob=(2)
+cfi=(18)
+cfn=(952)
+calls=1 0 
+0 206
+0 4
+cob=(2)
+cfi=(18)
+cfn=(952)
+calls=1 0 
+0 357
+0 4
+cob=(2)
+cfi=(18)
+cfn=(952)
+calls=1 0 
+0 156
+0 5
+
+fn=(976) std::__cxx11::numpunct<wchar_t>::_M_initialize_numpunct(__locale_struct*)
+0 350
+
+fn=(982) std::__cxx11::moneypunct<wchar_t, false>::_M_initialize_moneypunct(__locale_struct*, char const*)
+0 109
+
+fn=(1044) std::moneypunct<char, true>::_M_initialize_moneypunct(__locale_struct*, char const*)
+0 113
+
+fn=(1098) std::moneypunct<wchar_t, false>::_M_initialize_moneypunct(__locale_struct*, char const*)
+0 109
+
+fn=(1242)
+0 380
+cob=(2)
+cfi=(18)
+cfn=(862)
+calls=76 0 
+0 608
+0 912
+cob=(2)
+cfi=(18)
+cfn=(1202)
+calls=76 0 
+0 6992
+0 380
+
+fn=(1534)
+0 180
+cob=(2)
+cfi=(18)
+cfn=(862)
+calls=36 0 
+0 288
+0 432
+cob=(2)
+cfi=(18)
+cfn=(1202)
+calls=36 0 
+0 3312
+0 180
+
+fn=(1558)
+0 76689
+
+fn=(1748)
+0 102468
+cob=(2)
+cfi=(18)
+cfn=(1546)
+calls=8539 0 
+0 51234
+0 42635
+cob=(2)
+cfi=(18)
+cfn=(1750)
+calls=8519 0 
+0 1783272
+0 42595
+cob=(2)
+cfi=(18)
+cfn=(1796)
+calls=8519 0 
+0 1544909
+0 127785
+cob=(2)
+cfi=(18)
+cfn=(1810)
+calls=8519 0 
+0 3801196
+0 110947
+
+fn=(1862)
+0 396
+
+fn=(1944)
+0 25500
+cob=(2)
+cfi=(18)
+cfn=(1946)
+calls=8500 0 
+0 2185088
+
+fn=(1950)
+0 170000
+cob=(2)
+cfi=(18)
+cfn=(862)
+calls=8500 0 
+0 68000
+0 280500
+cfn=(1670)
+calls=8500 0 
+0 415820
+0 204000
+cfn=(1624)
+calls=8500 0 
+0 883830
+0 144500
+
+fn=(648)
+0 52
+
+fn=(878) std::__cxx11::numpunct<char>::_M_initialize_numpunct(__locale_struct*)
+0 414
+
+fn=(920) std::ctype<wchar_t>::_M_initialize_ctype()
+0 9
+cob=(2)
+cfi=(18)
+cfn=(922)
+calls=1 0 
+0 954
+0 771
+cob=(2)
+cfi=(18)
+cfn=(928)
+calls=128 0 
+0 3967
+0 260
+cob=(2)
+cfi=(18)
+cfn=(934)
+calls=1 0 
+0 840
+0 510
+cob=(2)
+cfi=(18)
+cfn=(934)
+calls=255 0 
+0 11875
+0 1067
+cob=(2)
+cfi=(18)
+cfn=(946)
+calls=8 0 
+0 3680
+0 95
+cob=(2)
+cfi=(18)
+cfn=(946)
+calls=4 0 
+0 1910
+0 14
+cob=(2)
+cfi=(18)
+cfn=(922)
+calls=1 0 
+0 24
+0 8
+
+fn=(988) std::__cxx11::moneypunct<wchar_t, true>::_M_initialize_moneypunct(__locale_struct*, char const*)
+0 109
+
+fn=(1164)
+0 2596
+cob=(2)
+cfi=(18)
+cfn=(792)
+calls=44 0 
+0 1892
+
+fn=(1228)
+0 380
+cob=(2)
+cfi=(18)
+cfn=(862)
+calls=76 0 
+0 608
+0 912
+cob=(2)
+cfi=(18)
+cfn=(1202)
+calls=76 0 
+0 6992
+0 380
+
+fn=(1248)
+0 380
+cob=(2)
+cfi=(18)
+cfn=(862)
+calls=76 0 
+0 608
+0 836
+cob=(2)
+cfi=(18)
+cfn=(1202)
+calls=76 0 
+0 6992
+0 304
+
+fn=(1468)
+0 400457
+cob=(2)
+cfi=(18)
+cfn=(1470)
+calls=8521 0 
+0 145824
+0 289688
+cob=(2)
+cfi=(18)
+cfn=(1506)
+calls=17040 0 
+0 3819691
+0 51126
+
+fn=(1544)
+0 127815
+cob=(2)
+cfi=(18)
+cfn=(1546)
+calls=8521 0 
+0 52013
+0 59647
+cob=(2)
+cfi=(18)
+cfn=(1552)
+calls=8521 0 
+0 4696890
+0 17042
+cob=(2)
+cfi=(18)
+cfn=(1546)
+calls=8521 0 
+0 51126
+0 34080
+cob=(2)
+cfi=(18)
+cfn=(1594)
+calls=8519 0 
+0 3234737
+0 221514
+
+fn=(1656) std::ctype<char>::_M_widen_init() const
+0 1077
+cob=(2)
+cfi=(18)
+cfn=(1658)
+calls=1 0 
+0 883
+0 10
+
+fn=(1696)
+0 468078
+cob=(2)
+cfi=(18)
+cfn=(922)
+calls=18003 0 
+0 432072
+0 216036
+cob=(2)
+cfi=(18)
+cfn=(1702)
+calls=18003 0 
+0 35360435
+0 54009
+cob=(2)
+cfi=(18)
+cfn=(922)
+calls=18003 0 
+0 432072
+0 180030
+
+fn=(1804)
+0 17038
+cob=(2)
+cfi=(18)
+cfn=(1806)
+calls=8519 0 
+0 1322209
+
+fn=(1814)
+0 34220
+cob=(2)
+cfi=(18)
+cfn=(1546)
+calls=8555 0 
+0 51330
+0 51186
+cob=(2)
+cfi=(18)
+cfn=(1816)
+calls=8519 0 
+0 3595869
+0 51222
+
+fn=(1872)
+0 22
+cob=(2)
+cfi=(18)
+cfn=(1874)
+calls=2 0 
+0 930
+0 18
+cob=(2)
+cfi=(18)
+cfn=(1658)
+calls=2 0 
+0 46
+0 30
+
+fn=(650)
+0 6
+cob=(2)
+cfi=(18)
+cfn=(532)
+calls=1 0 
+0 74
+0 5
+cob=(2)
+cfi=(18)
+cfn=(532)
+calls=1 0 
+0 74
+
+fn=(742)
+0 6
+cob=(2)
+cfi=(18)
+cfn=(532)
+calls=1 0 
+0 74
+0 4
+cob=(2)
+cfi=(18)
+cfn=(532)
+calls=1 0 
+0 74
+0 5
+cob=(2)
+cfi=(18)
+cfn=(532)
+calls=1 0 
+0 74
+
+fn=(796)
+0 1494
+cfn=(798)
+calls=166 0 
+0 80897
+0 1992
+
+fn=(860)
+0 448
+cob=(2)
+cfi=(18)
+cfn=(862)
+calls=32 0 
+0 1319
+0 11648
+
+fn=(866)
+0 421128
+
+fn=(872) std::codecvt<char, char, __mbstate_t>::codecvt(unsigned long)
+0 13
+cob=(2)
+cfi=(18)
+cfn=(832)
+calls=1 0 
+0 21
+0 5
+
+fn=(908) std::__cxx11::messages<char>::messages(unsigned long)
+0 13
+cob=(2)
+cfi=(18)
+cfn=(832)
+calls=1 0 
+0 21
+0 2
+cob=(2)
+cfi=(18)
+cfn=(820)
+calls=1 0 
+0 5
+0 5
+
+fn=(1278)
+0 20
+cob=(2)
+cfi=(18)
+cfn=(862)
+calls=4 0 
+0 32
+0 48
+cob=(2)
+cfi=(18)
+cfn=(1202)
+calls=4 0 
+0 368
+0 20
+
+fn=(1464)
+0 31
+
+fn=(1598)
+0 76671
+cob=(2)
+cfi=(18)
+cfn=(1600)
+calls=8519 0 
+0 3105725
+0 34076
+
+fn=(1644)
+0 275044
+cob=(2)
+cfi=(18)
+cfn=(1646)
+calls=25004 0 
+0 8948157
+
+fn=(1850)
+0 72
+cob=(2)
+cfi=(18)
+cfn=(1810)
+calls=36 0 
+0 612
+
+ob=(6)
+fl=(143)
+fn=(454)
+0 11
+
+totals: 23474633201
