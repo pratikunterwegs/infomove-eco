@@ -24,10 +24,11 @@ std::vector<agent> evolve_pop_no_M(std::vector<agent> &pop,
     auto t1 = std::chrono::high_resolution_clock::now();
     // run over n agents
     for (int gen = 0; gen < genmax; gen++) {
-        // shuffle population once per gen
-        shufflePopSeq(pop);
+
         // loop through timesteps
         for (int t = 0; t < timesteps; t++) {
+            // shuffle population once per gen
+            shufflePopSeq(pop);
             doFollowDynamic(pop, leader_choices);
             do_foraging_dynamic(landscape, pop);
 
@@ -68,10 +69,11 @@ std::vector<agent> evolve_pop_no_info(std::vector<agent> &pop,
     auto t1 = std::chrono::high_resolution_clock::now();
     // run over n agents
     for (int gen = 0; gen < genmax; gen++) {
-        // shuffle population once per gen
-        shufflePopSeq(pop);
+
         // loop through timesteps
         for (int t = 0; t < timesteps; t++) {
+            // shuffle population once per gen
+            shufflePopSeq(pop);
             do_move_noinfo(pop);
             do_foraging_dynamic(landscape, pop);
             // print agents at certain time steps{
