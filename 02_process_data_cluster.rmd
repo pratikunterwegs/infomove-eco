@@ -23,9 +23,22 @@ library(ggplot2)
 library(patchwork)
 
 # function for prob follow
-deltaq = seq(-10, 10, 1)
+deltaq = seq(-1, 1, 0.2)
 prob_follow <- function(a,b,q = deltaq){1 / (1 + exp(-b*q -a))}
 ```
+
+## Get data from cluster
+
+```{r get_data_cluster, eval=FALSE}
+# use infomover
+library(infomover)
+password = read_lines("private/password.txt")
+get_summary(ssh_con = "p284074@peregrine.hpc.rug.nl",
+            password = password,
+            type = c("all"))
+
+```
+
 
 ## Plot parameter means over time
 
@@ -125,10 +138,15 @@ data <- map(data, function(df){
   df <- split(df, df$phi) %>% 
     map(function(df2){split(df2, df2$leader_choices) %>% 
         map(function(df3){
-          df3 <- select(df3, type, phi, leader_choices, rep, gen, mean_a, mean_b) %>% 
-            filter(gen %% 2000 == 0) %>% 
-            mutate(resp = map2(mean_a, mean_b, function(a,b){
-              return(tibble(deltaq = deltaq, pf = prob_follow(a,b,deltaq)))
+          df3 <- select(df3, type, phi, leader_choices, 
+                        rep, gen, mean_a, mean_b, sd_a, sd_b) %>% 
+            filter(gen > 0 & gen %% 2000 == 0) %>% 
+            mutate(resp = pmap(list(mean_a, mean_b, sd_a, sd_b), 
+                               function(mean_a, mean_b, sd_a, sd_b){
+                                 return(tibble(deltaq = deltaq, 
+                                               pf = prob_follow(mean_a,mean_b,deltaq),
+                                               pf_low = prob_follow(mean_a-sd_a, mean_b-sd_b,deltaq),
+                                               pf_high = prob_follow(mean_a+sd_a, mean_b+sd_b,deltaq)))
             })) %>% 
             unnest(cols = resp)
         })})
@@ -149,8 +167,13 @@ walk2(data, c("info", "noinfo"), function(x,y){
       subtitle = glue::glue('leader choices: {name2}')
       
       fig_resp <- ggplot(df)+
-        geom_path(aes(deltaq, pf, group = rep, col = factor(rep)),size = 0.2)+
-        facet_wrap(~gen, ncol = 10)+
+        geom_ribbon(aes(x = deltaq, 
+                        ymin = pf_low, ymax = pf_high,
+                        group = rep),
+                    alpha = 0.2)+
+        geom_path(aes(deltaq, pf, group = rep),
+                  col = "black", size = 0.2)+
+        facet_wrap(~gen, ncol = 8)+
         scale_colour_brewer(palette = "Set1")+
         scale_x_continuous(breaks = c(-10, 0, 10))+
         scale_y_continuous(breaks = c(0, 0.5, 1))+
