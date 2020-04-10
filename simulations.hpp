@@ -134,7 +134,7 @@ std::vector<agent> evolve_pop_no_info(std::vector<agent> &pop,
         if((gen == 0) || (gen % epoch == 0) || (gen == genmax -1)){
             print_agent_summary(pop, gen, output_path);
         }
-        do_reprod(pop, false); // do no evolve M
+        do_reprod(pop, true); // do no evolve M
     }
     auto t2 = std::chrono::high_resolution_clock::now();
     auto duration = std::chrono::duration_cast<std::chrono::microseconds>( t2 - t1 ).count();
@@ -171,7 +171,7 @@ void do_simulation(std::vector<std::string> cli_args){
 
     if(type == "info"){
 
-        evolve_pop_no_M(pop, genmax, timesteps, PHI, RHO, leader_choices,
+        evolve_pop_yes_M(pop, genmax, timesteps, PHI, RHO, leader_choices,
                         landscape_, output_path);
     }
     else{
