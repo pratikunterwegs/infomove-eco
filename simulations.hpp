@@ -56,6 +56,51 @@ std::vector<agent> evolve_pop_no_M(std::vector<agent> &pop,
     return pop;
 }
 
+/// function to evolve population
+std::vector<agent> evolve_pop_yes_M(std::vector<agent> &pop,
+                                   const int genmax, const int timesteps,
+                                   const int PHI, const float RHO,
+                                   const int leader_choices,
+                                   landscape& landscape,
+                                   std::vector<std::string> output_path)
+{
+
+    std::cout << "evolving on PHI = " << PHI << " RHO = " << RHO << "\n";
+    auto t1 = std::chrono::high_resolution_clock::now();
+    // run over n agents
+    for (int gen = 0; gen < genmax; gen++) {
+
+        // loop through timesteps
+        for (int t = 0; t < timesteps; t++) {
+            // shuffle population once per gen
+            shufflePopSeq(pop);
+            doFollowDynamic(pop, leader_choices);
+            do_foraging_dynamic(landscape, pop);
+
+            // print agents at certain time steps{
+            if((gen == 0) || (gen % epoch == 0) || (gen == genmax - 1))
+            {
+                if((t < 5) || (t >= 50 && t <= 55) ||
+                        (t >= 95)){
+                    print_agent_data(pop, gen, t, output_path);
+                }
+            }
+
+            landscape.doMakeFood(PHI, RHO); // landscape replenish
+        }
+        if((gen == 0) || (gen % epoch == 0) || (gen == genmax - 1)){
+            print_agent_summary(pop, gen, output_path);
+        }
+
+        do_reprod(pop, true); // do no evolve M
+    }
+    auto t2 = std::chrono::high_resolution_clock::now();
+    auto duration = std::chrono::duration_cast<std::chrono::microseconds>( t2 - t1 ).count();
+    std::cout << "pop evolve time: " << duration << "\n";
+
+    return pop;
+}
+
 /// simulation without any following dynamic
 /// function to evolve population
 std::vector<agent> evolve_pop_no_info(std::vector<agent> &pop,
