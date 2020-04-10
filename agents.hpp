@@ -216,7 +216,7 @@ void do_reprod(std::vector<agent>& pop, bool evolve_m)
                 }
                 // arbit brake on M = 100
                 if(tmp_pop[ind_2].M >= 100){
-                    tmp_pop[ind2].M = 100;
+                    tmp_pop[ind_2].M = 100;
                 }
             }
         }
