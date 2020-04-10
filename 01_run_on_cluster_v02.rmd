@@ -18,7 +18,8 @@ library(glue)
 
 ## Prepare infomove v02 on Peregrine
 
-Check out the _few_leaders_ branch on the cluster.
+Leader choice limits are now included in the master branch.
+D is not allowed to evolve, and is forced to 1.0 to promote switching/following.
 
 ```{r prepare_infomove_v02, eval=FALSE}
 # read peregrine password
@@ -33,7 +34,7 @@ ssh_exec_wait(s, command = c("cd infomove/",
                              "rm *.out",
                              "cd ..",
                              "git pull",
-                             "git checkout few_leaders", # checkout the few leaders branch
+                             "git checkout master", # checkout master branch
                              "ml load GCC/8.3.0",
                              "ml load GSL/2.6-GCC-8.3.0",
                              "qmake infomove.pro",
