@@ -93,7 +93,7 @@ void print_agent_data(std::vector<agent> &pop,
     if(!f.good()){
         agent_pos_ofs.open(output_path[0] + "/agent_pos/" + output_path[1] + ".csv",
                 std::ofstream::out);
-        agent_pos_ofs << "gen,time,id,pos,F,energy\n";
+        agent_pos_ofs << "gen,time,id,pos,pf,energy\n";
         agent_pos_ofs.close();
     }
     for (size_t i = 0; i < pop.size(); i++) {
@@ -121,7 +121,7 @@ void print_agent_summary(std::vector<agent> &pop,
     if(!f.good()){
         agent_summary_ofs.open(output_path[0] + "/agent_summary/" + output_path[1] + ".csv",
                 std::ofstream::out);
-        agent_summary_ofs << "gen,id,D,M,a,b,F\n";
+        agent_summary_ofs << "gen,id,D,M,a,b,pf\n";
         agent_summary_ofs.close();
     }
 
