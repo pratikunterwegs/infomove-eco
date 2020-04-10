@@ -214,6 +214,10 @@ void do_reprod(std::vector<agent>& pop, bool evolve_m)
                 if (tmp_pop[ind_2].M < 0) {
                     tmp_pop[ind_2].M = 0;
                 }
+                // arbit brake on M = 100
+                if(tmp_pop[ind_2].M >= 100){
+                    tmp_pop[ind2].M = 100;
+                }
             }
         }
         // mutate a
