@@ -3,7 +3,7 @@ editor_options:
   chunk_output_type: console
 ---
 
-# Heatmaps evolved parameters
+# Plot parameter combinations
 
 Visualise the evolved parameters in increments of 1000 generations as heatmaps.
 
@@ -55,7 +55,6 @@ walk2(data, c("info", "noinfo"), function(x,y){
   
   a_fig = map2(x, names(x), function(df_list, name){
     title = glue::glue('Φ (number of peaks): {name}, simulation type: {y}')
-    
     fig_subpanel <- map2(df_list, names(df_list), function(df, name2){
       
       subtitle = glue::glue('leader choices: {name2}')

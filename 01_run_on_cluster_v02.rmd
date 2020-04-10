@@ -3,7 +3,7 @@ editor_options:
   chunk_output_type: console
 ---
 
-# Run an infomove variant on the cluster
+# Run Infomove on the cluster
 
 ## Prepare libraries
 

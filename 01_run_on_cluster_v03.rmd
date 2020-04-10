@@ -3,20 +3,26 @@ editor_options:
   chunk_output_type: console
 ---
 
-# Run infomove on cluster
+# Run an Infomove variant on the cluster
+
+In this version, the evolved parameter D (aspiration) is also allowed to evolve.
 
 ## Prepare libraries
 
-```{r load_libs, eval=FALSE}
+Libs remain the same in R.
+
+```{r load_libs_v02, eval=FALSE}
 # load libs
 library(tidyverse)
 library(ssh)
 library(glue)
 ```
 
-## Prepare infomove on Peregrine
+## Prepare infomove v02 on Peregrine
 
-```{r prepare_infomove, eval=FALSE}
+Check out the _allow_D_ branch on the cluster.
+
+```{r prepare_infomove_v02, eval=FALSE}
 # read peregrine password
 password = read_lines("private/password.txt")
 
@@ -29,6 +35,7 @@ ssh_exec_wait(s, command = c("cd infomove/",
                              "rm *.out",
                              "cd ..",
                              "git pull",
+                             "git checkout allow_D", # checkout the allow_D branch
                              "ml load GCC/8.3.0",
                              "ml load GSL/2.6-GCC-8.3.0",
                              "qmake infomove.pro",
@@ -52,29 +59,30 @@ ssh_exec_wait(s, command = c("cd infomove/",
 shebang <- readLines("code_analysis/template_job.sh")
 
 {
-  type = c("noinfo", "info")
+  type = c("info")
   phi = c(5, 25, 50, 100)
   rho = 0.1
-  gens = "100000"
+  gens = "50000" # a test case
   timesteps = 100
-  init_d = c(1.0)
+  init_d = c(0.5) # D init at 0.5, unlike 1.0 to force following/switching
   n_lead = c(1,2,5)
   replicate = 1:5
 }
 
-sim_params <- crossing(type, phi, rho, gens, timesteps, init_d, replicate)
+sim_params <- crossing(type, phi, rho, gens, timesteps, init_d, n_lead, replicate)
 
 # send commands
-pwalk(sim_params, function(type, phi, rho, gens, timesteps, init_d, replicate){
+pwalk(sim_params, function(type, phi, rho, gens, timesteps,
+                           init_d, n_lead, replicate){
 
   if(!dir.exists("jobs")){
     dir.create("jobs")
   }
 
-  shebang[2] <- glue('#SBATCH --job-name=run_infomove_type-{type}_phi{phi}_rho{rho}_time{timesteps}_init_d{init_d}_rep{replicate}')
+  shebang[2] <- glue('#SBATCH --job-name=run_infomove_type-{type}_phi{phi}_nlead{n_lead}_rep{replicate}')
   {
-    command <- glue('./infomove {type} {phi} {rho} {gens} {timesteps} {init_d} {replicate}')
-    jobfile <- glue('job_infomove_type{type}_phi{phi}_rho{rho}_time{timesteps}_init_d{init_d}_rep{replicate}.sh')
+    command <- glue('./infomove {type} {phi} {rho} {gens} {timesteps} {init_d} {n_lead} {replicate}')
+    jobfile <- glue('job_infomove_type{type}_phi{phi}_nlead{n_lead}_rep{replicate}.sh')
 
     writeLines(c(shebang, command), con = glue('jobs/{jobfile}'))
     scp_upload(s, glue('jobs/{jobfile}'), to = "infomove/jobs/")
@@ -90,10 +98,8 @@ pwalk(sim_params, function(type, phi, rho, gens, timesteps, init_d, replicate){
 
 ```{r}
 # move into jobs, delete scripts and disconnect
-ssh_exec_wait(s, command = c("mv slurm* jobs",
-                             "cd infomove/jobs",
+ssh_exec_wait(s, command = c("cd infomove/jobs",
                              "rm *.sh *.out",
-                             "mv data/*.csv ../data",
                              "cd .."))
 ssh_disconnect(s)
 ```
