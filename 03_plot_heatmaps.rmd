@@ -36,7 +36,7 @@ data <- map(data_files, read_csv)
 
 # split data
 data <- map(data, function(df){
-  df <- filter(df, variable %in% c("a", "b", "F"),
+  df <- filter(df, variable %in% c("a", "b", "D", "pf"),
                gen %% 4000 == 0)
   df <- split(df, df$phi) %>% 
     map(function(df2){split(df2, df2$leader_choices)})
@@ -90,7 +90,7 @@ walk2(data, c("info", "noinfo"), function(x,y){
     
     return(fig_param)
   })
-  cairo_pdf(file = glue('figs/fig_v2_{y}_param_count.pdf'), width = 10, height = 3,
+  cairo_pdf(file = glue('figs/fig_v3_{y}_param_count.pdf'), width = 10, height = 3,
             onefile = TRUE)
   {
     print(a_fig)

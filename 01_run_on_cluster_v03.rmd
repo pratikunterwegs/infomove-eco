@@ -59,7 +59,7 @@ ssh_exec_wait(s, command = c("cd infomove/",
 shebang <- readLines("code_analysis/template_job.sh")
 
 {
-  type = c("info")
+  type = c("noinfo")
   phi = c(5, 25, 50, 100)
   rho = 0.1
   gens = "50000" # a test case

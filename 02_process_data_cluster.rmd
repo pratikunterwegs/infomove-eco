@@ -108,7 +108,7 @@ walk2(data, c("info", "noinfo"), function(x,y){
     
     return(fig_param)
   })
-  cairo_pdf(file = glue('figs/fig_v2_{y}_param_trajectory.pdf'), width = 10, height = 3,
+  cairo_pdf(file = glue('figs/fig_v3_{y}_param_trajectory.pdf'), width = 10, height = 3,
             onefile = TRUE)
   {
     print(a_fig)
@@ -167,14 +167,15 @@ walk2(data, c("info", "noinfo"), function(x,y){
       subtitle = glue::glue('leader choices: {name2}')
       
       fig_resp <- ggplot(df)+
+        geom_vline(xintercept = 0, lwd = 0.1, lty = 3)+
         geom_ribbon(aes(x = deltaq, 
                         ymin = pf_low, ymax = pf_high,
                         group = rep),
                     alpha = 0.2)+
-        geom_path(aes(deltaq, pf, group = rep),
-                  col = "black", size = 0.2)+
+        geom_path(aes(deltaq, pf, group = rep,
+                      col = deltaq < 0), size = 0.1)+
         facet_wrap(~gen, ncol = 8)+
-        scale_colour_brewer(palette = "Set1")+
+        scale_colour_brewer(palette = "Set1", direction = -1)+
         scale_x_continuous(breaks = c(-10, 0, 10))+
         scale_y_continuous(breaks = c(0, 0.5, 1))+
         coord_cartesian(ylim = c(0,1), expand = T)+
@@ -196,7 +197,7 @@ walk2(data, c("info", "noinfo"), function(x,y){
     
     return(fig_param)
   })
-  cairo_pdf(file = glue('figs/fig_v2_{y}_follow_prob.pdf'), width = 10, height = 3,
+  cairo_pdf(file = glue('figs/fig_v3_{y}_follow_prob.pdf'), width = 10, height = 3,
             onefile = TRUE)
   {
     print(a_fig)
