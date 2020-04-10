@@ -1,0 +1,101 @@
+---
+editor_options:
+  chunk_output_type: console
+---
+
+# Heatmaps evolved parameters
+
+Visualise the evolved parameters in increments of 1000 generations as heatmaps.
+
+## Load libraries 
+
+```{r load_libs_counts, eval=FALSE}
+# data libraries
+library(readr)
+library(dplyr)
+library(purrr)
+library(glue)
+library(tidyr)
+
+# plotting
+library(ggplot2)
+library(patchwork)
+library(scico)
+```
+
+## Plot parameter counts over time
+
+### Read data
+
+```{r load_counts, eval=FALSE}
+# find data
+data_files <- list.files("data", pattern = "data_global_counts",
+                         recursive = TRUE, full.names = TRUE)
+# read data
+data <- map(data_files, read_csv)
+
+# split data
+data <- map(data, function(df){
+  df <- filter(df, variable %in% c("a", "b", "F"),
+               gen %% 4000 == 0)
+  df <- split(df, df$phi) %>% 
+    map(function(df2){split(df2, df2$leader_choices)})
+})
+```
+
+### Plot data
+
+```{r plot_counts, eval=FALSE}
+# plot as heatmap
+walk2(data, c("info", "noinfo"), function(x,y){
+  
+  a_fig = map2(x, names(x), function(df_list, name){
+    title = glue::glue('Φ (number of peaks): {name}, simulation type: {y}')
+    
+    fig_subpanel <- map2(df_list, names(df_list), function(df, name2){
+      
+      subtitle = glue::glue('leader choices: {name2}')
+      
+      fig_param <- ggplot(data = df, 
+                          aes(x=gen, y=round_value, 
+                              fill=count))+
+        geom_hline(yintercept = c(0,1), size = 0.1, col = "grey",
+                   lty = 3)+
+        geom_tile()+
+        scale_fill_viridis_c(option = "E", limits = c(0, 250),
+                              na.value = "indianred1", direction = 1)+
+        scale_x_continuous(breaks = c(0,50000,100000),
+                           labels = as.character(c(0, 50, 100)))+
+        # scale_y_continuous(breaks = c(0,0.5,1),
+        #                    labels = c(0, 0.5, 1))+
+        theme_grey(base_size = 5)+
+        theme(plot.background = element_rect(colour = "black", fill=NA,
+                                             size = 0.2),
+              panel.border = element_rect(colour = "black", fill=NA,
+                                          size = 0.2),
+              panel.grid = element_blank(),
+              axis.title = element_text(),
+              # plot.title = element_text(face = "bold"),
+              legend.position = "right",
+              legend.key.width = unit(1, "mm"),
+              axis.text.y = element_text(angle = 0))+
+        # coord_cartesian(expand = T, ylim =c(0,1))+
+        facet_grid(variable~rep,labeller = label_both,
+                   scales = "free_y")+
+        labs(x = NULL, y = NULL, title = subtitle)
+    })
+    fig_param <- wrap_plots(fig_subpanel, guides = "collect", ncol = 3)+
+      plot_annotation(title = title,
+                      theme = theme(plot.title = element_text(size = 6)))
+    
+    return(fig_param)
+  })
+  cairo_pdf(file = glue('figs/fig_v2_{y}_param_count.pdf'), width = 10, height = 3,
+            onefile = TRUE)
+  {
+    print(a_fig)
+  }
+  dev.off()
+})
+```
+

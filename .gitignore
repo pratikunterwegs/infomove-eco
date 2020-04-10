@@ -49,6 +49,7 @@ Debug/
 # pdfs
 *.pdf
 *.docx
+figs/
 
 # pycharm files - let them be
 
