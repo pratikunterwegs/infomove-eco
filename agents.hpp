@@ -21,7 +21,7 @@ public:
         // heritable params for interaction follow botero et al. 2010
         a(0.f), // inflection point
         b(0.f), // slope for difference in quality
-        pos(0), M(2), D(0.5), // vector position, exploration range, giving up density
+        Mf(2.f), pos(0), M(2), D(0.5), // vector position, exploration range, giving up density
         energy(0.000001f),
         mem_energy(0.f),
         prop_follow(0.f)
@@ -29,7 +29,7 @@ public:
     ~agent() {}
 
     // agents need a brain, an age, fitness, and movement decision
-    float a, b;
+    float a, b, Mf;
     int pos, M; float D;
     float energy, mem_energy, prop_follow;
     int id_self, id_leader, follow_instances, total_distance;
@@ -189,7 +189,7 @@ void do_reprod(std::vector<agent>& pop, bool evolve_m)
         // inherit giving up density parameter
         tmp_pop[ind_2].D = pop[parent_id].D;
         // inherit exploration parameter
-        tmp_pop[ind_2].M = pop[parent_id].M;
+        tmp_pop[ind_2].Mf = pop[parent_id].Mf;
 
         // mutate giving up density parameter
         {
@@ -220,6 +220,8 @@ void do_reprod(std::vector<agent>& pop, bool evolve_m)
                 }
             }
         }
+        // change M as int cast of Mf
+        tmp_pop[ind_2].M = static_cast<int>(tmp_pop[ind_2].Mf);
         // mutate a
         {
             if (gsl_ran_bernoulli(r, static_cast<double>(m_prob)) == 1)
