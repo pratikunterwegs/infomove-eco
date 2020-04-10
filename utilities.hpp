@@ -37,6 +37,7 @@ std::vector<std::string> identify_outfile(const std::string type,
                              const int phi, const float rho,
                              const int timesteps,
                              const float init_d,
+                             const int leader_choices,
                              const std::string rep){
     // assumes path/type already prepared
     std::string path = "data/" + type;
@@ -63,7 +64,7 @@ std::vector<std::string> identify_outfile(const std::string type,
     std::ifstream f2(summary_out.c_str());
     if(!f2.good()){
         summary_ofs.open(summary_out, std::ofstream::out);
-        summary_ofs << "filename,type,phi,rho,timesteps,init_d,rep\n";
+        summary_ofs << "filename,type,phi,rho,timesteps,init_d,leader_choices,rep\n";
         summary_ofs.close();
     }
     // append if not
@@ -74,6 +75,7 @@ std::vector<std::string> identify_outfile(const std::string type,
                 << rho << ","
                 << timesteps << ","
                 << init_d << ","
+                << leader_choices << ","
                 << rep << "\n";
     summary_ofs.close();
 
@@ -91,7 +93,7 @@ void print_agent_data(std::vector<agent> &pop,
     if(!f.good()){
         agent_pos_ofs.open(output_path[0] + "/agent_pos/" + output_path[1] + ".csv",
                 std::ofstream::out);
-        agent_pos_ofs << "gen,time,id,pos,F,energy\n";
+        agent_pos_ofs << "gen,time,id,pos,pf,energy\n";
         agent_pos_ofs.close();
     }
     for (size_t i = 0; i < pop.size(); i++) {
@@ -119,7 +121,7 @@ void print_agent_summary(std::vector<agent> &pop,
     if(!f.good()){
         agent_summary_ofs.open(output_path[0] + "/agent_summary/" + output_path[1] + ".csv",
                 std::ofstream::out);
-        agent_summary_ofs << "gen,id,D,M,a,b,F\n";
+        agent_summary_ofs << "gen,id,D,M,a,b,pf\n";
         agent_summary_ofs.close();
     }
 

@@ -86,7 +86,7 @@ bool agent::chooseFollow(const agent& someagent)
 }
 
 /// function to assess remaining agents and shrink move queue
-void doFollowDynamic(std::vector<agent>& vecSomeAgents)
+void doFollowDynamic(std::vector<agent>& vecSomeAgents, const int leader_choices)
 {
     assert(vecSomeAgents.size() > 0 && "doFollowDynamic: moveQ is empty at start");
 
@@ -94,70 +94,37 @@ void doFollowDynamic(std::vector<agent>& vecSomeAgents)
     std::vector<agent> lead_q;
     std::vector<agent> follow_q = vecSomeAgents;
 
-    int ptl_followers = static_cast<int>(vecSomeAgents.size());
-    int ptl_leaders = 0;
 
-    int ind = ptl_followers - 1;
+    // for loop going over the ptl_followers in reverse
+    for (size_t ind = follow_q.size() - 1; static_cast<int>(ind) >= 0; ind --) {
+        bool follow_outcome = false;
 
-    while(ind >= 0) {
+        if(follow_q[ind].mem_energy < follow_q[ind].D){
 
-        // choose from among leaders if memory of last position is less than D
-        if(follow_q[static_cast<size_t>(ind)].mem_energy <
-                follow_q[static_cast<size_t>(ind)].D)
-        {
             // first pick a random position
             follow_q[static_cast<size_t>(ind)].pos =
                     static_cast<int>(gsl_rng_uniform_int(r, n_patches));
 
-            bool follow_outcome = false;
-            int ld = ptl_leaders - 1;
+            // loop over leaders and assess
+            for (size_t ld = lead_q.size() - 1;
+                 (static_cast<int>(ld) >= 0) &&
+                 static_cast<int>(ld) >= (static_cast<int>(lead_q.size()) - leader_choices);
+                 ld -- ) {
 
-            // choose a leader if available
-            if(ptl_leaders == 0){
+                follow_outcome = follow_q[ind].chooseFollow(lead_q[ld]);
 
-                lead_q.push_back(std::move(follow_q[static_cast<size_t>(ind)]));
-                follow_q.pop_back();
-                ind --;
-                ptl_leaders++;
-            }
-
-            // if there are fewer leaders than assessment allowed
-            else if(ptl_leaders < leader_choices){
-                while (ld >= 0 && follow_outcome == false) {
-                    follow_outcome = follow_q[static_cast<size_t>(ind)].chooseFollow(lead_q[static_cast<size_t>(ld)]);
-                    // move indiv from follow to lead
-                    if(follow_outcome){
-
-                        lead_q.push_back(std::move(follow_q[static_cast<size_t>(ind)]));
-                        follow_q.pop_back();
-                        ind --;
-                        ptl_leaders++;
-                    }
-                    ld --;
+                if(follow_outcome){
+                    break;
                 }
             }
 
-            else {
-
-                while(follow_outcome == false && ld > ptl_leaders - leader_choices){
-                    follow_outcome = follow_q[static_cast<size_t>(ind)].chooseFollow(lead_q[static_cast<size_t>(ld)]);
-
-                    if(follow_outcome){
-
-                        lead_q.push_back(std::move(follow_q[static_cast<size_t>(ind)]));
-                        follow_q.pop_back();
-                        ind --;
-                        ptl_leaders++;
-                    }
-                    ld --;
-                }
-            }
-        }
-        else {
-            lead_q.push_back(std::move(follow_q[static_cast<size_t>(ind)]));
+            // add agent to lead queue
+            lead_q.push_back(std::move(follow_q[ind]));
             follow_q.pop_back();
-            ind --;
-            ptl_leaders++;
+
+        } else {
+            lead_q.push_back(std::move(follow_q[ind]));
+            follow_q.pop_back();
         }
     }
     assert(lead_q.size() == vecSomeAgents.size() && "agents lost from q");
@@ -225,19 +192,19 @@ void do_reprod(std::vector<agent>& pop, bool evolve_m)
         tmp_pop[ind_2].M = pop[parent_id].M;
 
         // mutate giving up density parameter
-        {
-            // probabilistic mutation of giving up density
-            if (gsl_ran_bernoulli(r, static_cast<double>(m_prob)) == 1)
-            {
-                tmp_pop[ind_2].D += static_cast<float> (gsl_ran_cauchy(r, static_cast<double>(m_shift)));
-                if (tmp_pop[ind_2].D > 1.f) {
-                    tmp_pop[ind_2].D = 1.f;
-                }
-                if (tmp_pop[ind_2].D < 0.f) {
-                    tmp_pop[ind_2].D = 0.f;
-                }
-            }
-        }
+//        {
+//            // probabilistic mutation of giving up density
+//            if (gsl_ran_bernoulli(r, static_cast<double>(m_prob)) == 1)
+//            {
+//                tmp_pop[ind_2].D += static_cast<float> (gsl_ran_cauchy(r, static_cast<double>(m_shift)));
+//                if (tmp_pop[ind_2].D > 1.f) {
+//                    tmp_pop[ind_2].D = 1.f;
+//                }
+//                if (tmp_pop[ind_2].D < 0.f) {
+//                    tmp_pop[ind_2].D = 0.f;
+//                }
+//            }
+//        }
         // mutate exploration parameter
         if(evolve_m)
         {

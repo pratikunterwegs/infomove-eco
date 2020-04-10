@@ -53,7 +53,7 @@ shebang <- readLines("code_analysis/template_job.sh")
 
 {
   type = c("noinfo", "info")
-  phi = seq(5, 105, 20)
+  phi = c(5, 25, 50, 100)
   rho = 0.1
   gens = "100000"
   timesteps = 100

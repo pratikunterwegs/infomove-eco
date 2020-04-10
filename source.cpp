@@ -31,7 +31,7 @@ void test_wrap_distance()
 void test_cli_args(std::vector<std::string> cli_args) noexcept
 {
     // check for size
-    if(cli_args.size() != 8) // count type RHO PHI gens timesteps D rep
+    if(cli_args.size() != 9) // count type RHO PHI gens timesteps D leader choices rep
     {
         std::cerr << "wrong number of command args\n";
     }
@@ -50,6 +50,7 @@ int main(int argc, char* argv[])
     gsl_rng_env_setup();
     T = gsl_rng_default;
     r = gsl_rng_alloc (T);
+
     unsigned seed = static_cast<unsigned> (std::chrono::system_clock::now().time_since_epoch().count());
     gsl_rng_set(r, seed);
 
