@@ -191,7 +191,7 @@ void do_reprod(std::vector<agent>& pop, bool evolve_m)
         // inherit exploration parameter
         tmp_pop[ind_2].Mf = pop[parent_id].Mf;
 
-        // mutate giving up density parameter
+        mutate giving up density parameter
         {
             // probabilistic mutation of giving up density
             if (gsl_ran_bernoulli(r, static_cast<double>(m_prob)) == 1)
@@ -205,18 +205,19 @@ void do_reprod(std::vector<agent>& pop, bool evolve_m)
                 }
             }
         }
-        // mutate exploration parameter
+
+        // mutate exploration parameter float value
         if(evolve_m)
         {
             if (gsl_ran_bernoulli(r, static_cast<double>(m_prob)) == 1)
             {
-                tmp_pop[ind_2].M += static_cast<float> (gsl_ran_cauchy(r, static_cast<double>(m_shift)));
-                if (tmp_pop[ind_2].M < 0) {
-                    tmp_pop[ind_2].M = 0;
+                tmp_pop[ind_2].Mf += static_cast<float> (gsl_ran_cauchy(r, static_cast<double>(m_shift)));
+                if (tmp_pop[ind_2].Mf < 0.f) {
+                    tmp_pop[ind_2].Mf = 0.f;
                 }
                 // arbit brake on M = 100
-                if(tmp_pop[ind_2].M >= 100){
-                    tmp_pop[ind_2].M = 100;
+                if(tmp_pop[ind_2].Mf >= 100.f){
+                    tmp_pop[ind_2].Mf = 100.f;
                 }
             }
         }
