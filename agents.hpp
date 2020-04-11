@@ -191,7 +191,7 @@ void do_reprod(std::vector<agent>& pop, bool evolve_m)
         // inherit exploration parameter
         tmp_pop[ind_2].Mf = pop[parent_id].Mf;
 
-        mutate giving up density parameter
+        ///*mutate giving up density parameter*/
         {
             // probabilistic mutation of giving up density
             if (gsl_ran_bernoulli(r, static_cast<double>(m_prob)) == 1)
