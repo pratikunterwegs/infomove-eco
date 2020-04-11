@@ -7,31 +7,6 @@
 //#include <filesystem>
 #include <chrono>
 
-/// prepare folder structure
-/*void prepare_data_folders(std::string type){
-    // check if "data/type" exists and create if not
-    std::filesystem::file_status s = std::filesystem::file_status{};
-    if(!(std::filesystem::status_known(s) ?
-            std::filesystem::exists(s) : std::filesystem::exists("data/"+type)))
-    {
-        std::filesystem::create_directory("data/"+type);
-    }
-    // then check subfolders
-    std::vector<std::string> folders = {"data/"+type+"/agent_summary",
-                                       "data/"+type+"/agent_pos",
-                                       "data/"+type+"/landscape"};
-
-
-    for (size_t fol = 0; fol < folders.size(); fol++) {
-        if(!(std::filesystem::status_known(s) ?
-                std::filesystem::exists(s) : std::filesystem::exists(folders[fol])))
-        {
-            std::filesystem::create_directory(folders[fol]);
-        }
-    }
-}
-*/
-
 /// construct agent output filename
 std::vector<std::string> identify_outfile(const std::string type,
                              const int phi, const float rho,
