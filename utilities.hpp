@@ -121,7 +121,7 @@ void print_agent_summary(std::vector<agent> &pop,
     if(!f.good()){
         agent_summary_ofs.open(output_path[0] + "/agent_summary/" + output_path[1] + ".csv",
                 std::ofstream::out);
-        agent_summary_ofs << "gen,id,D,M,a,b,pf\n";
+        agent_summary_ofs << "gen,id,D,M,Mf,a,b,pf\n";
         agent_summary_ofs.close();
     }
 
@@ -132,6 +132,7 @@ void print_agent_summary(std::vector<agent> &pop,
                   << i << ","
                   << pop[i].D << ","
                   << pop[i].M << ","
+                  << pop[i].Mf << ","
                   << pop[i].a << ","
                   << pop[i].b << ","
                   << pop[i].prop_follow << "\n";
