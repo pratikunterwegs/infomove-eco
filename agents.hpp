@@ -159,6 +159,8 @@ void do_reprod(std::vector<agent>& pop, bool evolve_m)
     std::vector<double> fitness_vec;
     for (size_t ind_2 = 0; static_cast<int>(ind_2) < popsize; ind_2++)
     {
+        // add a movement cost of Mf
+        pop[ind_2].energy -= pop[ind_2].Mf;
         if (pop[ind_2].energy <= 0.f)
         {
             pop[ind_2].energy = 0.000001f;
