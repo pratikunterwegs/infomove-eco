@@ -11,18 +11,18 @@ In this version, the evolved parameter D (aspiration) is also allowed to evolve.
 
 Libs remain the same in R.
 
-```{r load_libs_v02, eval=FALSE}
+```{r load_libs_v03, eval=FALSE}
 # load libs
 library(tidyverse)
 library(ssh)
 library(glue)
 ```
 
-## Prepare infomove v02 on Peregrine
+## Prepare infomove v03 on Peregrine
 
 Check out the _allow_D_ branch on the cluster.
 
-```{r prepare_infomove_v02, eval=FALSE}
+```{r prepare_infomove_v03, eval=FALSE}
 # read peregrine password
 password = read_lines("private/password.txt")
 
@@ -45,7 +45,7 @@ ssh_exec_wait(s, command = c("cd infomove/",
 
 ## Remove old data
 
-```{r rem_old_data, eval=FALSE}
+```{r rem_old_data_v03, eval=FALSE}
 {
   ssh_exec_wait(s, c("cd infomove/data",
   'find . -name "*.csv" -type f -delete'))
@@ -54,7 +54,7 @@ ssh_exec_wait(s, command = c("cd infomove/",
 
 ## Run infomove
 
-```{r use_infomover_run, eval=FALSE}
+```{r use_infomover_run_v03, eval=FALSE}
 # read job shebang
 shebang <- readLines("code_analysis/template_job.sh")
 
@@ -96,7 +96,7 @@ pwalk(sim_params, function(type, phi, rho, gens, timesteps,
 })
 ```
 
-```{r, eval=FALSE}
+```{r close_conn_v03, eval=FALSE}
 # move into jobs, delete scripts and disconnect
 ssh_exec_wait(s, command = c("cd infomove/jobs",
                              "rm *.sh *.out",

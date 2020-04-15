@@ -9,7 +9,7 @@ Visualise the evolved parameters in increments of 1000 generations as heatmaps.
 
 ## Load libraries 
 
-```{r load_libs_counts, eval=FALSE}
+```{r load_libs_param_counts, eval=FALSE}
 # data libraries
 library(readr)
 library(dplyr)
@@ -27,7 +27,7 @@ library(scico)
 
 ### Read data
 
-```{r load_counts, eval=FALSE}
+```{r load_counts_data, eval=FALSE}
 # find data
 data_files <- list.files("data", pattern = "data_global_counts",
                          recursive = TRUE, full.names = TRUE)
@@ -45,7 +45,7 @@ data <- map(data, function(df){
 
 ### Plot data
 
-```{r plot_counts, eval=FALSE}
+```{r plot_counts_data, eval=FALSE}
 # plot as heatmap
 walk2(data, c("info", "noinfo"), function(x,y){
   
