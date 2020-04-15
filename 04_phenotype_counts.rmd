@@ -102,9 +102,3 @@ walk2(data, c("info", "noinfo"), function(x,y){
 })
 ```
 
-## Plot fitness landscape over time
-
-```{r fitness_landscape, eval=FALSE}
-
-```
-

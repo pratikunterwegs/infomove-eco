@@ -95,7 +95,7 @@ pwalk(sim_params, function(type, phi, rho, gens, timesteps,
 })
 ```
 
-```{r}
+```{r, eval=FALSE}
 # move into jobs, delete scripts and disconnect
 ssh_exec_wait(s, command = c("cd infomove/jobs",
                              "rm *.sh *.out",
