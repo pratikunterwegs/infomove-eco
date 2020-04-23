@@ -13,9 +13,12 @@ Libs remain the same in R.
 
 ```{r load_libs_v03, eval=FALSE}
 # load libs
-library(tidyverse)
+library(readr)
 library(ssh)
 library(glue)
+
+# install infomover
+devtools::install_github("pratikunterwegs/infomover", upgrade = "never")
 ```
 
 ## Prepare infomove v03 on Peregrine
@@ -54,47 +57,22 @@ ssh_exec_wait(s, command = c("cd infomove/",
 
 ## Run infomove
 
-```{r use_infomover_run_v03, eval=FALSE}
-# read job shebang
-shebang <- readLines("code_analysis/template_job.sh")
+Run infomove from the R package.
 
-{
-  type = c("info", "noinfo")
-  phi = c(5, 25, 50, 100)
-  rho = 0.1
-  gens = "50000" # a test case
-  timesteps = 100
-  init_d = c(0.5) # D init at 0.5, unlike 1.0 to force following/switching
-  n_lead = c(1,2,5)
-  replicate = 1:5
-}
-
-sim_params <- crossing(type, phi, rho, gens, timesteps, init_d, n_lead, replicate)
-
-# send commands
-pwalk(sim_params, function(type, phi, rho, gens, timesteps,
-                           init_d, n_lead, replicate){
-
-  if(!dir.exists("jobs")){
-    dir.create("jobs")
-  }
-
-  shebang[2] <- glue('#SBATCH --job-name=run_infomove_type-{type}_phi{phi}_nlead{n_lead}_rep{replicate}')
-  {
-    command <- glue('./infomove {type} {phi} {rho} {gens} {timesteps} {init_d} {n_lead} {replicate}')
-    jobfile <- glue('job_infomove_type{type}_phi{phi}_nlead{n_lead}_rep{replicate}.sh')
-
-    writeLines(c(shebang, command), con = glue('jobs/{jobfile}'))
-    scp_upload(s, glue('jobs/{jobfile}'), to = "infomove/jobs/")
-    file.remove(glue('jobs/{jobfile}'))
-  }
-
-  # run jobs; we are in infomove
-  ssh_exec_wait(s, command = c("cd infomove/jobs",
-                               glue('dos2unix {jobfile}'),
-                               glue('sbatch {jobfile}')))
-})
+```{r use_infomover, eval=FALSE}
+infomover::run_infomove(ssh_con = "p284074@peregrine.hpc.rug.nl",
+                        password = password,
+                        type = c("info", "noinfo"),
+                        phi = c(5, 25, 50, 100),
+                        rho = 0.1,
+                        gens = "50000", # a test case
+                        timesteps = 100,
+                        init_d = c(0.5), # D init at 0.5
+                        leader_choices = c(1,2,5),
+                        rep_n = 5)
+)
 ```
+
 
 ```{r close_conn_v03, eval=FALSE}
 # move into jobs, delete scripts and disconnect
