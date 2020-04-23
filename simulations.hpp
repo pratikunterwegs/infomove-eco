@@ -19,6 +19,8 @@ std::vector<agent> evolve_pop_no_M(std::vector<agent> &pop,
                                    landscape& landscape,
                                    std::vector<std::string> output_path)
 {
+    // create temp landscape to be used in this sim
+    class landscape tmp_landscape = landscape;
 
     std::cout << "evolving on PHI = " << PHI << " RHO = " << RHO << "\n";
     auto t1 = std::chrono::high_resolution_clock::now();
@@ -30,7 +32,7 @@ std::vector<agent> evolve_pop_no_M(std::vector<agent> &pop,
             // shuffle population once per gen
             shufflePopSeq(pop);
             doFollowDynamic(pop, leader_choices);
-            do_foraging_dynamic(landscape, pop);
+            do_foraging_dynamic(tmp_landscape, pop);
 
             // print agents at certain time steps{
             if((gen == 0) || (gen % epoch == 0) || (gen == genmax - 1))
@@ -40,8 +42,8 @@ std::vector<agent> evolve_pop_no_M(std::vector<agent> &pop,
                     print_agent_data(pop, gen, t, output_path);
                 }
             }
-
-            landscape.doMakeFood(PHI, RHO); // landscape replenish
+            // restore landscape to restored landscape
+            tmp_landscape = landscape;
         }
         if((gen == 0) || (gen % epoch == 0) || (gen == genmax - 1)){
             print_agent_summary(pop, gen, output_path);
@@ -64,6 +66,8 @@ std::vector<agent> evolve_pop_yes_M(std::vector<agent> &pop,
                                    landscape& landscape,
                                    std::vector<std::string> output_path)
 {
+    // create temp landscape to be used in this sim
+    class landscape tmp_landscape = landscape;
 
     std::cout << "evolving on PHI = " << PHI << " RHO = " << RHO << "\n";
     auto t1 = std::chrono::high_resolution_clock::now();
@@ -75,7 +79,7 @@ std::vector<agent> evolve_pop_yes_M(std::vector<agent> &pop,
             // shuffle population once per gen
             shufflePopSeq(pop);
             doFollowDynamic(pop, leader_choices);
-            do_foraging_dynamic(landscape, pop);
+            do_foraging_dynamic(tmp_landscape, pop);
 
             // print agents at certain time steps{
             if((gen == 0) || (gen % epoch == 0) || (gen == genmax - 1))
@@ -86,7 +90,7 @@ std::vector<agent> evolve_pop_yes_M(std::vector<agent> &pop,
                 }
             }
 
-            landscape.doMakeFood(PHI, RHO); // landscape replenish
+            tmp_landscape = landscape;
         }
         if((gen == 0) || (gen % epoch == 0) || (gen == genmax - 1)){
             print_agent_summary(pop, gen, output_path);
@@ -109,6 +113,8 @@ std::vector<agent> evolve_pop_no_info(std::vector<agent> &pop,
                                       landscape& landscape,
                                       std::vector<std::string> output_path)
 {
+    // create temp landscape to be used in this sim
+    class landscape tmp_landscape = landscape;
 
     std::cout << "evolving on PHI = " << PHI << " RHO = " << RHO << "\n";
     auto t1 = std::chrono::high_resolution_clock::now();
@@ -120,7 +126,7 @@ std::vector<agent> evolve_pop_no_info(std::vector<agent> &pop,
             // shuffle population once per gen
             shufflePopSeq(pop);
             do_move_noinfo(pop);
-            do_foraging_dynamic(landscape, pop);
+            do_foraging_dynamic(tmp_landscape, pop);
             // print agents at certain time steps{
             if((gen == 0) || (gen % epoch == 0) || (gen == genmax - 1))
             {
@@ -129,7 +135,7 @@ std::vector<agent> evolve_pop_no_info(std::vector<agent> &pop,
                     print_agent_data(pop, gen, t, output_path);
                 }
             }
-            landscape.doMakeFood(PHI, RHO); // landscape replenish
+            tmp_landscape = landscape;
         }
         if((gen == 0) || (gen % epoch == 0) || (gen == genmax -1)){
             print_agent_summary(pop, gen, output_path);
