@@ -225,11 +225,18 @@ void do_reprod(std::vector<agent>& pop, bool evolve_m)
         }
         // change M as int cast of Mf
         tmp_pop[ind_2].M = static_cast<int>(tmp_pop[ind_2].Mf);
-        // mutate a
+        // mutate a between -3.f and 3.f
+        // MUTATIONS IN A ARE FROM A NORMAL DISTR WITH SD = 0.05
         {
             if (gsl_ran_bernoulli(r, static_cast<double>(m_prob)) == 1)
             {
-                tmp_pop[ind_2].a += static_cast<float> (gsl_ran_cauchy(r, static_cast<double>(m_shift)));
+                tmp_pop[ind_2].a += static_cast<float> (gsl_ran_gaussian(r, static_cast<double>(m_shift_a)));
+            }
+            if(tmp_pop[ind_2].a < -3.f){
+                tmp_pop[ind_2].a = -3.f;
+            }
+            if(tmp_pop[ind_2].a > 3.f){
+                tmp_pop[ind_2].a = 3.f;
             }
         }
         // mutate b
