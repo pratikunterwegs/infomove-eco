@@ -28,6 +28,7 @@ const float maxFood = 1.f;
 // mutation params
 const float m_shift = 0.01f;
 const float m_prob = 0.01f;
+const float m_shift_a = 0.05f;
 
 // make a gsl rng and a regular rng
 gsl_rng * r ;
