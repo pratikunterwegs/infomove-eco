@@ -243,7 +243,7 @@ void do_reprod(std::vector<agent>& pop, bool evolve_m)
         {
             if (gsl_ran_bernoulli(r, static_cast<double>(m_prob)) == 1)
             {
-                tmp_pop[ind_2].b += static_cast<float> (gsl_ran_cauchy(r, static_cast<double>(m_shift)));
+                tmp_pop[ind_2].b += static_cast<float> (gsl_ran_gaussian(r, static_cast<double>(m_shift_a)));
             }
         }
     }
