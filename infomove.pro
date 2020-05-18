@@ -1,5 +1,4 @@
 CONFIG += c++17 console
-CONFIG -= app_bundle
 
 # allow debug and release
 CONFIG += debug_and_release
@@ -30,7 +29,4 @@ HEADERS += \
 
 LIBS += -L/usr/local/lib -lgsl -lgslcblas -lm
 
-# Default rules for deployment.
-qnx: target.path = /tmp/$${TARGET}/bin
-else: unix:!android: target.path = /opt/$${TARGET}/bin
-!isEmpty(target.path): INSTALLS += target
+
