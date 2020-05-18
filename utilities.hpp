@@ -9,11 +9,11 @@
 
 /// construct agent output filename
 std::vector<std::string> identify_outfile(const std::string type,
-                             const int phi, const float rho,
-                             const int timesteps,
-                             const float init_d,
-                             const int leader_choices,
-                             const std::string rep){
+                                          const int phi, const float rho,
+                                          const int timesteps,
+                                          const float init_d,
+                                          const int leader_choices,
+                                          const std::string rep){
     // assumes path/type already prepared
     std::string path = "data/" + type;
     // output filename as milliseconds since epoch
@@ -75,11 +75,11 @@ void print_agent_data(std::vector<agent> &pop,
         agent_pos_ofs.open(output_path[0] + "/agent_pos/" + output_path[1] + ".csv",
                 std::ofstream::out | std::ofstream::app);
         agent_pos_ofs << gen << ","
-                  << time << ","
-                  << i << ","
-                  << pop[i].pos << ","
-                  << pop[i].prop_follow << ","
-                  << pop[i].energy << "\n";
+                      << time << ","
+                      << i << ","
+                      << pop[i].pos << ","
+                      << pop[i].prop_follow << ","
+                      << pop[i].energy << "\n";
         agent_pos_ofs.close();
     }
 
@@ -104,14 +104,42 @@ void print_agent_summary(std::vector<agent> &pop,
         agent_summary_ofs.open(output_path[0] + "/agent_summary/" + output_path[1] + ".csv",
                 std::ofstream::out | std::ofstream::app);
         agent_summary_ofs << gen << ","
-                  << i << ","
-                  << pop[i].D << ","
-                  << pop[i].M << ","
-                  << pop[i].Mf << ","
-                  << pop[i].a << ","
-                  << pop[i].b << ","
-                  << pop[i].prop_follow << "\n";
+                          << i << ","
+                          << pop[i].D << ","
+                          << pop[i].M << ","
+                          << pop[i].Mf << ","
+                          << pop[i].a << ","
+                          << pop[i].b << ","
+                          << pop[i].prop_follow << "\n";
         agent_summary_ofs.close();
+    }
+}
+
+/// function to print fitness landscape
+void print_fitness_landscape(std::vector<agent> &pop_to_print,
+                             std::vector<std::string> output_path,
+                             const int flr)
+{
+    std::ofstream fitness_landscape_ofs;
+    // check file is okay
+    std::ifstream f(output_path[0] + "/fitness_landscape/" + output_path[1] + ".csv");
+    if(!f.good()){
+        fitness_landscape_ofs.open(output_path[0] + "/fitness_landscape/" + output_path[1] + ".csv",
+                std::ofstream::out);
+        fitness_landscape_ofs << "replicate,a,b,energy,pf\n";
+        fitness_landscape_ofs.close();
+    }
+
+    for(size_t i_flr = 0; i_flr < pop_to_print.size(); i_flr++)
+    {
+        fitness_landscape_ofs.open(output_path[0] + "/fitness_landscape/" + output_path[1] + ".csv",
+                std::ofstream::out | std::ofstream::app);
+        fitness_landscape_ofs << flr << ","
+                              << pop_to_print[i_flr].a << ","
+                              << pop_to_print[i_flr].b << ","
+                              << pop_to_print[i_flr].energy << ","
+                              << pop_to_print[i_flr].prop_follow << "\n";
+        fitness_landscape_ofs.close();
     }
 }
 
