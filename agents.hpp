@@ -21,7 +21,7 @@ public:
         // heritable params for interaction follow botero et al. 2010
         a(0.f), // inflection point
         b(0.f), // slope for difference in quality
-        Mf(2.f), pos(0), M(2), D(0.5), // vector position, exploration range, giving up density
+        Mf(2.f), pos(0), M(2), D(0.5f), // vector position, exploration range, giving up density
         energy(0.000001f),
         mem_energy(0.f),
         prop_follow(0.f)
