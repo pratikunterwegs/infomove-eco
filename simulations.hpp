@@ -12,7 +12,7 @@
 #include "landscape_dynamics.hpp"
 
 /// function to evolve population
-std::vector<agent> evolve_pop_no_M(std::vector<agent> &pop,
+void evolve_pop_no_M(std::vector<agent> &pop,
                                    const int genmax, const int timesteps,
                                    const int PHI, const float RHO,
                                    const int leader_choices,
@@ -55,11 +55,10 @@ std::vector<agent> evolve_pop_no_M(std::vector<agent> &pop,
     auto duration = std::chrono::duration_cast<std::chrono::microseconds>( t2 - t1 ).count();
     std::cout << "pop evolve time: " << duration << "\n";
 
-    return pop;
 }
 
 /// function to evolve population
-std::vector<agent> evolve_pop_yes_M(std::vector<agent> &pop,
+void evolve_pop_yes_M(std::vector<agent> &pop,
                                    const int genmax, const int timesteps,
                                    const int PHI, const float RHO,
                                    const int leader_choices,
@@ -101,13 +100,11 @@ std::vector<agent> evolve_pop_yes_M(std::vector<agent> &pop,
     auto t2 = std::chrono::high_resolution_clock::now();
     auto duration = std::chrono::duration_cast<std::chrono::microseconds>( t2 - t1 ).count();
     std::cout << "pop evolve time: " << duration << "\n";
-
-    return pop;
 }
 
 /// simulation without any following dynamic
 /// function to evolve population
-std::vector<agent> evolve_pop_no_info(std::vector<agent> &pop,
+void evolve_pop_no_info(std::vector<agent> &pop,
                                       const int genmax, const int timesteps,
                                       const int PHI, const float RHO,
                                       landscape& landscape,
@@ -145,8 +142,115 @@ std::vector<agent> evolve_pop_no_info(std::vector<agent> &pop,
     auto t2 = std::chrono::high_resolution_clock::now();
     auto duration = std::chrono::duration_cast<std::chrono::microseconds>( t2 - t1 ).count();
     std::cout << "pop evolve time: " << duration << "\n";
+}
 
-    return pop;
+/// function to make homogenous population with mean values
+void homogenise_pop(std::vector<agent> &pop){
+    // prep and calc population mean
+    double pop_mean_a, pop_mean_b, pop_mean_Mf, pop_mean_D;
+    pop_mean_a = pop[0].a;
+    pop_mean_b = pop[0].b;
+    pop_mean_Mf = pop[0].Mf;
+    pop_mean_D = pop[0].D;
+    for(size_t i_hp = 1; i_hp < pop.size(); i_hp ++)
+    {
+        pop_mean_a = (pop_mean_a + pop[i_hp].a) / 2.f;
+        pop_mean_b = (pop_mean_b + pop[i_hp].b) / 2.f;
+        pop_mean_Mf = (pop_mean_Mf + pop[i_hp].Mf) / 2.f;
+        pop_mean_D = (pop_mean_D + pop[i_hp].D) / 2.f;
+    }
+    // prep for new vector of agents 95% of the size
+    std::vector<agent> tmp_pop(popsize);
+    agent tmp_agent;
+    tmp_agent.a = pop_mean_a;
+    tmp_agent.b = pop_mean_b;
+    tmp_agent.Mf = pop_mean_Mf;
+    tmp_agent.D = pop_mean_D;
+    // assign new vector
+    for(size_t i_hp = 0; i_hp < pop.size(); i_hp ++)
+    {
+     tmp_pop[i_hp] = tmp_agent;
+    }
+    assert(tmp_pop.size() == popsize && "homogenised pop is different size");
+    std::swap(pop, tmp_pop);
+    tmp_pop.clear();
+}
+
+/// function to introduce mutants
+// remove 24 agents and put in 3 mutants each
+// requires a HOMOGENISED POPULATION
+void add_mutants(std::vector<agent> &pop){
+
+    // get steps for mutation
+    const std::vector<float> mut_steps = {-1.f, -0.5f, 0.f, 0.5f, 1.f};
+
+    // get mutants
+    std::vector<std::pair<float, float> > mut_vals;
+
+    for(size_t i_mp = 0; i_mp < mut_steps.size(); i_mp++){
+        for(size_t j_mp = 0; j_mp < mut_steps.size(); j_mp++){
+            mut_vals.push_back({mut_steps[i_mp], mut_steps[j_mp]});
+        }
+    }
+
+    // modify the first 25 (really 24) agents
+    for(size_t i_mp = 0; i_mp < mut_vals.size(); i_mp++){
+        pop[i_mp].a += mut_vals[i_mp].first;
+        pop[i_mp].b += mut_vals[i_mp].second;
+    }
+
+}
+
+/// 2d fitness landscape
+// input a population, get the mean parameters, replicate them
+// introduce some mutants and see how they perform
+void get_fitness_landscapes(std::vector<agent> pop,
+                            landscape &landscape,
+                            const int timesteps,
+                            const int fitland_reps,
+                            const int leader_choices,
+                            std::vector<std::string> output_path){
+    std::vector<agent> tmp_pop = pop;
+    class landscape tmp_landscape = landscape;
+
+    std::vector<agent> to_print;
+
+    // get the resident mean a and b
+    const float res_mean_a = tmp_pop.end()->a;
+    const float res_mean_b = tmp_pop.end()->b;
+
+    for(int flr = 0; flr < fitland_reps; flr++){
+        for(int t = 0; t < timesteps; t++){
+            // do the foraging things here
+            shufflePopSeq(tmp_pop);
+            doFollowDynamic(tmp_pop, leader_choices);
+            do_foraging_dynamic(tmp_landscape, tmp_pop);
+
+            tmp_landscape = landscape;
+        }
+
+        // evaluate tmp pop differences here
+//        bool got_resident = false;
+        for(size_t i_hp = 0; i_hp < tmp_pop.size(); i_hp++)
+        {
+            // add the mutants
+            if(tmp_pop[i_hp].a != res_mean_a || tmp_pop[i_hp].b != res_mean_b){
+                to_print.push_back(tmp_pop[i_hp]);
+            }
+//            // add one resident
+//            if(tmp_pop[i_hp].a == res_mean_a && tmp_pop[i_hp].b == res_mean_b && got_resident == false)
+//            {
+//                to_print.push_back(tmp_pop[i_hp]);
+//                got_resident = true;
+//            }
+
+            // print csv of a, b, pf and fitness
+            print_fitness_landscape(to_print, output_path, flr);
+            to_print.clear();
+        }
+        // restore temp pop to pop
+        tmp_pop = pop;
+    }
 }
 
 /* simulation wrapper */
@@ -169,12 +273,13 @@ void do_simulation(std::vector<std::string> cli_args){
     landscape_.doMakeFood(PHI, RHO);
 
     // prepare to write data
-//    prepare_data_folders(type);
+    //    prepare_data_folders(type);
     const std::vector<std::string> output_path = identify_outfile(type, PHI,
                                    RHO, timesteps, init_d, leader_choices, rep);
 
     assert(((type == "info") || (type == "noinfo")) && "sim type not available");
 
+    // currently relies on side effects and does not save evolved population
     if(type == "info"){
 
         evolve_pop_yes_M(pop, genmax, timesteps, PHI, RHO, leader_choices,
@@ -185,6 +290,15 @@ void do_simulation(std::vector<std::string> cli_args){
     }
 
     std::cout << "pop evolved!" << "\n";
+
+    // if following allowed print fitness landscapes
+    if(type == "info"){
+        homogenise_pop(pop);
+        add_mutants(pop);
+        get_fitness_landscapes(pop, landscape_, 10, 10, leader_choices, output_path);
+    }
+
+    std::cout << "fitness landscape printed!\n";
 }
 
 // ends here
