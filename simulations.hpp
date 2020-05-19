@@ -295,7 +295,7 @@ void do_simulation(std::vector<std::string> cli_args){
     if(type == "info"){
         homogenise_pop(pop);
         add_mutants(pop);
-        get_fitness_landscapes(pop, landscape_, 10, 10, leader_choices, output_path);
+        get_fitness_landscapes(pop, landscape_, 100, 20, leader_choices, output_path);
     }
 
     std::cout << "fitness landscape printed!\n";
