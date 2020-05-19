@@ -28,31 +28,25 @@ Check out the _allow_D_ branch on the cluster.
 ```{r prepare_infomove_v03, eval=FALSE}
 # read peregrine password
 password = read_lines("private/password.txt")
+s = "p284074@peregrine.hpc.rug.nl"
 
-# connect to cluster and pull from master
-s <- ssh_connect("p284074@peregrine.hpc.rug.nl", passwd = password)
-ssh_exec_wait(s, command = c("cd infomove/",
-                             "rm Makefile infomove",
-                             "cd jobs",
-                             "rm *.sh",
-                             "rm *.out",
-                             "cd ..",
-                             "git pull",
-                             "git checkout allow_D", # checkout the allow_D branch
-                             "ml load GCC/8.3.0",
-                             "ml load GSL/2.6-GCC-8.3.0",
-                             "qmake infomove.pro",
-                             "make clean -j4",
-                             "make -j4"))
+# connect and clear old data
+infomover::clear_infomove_data(ssh_con = s,
+                               password = password)
+# connect to cluster, pull and move to correct branch
+infomover::update_infomove(ssh_con = s,
+                           password = password)
+
+infomover::select_which_infomove(ssh_con = s,
+                                 password = password,
+                                 branch = "allow_D")
 ```
 
 ## Remove old data
 
 ```{r rem_old_data_v03, eval=FALSE}
-{
-  ssh_exec_wait(s, c("cd infomove/data",
-  'find . -name "*.csv" -type f -delete'))
-}
+infomover::clear_infomove_data(ssh_con = s,
+                               password = password)
 ```
 
 ## Run infomove
@@ -60,10 +54,10 @@ ssh_exec_wait(s, command = c("cd infomove/",
 Run infomove from the R package.
 
 ```{r use_infomover, eval=FALSE}
-infomover::run_infomove(ssh_con = "p284074@peregrine.hpc.rug.nl",
+infomover::run_infomove(ssh_con = s,
                         password = password,
-                        type = c("info", "noinfo"),
-                        phi = c(5, 25, 50, 100),
+                        type = c("info"),
+                        phi = c(5, 25),
                         rho = 0.1,
                         gens = "50000", # a test case
                         timesteps = 100,
