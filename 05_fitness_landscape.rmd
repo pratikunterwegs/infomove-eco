@@ -1,0 +1,41 @@
+---
+editor_options:
+  chunk_output_type: console
+---
+
+```{r prep_libs_05, eval=FALSE}
+# data libraries
+library(readr)
+library(dplyr)
+library(purrr)
+library(glue)
+library(tidyr)
+
+# plotting
+library(ggplot2)
+library(patchwork)
+library(scico)
+```
+
+```{r read_fl_data, eval=FALSE}
+infomover::print_fitness_landscape("data")
+data = read_csv("data/info/data_fitness_landscape.csv")
+```
+
+```{r prep_plot, eval=FALSE}
+ggplot(data, 
+       aes(a,b))+
+  geom_tile(aes(fill = energy),
+             shape = 21)+
+  geom_tile(data = tibble(a = 0, b = 0),
+            col = "dodgerblue",
+            fill = NA,
+            width = 0.5,
+            height = 0.5,
+            size = 0.2)+
+  scale_fill_scico(palette = "broc")+
+  coord_fixed(expand = FALSE)+
+  theme_test()+
+  facet_grid(filename~flr)
+```
+
