@@ -8,12 +8,12 @@
 #include <chrono>
 
 /// construct agent output filename
-std::vector<std::string> identify_outfile(const std::string type,
-                                          const int phi, const float rho,
-                                          const int timesteps,
-                                          const float init_d,
-                                          const int leader_choices,
-                                          const std::string rep){
+std::vector<std::string> identify_outfile_eco(const std::string type,
+                                              const int phi, const float rho,
+                                              const int timesteps,
+                                              const float a_res,
+                                              const float b_res,
+                                              const int leader_choices){
     // assumes path/type already prepared
     std::string path = "data/" + type;
     // output filename as milliseconds since epoch
