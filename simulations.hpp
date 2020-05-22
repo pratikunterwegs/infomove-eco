@@ -104,51 +104,60 @@ void do_simulation(std::vector<std::string> cli_args){
     const std::string type = cli_args[1];
     const int PHI = std::stoi(cli_args[2]);
     const float RHO = std::stof(cli_args[3]);
-    const int genmax = std::stoi(cli_args[4]);
-    const int timesteps = std::stoi(cli_args[5]); // IN ECO THE TIMESTEPS SHOULD START AT 500
-    const float init_d = std::stof(cli_args[6]);
+    const int timesteps = std::stoi(cli_args[4]); // IN ECO THE TIMESTEPS SHOULD START AT 500
+    const float a_res = std::stof(cli_args[5]);
+    const float b_res = std::stof(cli_args[6]);
     const int leader_choices = std::stoi(cli_args[7]);
-    std::string rep = cli_args[8];
+    const float gradient = std::stof(cli_args[8]);
+    const int n_rep = std::stoi(cli_args[9]);
 
     assert(((type == "info") || (type == "noinfo")) && "sim type not available");
+    assert(gradient > 0.f && "gradient is 0 or negative");
+
+    // print a, b values
+    std::cout << "Fitness landscape w/ init params: "
+           << "a = " << a_res << " "
+           << "b = " << b_res << " "
+           << "\n";
 
     // prepare to write data
-    const std::vector<std::string> output_path = identify_outfile(type, PHI,
-                                   RHO, timesteps, init_d, leader_choices, rep);
+    const std::vector<std::string> output_path = identify_outfile_eco(type, PHI,
+                                   RHO, timesteps, a_res, b_res, leader_choices);
+    std::cout << "outfile made\n";
 
     // init pop & landscape
     std::vector<agent> pop (popsize);
+    std::vector<agent> tmp_pop = pop;
     landscape landscape_;
     landscape_.doMakeFood(PHI, RHO);
 
-    // get a sequence of a and b to init the pop
-    // THESE ARE CURRENTLY HARDCODED
-    // THE INCREMENT IS ALSO THE GRADIENT LATER ON
-    std::vector<float> vec_a, vec_b;
-    const float increment = 0.5f;
-    const float limit = 3.f;
+    // get a sequence of a and b to mutate the pop
+    std::vector<float> vec_a_mut;
+    std::vector<float> vec_b_mut;
+    // make vectors of a_mut and b_mut
+    for (float i = a_res-gradient; i <= a_res+gradient; i+= gradient){
+        std::cout << "increment = " << i << "\n";
+        vec_a_mut.push_back(i);
+        vec_b_mut.push_back(i);
+    }
 
-    // assign vecs a and b
-    for(float i = -limit; i <= limit; i+=increment)
-    {
-        vec_a.push_back(i);
-    } {vec_b = vec_a;}
+    // make combinations
+    std::vector<std::pair<float, float> > mut_vals = make_combinations(vec_a_mut,
+                                                                       vec_b_mut,
+                                                                       1);
 
-    // make combinations of a and b
-    std::vector<std::pair<float, float> > init_params = make_combinations(vec_a, vec_b, 1);
-
+    std::cout << "passed gradient preparation\n";
     // homogenise the population to the values given in init_params
-    for(size_t this_combo = 0; this_combo < init_params.size(); this_combo++)
-    {
-        std::cout << "Fitness landscape w/ init params: "
-                  << init_params[this_combo].first
-                  << " "
-                  << init_params[this_combo].second
-                  << "\n";
-        homogenise_pop(pop, init_params[this_combo].first, init_params[this_combo].second, 2.f);
-        add_mutants(pop, increment);
-        get_fitness_landscape(type, pop, landscape_, timesteps, 20, leader_choices, output_path,
-                              this_combo);
+    for(size_t it2 = 0; it2 < mut_vals.size(); it2++){
+        for(size_t jt2 = 0; jt2 < static_cast<size_t>(n_rep); jt2++){
+
+            homogenise_pop(tmp_pop, a_res, b_res, 2.f);
+            add_mutants(tmp_pop, mut_vals[it2].first, mut_vals[it2].second);
+            get_fitness_landscape(type, tmp_pop, landscape_,
+                                  timesteps, leader_choices, output_path,
+                                  it2, jt2);
+            tmp_pop = pop;
+        }
     }
 
     std::cout << "fitness landscape printed!\n";
