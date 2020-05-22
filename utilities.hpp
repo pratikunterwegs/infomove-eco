@@ -49,9 +49,9 @@ std::vector<std::string> identify_outfile_eco(const std::string type,
                 << phi << ","
                 << rho << ","
                 << timesteps << ","
-                << init_d << ","
-                << leader_choices << ","
-                << rep << "\n";
+                << a_res << ","
+                << b_res << ","
+                << leader_choices << "\n";
     summary_ofs.close();
 
     return std::vector<std::string> {path, output_id};
@@ -118,8 +118,8 @@ void print_agent_summary(std::vector<agent> &pop,
 /// function to print fitness landscape
 void print_fitness_landscape(std::vector<agent> &pop_to_print,
                              std::vector<std::string> output_path,
-                             const int flr,
-                             const int combination_number)
+                             const int mut_combo,
+                             const int replicate)
 {
     std::ofstream fitness_landscape_ofs;
     // check file is okay
@@ -127,7 +127,7 @@ void print_fitness_landscape(std::vector<agent> &pop_to_print,
     if(!f.good()){
         fitness_landscape_ofs.open(output_path[0] + "/fitness_landscape/" + output_path[1] + ".csv",
                 std::ofstream::out);
-        fitness_landscape_ofs << "replicate,combo_number,a,b,energy,pf\n";
+        fitness_landscape_ofs << "replicate,mut_combo,a,b,energy,pf\n";
         fitness_landscape_ofs.close();
     }
 
@@ -135,8 +135,8 @@ void print_fitness_landscape(std::vector<agent> &pop_to_print,
     {
         fitness_landscape_ofs.open(output_path[0] + "/fitness_landscape/" + output_path[1] + ".csv",
                 std::ofstream::out | std::ofstream::app);
-        fitness_landscape_ofs << flr << ","
-                              << combination_number << ","
+        fitness_landscape_ofs << replicate << ","
+                              << mut_combo << ","
                               << pop_to_print[i_flr].a << ","
                               << pop_to_print[i_flr].b << ","
                               << pop_to_print[i_flr].energy << ","
