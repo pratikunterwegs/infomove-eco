@@ -81,7 +81,7 @@ void add_mutants(std::vector<agent> &pop,
         pop[i_mp].b += mut_vals[i_mp].second;
     }
 
-    // check the number of mutants is really 24
+    // check the number of mutants is really 24 or 27
     int n_mutants = 0;
     for(size_t i_mp = 0; i_mp < mut_vals.size(); i_mp++){
         if(pop[i_mp].a != a_res || pop[i_mp].b != b_res)
@@ -89,7 +89,7 @@ void add_mutants(std::vector<agent> &pop,
             n_mutants++;
         }
     }
-    assert(n_mutants == 24 && "add mutants: wrong number of mutants added");
+    assert(n_mutants == 27 && "add mutants: wrong number of mutants added");
 
 }
 
@@ -154,7 +154,7 @@ void do_simulation(std::vector<std::string> cli_args){
     const std::string type = cli_args[1];
     const int PHI = std::stoi(cli_args[2]);
     const float RHO = std::stof(cli_args[3]);
-    const int genmax = std::stoi(cli_args[4]); // not used
+    const int genmax = std::stoi(cli_args[4]);
     const int timesteps = std::stoi(cli_args[5]); // IN ECO THE TIMESTEPS SHOULD START AT 500
     const float init_d = std::stof(cli_args[6]);
     const int leader_choices = std::stoi(cli_args[7]);
@@ -175,7 +175,7 @@ void do_simulation(std::vector<std::string> cli_args){
     // THESE ARE CURRENTLY HARDCODED
     // THE INCREMENT IS ALSO THE GRADIENT LATER ON
     std::vector<float> vec_a, vec_b;
-    const float increment = 0.25f;
+    const float increment = 0.5f;
     const float limit = 3.f;
 
     // assign vecs a and b
@@ -190,6 +190,11 @@ void do_simulation(std::vector<std::string> cli_args){
     // homogenise the population to the values given in init_params
     for(size_t this_combo = 0; this_combo < init_params.size(); this_combo++)
     {
+        std::cout << "Fitness landscape w/ init params: "
+                  << init_params[this_combo].first
+                  << " "
+                  << init_params[this_combo].second
+                  << "\n";
         homogenise_pop(pop, init_params[this_combo].first, init_params[this_combo].second, 2.f);
         add_mutants(pop, increment);
         get_fitness_landscape(type, pop, landscape_, timesteps, 20, leader_choices, output_path);
