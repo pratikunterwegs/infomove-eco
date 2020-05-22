@@ -159,6 +159,31 @@ void homogenise_pop(std::vector<agent> &pop,
     }
 }
 
+/// a fuction to add a crossing functionality as in tidyr
+/// currently supports pairs of float values
+std::vector<std::pair<float, float> > make_combinations(std::vector<float> vals1,
+                                                        std::vector<float> vals2,
+                                                        const int n_reps)
+{
+    // get mutants
+    std::vector<std::pair<float, float> > combo_vals;
+
+    for(size_t i_mp = 0; i_mp < vals1.size(); i_mp++){
+        for(size_t j_mp = 0; j_mp < vals2.size(); j_mp++){
+
+            // add a number of replicates of each combination
+            for(int n_reps_ = 0; n_reps_ < n_reps; n_reps_++){
+                combo_vals.push_back({vals1[i_mp], vals2[j_mp]});
+            }
+        }
+    }
+
+    // check for size
+    assert(combo_vals.size() == vals1.size()*vals2.size()*n_reps &&
+           "combo vals: incorrect number of combinations");
+    return combo_vals;
+}
+
 /// function to introduce mutants
 // remove 24 agents and put in 3 mutants each
 // requires a HOMOGENISED POPULATION
@@ -176,18 +201,7 @@ void add_mutants(std::vector<agent> &pop,
     // get steps for mutation
     const std::vector<float> mut_steps = {-gradient, 0.f, gradient};
 
-    // get mutants
-    std::vector<std::pair<float, float> > mut_vals;
-
-    for(size_t i_mp = 0; i_mp < mut_steps.size(); i_mp++){
-        for(size_t j_mp = 0; j_mp < mut_steps.size(); j_mp++){
-
-            // add a constant number of mutants (3) with each combination
-            for(int n_mutants = 0; n_mutants < 3; n_mutants++){
-                mut_vals.push_back({mut_steps[i_mp], mut_steps[j_mp]});
-            }
-        }
-    }
+    std::vector<std::pair<float, float> >mut_vals = make_combinations(mut_steps, mut_steps, 3);
 
     // check for correct number of mutant combinations
     // really check length of mut_vals, which is 27
@@ -279,10 +293,23 @@ void do_simulation(std::vector<std::string> cli_args){
     const int leader_choices = std::stoi(cli_args[7]);
     std::string rep = cli_args[8];
 
-    // init pop & landscape, force population D to high (1) low (0.1) med (0.5)
+    // init pop & landscape
     std::vector<agent> pop (popsize);
     landscape landscape_;
     landscape_.doMakeFood(PHI, RHO);
+
+    // get a sequence of a and b to init the pop
+    std::vector<float> vec_a, vec_b;
+    const float increment = 0.25f;
+    const float limit = 3.f;
+
+    // assign vecs a and b
+    for(float i = -limit; i <= limit; i+=increment)
+    {
+        vec_a.push_back(i);
+    } {vec_b = vec_a;}
+
+    //
 
     // prepare to write data
     //    prepare_data_folders(type);
