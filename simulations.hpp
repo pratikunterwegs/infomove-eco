@@ -213,49 +213,51 @@ void add_mutants(std::vector<agent> &pop,
 }
 
 /// 2d fitness landscape
-// input a population, get the mean parameters, replicate them
-// introduce some mutants and see how they perform
-void get_fitness_landscapes(std::vector<agent> pop,
-                            landscape &landscape,
-                            const int timesteps,
-                            const int fitland_reps,
-                            const int leader_choices,
-                            std::vector<std::string> output_path){
+// requires a homogenised and mutant inserted population
+void get_fitness_landscape(std::string type,
+                           std::vector<agent> pop,
+                           landscape &landscape,
+                           const int timesteps,
+                           const int fitland_reps,
+                           const int leader_choices,
+                           std::vector<std::string> output_path){
     std::vector<agent> tmp_pop = pop;
     class landscape tmp_landscape = landscape;
 
     std::vector<agent> to_print;
 
-    // get the resident mean a and b
-    const float res_mean_a = tmp_pop.end()->a;
-    const float res_mean_b = tmp_pop.end()->b;
+    // get the resident strategy
+    const float a_res = tmp_pop.end()->a;
+    const float b_res = tmp_pop.end()->b;
+    const float M_res = tmp_pop.end()->M; // not used yet
 
     for(int flr = 0; flr < fitland_reps; flr++){
         for(int t = 0; t < timesteps; t++){
             // do the foraging things here
             shufflePopSeq(tmp_pop);
-            doFollowDynamic(tmp_pop, leader_choices);
+
+            // move with or without info based on sim type
+            if(type == "noinfo")
+            {
+                do_move_noinfo(tmp_pop);
+            }
+            else {
+                doFollowDynamic(tmp_pop, leader_choices);
+            }
             do_foraging_dynamic(tmp_landscape, tmp_pop);
 
             tmp_landscape = landscape;
         }
 
         // evaluate tmp pop differences here
-//        bool got_resident = false;
         for(size_t i_hp = 0; i_hp < tmp_pop.size(); i_hp++)
         {
             // add the mutants
-            if(tmp_pop[i_hp].a != res_mean_a || tmp_pop[i_hp].b != res_mean_b){
+            if(tmp_pop[i_hp].a != a_res || tmp_pop[i_hp].b != b_res){
                 to_print.push_back(tmp_pop[i_hp]);
             }
-//            // add one resident
-//            if(tmp_pop[i_hp].a == res_mean_a && tmp_pop[i_hp].b == res_mean_b && got_resident == false)
-//            {
-//                to_print.push_back(tmp_pop[i_hp]);
-//                got_resident = true;
-//            }
 
-            // print csv of a, b, pf and fitness
+            // print csv of a, b, pf and energy
             print_fitness_landscape(to_print, output_path, flr);
             to_print.clear();
         }
@@ -279,7 +281,6 @@ void do_simulation(std::vector<std::string> cli_args){
 
     // init pop & landscape, force population D to high (1) low (0.1) med (0.5)
     std::vector<agent> pop (popsize);
-    force_d(pop, init_d);
     landscape landscape_;
     landscape_.doMakeFood(PHI, RHO);
 
@@ -290,15 +291,7 @@ void do_simulation(std::vector<std::string> cli_args){
 
     assert(((type == "info") || (type == "noinfo")) && "sim type not available");
 
-    // currently relies on side effects and does not save evolved population
-    if(type == "info"){
-
-        evolve_pop_yes_M(pop, genmax, timesteps, PHI, RHO, leader_choices,
-                        landscape_, output_path);
-    }
-    else{
-        evolve_pop_no_info(pop, genmax, timesteps, PHI, RHO, landscape_, output_path);
-    }
+    get_fitness_landscape(type, pop, landscape_, 100, 20, leader_choices, output_path);
 
     std::cout << "pop evolved!" << "\n";
 
@@ -306,7 +299,7 @@ void do_simulation(std::vector<std::string> cli_args){
     if(type == "info"){
         homogenise_pop(pop);
         add_mutants(pop);
-        get_fitness_landscapes(pop, landscape_, 100, 20, leader_choices, output_path);
+
     }
 
     std::cout << "fitness landscape printed!\n";
