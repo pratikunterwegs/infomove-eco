@@ -34,11 +34,11 @@ prob_follow <- function(a,b,q = deltaq){1 / (1 + exp(-b*q -a))}
 # use infomover
 library(infomover)
 password = read_lines("private/password.txt")
-get_summary(ssh_con = "p284074@peregrine.hpc.rug.nl",
+infomover::get_summary(ssh_con = "p284074@peregrine.hpc.rug.nl",
             password = password,
             type = c("all"))
 
-```
+ ```
 
 
 ## Plot parameter means over time
