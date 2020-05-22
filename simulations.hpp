@@ -11,139 +11,6 @@
 #include "utilities.hpp"
 #include "landscape_dynamics.hpp"
 
-/// function to evolve population
-void evolve_pop_no_M(std::vector<agent> &pop,
-                                   const int genmax, const int timesteps,
-                                   const int PHI, const float RHO,
-                                   const int leader_choices,
-                                   landscape& landscape,
-                                   std::vector<std::string> output_path)
-{
-    // create temp landscape to be used in this sim
-    class landscape tmp_landscape = landscape;
-
-    std::cout << "evolving on PHI = " << PHI << " RHO = " << RHO << "\n";
-    auto t1 = std::chrono::high_resolution_clock::now();
-    // run over n agents
-    for (int gen = 0; gen < genmax; gen++) {
-
-        // loop through timesteps
-        for (int t = 0; t < timesteps; t++) {
-            // shuffle population once per gen
-            shufflePopSeq(pop);
-            doFollowDynamic(pop, leader_choices);
-            do_foraging_dynamic(tmp_landscape, pop);
-
-            // print agents at certain time steps{
-            if((gen == 0) || (gen % epoch == 0) || (gen == genmax - 1))
-            {
-                if((t < 5) || (t >= 50 && t <= 55) ||
-                        (t >= 95)){
-                    print_agent_data(pop, gen, t, output_path);
-                }
-            }
-            // restore landscape to restored landscape
-            tmp_landscape = landscape;
-        }
-        if((gen == 0) || (gen % epoch == 0) || (gen == genmax - 1)){
-            print_agent_summary(pop, gen, output_path);
-        }
-
-        do_reprod(pop, false); // do no evolve M
-    }
-    auto t2 = std::chrono::high_resolution_clock::now();
-    auto duration = std::chrono::duration_cast<std::chrono::microseconds>( t2 - t1 ).count();
-    std::cout << "pop evolve time: " << duration << "\n";
-
-}
-
-/// function to evolve population
-void evolve_pop_yes_M(std::vector<agent> &pop,
-                                   const int genmax, const int timesteps,
-                                   const int PHI, const float RHO,
-                                   const int leader_choices,
-                                   landscape& landscape,
-                                   std::vector<std::string> output_path)
-{
-    // create temp landscape to be used in this sim
-    class landscape tmp_landscape = landscape;
-
-    std::cout << "evolving on PHI = " << PHI << " RHO = " << RHO << "\n";
-    auto t1 = std::chrono::high_resolution_clock::now();
-    // run over n agents
-    for (int gen = 0; gen < genmax; gen++) {
-
-        // loop through timesteps
-        for (int t = 0; t < timesteps; t++) {
-            // shuffle population once per gen
-            shufflePopSeq(pop);
-            doFollowDynamic(pop, leader_choices);
-            do_foraging_dynamic(tmp_landscape, pop);
-
-            // print agents at certain time steps{
-            if((gen == 0) || (gen % epoch == 0) || (gen == genmax - 1))
-            {
-                if((t < 5) || (t >= 50 && t <= 55) ||
-                        (t >= 95)){
-                    print_agent_data(pop, gen, t, output_path);
-                }
-            }
-
-            tmp_landscape = landscape;
-        }
-        if((gen == 0) || (gen % epoch == 0) || (gen == genmax - 1)){
-            print_agent_summary(pop, gen, output_path);
-        }
-
-        do_reprod(pop, true); // do no evolve M
-    }
-    auto t2 = std::chrono::high_resolution_clock::now();
-    auto duration = std::chrono::duration_cast<std::chrono::microseconds>( t2 - t1 ).count();
-    std::cout << "pop evolve time: " << duration << "\n";
-}
-
-/// simulation without any following dynamic
-/// function to evolve population
-void evolve_pop_no_info(std::vector<agent> &pop,
-                                      const int genmax, const int timesteps,
-                                      const int PHI, const float RHO,
-                                      landscape& landscape,
-                                      std::vector<std::string> output_path)
-{
-    // create temp landscape to be used in this sim
-    class landscape tmp_landscape = landscape;
-
-    std::cout << "evolving on PHI = " << PHI << " RHO = " << RHO << "\n";
-    auto t1 = std::chrono::high_resolution_clock::now();
-    // run over n agents
-    for (int gen = 0; gen < genmax; gen++) {
-
-        // loop through timesteps
-        for (int t = 0; t < timesteps; t++) {
-            // shuffle population once per gen
-            shufflePopSeq(pop);
-            do_move_noinfo(pop);
-            do_foraging_dynamic(tmp_landscape, pop);
-            // print agents at certain time steps{
-            if((gen == 0) || (gen % epoch == 0) || (gen == genmax - 1))
-            {
-                if((t < 5) || (t >= 50 && t <= 55) ||
-                        (t >= 95)){
-                    print_agent_data(pop, gen, t, output_path);
-                }
-            }
-            tmp_landscape = landscape;
-        }
-        if((gen == 0) || (gen % epoch == 0) || (gen == genmax -1)){
-            print_agent_summary(pop, gen, output_path);
-        }
-        do_reprod(pop, true); // do no evolve M
-    }
-    auto t2 = std::chrono::high_resolution_clock::now();
-    auto duration = std::chrono::duration_cast<std::chrono::microseconds>( t2 - t1 ).count();
-    std::cout << "pop evolve time: " << duration << "\n";
-}
-
 /// function to make homogenous population with mean values
 void homogenise_pop(std::vector<agent> &pop,
                     const float a_h,
@@ -287,7 +154,7 @@ void do_simulation(std::vector<std::string> cli_args){
     const std::string type = cli_args[1];
     const int PHI = std::stoi(cli_args[2]);
     const float RHO = std::stof(cli_args[3]);
-    const int genmax = std::stoi(cli_args[4]);
+    const int genmax = std::stoi(cli_args[4]); // not used
     const int timesteps = std::stoi(cli_args[5]); // IN ECO THE TIMESTEPS SHOULD START AT 500
     const float init_d = std::stof(cli_args[6]);
     const int leader_choices = std::stoi(cli_args[7]);
