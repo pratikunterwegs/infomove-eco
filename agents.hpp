@@ -38,12 +38,6 @@ public:
     void deplete_and_move(landscape& landscape);
 };
 
-void force_d(std::vector<agent>& pop, const float d){
-  for(size_t i = 0; i < pop.size(); i++){
-    pop[i].D = d;
-  }
-}
-
 /// agent functions here
 /// function to shuffle agents for movement order
 void shufflePopSeq(std::vector<agent>& vecSomeAgents)
