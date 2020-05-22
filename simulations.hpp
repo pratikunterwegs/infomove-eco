@@ -52,101 +52,49 @@ std::vector<std::pair<float, float> > make_combinations(std::vector<float> vals1
 }
 
 /// function to introduce mutants
-// remove 24 agents and put in 3 mutants each
-// requires a HOMOGENISED POPULATION
 void add_mutants(std::vector<agent> &pop,
-                 const float gradient){
-
-    // get the resident strategy
-    const float a_res = pop[0].a;
-    const float b_res = pop[0].b;
-    const float Mf_res = pop[0].Mf; // not really used now
-
-    // check gradient positive tho it doesn't really matter
-    assert(gradient >= 0.f && "add mutants: gradient must be positive");
-
-    // get steps for mutation
-    const std::vector<float> mut_steps = {-gradient, 0.f, gradient};
-
-    std::vector<std::pair<float, float> >mut_vals = make_combinations(mut_steps, mut_steps, 3);
-
-    // check for correct number of mutant combinations
-    // really check length of mut_vals, which is 27
-    assert(mut_vals.size() == static_cast<size_t>(27) && "add mutants: wrong number of mutant combinations");
-
-    // modify the first 27 (really 24) agents
-    // ONLY MODIFYING a AND b FOR NOW
-    for(size_t i_mp = 0; i_mp < mut_vals.size(); i_mp++){
-        pop[i_mp].a += mut_vals[i_mp].first;
-        pop[i_mp].b += mut_vals[i_mp].second;
+                 const float a_mut,
+                 const float b_mut)
+{
+    // simply replace 25 individuals with ONE mutant value
+    for(int a_m = 0; a_m < 25; a_m++)
+    {
+        pop[a_m].a = a_mut;
+        pop[a_m].b = b_mut;
     }
-
-    // check the number of mutants is really 24 or 27
-    int n_mutants = 0;
-    for(size_t i_mp = 0; i_mp < mut_vals.size(); i_mp++){
-        if(pop[i_mp].a != a_res || pop[i_mp].b != b_res)
-        {
-            n_mutants++;
-        }
-    }
-    assert(n_mutants == 27 && "add mutants: wrong number of mutants added");
 
 }
 
 /// 2d fitness landscape
 // requires a homogenised and mutant inserted population
 void get_fitness_landscape(std::string type,
-                           std::vector<agent> pop,
+                           std::vector<agent> &pop,
                            landscape &landscape,
                            const int timesteps,
-                           const int fitland_reps,
                            const int leader_choices,
                            std::vector<std::string> output_path,
-                           const int combination_number){
-    std::vector<agent> tmp_pop = pop;
+                           const int mut_combo,
+                           const int replicate){
     class landscape tmp_landscape = landscape;
 
-    std::vector<agent> to_print;
+    for(int t = 0; t < timesteps; t++){
+        // do the foraging things here
+        shufflePopSeq(pop);
 
-    // get the resident strategy
-    const float a_res = tmp_pop.end()->a;
-    const float b_res = tmp_pop.end()->b;
-    const float M_res = tmp_pop.end()->M; // not used yet
-
-    for(int flr = 0; flr < fitland_reps; flr++){
-        for(int t = 0; t < timesteps; t++){
-            // do the foraging things here
-            shufflePopSeq(tmp_pop);
-
-            // move with or without info based on sim type
-            if(type == "noinfo")
-            {
-                do_move_noinfo(tmp_pop);
-            }
-            else {
-                doFollowDynamic(tmp_pop, leader_choices);
-            }
-            do_foraging_dynamic(tmp_landscape, tmp_pop);
-
-            tmp_landscape = landscape;
-        }
-
-        // evaluate tmp pop differences here
-        for(size_t i_hp = 0; i_hp < tmp_pop.size(); i_hp++)
+        // move with or without info based on sim type
+        if(type == "noinfo")
         {
-            // add the mutants
-            if(tmp_pop[i_hp].a != a_res || tmp_pop[i_hp].b != b_res){
-                to_print.push_back(tmp_pop[i_hp]);
-            }
-
-            // print csv of a, b, pf and energy
-            print_fitness_landscape(to_print, output_path, flr,
-                                    combination_number);
-            to_print.clear();
+            do_move_noinfo(pop);
         }
-        // restore temp pop to pop
-        tmp_pop = pop;
+        else {
+            doFollowDynamic(pop, leader_choices);
+        }
+        do_foraging_dynamic(tmp_landscape, pop);
+
+        tmp_landscape = landscape;
     }
+
+    print_fitness_landscape(pop, output_path, mut_combo, replicate);
 }
 
 /* simulation wrapper */
