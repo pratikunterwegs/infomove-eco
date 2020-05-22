@@ -118,7 +118,8 @@ void print_agent_summary(std::vector<agent> &pop,
 /// function to print fitness landscape
 void print_fitness_landscape(std::vector<agent> &pop_to_print,
                              std::vector<std::string> output_path,
-                             const int flr)
+                             const int flr,
+                             const int combination_number)
 {
     std::ofstream fitness_landscape_ofs;
     // check file is okay
@@ -126,7 +127,7 @@ void print_fitness_landscape(std::vector<agent> &pop_to_print,
     if(!f.good()){
         fitness_landscape_ofs.open(output_path[0] + "/fitness_landscape/" + output_path[1] + ".csv",
                 std::ofstream::out);
-        fitness_landscape_ofs << "replicate,a,b,energy,pf\n";
+        fitness_landscape_ofs << "replicate,combo_number,a,b,energy,pf\n";
         fitness_landscape_ofs.close();
     }
 
@@ -135,6 +136,7 @@ void print_fitness_landscape(std::vector<agent> &pop_to_print,
         fitness_landscape_ofs.open(output_path[0] + "/fitness_landscape/" + output_path[1] + ".csv",
                 std::ofstream::out | std::ofstream::app);
         fitness_landscape_ofs << flr << ","
+                              << combination_number << ","
                               << pop_to_print[i_flr].a << ","
                               << pop_to_print[i_flr].b << ","
                               << pop_to_print[i_flr].energy << ","

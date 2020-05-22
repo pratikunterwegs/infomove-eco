@@ -101,7 +101,8 @@ void get_fitness_landscape(std::string type,
                            const int timesteps,
                            const int fitland_reps,
                            const int leader_choices,
-                           std::vector<std::string> output_path){
+                           std::vector<std::string> output_path,
+                           const int combination_number){
     std::vector<agent> tmp_pop = pop;
     class landscape tmp_landscape = landscape;
 
@@ -139,7 +140,8 @@ void get_fitness_landscape(std::string type,
             }
 
             // print csv of a, b, pf and energy
-            print_fitness_landscape(to_print, output_path, flr);
+            print_fitness_landscape(to_print, output_path, flr,
+                                    combination_number);
             to_print.clear();
         }
         // restore temp pop to pop
@@ -197,7 +199,8 @@ void do_simulation(std::vector<std::string> cli_args){
                   << "\n";
         homogenise_pop(pop, init_params[this_combo].first, init_params[this_combo].second, 2.f);
         add_mutants(pop, increment);
-        get_fitness_landscape(type, pop, landscape_, timesteps, 20, leader_choices, output_path);
+        get_fitness_landscape(type, pop, landscape_, timesteps, 20, leader_choices, output_path,
+                              this_combo);
     }
 
     std::cout << "fitness landscape printed!\n";
