@@ -145,59 +145,70 @@ void evolve_pop_no_info(std::vector<agent> &pop,
 }
 
 /// function to make homogenous population with mean values
-void homogenise_pop(std::vector<agent> &pop){
-    // prep and calc population mean
-    double pop_mean_a, pop_mean_b, pop_mean_Mf, pop_mean_D;
-    pop_mean_a = pop[0].a;
-    pop_mean_b = pop[0].b;
-    pop_mean_Mf = pop[0].Mf;
-    pop_mean_D = pop[0].D;
+void homogenise_pop(std::vector<agent> &pop,
+                    const float a_h,
+                    const float b_h,
+                    const float Mf_h){
+    // reset the a, b, M and Mf of the population
     for(size_t i_hp = 1; i_hp < pop.size(); i_hp ++)
     {
-        pop_mean_a = (pop_mean_a + pop[i_hp].a) / 2.f;
-        pop_mean_b = (pop_mean_b + pop[i_hp].b) / 2.f;
-        pop_mean_Mf = (pop_mean_Mf + pop[i_hp].Mf) / 2.f;
-        pop_mean_D = (pop_mean_D + pop[i_hp].D) / 2.f;
+        pop[i_hp].a = a_h;
+        pop[i_hp].b = b_h;
+        pop[i_hp].Mf = Mf_h;
+        pop[i_hp].M = static_cast<int>(Mf_h);
     }
-    // prep for new vector of agents 95% of the size
-    std::vector<agent> tmp_pop(popsize);
-    agent tmp_agent;
-    tmp_agent.a = pop_mean_a;
-    tmp_agent.b = pop_mean_b;
-    tmp_agent.Mf = pop_mean_Mf;
-    tmp_agent.D = pop_mean_D;
-    // assign new vector
-    for(size_t i_hp = 0; i_hp < pop.size(); i_hp ++)
-    {
-     tmp_pop[i_hp] = tmp_agent;
-    }
-    assert(tmp_pop.size() == popsize && "homogenised pop is different size");
-    std::swap(pop, tmp_pop);
-    tmp_pop.clear();
 }
 
 /// function to introduce mutants
 // remove 24 agents and put in 3 mutants each
 // requires a HOMOGENISED POPULATION
-void add_mutants(std::vector<agent> &pop){
+void add_mutants(std::vector<agent> &pop,
+                 const float gradient){
+
+    // get the resident strategy
+    const float a_res = pop[0].a;
+    const float b_res = pop[0].b;
+    const float Mf_res = pop[0].Mf; // not really used now
+
+    // check gradient positive tho it doesn't really matter
+    assert(gradient >= 0.f && "add mutants: gradient must be positive");
 
     // get steps for mutation
-    const std::vector<float> mut_steps = {-1.f, -0.5f, 0.f, 0.5f, 1.f};
+    const std::vector<float> mut_steps = {-gradient, 0.f, gradient};
 
     // get mutants
     std::vector<std::pair<float, float> > mut_vals;
 
     for(size_t i_mp = 0; i_mp < mut_steps.size(); i_mp++){
         for(size_t j_mp = 0; j_mp < mut_steps.size(); j_mp++){
-            mut_vals.push_back({mut_steps[i_mp], mut_steps[j_mp]});
+
+            // add a constant number of mutants (3) with each combination
+            for(int n_mutants = 0; n_mutants < 3; n_mutants++){
+                mut_vals.push_back({mut_steps[i_mp], mut_steps[j_mp]});
+            }
         }
     }
 
-    // modify the first 25 (really 24) agents
+    // check for correct number of mutant combinations
+    // really check length of mut_vals, which is 27
+    assert(mut_vals.size() == static_cast<size_t>(27) && "add mutants: wrong number of mutant combinations");
+
+    // modify the first 27 (really 24) agents
+    // ONLY MODIFYING a AND b FOR NOW
     for(size_t i_mp = 0; i_mp < mut_vals.size(); i_mp++){
         pop[i_mp].a += mut_vals[i_mp].first;
         pop[i_mp].b += mut_vals[i_mp].second;
     }
+
+    // check the number of mutants is really 24
+    int n_mutants = 0;
+    for(size_t i_mp = 0; i_mp < mut_vals.size(); i_mp++){
+        if(pop[i_mp].a != a_res || pop[i_mp].b != b_res)
+        {
+            n_mutants++;
+        }
+    }
+    assert(n_mutants == 24 && "add mutants: wrong number of mutants added");
 
 }
 
