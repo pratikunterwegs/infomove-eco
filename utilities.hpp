@@ -32,14 +32,14 @@ std::vector<std::string> identify_outfile_eco(const std::string type,
     // write summary with filename to agent data
     // and parameter files
     // start with output id
-    const std::string summary_out = path + "/lookup.csv";
+    const std::string summary_out = path + "/lookup_eco.csv";
     std::ofstream summary_ofs;
 
     // if not exists write col names
     std::ifstream f2(summary_out.c_str());
     if(!f2.good()){
         summary_ofs.open(summary_out, std::ofstream::out);
-        summary_ofs << "filename,type,phi,rho,timesteps,init_d,leader_choices,rep\n";
+        summary_ofs << "filename,type,phi,rho,timesteps,res_a,res_b,leader_choices\n";
         summary_ofs.close();
     }
     // append if not
