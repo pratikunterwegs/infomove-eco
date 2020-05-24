@@ -17,6 +17,28 @@ library(patchwork)
 library(scico)
 ```
 
+## Run local fitness landscape simulations
+
+Install the package from GH.
+
+```{r}
+devtools::install_github("pratikunterwegs/infomover")
+```
+
+Run local FL code.
+
+```{r}
+infomover::run_infomove_fl(type = c("info", "noinfo"),
+                           phi = 10,
+                           rho = 0.1,
+                           timesteps = 100,
+                           a_res = 1.0,
+                           b_res = 1.0,
+                           leader_choices = c(1,2,5),
+                           gradient = 0.5, 
+                           n_rep = 5)
+```
+
 ```{r read_fl_data, eval=FALSE}
 data = read_csv("data/info/data_fitness_landscape.csv")
 ```
