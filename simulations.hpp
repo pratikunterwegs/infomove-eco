@@ -134,11 +134,12 @@ void do_simulation(std::vector<std::string> cli_args){
     // get a sequence of a and b to mutate the pop
     std::vector<float> vec_a_mut;
     std::vector<float> vec_b_mut;
+
     // make vectors of a_mut and b_mut
-    for (float i = a_res-gradient; i <= a_res+gradient; i+= gradient){
+    for (float i = -gradient; i <= gradient; i+= gradient){
         std::cout << "increment = " << i << "\n";
-        vec_a_mut.push_back(i);
-        vec_b_mut.push_back(i);
+        vec_a_mut.push_back(a_res+i);
+        vec_b_mut.push_back(b_res+i);
     }
 
     // make combinations
