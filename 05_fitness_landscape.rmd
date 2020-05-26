@@ -15,6 +15,7 @@ library(tidyr)
 library(ggplot2)
 library(patchwork)
 library(scico)
+library(ggallin)
 ```
 
 ## Run local fitness landscape simulations
@@ -27,47 +28,75 @@ devtools::install_github("pratikunterwegs/infomover")
 
 Run local FL code.
 
-```{r}
+```{r eval=FALSE}
+# run the damn infomove local fitness landscape
 infomover::run_infomove_fl(type = c("info", "noinfo"),
-                           phi = 10,
+                           phi = c(5, 25),
                            rho = 0.1,
                            timesteps = 100,
-                           a_res = 1.0,
-                           b_res = 1.0,
+                           a_res = seq(-3, 3, 1),
+                           b_res = seq(-3, 3, 1),
                            leader_choices = c(1,2,5),
-                           gradient = 0.5, 
+                           gradient = 1,
                            n_rep = 5)
 ```
 
-```{r read_fl_data, eval=FALSE}
-data = read_csv("data/info/data_fitness_landscape.csv")
+```{r summarise_fl_data, eval=FALSE}
+# summarise the info data
+infomover::print_fitness_landscape(data_path = "data",
+                                       type = "info")
 ```
 
 ```{r}
-data = group_by(data, phi, leader_choices) %>% 
+# read in summary data
+data = read_csv("data/info/data_fitness_landscape.csv")
+```
+
+
+```{r}
+data = data %>% 
+  # filter(res_a %in% c(-1,0,1),
+  #        res_b %in% c(-1,0,1)) %>% 
+  mutate(res_strat = glue::glue('res_a= {res_a}
+                                res_b= {res_b}')) %>% 
+  group_by(phi, leader_choices) %>% 
   nest()
 
+# prepare palette
+pal = scico(3, palette = "berlin", begin = 0.2, end = 0.8)
+
 # prepare plots
-data = mutate(data,
+ data = mutate(data,
               plot = pmap(list(phi, leader_choices, data), 
                           function(phi, leader_choices, data){
                 plot = ggplot(data, 
                             aes(a,b))+
                   geom_tile(aes(fill = energy),
-                            col = "grey")+
-                  geom_tile(data = tibble(a = 0, b = 0),
-                            col = "red",
-                            fill = NA,
-                            width = 0.5,
-                            height = 0.5,
-                            size = 0.2)+
-                  scale_fill_scico(palette = "broc")+
-                  coord_fixed(expand = FALSE)+
-                  theme_test(base_size = 6)+
-                  facet_grid(rep~flr, labeller = label_both)+
+                            alpha = 0.3,
+                            stat = "identity")+
+                  # geom_tile(aes(res_a, res_b),
+                  #           col = "black",
+                  #           alpha = 0.1,
+                  #           height = 1, width = 1,
+                  #           fill = NA)+
+                  scale_fill_gradient2(low = pal[1],
+                                       mid = "white",
+                                       high = pal[3])+
+                  coord_cartesian(expand = FALSE)+
+                  theme_bw(base_size = 6)+
+                  facet_grid(~flr)+
                   labs(title = glue::glue('Φ (number of peaks): {phi}, simulation type: info'),
                        subtitle = glue::glue('# leader choices: {leader_choices}'))
               }))
+```
+
+```{r}
+cairo_pdf(file = "figs/local_fitness_landscape_info.pdf", width = 10, height = 3,
+            onefile = TRUE)
+  {
+    print(data$plot)
+  }
+  dev.off()
 ```
 
 
