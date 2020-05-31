@@ -13,6 +13,7 @@ library(tidyr)
 
 # plotting
 library(ggplot2)
+library(ggquiver)
 library(patchwork)
 library(scico)
 library(ggallin)
@@ -30,14 +31,17 @@ Run local FL code.
 
 ```{r eval=FALSE}
 # run the damn infomove local fitness landscape
-infomover::run_infomove_fl(type = c("info", "noinfo"),
+gradient = 0.3
+infomover::run_infomove_fl(type = c("info"),
                            phi = c(5, 25),
                            rho = 0.1,
                            timesteps = 100,
-                           a_res = seq(-3, 3, 1),
-                           b_res = seq(-3, 3, 1),
+                           a_res = seq(-3, 3, 0.5),
+                           b_res = seq(-3, 3, 0.5),
+                           M_res = seq(0, 8, 2),
                            leader_choices = c(1,2,5),
-                           gradient = 1,
+                           gradient = 0.5,
+                           gradient_m = 2,
                            n_rep = 5)
 ```
 
@@ -50,44 +54,38 @@ infomover::print_fitness_landscape(data_path = "data",
 ```{r}
 # read in summary data
 data = read_csv("data/info/data_fitness_landscape.csv")
+data2 = read_csv("data/noinfo/data_fitness_landscape.csv")
 ```
 
 
 ```{r}
-data = data %>% 
-  # filter(res_a %in% c(-1,0,1),
-  #        res_b %in% c(-1,0,1)) %>% 
-  mutate(res_strat = glue::glue('res_a= {res_a}
-                                res_b= {res_b}')) %>% 
-  group_by(phi, leader_choices) %>% 
-  nest()
-
-# prepare palette
-pal = scico(3, palette = "berlin", begin = 0.2, end = 0.8)
-
-# prepare plots
- data = mutate(data,
-              plot = pmap(list(phi, leader_choices, data), 
-                          function(phi, leader_choices, data){
-                plot = ggplot(data, 
-                            aes(a,b))+
-                  geom_tile(aes(fill = energy),
-                            alpha = 0.3,
-                            stat = "identity")+
-                  # geom_tile(aes(res_a, res_b),
-                  #           col = "black",
-                  #           alpha = 0.1,
-                  #           height = 1, width = 1,
-                  #           fill = NA)+
-                  scale_fill_gradient2(low = pal[1],
-                                       mid = "white",
-                                       high = pal[3])+
-                  coord_cartesian(expand = FALSE)+
-                  theme_bw(base_size = 6)+
-                  facet_grid(~flr)+
-                  labs(title = glue::glue('Φ (number of peaks): {phi}, simulation type: info'),
-                       subtitle = glue::glue('# leader choices: {leader_choices}'))
-              }))
+#fig_streams = 
+ggplot() +
+  geom_quiver(data = data2,aes(res_a, res_b,
+                  u=coef_a, v=coef_b,
+                  col = sqrt(coef_a^2 + coef_b^2)),
+              center = TRUE,
+              rescale = FALSE,
+              vecsize = 1,
+              arrow = arrow(angle = 20, length = unit(.2, "cm"), type = "closed"))+
+  # metR::geom_streamline(data = data2, 
+  #                       aes(x = res_a, y = res_b, 
+  #                           dx = coef_a, dy = coef_b, 
+  #                           alpha = ..step..,
+  #                           colour = sqrt(..dx..^2 + ..dy..^2)),
+  #                       L = 2.0,
+  #                       jitter = 0,
+  #                       arrow = arrow(angle = 20, 
+  #                                           length = unit(.2, "cm"), type = "closed"))+
+  scale_color_scico(palette = "lajolla")+
+  facet_grid(phi~leader_choices,
+             labeller = label_both)+
+  coord_fixed()+
+  theme_test()
+  
+ggsave(fig_streams,
+       filename = "figs/fig_noinfo_streams.png",
+       dpi = 300, height = 10, width = 12)
 ```
 
 ```{r}
