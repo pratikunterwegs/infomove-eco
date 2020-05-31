@@ -13,6 +13,7 @@ std::vector<std::string> identify_outfile_eco(const std::string type,
                                               const int timesteps,
                                               const float a_res,
                                               const float b_res,
+                                              const int M_res,
                                               const int leader_choices){
     // assumes path/type already prepared
     std::string path = "data/" + type;
@@ -39,7 +40,7 @@ std::vector<std::string> identify_outfile_eco(const std::string type,
     std::ifstream f2(summary_out.c_str());
     if(!f2.good()){
         summary_ofs.open(summary_out, std::ofstream::out);
-        summary_ofs << "filename,type,phi,rho,timesteps,res_a,res_b,leader_choices\n";
+        summary_ofs << "filename,type,phi,rho,timesteps,res_a,res_b,M_res,leader_choices\n";
         summary_ofs.close();
     }
     // append if not
@@ -51,6 +52,7 @@ std::vector<std::string> identify_outfile_eco(const std::string type,
                 << timesteps << ","
                 << a_res << ","
                 << b_res << ","
+                << M_res << ","
                 << leader_choices << "\n";
     summary_ofs.close();
 
@@ -127,7 +129,7 @@ void print_fitness_landscape(std::vector<agent> &pop_to_print,
     if(!f.good()){
         fitness_landscape_ofs.open(output_path[0] + "/fitness_landscape/" + output_path[1] + ".csv",
                 std::ofstream::out);
-        fitness_landscape_ofs << "replicate,mut_combo,a,b,energy,pf\n";
+        fitness_landscape_ofs << "replicate,mut_combo,a,b,M,energy,pf\n";
         fitness_landscape_ofs.close();
     }
 
@@ -139,6 +141,7 @@ void print_fitness_landscape(std::vector<agent> &pop_to_print,
                               << mut_combo << ","
                               << pop_to_print[i_flr].a << ","
                               << pop_to_print[i_flr].b << ","
+                              << pop_to_print[i_flr].M << ","
                               << pop_to_print[i_flr].energy << ","
                               << pop_to_print[i_flr].prop_follow << "\n";
         fitness_landscape_ofs.close();
