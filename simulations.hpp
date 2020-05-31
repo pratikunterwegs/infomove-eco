@@ -65,16 +65,49 @@ void add_mutants(std::vector<agent> &pop,
 
 }
 
+// get one resident and all mutants and print only those
+std::vector<agent> get_muts_and_resident(std::vector<agent> &pop,
+                                 const float res_a,
+                                 const float res_b){
+    // which agents to return
+    std::vector<agent> vec_mutants(25);
+    // keep this resident
+    agent one_resident;
+
+    int i_wtm = 0; int i_res = 0;
+    for(size_t i_sp = 0; i_sp < pop.size(); i_sp++)
+    {
+        if(pop[i_sp].a != res_a || pop[i_sp].b != res_b){
+            vec_mutants[i_wtm] = pop[i_sp];
+            i_wtm++;
+            assert(i_wtm <= 25 && "get_muts_res: too many agents added, see float comparison");
+        }
+        else if (i_res == 0) {
+            one_resident = pop[i_sp];
+        }
+    }
+    vec_mutants.push_back(one_resident);
+    assert(vec_mutants.size() == 26 && "get_muts_res: wrong number of agents");
+    return vec_mutants;
+}
+
+// scale the energy of mutants by the resident
+// the RESIDENT IS KNOWN TO BE THE LAST ELEMENT
+void scale_energy(std::vector<agent> &pop)
+{
+    for(size_t i_se = 0; i_se < pop.size(); i_se++)
+    {
+        pop[i_se].energy -= pop.back().energy;
+    }
+}
+
 /// 2d fitness landscape
 // requires a homogenised and mutant inserted population
 void get_fitness_landscape(std::string type,
                            std::vector<agent> &pop,
                            landscape &landscape,
                            const int timesteps,
-                           const int leader_choices,
-                           std::vector<std::string> output_path,
-                           const int mut_combo,
-                           const int replicate){
+                           const int leader_choices){
     class landscape tmp_landscape = landscape;
 
     for(int t = 0; t < timesteps; t++){
@@ -93,8 +126,6 @@ void get_fitness_landscape(std::string type,
 
         tmp_landscape = landscape;
     }
-
-    print_fitness_landscape(pop, output_path, mut_combo, replicate);
 }
 
 /* simulation wrapper */
@@ -155,8 +186,13 @@ void do_simulation(std::vector<std::string> cli_args){
             homogenise_pop(tmp_pop, a_res, b_res, 2.f);
             add_mutants(tmp_pop, mut_vals[it2].first, mut_vals[it2].second);
             get_fitness_landscape(type, tmp_pop, landscape_,
-                                  timesteps, leader_choices, output_path,
-                                  it2, jt2);
+                                  timesteps, leader_choices);
+            // summarise here
+            std::vector<agent> summary_pop = get_muts_and_resident(tmp_pop, a_res, b_res);
+
+            scale_energy(summary_pop);
+            // print here when pop is subsampled
+            print_fitness_landscape(summary_pop, output_path, it2, jt2);
             tmp_pop = pop;
         }
     }
