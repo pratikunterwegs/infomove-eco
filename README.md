@@ -4,13 +4,13 @@
 
 branch|Travis|Codecov
 ---|---|---
-master|[![Build Status](https://travis-ci.org/pratikunterwegs/sim_Infomove.svg?branch=master)](https://travis-ci.org/pratikunterwegs/sim_Infomove)|[![codecov.io](https://codecov.io/github/pratikunterwegs/sim_Infomove/coverage.svg?branch=master)](https://codecov.io/github/pratikunterwegs/sim_Infomove/branch/master)
-pratik|[![Build Status](https://travis-ci.org/pratikunterwegs/sim_Infomove.svg?branch=pratik)](https://travis-ci.org/pratikunterwegs/sim_Infomove)|[![codecov.io](https://codecov.io/github/pratikunterwegs/sim_Infomove/coverage.svg?branch=pratik)](https://codecov.io/github/pratikunterwegs/sim_Infomove/branch/pratik)
+master|[![Build Status](https://travis-ci.org/pratikunterwegs/infomove-eco.svg?branch=master)](https://travis-ci.org/pratikunterwegs/infomove-eco)|[![codecov.io](https://codecov.io/github/pratikunterwegs/infomove-eco/coverage.svg?branch=master)](https://codecov.io/github/pratikunterwegs/infomove-eco/branch/master)
+pratik|[![Build Status](https://travis-ci.org/pratikunterwegs/infomove-eco.svg?branch=pratik)](https://travis-ci.org/pratikunterwegs/infomove-eco)|[![codecov.io](https://codecov.io/github/pratikunterwegs/infomove-eco/coverage.svg?branch=pratik)](https://codecov.io/github/pratikunterwegs/infomove-eco/branch/pratik)
 <!-- badges: end -->
 
 # Modelling movement strategies at information centres
 
-Code for an individual-based model of agent movement and information use.
+Code for an individual-based model of agent movement and information use. This repo has code for three dimensional fitness landscapes.
 
 ## Contact
 
