@@ -47,7 +47,7 @@ infomover::run_infomove_fl(type = c("info"),
 
 ```{r summarise_fl_data, eval=FALSE}
 # summarise the info data
-infomover::print_fitness_landscape(data_path = "data",
+infomover::get_fl_coefs(data_path = "data",
                                        type = "info")
 ```
 
