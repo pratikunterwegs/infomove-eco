@@ -1,0 +1,210 @@
+---
+editor_options:
+  chunk_output_type: console
+---
+
+# Visualise evolved parameters
+
+Visualise the evolved parameters in increments of 1000 generations, for each simulation run, grouping by parameter combination and replicate.
+Then, plot the probability of following, given by $$p = 1/(1 + e^{-b(-\Delta Q - a)}) $$
+
+## Load libraries 
+
+```{r load_libs_res, eval=FALSE}
+# data libraries
+library(readr)
+library(dplyr)
+library(purrr)
+library(glue)
+library(tidyr)
+library(ssh)
+
+# plotting
+library(ggplot2)
+library(patchwork)
+
+# function for prob follow
+deltaq = seq(-2, 2, 0.2)
+prob_follow <- function(a,b,q = deltaq){1 / (1 + exp(-b*q -a))}
+```
+
+## Get data from cluster
+
+```{r get_data_cluster, eval=FALSE}
+# use infomover
+library(infomover)
+password = read_lines("private/password.txt")
+infomover::get_summary(ssh_con = "p284074@peregrine.hpc.rug.nl",
+            password = password,
+            type = c("all"))
+
+ ```
+
+
+## Plot parameter means over time
+
+### Read data
+
+```{r load_res, eval=FALSE}
+# find data
+data_files <- list.files("data", pattern = "data_global_summary",
+                         recursive = TRUE, full.names = TRUE)
+# read data
+data <- map(data_files, read_csv)
+```
+
+### Plot data
+
+```{r plot_res, eval=FALSE}
+data <- map(data, function(df){
+  df <- filter(df, parameter != "M")
+  df <- split(df, df$phi) %>% 
+    map(function(df2){split(df2, df2$leader_choices)})
+})
+
+walk2(data, c("info", "noinfo"), function(x,y){
+  
+  a_fig = map2(x, names(x), function(df_list, name){
+    title = glue::glue('Φ (number of peaks): {name}, simulation type: {y}, M evolving with costs')
+    
+    fig_subpanel <- map2(df_list, names(df_list), function(df, name2){
+      
+      subtitle = glue::glue('leader choices: {name2}')
+      
+      fig_param <- ggplot(data = df, 
+                          aes(x=gen, y=mean, ymin=mean-sd, ymax=mean+sd,
+                          col = parameter, fill = parameter, 
+                          group = parameter))+
+        #geom_pointrange(size = 0.1)+  
+        geom_hline(yintercept = c(0,1), size = 0.1, col = "grey",
+                   lty = 3)+
+        geom_ribbon(alpha = 0.3, col = NA, fill = "grey")+
+        geom_line(size = 0.3, alpha = 0.9)+
+        
+        scale_colour_brewer(palette = "Set1")+
+        # scale_fill_viridis_c(option = "E", limits = c(0, 250),
+        #                      na.value = "steelblue", direction = -1)+
+        scale_x_continuous(breaks = c(0,50000,100000),
+                           labels = as.character(c(0, 50, 100)))+
+        # scale_y_continuous(breaks = c(0,0.5,1),
+        #                    labels = c(0, 0.5, 1))+
+        theme_minimal(base_size = 5)+
+        theme(plot.background = element_rect(colour = "black", fill=NA,
+                                             size = 0.2),
+              panel.border = element_rect(colour = "black", fill=NA,
+                                          size = 0.2),
+              panel.grid = element_blank(),
+              axis.title = element_text(),
+              # plot.title = element_text(face = "bold"),
+              legend.position = "none",
+              axis.text.y = element_text(angle = 0))+
+        # coord_cartesian(expand = T, ylim =c(0,1))+
+        facet_grid(parameter~rep,labeller = label_both,
+                   scales = "free_y")+
+        labs(x = NULL, y = NULL, title = subtitle)
+    })
+    fig_param <- wrap_plots(fig_subpanel, guides = "collect", ncol = 3)+
+      plot_annotation(title = title,
+                      theme = theme(plot.title = element_text(size = 6)))
+    
+    return(fig_param)
+  })
+  cairo_pdf(file = glue('figs/fig_v5_{y}_param_trajectory.pdf'), width = 10, height = 3,
+            onefile = TRUE)
+  {
+    print(a_fig)
+  }
+  dev.off()
+})
+
+
+```
+
+## Plot mean response curve
+
+### Prepare data
+
+```{r get_curves, eval=FALSE}
+# read in data again
+data <- map(data_files, read_csv)
+
+# remove D, F, M
+data <- map(data, function(df){
+  df <- filter(df, parameter %in% c("a", "b")) %>% 
+    pivot_wider(names_from = "parameter", values_from = c("mean", "sd"))
+})
+
+# split by phi and then by leader choices
+data <- map(data, function(df){
+  df <- split(df, df$phi) %>% 
+    map(function(df2){split(df2, df2$leader_choices) %>% 
+        map(function(df3){
+          df3 <- select(df3, type, phi, leader_choices, 
+                        rep, gen, mean_a, mean_b, sd_a, sd_b) %>% 
+            filter(gen > 0 & gen %% 2000 == 0) %>% 
+            mutate(resp = pmap(list(mean_a, mean_b, sd_a, sd_b), 
+                               function(mean_a, mean_b, sd_a, sd_b){
+                                 return(tibble(deltaq = deltaq, 
+                                               pf = prob_follow(mean_a,mean_b,deltaq),
+                                               pf_low = prob_follow(mean_a-sd_a, mean_b-sd_b,deltaq),
+                                               pf_high = prob_follow(mean_a+sd_a, mean_b+sd_b,deltaq)))
+            })) %>% 
+            unnest(cols = resp)
+        })})
+})
+
+```
+
+### Plot figure
+
+```{r, eval=FALSE}
+walk2(data, c("info", "noinfo"), function(x,y){
+  
+  a_fig = map2(x, names(x), function(df_list, name){
+    title = glue::glue('Φ (number of peaks): {name}, simulation type: {y}, M evolving with costs')
+    
+    fig_subpanel <- map2(df_list, names(df_list), function(df, name2){
+      
+      subtitle = glue::glue('leader choices: {name2}')
+      
+      fig_resp <- ggplot(df)+
+        geom_vline(xintercept = 0, lwd = 0.1, lty = 3)+
+        geom_ribbon(aes(x = deltaq, 
+                        ymin = pf_low, ymax = pf_high,
+                        group = rep),
+                    alpha = 0.2)+
+        geom_path(aes(deltaq, pf, group = rep,
+                      col = deltaq < 0), size = 0.1)+
+        facet_wrap(~gen, ncol = 8)+
+        scale_colour_brewer(palette = "Set1", direction = -1)+
+        scale_x_continuous(breaks = c(-10, 0, 10))+
+        scale_y_continuous(breaks = c(0, 0.5, 1))+
+        coord_cartesian(ylim = c(0,1), expand = T)+
+        theme_minimal(base_size = 5)+
+        theme(plot.background = element_rect(colour = "black", fill=NA,
+                                             size = 0.2),
+              panel.border = element_rect(colour = "black", fill=NA,
+                                          size = 0.2),
+              panel.grid = element_blank(),
+              axis.title = element_text(),
+              # plot.title = element_text(face = "bold"),
+              legend.position = "none",
+              axis.text.y = element_text(angle = 90))+
+        labs(x = NULL, y = NULL, title = subtitle)
+    })
+    fig_param <- wrap_plots(fig_subpanel, guides = "collect", ncol = 3)+
+      plot_annotation(title = title,
+                      theme = theme(plot.title = element_text(size = 6)))
+    
+    return(fig_param)
+  })
+  cairo_pdf(file = glue('figs/fig_v5_{y}_follow_prob.pdf'), width = 10, height = 3,
+            onefile = TRUE)
+  {
+    print(a_fig)
+  }
+  dev.off()
+})
+
+```
+

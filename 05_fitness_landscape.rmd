@@ -1,0 +1,106 @@
+---
+editor_options:
+  chunk_output_type: console
+---
+
+```{r prep_libs_05, eval=FALSE}
+# data libraries
+library(readr)
+library(dplyr)
+library(purrr)
+library(glue)
+library(tidyr)
+
+# plotting
+library(ggplot2)
+library(ggquiver)
+library(patchwork)
+library(scico)
+library(ggallin)
+```
+
+## Run local fitness landscape simulations
+
+Install the package from GH.
+
+```{r}
+devtools::install_github("pratikunterwegs/infomover")
+```
+
+Run local FL code.
+
+```{r eval=FALSE}
+# run the damn infomove local fitness landscape
+gradient = 0.3
+infomover::run_infomove_fl(type = c("info"),
+                           phi = c(5, 25),
+                           rho = 0.1,
+                           timesteps = 100,
+                           a_res = seq(-3, 3, 0.5),
+                           b_res = seq(-3, 3, 0.5),
+                           M_res = seq(0, 8, 2),
+                           leader_choices = c(1,2,5),
+                           gradient = 0.5,
+                           gradient_m = 2,
+                           n_rep = 5)
+```
+
+```{r summarise_fl_data, eval=FALSE}
+# summarise the info data
+infomover::print_fitness_landscape(data_path = "data",
+                                       type = "info")
+```
+
+```{r}
+# read in summary data
+data = read_csv("data/info/data_fitness_landscape.csv")
+data2 = read_csv("data/noinfo/data_fitness_landscape.csv")
+```
+
+
+```{r}
+#fig_streams = 
+ggplot() +
+  geom_quiver(data = data2,aes(res_a, res_b,
+                  u=coef_a, v=coef_b,
+                  col = sqrt(coef_a^2 + coef_b^2)),
+              center = TRUE,
+              rescale = FALSE,
+              vecsize = 1,
+              arrow = arrow(angle = 20, length = unit(.2, "cm"), type = "closed"))+
+  # metR::geom_streamline(data = data2, 
+  #                       aes(x = res_a, y = res_b, 
+  #                           dx = coef_a, dy = coef_b, 
+  #                           alpha = ..step..,
+  #                           colour = sqrt(..dx..^2 + ..dy..^2)),
+  #                       L = 2.0,
+  #                       jitter = 0,
+  #                       arrow = arrow(angle = 20, 
+  #                                           length = unit(.2, "cm"), type = "closed"))+
+  scale_color_scico(palette = "lajolla")+
+  facet_grid(phi~leader_choices,
+             labeller = label_both)+
+  coord_fixed()+
+  theme_test()
+  
+ggsave(fig_streams,
+       filename = "figs/fig_noinfo_streams.png",
+       dpi = 300, height = 10, width = 12)
+```
+
+```{r}
+cairo_pdf(file = "figs/local_fitness_landscape_info.pdf", width = 10, height = 3,
+            onefile = TRUE)
+  {
+    print(data$plot)
+  }
+  dev.off()
+```
+
+
+```{r prep_plot, eval=FALSE}
+library(patchwork)
+data = arrange(data, phi)
+fig_list = wrap_plots(data$plot, ncol = 3)
+```
+

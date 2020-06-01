@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>The evolution of information centres at aggregation sites</title>
+  <meta name="description" content="The evolution of information centres at aggregation sites" />
+  <meta name="generator" content="bookdown 0.18 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="The evolution of information centres at aggregation sites" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="The evolution of information centres at aggregation sites" />
+  <meta name="github-repo" content="pratikunterwegs/infomove" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="The evolution of information centres at aggregation sites" />
+  
+  <meta name="twitter:description" content="The evolution of information centres at aggregation sites" />
+  
+
+<meta name="author" content="Pratik R Gupte" />
+
+
+<meta name="date" content="2020-04-15" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+
+<link rel="next" href="run-infomove-on-the-cluster.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a><ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#attribution"><i class="fa fa-check"></i><b>1.1</b> Attribution</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#data-access"><i class="fa fa-check"></i><b>1.2</b> Data access</a></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#data-processing"><i class="fa fa-check"></i><b>1.3</b> Data processing</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="run-infomove-on-the-cluster.html"><a href="run-infomove-on-the-cluster.html"><i class="fa fa-check"></i><b>2</b> Run Infomove on the cluster</a><ul>
+<li class="chapter" data-level="2.1" data-path="run-infomove-on-the-cluster.html"><a href="run-infomove-on-the-cluster.html#prepare-libraries"><i class="fa fa-check"></i><b>2.1</b> Prepare libraries</a></li>
+<li class="chapter" data-level="2.2" data-path="run-infomove-on-the-cluster.html"><a href="run-infomove-on-the-cluster.html#prepare-infomove-v02-on-peregrine"><i class="fa fa-check"></i><b>2.2</b> Prepare infomove v02 on Peregrine</a></li>
+<li class="chapter" data-level="2.3" data-path="run-infomove-on-the-cluster.html"><a href="run-infomove-on-the-cluster.html#remove-old-data"><i class="fa fa-check"></i><b>2.3</b> Remove old data</a></li>
+<li class="chapter" data-level="2.4" data-path="run-infomove-on-the-cluster.html"><a href="run-infomove-on-the-cluster.html#run-infomove"><i class="fa fa-check"></i><b>2.4</b> Run infomove</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="run-an-infomove-variant-on-the-cluster.html"><a href="run-an-infomove-variant-on-the-cluster.html"><i class="fa fa-check"></i><b>3</b> Run an Infomove variant on the cluster</a><ul>
+<li class="chapter" data-level="3.1" data-path="run-an-infomove-variant-on-the-cluster.html"><a href="run-an-infomove-variant-on-the-cluster.html#prepare-libraries-1"><i class="fa fa-check"></i><b>3.1</b> Prepare libraries</a></li>
+<li class="chapter" data-level="3.2" data-path="run-an-infomove-variant-on-the-cluster.html"><a href="run-an-infomove-variant-on-the-cluster.html#prepare-infomove-v03-on-peregrine"><i class="fa fa-check"></i><b>3.2</b> Prepare infomove v03 on Peregrine</a></li>
+<li class="chapter" data-level="3.3" data-path="run-an-infomove-variant-on-the-cluster.html"><a href="run-an-infomove-variant-on-the-cluster.html#remove-old-data-1"><i class="fa fa-check"></i><b>3.3</b> Remove old data</a></li>
+<li class="chapter" data-level="3.4" data-path="run-an-infomove-variant-on-the-cluster.html"><a href="run-an-infomove-variant-on-the-cluster.html#run-infomove-1"><i class="fa fa-check"></i><b>3.4</b> Run infomove</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="visualise-evolved-parameters.html"><a href="visualise-evolved-parameters.html"><i class="fa fa-check"></i><b>4</b> Visualise evolved parameters</a><ul>
+<li class="chapter" data-level="4.1" data-path="visualise-evolved-parameters.html"><a href="visualise-evolved-parameters.html#load-libraries"><i class="fa fa-check"></i><b>4.1</b> Load libraries</a></li>
+<li class="chapter" data-level="4.2" data-path="visualise-evolved-parameters.html"><a href="visualise-evolved-parameters.html#get-data-from-cluster"><i class="fa fa-check"></i><b>4.2</b> Get data from cluster</a></li>
+<li class="chapter" data-level="4.3" data-path="visualise-evolved-parameters.html"><a href="visualise-evolved-parameters.html#plot-parameter-means-over-time"><i class="fa fa-check"></i><b>4.3</b> Plot parameter means over time</a><ul>
+<li class="chapter" data-level="4.3.1" data-path="visualise-evolved-parameters.html"><a href="visualise-evolved-parameters.html#read-data"><i class="fa fa-check"></i><b>4.3.1</b> Read data</a></li>
+<li class="chapter" data-level="4.3.2" data-path="visualise-evolved-parameters.html"><a href="visualise-evolved-parameters.html#plot-data"><i class="fa fa-check"></i><b>4.3.2</b> Plot data</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="visualise-evolved-parameters.html"><a href="visualise-evolved-parameters.html#plot-mean-response-curve"><i class="fa fa-check"></i><b>4.4</b> Plot mean response curve</a><ul>
+<li class="chapter" data-level="4.4.1" data-path="visualise-evolved-parameters.html"><a href="visualise-evolved-parameters.html#prepare-data"><i class="fa fa-check"></i><b>4.4.1</b> Prepare data</a></li>
+<li class="chapter" data-level="4.4.2" data-path="visualise-evolved-parameters.html"><a href="visualise-evolved-parameters.html#plot-figure"><i class="fa fa-check"></i><b>4.4.2</b> Plot figure</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="heatmaps-evolved-parameters.html"><a href="heatmaps-evolved-parameters.html"><i class="fa fa-check"></i><b>5</b> Heatmaps evolved parameters</a><ul>
+<li class="chapter" data-level="5.1" data-path="heatmaps-evolved-parameters.html"><a href="heatmaps-evolved-parameters.html#load-libraries-1"><i class="fa fa-check"></i><b>5.1</b> Load libraries</a></li>
+<li class="chapter" data-level="5.2" data-path="heatmaps-evolved-parameters.html"><a href="heatmaps-evolved-parameters.html#plot-parameter-counts-over-time"><i class="fa fa-check"></i><b>5.2</b> Plot parameter counts over time</a><ul>
+<li class="chapter" data-level="5.2.1" data-path="heatmaps-evolved-parameters.html"><a href="heatmaps-evolved-parameters.html#read-data-1"><i class="fa fa-check"></i><b>5.2.1</b> Read data</a></li>
+<li class="chapter" data-level="5.2.2" data-path="heatmaps-evolved-parameters.html"><a href="heatmaps-evolved-parameters.html#plot-data-1"><i class="fa fa-check"></i><b>5.2.2</b> Plot data</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="plot-parameter-combinations.html"><a href="plot-parameter-combinations.html"><i class="fa fa-check"></i><b>6</b> Plot parameter combinations</a><ul>
+<li class="chapter" data-level="6.1" data-path="plot-parameter-combinations.html"><a href="plot-parameter-combinations.html#load-libraries-2"><i class="fa fa-check"></i><b>6.1</b> Load libraries</a></li>
+<li class="chapter" data-level="6.2" data-path="plot-parameter-combinations.html"><a href="plot-parameter-combinations.html#plot-parameter-counts-over-time-1"><i class="fa fa-check"></i><b>6.2</b> Plot parameter counts over time</a><ul>
+<li class="chapter" data-level="6.2.1" data-path="plot-parameter-combinations.html"><a href="plot-parameter-combinations.html#read-data-2"><i class="fa fa-check"></i><b>6.2.1</b> Read data</a></li>
+<li class="chapter" data-level="6.2.2" data-path="plot-parameter-combinations.html"><a href="plot-parameter-combinations.html#plot-data-2"><i class="fa fa-check"></i><b>6.2.2</b> Plot data</a></li>
+</ul></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">The evolution of information centres at aggregation sites</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="header">
+<h1 class="title">The evolution of information centres at aggregation sites</h1>
+<p class="author"><em>Pratik R Gupte</em></p>
+<p class="date"><em>2020-04-15</em></p>
+</div>
+<div id="introduction" class="section level1">
+<h1><span class="header-section-number">Section 1</span> Introduction</h1>
+<p>This is the <code>bookdown</code> version of a project in preparation that links high-resolution tracking data from individual red knots <em>Calidris canutus islandica</em> to fine-scale experimental behaviour measurements in captivity, and examines whether individuals are consistent across scales in their space-use.</p>
+<div id="attribution" class="section level2">
+<h2><span class="header-section-number">1.1</span> Attribution</h2>
+<p>Pratik Gupte (author and maintainer)<br />
+PhD student, GELIFES – University of Groningen<br />
+Guest researcher, COS – NIOZ<br />
+<a href="mailto:p.r.gupte@rug.nl" class="email">p.r.gupte@rug.nl</a><br />
+Nijenborgh 7/5172.0583 9747AG Groningen</p>
+</div>
+<div id="data-access" class="section level2">
+<h2><span class="header-section-number">1.2</span> Data access</h2>
+<p>The data used in this work are generated using the <code>C++</code> code in this repository.</p>
+</div>
+<div id="data-processing" class="section level2">
+<h2><span class="header-section-number">1.3</span> Data processing</h2>
+<p>The data processing for this project is described in the following sections. Navigate through them using the links in the sidebar.</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+
+<a href="run-infomove-on-the-cluster.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": false,
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/pratikunterwegs/infomove/edit/master/index.rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "section"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
