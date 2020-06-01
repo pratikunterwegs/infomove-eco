@@ -186,7 +186,7 @@ void do_simulation(std::vector<std::string> cli_args){
     std::vector<int> vec_M_mut;
 
     // make vectors of a_mut and b_mut
-    for (float i = -gradient; i <= gradient; i+= gradient){
+    for (float i = -gradient; i < gradient; i+= gradient){
         std::cout << "increment = " << i << "\n";
         vec_a_mut.push_back(a_res+i);
         vec_b_mut.push_back(b_res+i);
@@ -194,7 +194,8 @@ void do_simulation(std::vector<std::string> cli_args){
 
     for(int i = -gradient_m; i <= gradient_m; i+= gradient_m)
     {
-        vec_M_mut.push_back(M_res + i); // this is a bit iffy
+        // do not reduce M below 0
+        vec_M_mut.push_back(M_res + std::max(0, i)); // this is a bit iffy
     }
 
     // make combinations
