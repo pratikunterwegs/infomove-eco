@@ -112,6 +112,12 @@ void scale_energy(std::vector<agent> &pop)
 {
     for(size_t i_se = 0; i_se < pop.size(); i_se++)
     {
+        // remove energy cost of movement
+        pop[i_se].energy -= static_cast<float>(pop[i_se].M);
+    }
+    for(size_t i_se = 0; i_se < pop.size(); i_se++)
+    {
+        // scale by resident
         pop[i_se].energy -= pop.back().energy;
     }
 }
