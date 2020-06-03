@@ -31,24 +31,25 @@ Run local FL code.
 
 ```{r eval=FALSE}
 # run the damn infomove local fitness landscape
-gradient = 0.3
-infomover::run_infomove_fl(type = c("info"),
-                           phi = c(5, 25),
-                           rho = 0.1,
-                           timesteps = 100,
-                           a_res = seq(-3, 3, 0.5),
-                           b_res = seq(-3, 3, 0.5),
-                           M_res = seq(0, 8, 2),
-                           leader_choices = c(1,2,5),
-                           gradient = 0.5,
-                           gradient_m = 2,
-                           n_rep = 5)
+# gradient = 0.3
+# infomover::run_infomove_fl(type = c("info"),
+#                            phi = c(5, 25),
+#                            rho = 0.1,
+#                            timesteps = 100,
+#                            a_res = seq(-3, 3, 0.5),
+#                            b_res = seq(-3, 3, 0.5),
+#                            M_res = seq(0, 8, 2),
+#                            leader_choices = c(1,2,5),
+#                            gradient = 0.5,
+#                            gradient_m = 2,
+#                            n_rep = 5)
 ```
 
 ```{r summarise_fl_data, eval=FALSE}
-# summarise the info data
-infomover::get_fl_coefs(data_path = "data",
-                                       type = "info")
+# # summarise the info data
+# infomover::get_fl_coefs(data_path = "data",
+#                         predictors = c("a", "b", "M"),
+#                         type = "info")
 ```
 
 ```{r}
@@ -61,24 +62,23 @@ data2 = read_csv("data/noinfo/data_fitness_landscape.csv")
 ```{r}
 #fig_streams = 
 ggplot() +
-  geom_quiver(data = data2,aes(res_a, res_b,
-                  u=coef_a, v=coef_b,
-                  col = sqrt(coef_a^2 + coef_b^2)),
-              center = TRUE,
-              rescale = FALSE,
-              vecsize = 1,
-              arrow = arrow(angle = 20, length = unit(.2, "cm"), type = "closed"))+
-  # metR::geom_streamline(data = data2, 
-  #                       aes(x = res_a, y = res_b, 
-  #                           dx = coef_a, dy = coef_b, 
-  #                           alpha = ..step..,
-  #                           colour = sqrt(..dx..^2 + ..dy..^2)),
-  #                       L = 2.0,
-  #                       jitter = 0,
-  #                       arrow = arrow(angle = 20, 
-  #                                           length = unit(.2, "cm"), type = "closed"))+
-  scale_color_scico(palette = "lajolla")+
-  facet_grid(phi~leader_choices,
+  # geom_quiver(data = data,aes(res_a, res_b,
+  #                 u=coef_a, v=coef_b,
+  #                 col = sqrt(coef_a^2 + coef_b^2)),
+  #             center = TRUE,
+  #             rescale = FALSE,
+  #             vecsize = 1,
+  #             arrow = arrow(angle = 20, length = unit(.2, "cm"), type = "closed"))+
+  metR::geom_streamline(data = data,
+                        aes(x = res_a, y = res_b,
+                            dx = coef_a, dy = coef_b,
+                            alpha = ..step..,
+                            colour = sqrt(..dx..^2 + ..dy..^2)),
+                        jitter = 0,
+                        arrow = arrow(angle = 10,
+                                            length = unit(.1, "cm"), type = "open"))+
+  scale_color_scico(palette = "devon")+
+  facet_grid(phi~leader_choices+M_res,
              labeller = label_both)+
   coord_fixed()+
   theme_test()
