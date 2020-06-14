@@ -35,8 +35,7 @@ struct triple {
 /// currently supports pairs of float values
 std::vector<triple> make_combinations(std::vector<float> vals1,
                                       std::vector<float> vals2,
-                                      std::vector<int> vals3,
-                                      const int n_reps)
+                                      std::vector<int> vals3)
 {
     // get mutants
     std::vector<triple> combo_vals (vals1.size()* vals2.size()* vals3.size());
@@ -45,20 +44,14 @@ std::vector<triple> make_combinations(std::vector<float> vals1,
     for(size_t i_mp = 0; i_mp < vals1.size(); i_mp++){
         for(size_t j_mp = 0; j_mp < vals2.size(); j_mp++){
             for(size_t k_mp = 0; k_mp < vals3.size(); k_mp++){
-
-                // add a number of replicates of each combination
-                for(int n_reps_ = 0; n_reps_ < n_reps; n_reps_++){
-                    combo_vals[counter].val1 = vals1[i_mp];
-                    combo_vals[counter].val2 = vals1[j_mp];
-                    combo_vals[counter].val3 = vals1[k_mp];
-
-                    // increment counter
-                    counter++;
-                }
+                combo_vals[counter].val1 = vals1[i_mp];
+                combo_vals[counter].val2 = vals2[j_mp];
+                combo_vals[counter].val3 = vals3[k_mp];
+                // increment counter
+                counter++;
             }
         }
     }
-
     return combo_vals;
 }
 
@@ -110,11 +103,11 @@ std::vector<agent> get_muts_and_resident(std::vector<agent> &pop,
 // the RESIDENT IS KNOWN TO BE THE LAST ELEMENT
 void scale_energy(std::vector<agent> &pop)
 {
-    for(size_t i_se = 0; i_se < pop.size(); i_se++)
-    {
-        // remove energy cost of movement
-        pop[i_se].energy -= static_cast<float>(pop[i_se].M);
-    }
+//    for(size_t i_se = 0; i_se < pop.size(); i_se++)
+//    {
+//        // remove energy cost of movement
+//        pop[i_se].energy -= static_cast<float>(pop[i_se].M);
+//    }
     for(size_t i_se = 0; i_se < pop.size(); i_se++)
     {
         // scale by resident
@@ -126,10 +119,10 @@ void scale_energy(std::vector<agent> &pop)
 // requires a homogenised and mutant inserted population
 void get_fitness_landscape(std::string type,
                            std::vector<agent> &pop,
-                           landscape &landscape,
+                           landscape wrk_landscape,
                            const int timesteps,
                            const int leader_choices){
-    class landscape tmp_landscape = landscape;
+    class landscape tmp_landscape = wrk_landscape;
 
     for(int t = 0; t < timesteps; t++){
         // do the foraging things here
@@ -145,7 +138,7 @@ void get_fitness_landscape(std::string type,
         }
         do_foraging_dynamic(tmp_landscape, pop);
 
-        tmp_landscape = landscape;
+        tmp_landscape = wrk_landscape;
     }
 }
 
@@ -201,13 +194,13 @@ void do_simulation(std::vector<std::string> cli_args){
     for(int i = -gradient_m; i <= gradient_m; i+= gradient_m)
     {
         // do not reduce M below 0
-        vec_M_mut.push_back(M_res + std::max(0, i)); // this is a bit iffy
+        vec_M_mut.push_back(M_res + i); // this is a bit iffy
     }
 
     // make combinations
     std::vector<triple> mut_vals = make_combinations(vec_a_mut,
                                                      vec_b_mut,
-                                                     vec_M_mut, 1);
+                                                     vec_M_mut);
 
     std::cout << "passed gradient preparation\n";
     // homogenise the population to the values given in init_params
@@ -215,9 +208,12 @@ void do_simulation(std::vector<std::string> cli_args){
         for(size_t jt2 = 0; jt2 < static_cast<size_t>(n_rep); jt2++){
 
             homogenise_pop(tmp_pop, a_res, b_res, M_res);
+            // pop homogenised
             add_mutants(tmp_pop, mut_vals[it2].val1, mut_vals[it2].val2, mut_vals[it2].val3);
+            // mutants added
             get_fitness_landscape(type, tmp_pop, landscape_,
                                   timesteps, leader_choices);
+            // foraging dynamic done
             // summarise here
             std::vector<agent> summary_pop = get_muts_and_resident(tmp_pop, a_res, b_res, M_res);
 
